@@ -2,8 +2,8 @@
 jQuery Waypoints - v1.0
 Copyright (c) 2011 Caleb Troughton
 Dual licensed under the MIT license and GPL license.
-<XXXlicense.urlXXX>
-<XXXlicense.urlXXX>
+https://github.com/imakewebthings/jquery-waypoints/blob/master/MIT-license.txt
+https://github.com/imakewebthings/jquery-waypoints/blob/master/GPL-license.txt
 */
 
 /*
@@ -11,7 +11,7 @@ Waypoints is a small jQuery plugin that makes it easy to execute a function
 whenever you scroll to an element.
 
 GitHub Repository: https://github.com/imakewebthings/jquery-waypoints
-Documentation and Examples: <XXXdocumentation.urlXXX>
+Documentation and Examples: http://imakewebthings.github.com/jquery-waypoints/
 
 Changelog:
 	v1.0 - Initial release.

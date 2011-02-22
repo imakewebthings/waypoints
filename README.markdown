@@ -6,20 +6,20 @@ Waypoints is a small jQuery plugin that makes it easy to execute a function when
        alert('You have scrolled to an entry.');
     });
 
-[Read the full documentation](XXX) for more details on usage and customization.
+[Read the full documentation](http://imakewebthings.github.com/jquery-waypoints/#documentation) for more details on usage and customization.
 
 ## Examples
 
 Waypoints can be used as a base for several common scroll-based UI patterns. Check out these examples of:
 
-- [Infinite Scrolling](XXX)
-- [Sticky Elements](XXX)
-- [Scroll Analytics](XXX)
+- [Infinite Scrolling](http://imakewebthings.github.com/jquery-waypoints/infinite-scroll)
+- [Sticky Elements](http://imakewebthings.github.com/jquery-waypoints/sticky-elements)
+- [Scroll Analytics](http://imakewebthings.github.com/jquery-waypoints/scroll-analytics)
 
 ## License
 
 Copyright (c) 2011 Caleb Troughton
-Dual licensed under the [MIT license](XXX) and [GPL license](XXX).
+Dual licensed under the [MIT license](https://github.com/imakewebthings/jquery-waypoints/blob/master/MIT-license.txt) and [GPL license](https://github.com/imakewebthings/jquery-waypoints/blob/master/GPL-license.txt).
 
 ## Support
 
