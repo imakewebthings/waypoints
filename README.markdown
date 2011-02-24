@@ -23,7 +23,7 @@ Dual licensed under the [MIT license](https://github.com/imakewebthings/jquery-w
 
 ## Support
 
-Waypoints has been tested* to work with jQuery versions 1.4+ in IE6+, FF3+, Safari 4+, Chrome 6+.  Other browsers and jQuery versions may work fine, but this is all I've look at so far.
+Waypoints has been tested* to work with jQuery versions 1.4+ in IE6+, FF3+, Safari 4+, Chrome 6+.  Other browsers and jQuery versions may work fine, but this is all I've looked at so far.
 
 <small>* Tested in this case by my own poking around and not finding anything wrong...yet.  Proper QUnit tests are in the works.</small>
 
