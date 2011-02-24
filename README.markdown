@@ -34,3 +34,4 @@ Waypoints has been tested* to work with jQuery versions 1.4+ in IE6+, FF3+, Safa
 ## Known Todos
 
 - Proper QUnit tests.
+- Audit iOS and other mobile browsers.
