@@ -1,5 +1,5 @@
 /*!
-jQuery Waypoints - v1.0
+jQuery Waypoints - v1.0.1
 Copyright (c) 2011 Caleb Troughton
 Dual licensed under the MIT license and GPL license.
 https://github.com/imakewebthings/jquery-waypoints/blob/master/MIT-license.txt
@@ -14,6 +14,10 @@ GitHub Repository: https://github.com/imakewebthings/jquery-waypoints
 Documentation and Examples: http://imakewebthings.github.com/jquery-waypoints
 
 Changelog:
+	v1.0.1
+		- Added $.waypoints('viewportHeight')
+		- Fixed iOS bug (using the new viewportHeight method)
+		- Added offset function alias: 'bottom-in-view'
 	v1.0 - Initial release.
 	
 Support:
@@ -391,7 +395,8 @@ Support:
 		jQuery.waypoints('viewportHeight')
 		
 		This will return the height of the viewport, adjusting for inconsistencies
-		that come with calling $(window).height() in iOS.
+		that come with calling $(window).height() in iOS. Recommended for use
+		within any offset functions.
 		*/
 		viewportHeight: function() {
 			return (window.innerHeight ? window.innerHeight : $w.height());

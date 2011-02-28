@@ -29,9 +29,17 @@ Waypoints has been tested* to work with jQuery versions 1.4+ in IE6+, FF3+, Safa
 
 ## Changelog
 
-- **v1.0**: Initial release.
+### v1.0.1
+
+- Added $.waypoints('viewportHeight')
+- Fixed iOS bug (using the new viewportHeight method)
+- Added offset function alias: 'bottom-in-view'
+
+### v1.0
+
+- Initial release.
 
 ## Known Todos
 
 - Proper QUnit tests.
-- Audit iOS and other mobile browsers.
+- Audit non-iOS mobile browsers.
