@@ -2,8 +2,8 @@
 jQuery Waypoints - v1.0
 Copyright (c) 2011 Caleb Troughton
 Dual licensed under the MIT license and GPL license.
-https://github.com/imakewebthings/jquery-waypoints/blob/master/MIT-license.txt
-https://github.com/imakewebthings/jquery-waypoints/blob/master/GPL-license.txt
+<XXXlicense.urlXXX>
+<XXXlicense.urlXXX>
 */
 
 /*
@@ -11,7 +11,7 @@ Waypoints is a small jQuery plugin that makes it easy to execute a function
 whenever you scroll to an element.
 
 GitHub Repository: https://github.com/imakewebthings/jquery-waypoints
-Documentation and Examples: http://imakewebthings.github.com/jquery-waypoints/
+Documentation and Examples: <XXXdocumentation.urlXXX>
 
 Changelog:
 	v1.0 - Initial release.
@@ -46,10 +46,9 @@ Support:
 	didResize = false,
 	
 	// Keeping common strings as variables = better minification
-	eventName = 'waypoint.reached';
+	eventName = 'waypoint.reached',
 	
-	
-	var methods = {
+	methods = {
 		/*
 		jQuery.fn.waypoint([handler], [options])
 		
@@ -219,6 +218,14 @@ Support:
 				(el.offset <= oldScroll && el.offset > newScroll);
 		});
 		
+		// iOS adjustment
+		if (!oldScroll || !newScroll) {
+			$[wps]('refresh');
+		}
+		
+		// Done with scroll comparisons, store new scroll before ejection
+		oldScroll = newScroll;
+		
 		// No waypoints crossed? Eject.
 		if (!pointsHit.length) return;
 		
@@ -235,8 +242,6 @@ Support:
 			triggerWaypoint(pointsHit[isDown ? pointsHit.length - 1 : 0],
 				[isDown ? 'down' : 'up']);
 		}
-		
-		oldScroll = newScroll;
 	}
 	
 	
@@ -335,9 +340,9 @@ Support:
 				}
 				// Calculate the adjustment if offset is a percentage.
 				else if (typeof o.options.offset === "string") {
-					var amount = parseFloat(o.options.offset);
+					var amount = parseFloat(o.options.offset),
 					adjustment = o.options.offset.indexOf("%") ?
-						$w.height() * (amount / 100) :
+						$[wps]('viewportHeight') * (amount / 100) :
 						amount;
 				}
 				else {
@@ -366,6 +371,17 @@ Support:
 			waypoints.sort(function(a, b) {
 				return a.offset - b.offset;
 			});
+		},
+		
+		
+		/*
+		jQuery.waypoints('viewportHeight')
+		
+		This will return the height of the viewport, adjusting for a bug in jQuery
+		where iOS devices may not return the correct window height.
+		*/
+		viewportHeight: function() {
+			return (window.innerHeight ? window.innerHeight : $w.height());
 		},
 		
 		
@@ -449,8 +465,8 @@ Support:
 	Set things up on load to guarantee height calculations and offsets are correct.
 	*/
 	$w.load(function() {
-		// Throttle the scroll event. See doScroll() for actual scroll functionality.
 		$w.scroll(function() {
+			// Throttle the scroll event. See doScroll() for actual scroll functionality.
 			if (!didScroll) {
 				didScroll = true;
 				window.setTimeout(function() {
@@ -458,10 +474,8 @@ Support:
 					didScroll = false;
 				}, $[wps].settings.scrollThrottle);
 			}
-		});
-		
-		// Throttle the window resize event to call jQuery.waypoints('refresh').
-		$w.resize(function() {
+		}).resize(function() {
+			// Throttle the window resize event to call jQuery.waypoints('refresh').
 			if (!didResize) {
 				didResize = true;
 				window.setTimeout(function() {
