@@ -11,7 +11,7 @@ Waypoints is a small jQuery plugin that makes it easy to execute a function
 whenever you scroll to an element.
 
 GitHub Repository: https://github.com/imakewebthings/jquery-waypoints
-Documentation and Examples: <XXXdocumentation.urlXXX>
+Documentation and Examples: http://imakewebthings.github.com/jquery-waypoints
 
 Changelog:
 	v1.0 - Initial release.
@@ -124,6 +124,12 @@ Support:
 				ndx = waypointIndex($this),
 				base = ndx < 0 ? $.fn[wp].defaults : waypoints[ndx].options,
 				opts = $.extend({}, base, options);
+				
+				// Offset aliases
+				opts.offset = opts.offset === "bottom-in-view" ?
+					function() {
+						return $[wps]('viewportHeight') - $(this).outerHeight();
+					} : opts.offset;
 
 				// Update, or create new waypoint
 				if (ndx < 0) {
@@ -295,13 +301,20 @@ Support:
 
 	// The bottom of the element is in view
 	offset: function() {
-	   return $(window).height() - $(this).height();
+	   return $.waypoints('viewportHeight') - $(this).outerHeight();
 	}
 	
 	Offset can take a function, which must return a number of pixels from the top of
 	the window. The this value will always refer to the raw HTML element of the
 	waypoint. As with % values, functions are recalculated automatically when the
 	window resizes. For more on recalculating offsets, see $.waypoints('refresh').
+	
+	An offset value of 'bottom-in-view' will act as an alias for the function in the
+	example above, as this is a common usage.
+	
+	offset: 'bottom-in-view'
+	
+	You can see this alias in use on the Scroll Analytics example page.
 
 	The triggerOnce flag, if true, will destroy the waypoint after the first trigger.
 	This is just a shortcut for calling .waypoint('destroy') within the waypoint
@@ -377,8 +390,8 @@ Support:
 		/*
 		jQuery.waypoints('viewportHeight')
 		
-		This will return the height of the viewport, adjusting for a bug in jQuery
-		where iOS devices may not return the correct window height.
+		This will return the height of the viewport, adjusting for inconsistencies
+		that come with calling $(window).height() in iOS.
 		*/
 		viewportHeight: function() {
 			return (window.innerHeight ? window.innerHeight : $w.height());
