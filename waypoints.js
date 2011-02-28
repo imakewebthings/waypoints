@@ -2,8 +2,8 @@
 jQuery Waypoints - v1.0
 Copyright (c) 2011 Caleb Troughton
 Dual licensed under the MIT license and GPL license.
-<XXXlicense.urlXXX>
-<XXXlicense.urlXXX>
+https://github.com/imakewebthings/jquery-waypoints/blob/master/MIT-license.txt
+https://github.com/imakewebthings/jquery-waypoints/blob/master/GPL-license.txt
 */
 
 /*
