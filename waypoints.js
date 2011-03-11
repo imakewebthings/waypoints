@@ -478,34 +478,29 @@ Support:
 		scrollThrottle: 100
 	};
 	
-	
-	/*
-	Set things up on load to guarantee height calculations and offsets are correct.
-	*/
-	$w.load(function() {
-		$w.scroll(function() {
-			// Throttle the scroll event. See doScroll() for actual scroll functionality.
-			if (!didScroll) {
-				didScroll = true;
-				window.setTimeout(function() {
-					doScroll();
-					didScroll = false;
-				}, $[wps].settings.scrollThrottle);
-			}
-		}).resize(function() {
-			// Throttle the window resize event to call jQuery.waypoints('refresh').
-			if (!didResize) {
-				didResize = true;
-				window.setTimeout(function() {
-					$.waypoints('refresh');
-					didResize = false;
-				}, $[wps].settings.resizeThrottle);
-			}
-		});
-		
+	/* Bind resize and scroll handlers */
+	$w.scroll(function() {
+		// Throttle the scroll event. See doScroll() for actual scroll functionality.
+		if (!didScroll) {
+			didScroll = true;
+			window.setTimeout(function() {
+				doScroll();
+				didScroll = false;
+			}, $[wps].settings.scrollThrottle);
+		}
+	}).resize(function() {
+		// Throttle the window resize event to call jQuery.waypoints('refresh').
+		if (!didResize) {
+			didResize = true;
+			window.setTimeout(function() {
+				$.waypoints('refresh');
+				didResize = false;
+			}, $[wps].settings.resizeThrottle);
+		}
+	}).load(function() {
 		// Calculate everything once on load.
 		$[wps]('refresh');
-		
+
 		/*
 		Fire a scroll check, should the page be loaded at a non-zero scroll value,
 		as with a fragment id link or a page refresh.
