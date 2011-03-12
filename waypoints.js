@@ -183,7 +183,7 @@ Support:
 		event handlers on those elements and unregisters them as waypoints.
 		*/
 		destroy: function() {
-			return this.unbind(eventName).waypoint('remove');
+			return this.unbind(eventName)[wp]('remove');
 		}
 	};
 	
@@ -206,7 +206,7 @@ Support:
 	function triggerWaypoint(way, dir) {
 		way.element.trigger(eventName, dir)
 		if (way.options.triggerOnce) {
-			way.element.waypoint('destroy');
+			way.element[wp]('destroy');
 		}
 	}
 	
@@ -493,7 +493,7 @@ Support:
 		if (!didResize) {
 			didResize = true;
 			window.setTimeout(function() {
-				$.waypoints('refresh');
+				$[wps]('refresh');
 				didResize = false;
 			}, $[wps].settings.resizeThrottle);
 		}
