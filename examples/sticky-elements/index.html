@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+
+<html lang="en-US">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<title>Sticky Elements with jQuery Waypoints</title>
+	<meta name="description" content="An example of context aware sticky navigation and back to top links using the jQuery Waypoints plugin">
+	<meta name="viewport" content="width=480">
+	<link rel="stylesheet" href="style.css" type="text/css" media="all">
+	<script src="../modernizr.custom.js"></script>
+</head>
+<body>
+
+<div id="wrapper">
+	<hgroup>
+		<h1>Sticky Elements</h1>
+		<h2>An example of scroll context sticky nav and back to top links using <a href="../">Waypoints</a></h2>
+	</hgroup>
+
+	<div id="main-nav-holder">
+		<nav id="main-nav">
+			<ul>
+				<li>Section 1</li>
+				<li>Section 2</li>
+				<li>Section 3</li>
+				<li>Section 4</li>
+				<li>Section 5</li>
+			</ul>
+		</nav>
+	</div>
+
+	<section id="container">
+		<article>
+			<h1>Lorem Ipsum Dolor</h1>
+			<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>
+		</article>
+
+		<article>
+			<h1>Sit Amet</h1>
+			<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+		</article>
+
+		<article>
+			<h1>Consectetuer Adipiscing Elit</h1>
+			<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+		</article>
+
+		<article>
+			<h1>Aenean</h1>
+			<p>Pellentesque fermentum dolor. Aliquam quam lectus, facilisis auctor, ultrices ut, elementum vulputate, nunc.</p>
+			<p>Aliquam tincidunt mauris eu risus.</p>
+		</article>
+
+		<article>
+			<h1>Vestibulum</h1>
+			<p>Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus.</p>
+			<p>Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus. Nam nulla quam, gravida non, commodo a, sodales sit amet, nisi.</p>
+		</article>
+		
+		<article>
+			<h1>Lorem Ipsum Dolor</h1>
+			<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>
+		</article>
+
+		<article>
+			<h1>Sit Amet</h1>
+			<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+		</article>
+
+		<article>
+			<h1>Consectetuer Adipiscing Elit</h1>
+			<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+		</article>
+
+		<article>
+			<h1>Aenean</h1>
+			<p>Pellentesque fermentum dolor. Aliquam quam lectus, facilisis auctor, ultrices ut, elementum vulputate, nunc.</p>
+			<p>Aliquam tincidunt mauris eu risus.</p>
+		</article>
+
+		<article>
+			<h1>Vestibulum</h1>
+			<p>Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus.</p>
+			<p>Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus. Nam nulla quam, gravida non, commodo a, sodales sit amet, nisi.</p>
+		</article>
+		
+		<article>
+			<h1>Lorem Ipsum Dolor</h1>
+			<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>
+		</article>
+
+		<article>
+			<h1>Sit Amet</h1>
+			<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+		</article>
+
+		<article>
+			<h1>Consectetuer Adipiscing Elit</h1>
+			<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+		</article>
+
+		<article>
+			<h1>Aenean</h1>
+			<p>Pellentesque fermentum dolor. Aliquam quam lectus, facilisis auctor, ultrices ut, elementum vulputate, nunc.</p>
+			<p>Aliquam tincidunt mauris eu risus.</p>
+		</article>
+
+		<article>
+			<h1>Vestibulum</h1>
+			<p>Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus.</p>
+			<p>Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus. Nam nulla quam, gravida non, commodo a, sodales sit amet, nisi.</p>
+		</article>
+	</section>
+
+	<footer>
+		<nav>
+			<ul>
+				<li><a class="top" href="#" title="Back to top">Top</a></li>
+			</ul>
+		</nav>
+	</footer>
+</div>
+
+<script src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.4.min.js"></script>
+<script src="../../waypoints.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	$('.top').addClass('hidden');
+	$.waypoints.settings.scrollThrottle = 30;
+	$('#wrapper').waypoint(function(event, direction) {
+		$('.top').toggleClass('hidden', direction === "up");
+	}, {
+		offset: '-100%'
+	}).find('#main-nav-holder').waypoint(function(event, direction) {
+		$(this).parent().toggleClass('sticky', direction === "down");
+		event.stopPropagation();
+	});
+});
+</script>
+
+</body>
+</html>

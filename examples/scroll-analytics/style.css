@@ -1,0 +1,210 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0b2 | 201101
+   NOTE: THIS IS A BETA VERSION (see previous line)
+   USE WITH CAUTION AND TEST WITH ABANDON */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+/* END MEYER RESET */
+
+.hide {
+	width:1px;
+	height:1px;
+	position:absolute;
+	text-indent:-9999px;
+	overflow:hidden;
+}
+
+.clearfix {
+	&:after {
+		visibility:hidden;
+		display:block;
+		font-size:0;
+		content:" ";
+		clear:both;
+		height:0;
+	}
+	* html & { zoom:1; }
+	*:first-child+html { zoom:1; }
+}
+
+body {
+	font-size:16px;
+	line-height:1.5;
+	color:#444;
+	background:#f5f5ff;
+	font-family:"Helvetica Neue", Arial, Helvetica, sans-serif;
+}
+
+h1 {
+	font-size:24px;
+	font-weight:bold;
+	margin-top:24px;
+}
+
+hgroup {
+	margin-bottom:24px;
+}
+
+hgroup h1 {
+	color:#222;
+	font-size:28px;
+}
+
+hgroup h2 {
+	font-size:24px;
+	color:#666;
+}
+
+p {
+	margin:8px 0 24px 0;
+}
+
+article {
+	padding:16px 0;
+	border-top:1px solid #ddd;
+}
+
+#wrapper {
+	width:460px;
+	margin:0 auto;
+	overflow:hidden;
+}
+
+#lcol {
+	float:left;
+	width:300px;
+}
+
+#rcol {
+	float:right;
+	width:120px;
+}
+
+#rcol h2 {
+	font-weight:bold;
+}
+
+#rcol ul {
+	list-style:disc;
+	margin:8px 0 24px 24px;
+}
+
+#rcol p {
+	font-size:12px;
+}
+
+.ad-unit {
+	padding:10px;
+	margin:16px 0;
+	border:1px solid #000;
+	text-transform:uppercase;
+	color:#000;
+	text-align:center;
+	height:40px;
+	line-height:40px;
+	background:#fafad2;
+	-webkit-transition:background-color 500ms ease-in-out;
+	-moz-transition:background-color 500ms ease-in-out;
+	transition:background-color 500ms ease-in-out;
+}
+
+.ad-unit.active {
+	background:#faa7a7;
+}
+
+#rcol .ad-unit {
+	line-height:1.5;
+	height:50px;
+	padding:100px 0;
+}
+
+#rcol .ad-unit.short {
+	padding:25px 0;
+}
+
+.popup {
+	position:absolute;
+	background:#666;
+	font-size:11px;
+	color:#ddd;
+	padding:20px 5px 5px 5px;
+	-webkit-border-radius:5px 5px 0 0;
+	-moz-border-radius-:5px 5px 0 0;
+	border-radius-:5px 5px 0 0;
+	behavior:url(../PIE.htc);
+}
+
+#article-finished {
+	position:fixed;
+	bottom:0px;
+	right:0px;
+	width:400px;
+	padding-top:5px;
+	-webkit-transition:right 700ms ease-in-out;
+	-moz-transition:right 700ms ease-in-out;
+	transition:right 700ms ease-in-out;
+}
+
+#article-finished.hiding {
+	right:-420px;
+}
+
+.close {
+	background:#333;
+	color:#fff;
+	position:absolute;
+	right:3px;
+	top:3px;
+	height:14px;
+	line-height:14px;
+	text-align:center;
+	width:14px;
+	display:block;
+	text-decoration:none;
+	font-size:8px;
+	-webkit-border-radius:4px;
+	-moz-border-radius:4px;
+	border-radius:4px;
+	behavior:url(../PIE.htc);
+}

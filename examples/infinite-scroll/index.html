@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+
+<html lang="en-US">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<title>Infinite Scrolling with jQuery Waypoints</title>
+	<meta name="description" content="An example of how to build an infinite scrolling page on top of the jQuery Waypoints plugin">
+	<meta name="viewport" content="width=480">
+	<link rel="stylesheet" href="style.css" type="text/css" media="all">
+	<script src="../modernizr.custom.js"></script>
+</head>
+<body>
+
+<div id="wrapper">
+	<hgroup>
+		<h1>Repeating List of Awesomeness</h1>
+		<h2>An infinite scrolling <a href="../">Waypoints</a> example</h2>
+	</hgroup>
+
+	<section id="container">
+		<div class="article">
+			<h1>Lorem Ipsum Dolor</h1>
+			<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>
+		</div>
+
+		<div class="article">
+			<h1>Sit Amet</h1>
+			<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+		</div>
+
+		<div class="article">
+			<h1>Consectetuer Adipiscing Elit</h1>
+			<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+		</div>
+
+		<div class="article">
+			<h1>Aenean</h1>
+			<p>Pellentesque fermentum dolor. Aliquam quam lectus, facilisis auctor, ultrices ut, elementum vulputate, nunc.</p>
+			<p>Aliquam tincidunt mauris eu risus.</p>
+		</div>
+
+		<div class="article">
+			<h1>Vestibulum</h1>
+			<p>Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus.</p>
+			<p>Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus. Nam nulla quam, gravida non, commodo a, sodales sit amet, nisi.</p>
+		</div>
+	</section>
+
+	<footer>
+		<nav>
+			<ul>
+				<!-- Hijack this link for the infinite scroll -->
+				<li class="more"><a href="." title="Traditional navigation link">Next Page</a></li>
+			</ul>
+		</nav>
+	</footer>
+</div>
+
+<script src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.4.min.js"></script>
+<script src="../../waypoints.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	var $loading = $("<div class='loading'><p>Loading more items&hellip;</p></div>"),
+	$footer = $('footer'),
+	opts = {
+		offset: '100%'
+	};
+	
+	$footer.waypoint(function(event, direction) {
+		$footer.waypoint('remove');
+		$('body').append($loading);
+		$.get($('.more a').attr('href'), function(data) {
+			var $data = $(data);
+			$('#container').append($data.find('.article'));
+			$loading.detach();
+			$('.more').replaceWith($data.find('.more'));
+			$footer.waypoint(opts);
+		});
+	}, opts);
+});
+</script>
+
+</body>
+</html>
