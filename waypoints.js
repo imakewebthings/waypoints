@@ -359,7 +359,7 @@ Support:
 				else if (typeof o.options.offset === "string") {
 					var amount = parseFloat(o.options.offset),
 					adjustment = o.options.offset.indexOf("%") ?
-						$[wps]('viewportHeight') * (amount / 100) :
+						Math.ceil($[wps]('viewportHeight') * (amount / 100)) :
 						amount;
 				}
 				else {
