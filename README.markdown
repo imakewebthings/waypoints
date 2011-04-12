@@ -23,17 +23,23 @@ Dual licensed under the [MIT license](https://github.com/imakewebthings/jquery-w
 
 ## Support
 
-Waypoints has been tested* to work with jQuery versions 1.4+ in IE6+, FF3+, Safari 4+, Chrome 6+.  Other browsers and jQuery versions may work fine, but this is all I've looked at so far.
+Waypoints has been tested to work with jQuery versions 1.4+ in IE6+, FF3+, Safari 4+, Chrome 6+.  Other browsers and jQuery versions may work fine, but this is all I've looked at so far.
 
-<small>* Tested in this case by my own poking around and not finding anything wrong...yet.  Proper QUnit tests are in the works.</small>
+Unit tests for Waypoints are written with [Jasmine](http://pivotal.github.com/jasmine/) and [jasmine-jquery](https://github.com/velesin/jasmine-jquery).  You can [run them here](http://imakewebthings.github.com/jquery-waypoints/test/). If any of the tests fail, please open an issue and include the browser used, operating system, and description of the failed test.</small>
 
 ## Changelog
 
+### v1.0.2
+
+- Moved scroll and resize handler bindings out of load.  Should play nicer with async loaders like Head JS and LABjs.
+- Fixed a 1px off error when using certain % offsets.
+- Added unit tests.
+
 ### v1.0.1
 
-- Added $.waypoints('viewportHeight')
-- Fixed iOS bug (using the new viewportHeight method)
-- Added offset function alias: 'bottom-in-view'
+- Added $.waypoints('viewportHeight').
+- Fixed iOS bug (using the new viewportHeight method).
+- Added offset function alias: 'bottom-in-view'.
 
 ### v1.0
 
@@ -41,5 +47,4 @@ Waypoints has been tested* to work with jQuery versions 1.4+ in IE6+, FF3+, Safa
 
 ## Known Todos
 
-- Proper QUnit tests.
 - Audit non-iOS mobile browsers.

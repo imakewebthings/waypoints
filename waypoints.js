@@ -1,5 +1,5 @@
 /*!
-jQuery Waypoints - v1.0.1
+jQuery Waypoints - v1.0.2
 Copyright (c) 2011 Caleb Troughton
 Dual licensed under the MIT license and GPL license.
 https://github.com/imakewebthings/jquery-waypoints/blob/master/MIT-license.txt
@@ -14,15 +14,20 @@ GitHub Repository: https://github.com/imakewebthings/jquery-waypoints
 Documentation and Examples: http://imakewebthings.github.com/jquery-waypoints
 
 Changelog:
+	v1.0.2
+		- Moved scroll and resize handler bindings out of load.  Should play nicer
+		  with async loaders like Head JS and LABjs.
+		- Fixed a 1px off error when using certain % offsets.
+		- Added unit tests.
 	v1.0.1
-		- Added $.waypoints('viewportHeight')
-		- Fixed iOS bug (using the new viewportHeight method)
-		- Added offset function alias: 'bottom-in-view'
+		- Added $.waypoints('viewportHeight').
+		- Fixed iOS bug (using the new viewportHeight method).
+		- Added offset function alias: 'bottom-in-view'.
 	v1.0 - Initial release.
 	
 Support:
 	- jQuery versions 1.4+
-	- IE6+, FF3+, Chrome 6+, Safari 4+
+	- IE6+, FF3+, Chrome 6+, Safari 4+, Opera 11
 	- Other versions and browsers may work, these are just the ones I've looked at.
 */
 
