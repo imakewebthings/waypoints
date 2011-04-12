@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+	<meta charset="utf-8">
+	<title>jQuery Waypoints</title>
+	<meta name="description" content="Waypoints is a small jQuery plugin that makes it easy to execute a function whenever you scroll to an element.">
+	<meta name="viewport" content="width=640">
+	<link rel="stylesheet" href="style.css" type="text/css">
+	<script src="modernizr.custom.js"></script>
+</head>
+
+<body>
+
+<header>
+	<div class="inner">
+		<nav>
+			<ul>
+				<li><a href="#about">About</a></li>
+				<li><a href="#examples">Examples</a></li>
+				<li><a href="#documentation">Full Documentation</a></li>
+			</ul>
+		</nav>
+	</div>
+</header>
+
+<article>
+	<section id="about">
+		<div class="section-wrap">
+			<h1>jQuery Waypoints</h1>
+			
+			<div class="columns">
+				<p>Waypoints is a small jQuery plugin that makes it easy to execute a function whenever you scroll to an element.</p>
+				
+				<pre><code><span class="fn">$</span>(<span class="str">'.entry'</span>).<span class="fn">waypoint</span>(<span class="kw">function</span>() {
+   <span class="fn">alert</span>(<span class="str">'You have scrolled to an entry.'</span>);
+});</code></pre>
+
+				<p>Waypoints makes a solid base for modern UI patterns that depend on a user&rsquo;s scroll position on the page.  Take a look at a few <a href="#examples">examples</a>.</p>
+				
+				<div class="rcol">
+					<a href="https://github.com/imakewebthings/jquery-waypoints/zipball/v1.0.1" class="download">
+						Download
+						<span class="version">v1.0.1</span>
+					</a>
+					<p class="sizes">1.2kB min+gzip, 2.7kB minified, 15.4kB full source</p>
+					<div class="meta">
+						<p>Waypoints is dual licensed under the <a href="https://github.com/imakewebthings/jquery-waypoints/blob/master/MIT-license.txt">MIT</a> and <a href="https://github.com/imakewebthings/jquery-waypoints/blob/master/GPL-license.txt">GPL</a> licenses.  You can fork the project or report any issues in the <a href="https://github.com/imakewebthings/jquery-waypoints">GitHub repository</a>.</p>
+						<p>Waypoints has been tested with jQuery versions 1.4+ in IE6+, FF3+, Safari 4+, Chrome 6+, and Opera 11.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	
+	<section id="examples">
+		<div class="section-wrap">
+			<h1>Examples</h1>
+			
+			<ul>
+				<li>
+					<a href="./infinite-scroll">
+						<div class="icon">&#8734;</div>
+						<h2>Infinite Scrolling</h2>
+					</a>
+				</li>
+			
+				<li>
+					<a href="./sticky-elements">
+						<div class="icon">&#167;</div>
+						<h2>Sticky Elements</h2>
+					</a>
+				</li>
+				
+				<li>
+					<a href="./scroll-analytics">
+						<div class="icon">&#960;</div>
+						<h2>Scroll Analytics</h2>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</section>
+	
+	<section id="documentation">
+		<div class="section-wrap">
+			<h1>Full Documentation</h1>
+			
+			<ul id="doc-nav">
+				<li>
+					<a href="#fn-waypoint">$.fn.waypoint</a> &mdash; The jQuery effin&rsquo; extension.
+					<ul>
+						<li><a href="#waypoint-init">.waypoint([handler], [options])</a> &mdash; Register waypoints.</li>
+						<li><a href="#waypoint-destroy">.waypoint('destroy')</a> &mdash; Unregister waypoints and unbind all handlers.</li>
+						<li><a href="#waypoint-remove">.waypoint('remove')</a> &mdash; Unregister waypoints but leave handlers intact.</li>
+						<li><a href="#waypoint-options">$.fn.waypoint.defaults</a> &mdash; Default waypoint options.</li>
+					</ul>
+				</li>
+				
+				<li>
+					<a href="#jq-waypoints">$.waypoints</a> The jQuery object extension.
+					<ul>
+						<li><a href="#waypoints-noparam">$.waypoints()</a> &mdash; Get all waypoints.</li>
+						<li><a href="#waypoints-refresh">$.waypoints('refresh')</a> &mdash; Recalculate all waypoint positions.</li>
+						<li><a href="#waypoints-viewport-height">$.waypoints('viewportHeight')</a> &mdash; Get the viewport height, iOS compatible.</li>
+						<li><a href="#waypoints-settings">$.waypoints.settings</a> &mdash; Waypoints plugin settings.</li>
+					</ul>
+				</li>
+			</ul>
+			
+			<section>
+				<h2 id="fn-waypoint">$.fn.waypoint</h2>
+				
+				<p>The waypoint namespace extension to the jQuery effin&rsquo; object.  This is the meat of the plugin, calling <code>.waypoint</code> on one or more elements and registering handlers for when the elements have been reached.</p>
+			
+				<div class="signature">
+					<h3 id="waypoint-init">.waypoint([handler], [options])</h3>
+					<dl>
+						<dt>handler &mdash; <span>function, optional</span></dt>
+						<dd>A callback function called when the user scrolls past the element.  The function signature is <code>function(event, direction)</code> where <code>event</code> is a standard <a href="http://api.jquery.com/category/events/event-object/">jQuery Event Object</a> and <code>direction</code> is a string, either <code>'down'</code> or <code>'up'</code> indicating which direction the user is scrolling.</dd>
+						<dt>options &mdash; <span>object, optional</span></dt>
+						<dd>A map of options to apply to this set of waypoints, including where on the browser window the waypoint is triggered.  For a full list of options and their defaults, see <a href="#waypoint-options">$.fn.waypoint.defaults</a>.</dd>
+					</dl>
+				</div>
+				
+				<p>This is how you register an element as a waypoint.  When the user scrolls past that element it triggers <code>waypoint.reached</code>, a custom event.  Since the parameters for creating a waypoint are optional, we have a few different possible signatures.  Let&rsquo;s look at each of them.</p>
+				
+				<pre><code>someElements.<span class="fn">waypoint</span>();</code></pre>
+				
+				<p>Calling <code>.waypoint</code> with no parameters will register the elements as waypoints using the <a href="#waypoint-options">default options</a>.  The elements will fire the <code>waypoint.reached</code> event, but calling it in this way does not bind any handler to the event.  You can bind to the event yourself, as with any other event, like so:</p>
+				
+				<pre><code>someElements.<span class="fn">bind</span>(<span class="str">'waypoint.reached'</span>, <span class="kw">function</span>(event, direction) {
+   <span class="comment">// make it rain</span>
+});</code></pre>
+
+				<p>You will usually want to create a waypoint and immediately bind a function to <code>waypoint.reached</code>, and can do so by passing a handler as the first argument to <code>.waypoint</code>:</p>
+				
+				<pre><code>someElements.<span class="fn">waypoint</span>(<span class="kw">function</span>(event, direction) {
+   <span class="kw">if</span> (direction === <span class="str">'down'</span>) {
+      <span class="comment">// do this on the way down</span>
+   }
+   <span class="kw">else</span> {
+      <span class="comment">// do this on the way back up through the waypoint</span>
+   }
+});</code></pre>
+			
+				<p>This will still use the default <a href="#waypoint-options">options</a>, which will trigger the waypoint when the top of the element hits the top of the window.  We can pass <code>.waypoint</code> an options object to customize things:</p>
+			
+				<pre><code>someElements.<span class="fn">waypoint</span>(<span class="kw">function</span>(event, direction) {
+   <span class="comment">// do something amazing</span>
+}, {
+   <span class="key">offset</span>: <span class="str">'50%'</span>  <span class="comment">// middle of the page</span>
+});</code></pre>
+			
+				<p>You can also pass just an options object.</p>
+			
+				<pre><code>someElements.<span class="fn">waypoint</span>({
+   <span class="key">offset</span>: 100  <span class="comment">// 100px from the top</span>
+});</code></pre>
+
+				<p>This behaves like <code>.waypoint()</code>, in that it registers the elements as waypoints but binds no event handlers.</p>
+			
+				<p>Calling <code>.waypoint</code> on an existing waypoint will extend the previous options.  If the call includes a handler, it will be bound to <code>waypoint.reached</code> without unbinding any other handlers.</p>
+			
+				<div class="signature">
+					<h3 id="waypoint-destroy">.waypoint('destroy')</h3>
+				</div>
+				<p>Passing the string <code>'destroy'</code> to <code>.waypoint</code> will unbind all <code>waypoint.reached</code> event handlers on those elements and unregisters them as waypoints.</p>
+			
+				<div class="signature">
+					<h3 id="waypoint-remove">.waypoint('remove')</h3>
+				</div>
+				<p>Passing the string <code>'remove'</code> to <code>.waypoint</code> unregisters the elements as waypoints and wipes any custom options, but leaves the <code>waypoint.reached</code> events bound.  Calling <code>.waypoint</code> again in the future would reregister the waypoint and the old handlers would continue to work.</p>
+			
+				<div class="signature">
+					<h3 id="waypoint-options">$.fn.waypoint.defaults</h3>
+					<p>The default options object that is extended when calling <code>.waypoint</code>.  It has the following properties:</p>
+					<dl>
+						<dt>offset</dt>
+						<dd class="typeof">number | string | function</dd>
+						<dd class="default">default: 0</dd>
+						<dd>Determines how far the top of the element must be from the top of the browser window to trigger a waypoint.  It can be a number, which is taken as a number of pixels, a string representing a percentage of the viewport height, or a function that will return a number of pixels.</dd>
+						
+						<dt>triggerOnce</dt>
+						<dd class="typeof">boolean</dd>
+						<dd class="default">default: false</dd>
+						<dd>If true, the waypoint will be destroyed when triggered.</dd>
+					</dl>
+				</div>
+				
+				<p>An <code>offset</code> of 250 would trigger the waypoint when the top of the element is 250px from the top of the viewport. Negative values for any offset work as you might expect.  A value of -100 would trigger the waypoint when the element is 100px above the top of the window.</p>
+				
+				<pre><code><span class="key">offset</span>: <span class="str">'100%'</span></code></pre>
+				
+				<p>A string percentage will determine the pixel offset based on the height of the window.  When resizing the window, this offset will automatically be recalculated without needing to call <a href="#waypoints-refresh">$.waypoints('refresh')</a>.</p>
+				
+				<pre><code><span class="comment">// The bottom of the element is in view</span>
+<span class="key">offset</span>: <span class="kw">function</span>() {
+   <span class="kw">return</span> $.<span class="fn">waypoints</span>(<span class="str">'viewportHeight'</span>) - <span class="fn">$</span>(this).<span class="fn">outerHeight</span>();
+}</code></pre>
+
+				<p>Offset can take a function, which must return a number of pixels from the top of the window.  The <code>this</code> value will always refer to the raw HTML element of the waypoint.  As with % values, functions are recalculated automatically when the window resizes.  For more on recalculating offsets, see <a href="#waypoints-refresh">$.waypoints('refresh')</a>.</p>
+				
+				<p>An offset value of <code>'bottom-in-view'</code> will act as an alias for the function in the example above, as this is a common usage.</p>
+				
+				<pre><code><span class="key">offset</span>: <span class="str">'bottom-in-view'</span>
+</code></pre>
+
+				<p>You can see this alias in use on the <a href="./scroll-analytics/">scroll analytics</a> example page.</p>
+				
+				<p>The <code>triggerOnce</code> flag, if true, will destroy the waypoint after the first trigger.  This is just a shortcut for calling <a href="#waypoint-destroy">.waypoint('destroy')</a> within the waypoint handler.  This is useful in situations such as <a href="./scroll-analytics/">scroll analytics</a>, where you only want to record an event once for each page visit.</p>
+			</section>
+			
+			<section>
+				<h2 id="jq-waypoints">$.waypoints</h2>
+				The waypoints namespace extension to the jQuery object houses methods and settings dealing with all waypoints that have been registered through <a href="#waypoint-init">fn.waypoint</a>.
+			
+				<div class="signature">
+					<h3 id="waypoints-noparam">$.waypoints()</h3>
+					<p class="returns">Returns: jQuery</p>
+				</div>
+				
+				<p>This will return a jQuery object with a collection of all registered waypoint elements.</p>
+				
+				<pre><code><span class="fn">$</span>(<span class="str">'.post'</span>).<span class="fn">waypoint</span>();
+<span class="fn">$</span>(<span class="str">'.ad-unit'</span>).<span class="fn">waypoint</span>(<span class="kw">function</span>(event, direction) {
+   <span class="comment">// Passed an ad unit</span>
+});
+console.<span class="fn">log</span>($.<span class="fn">waypoints</span>());</code></pre>
+
+				<p>The example above would log a jQuery object containing all <code>.post</code> and <code>.ad-unit</code> elements.</p>
+			
+				<div class="signature">
+					<h3 id="waypoints-refresh">$.waypoints('refresh')</h3>
+				</div>
+				
+				<p>This will force a recalculation of each waypoint&rsquo;s trigger point based on its <code>offset</code> option.  This is called automatically whenever the window is resized, new waypoints are added, or a waypoint&rsquo;s options are modified.  If your project is changing the DOM or page layout without doing one of these things, you may want to manually call this refresh.</p>
+				
+				<div class="signature">
+					<h3 id="waypoints-viewport-height">$.waypoints('viewportHeight')</h3>
+					<p class="returns">Returns: number</p>
+				</div>
+				
+				<p>This will return the height of the viewport, adjusting for inconsistencies that come with calling <code>$(window).height()</code> in iOS. Recommended for use within any offset functions.</p>
+			
+				<div class="signature">
+					<h3 id="waypoints-settings">$.waypoints.settings</h3>
+					<p>Settings object that determines some of the plugin&rsquo;s behavior.</p>
+					<dl>
+						<dt>continuous</dt>
+						<dd class="typeof">boolean</dd>
+						<dd class="default">default: true</dd>
+						<dd>Determines which waypoints to trigger events for if a single scroll change passes more than one waypoint.  If false, only the last waypoint is triggered and the rest are ignored.  If true, all waypoints between the previous scroll position and the new one are triggered in order.</dd>
+						
+						<dt>resizeThrottle</dt>
+						<dd class="typeof">number</dd>
+						<dd class="default">default: 200</dd>
+						<dd>For performance reasons, the refresh performed during window resizes is throttled. This value is the rate-limit in milliseconds between resize refreshes. For more information on throttling, check out Ben Alman&rsquo;s <a href="http://benalman.com/projects/jquery-throttle-debounce-plugin/" target="_blank">throttle / debounce</a> plugin.</dd>
+						
+						<dt>scrollThrottle</dt>
+						<dd class="typeof">number</dd>
+						<dd class="default">default: 100</dd>
+						<dd>For performance reasons, checking for any crossed waypoints during the window scroll event is throttled. This value is the rate-limit in milliseconds between scroll checks. For more information on throttling, check out Ben Alman&rsquo;s <a href="http://benalman.com/projects/jquery-throttle-debounce-plugin/" target="_blank">throttle / debounce</a> plugin.</dd>
+					</dl>
+				</div>
+			</section>
+			
+			<p class="issues">If you find something wrong with the plugin, the documentation, or wish to request a feature, let me know on the <a href="https://github.com/imakewebthings/jquery-waypoints/issues">project&rsquo;s issue page</a>.</p>
+		</div>
+	</section>
+</article>
+
+<footer>
+	<p>A project of <a href="http://imakewebthings.com/" target="_blank">I Make Web Things</a></p>
+</footer>
+
+<script src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.4.min.js"></script>
+<script src="waypoints.min.js"></script>
+<script src="script.js"></script>
+</body>
+
+</html>
