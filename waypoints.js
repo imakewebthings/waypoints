@@ -231,7 +231,8 @@ Support:
 			return isDown ?
 				(el.offset > oldScroll && el.offset <= newScroll) :
 				(el.offset <= oldScroll && el.offset > newScroll);
-		});
+		}),
+		len = pointsHit.length;
 		
 		// iOS adjustment
 		if (!oldScroll || !newScroll) {
@@ -242,21 +243,21 @@ Support:
 		oldScroll = newScroll;
 		
 		// No waypoints crossed? Eject.
-		if (!pointsHit.length) return;
+		if (!len) return;
+		
+		// If several waypoints triggered, need to do so in reverse order going up
+		if (!isDown) pointsHit.reverse();
 		
 		/*
-		One scroll move may cross several waypoints.  If the continuous setting is
-		true, every waypoint event should fire.  If false, only the last one.
+		One scroll move may cross several waypoints.  If the waypoint's continuous
+		option is true it should fire even if it isn't the last waypoint.  If false,
+		it will only fire if it's the last one.
 		*/
-		if ($[wps].settings.continuous) {
-			$.each(isDown ? pointsHit : pointsHit.reverse(), function(i, point) {
+		$.each(pointsHit, function(i, point) {
+			if (point.options.continuous || i === len - 1) {
 				triggerWaypoint(point, [isDown ? 'down' : 'up']);
-			});
-		}
-		else {
-			triggerWaypoint(pointsHit[isDown ? pointsHit.length - 1 : 0],
-				[isDown ? 'down' : 'up']);
-		}
+			}
+		});
 	}
 	
 	
@@ -275,7 +276,7 @@ Support:
 			return methods.init.apply(this, [null, method]);
 		}
 		else {
-			$.error( 'Method ' +  method + ' does not exist on jQuery' + wp );
+			$.error( 'Method ' +  method + ' does not exist on jQuery ' + wp );
 		}
 	};
 	
@@ -296,6 +297,13 @@ Support:
 		boolean
 		default: false
 		If true, the waypoint will be destroyed when triggered.
+		
+	continuous
+		boolean
+		default: true
+		If true, and multiple waypoints are triggered in one scroll, this waypoint will
+		trigger even if it is not the last waypoint reached.  If false, it will only
+		trigger if it is the last waypoint.
 	
 	An offset of 250 would trigger the waypoint when the top of the element is 250px
 	from the top of the viewport. Negative values for any offset work as you might
@@ -331,6 +339,7 @@ Support:
 	want to record an event once for each page visit.
 	*/
 	$.fn[wp].defaults = {
+		continuous: true,
 		offset: 0,
 		triggerOnce: false
 	};
@@ -450,14 +459,6 @@ Support:
 	$.waypoints.settings
 	
 	Settings object that determines some of the plugin’s behavior.
-
-	continuous
-		boolean
-		default: true
-		Determines which waypoints to trigger events for if a single scroll change
-		passes more than one waypoint. If false, only the last waypoint is triggered
-		and the rest are ignored. If true, all waypoints between the previous scroll
-		position and the new one are triggered in order.
 		
 	resizeThrottle
 		number
@@ -478,7 +479,6 @@ Support:
 		http://benalman.com/projects/jquery-throttle-debounce-plugin/
 	*/
 	$[wps].settings = {
-		continuous: true,
 		resizeThrottle: 200,
 		scrollThrottle: 100
 	};

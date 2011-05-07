@@ -244,6 +244,75 @@ describe('jQuery Waypoints', function() {
 				expect($.waypoints().length).toBeFalsy();
 			});
 		});
+		
+		it('should trigger if continuous is true and waypoint is not last', function() {
+			var $f = $('#near1'),
+			$g = $('#near2'),
+			hitcount = 0;
+			
+			spyOnEvent($f, 'waypoint.reached');
+			
+			runs(function() {
+				$e.add($f).add($g).waypoint(function() {
+					hitcount++;
+				});
+				$se.scrollTop($g.offset().top);
+			});
+			
+			waits(standardWait);
+			
+			runs(function() {
+				expect(hitcount).toEqual(3);
+			});
+		});
+		
+		it('should not trigger if continuous is false and waypoint is not last', function() {
+			var $f = $('#near1'),
+			$g = $('#near2'),
+			hitcount = 0;
+			
+			spyOnEvent($f, 'waypoint.reached');
+			
+			runs(function() {
+				$e.add($f).add($g).waypoint(function() {
+					hitcount++;
+				});
+				$f.waypoint({
+					continuous: false
+				});
+				$se.scrollTop($g.offset().top);
+			});
+			
+			waits(standardWait);
+			
+			runs(function() {
+				expect(hitcount).toEqual(2);
+			});
+		});
+		
+		it('should trigger if continuous is false but the waypoint is last', function() {
+			var $f = $('#near1'),
+			$g = $('#near2'),
+			hitcount = 0;
+			
+			spyOnEvent($f, 'waypoint.reached');
+			
+			runs(function() {
+				$e.add($f).add($g).waypoint(function() {
+					hitcount++;
+				});
+				$g.waypoint({
+					continuous: false
+				});
+				$se.scrollTop($g.offset().top);
+			});
+			
+			waits(standardWait);
+			
+			runs(function() {
+				expect(hitcount).toEqual(3);
+			});
+		});
 	});
 	
 	describe('.waypoint(callback, options)', function() {
@@ -457,59 +526,6 @@ describe('jQuery Waypoints', function() {
 			$('.sameposition, #near1, #near2').waypoint(function() {
 				count++;
 				curID = $(this).attr('id');
-			});
-		});
-		
-		it('should fire all when continuous is true', function() {
-			runs(function() {
-				$se.scrollTop($('#near2').offset().top);
-			});
-			
-			waits(standardWait);
-			
-			runs(function() {
-				expect(count).toEqual(4);
-			});
-		});
-		
-		it('should fire only the last if continuous is false', function() {
-			runs(function() {
-				$.waypoints.settings.continuous = false;
-				$se.scrollTop($('#near2').offset().top);
-			});
-			
-			waits(standardWait);
-			
-			runs(function() {
-				expect(count).toEqual(1);
-				expect(curID).toEqual("near2");
-				$.waypoints.settings.continuous = true;
-			});
-		});
-		
-		it('should fire the top element in the up direction', function() {
-			var points;
-			
-			runs(function() {
-				$.waypoints.settings.continuous = false;
-				points = $.waypoints();
-				points.waypoint('remove');
-				$se.scrollTop($('#near2').offset().top + 1);
-			});
-			
-			waits(standardWait);
-			
-			runs(function() {
-				points.waypoint();
-				$se.scrollTop($('#same1').offset().top - 1);
-			});
-			
-			waits(standardWait);
-			
-			runs(function() {
-				expect(count).toEqual(1);
-				expect(curID).toEqual("same1");
-				$.waypoints.settings.continuous = true;
 			});
 		});
 		
