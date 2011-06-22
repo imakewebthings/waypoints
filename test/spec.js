@@ -561,6 +561,67 @@ describe('jQuery Waypoints', function() {
 		});
 	});
 	
+	describe('non-window scroll context', function() {
+		beforeEach(function() {
+			$se = $('#bottom');
+		});
+		
+		it('should trigger the waypoint within its context', function() {
+			$e = $('#bottom > div').waypoint({
+				context: '#bottom'
+			});
+			
+			runs(function() {
+				spyOnEvent($e, 'waypoint.reached');
+				$se.scrollTop(300);
+			});
+			
+			waits(standardWait);
+			
+			runs(function() {
+				expect('waypoint.reached').toHaveBeenTriggeredOn($('#inner3'));
+			});
+		});
+		
+		it('should respect % offsets within context', function() {
+			$e = $('#bottom > div').waypoint({
+				context: '#bottom',
+				offset: '100%'
+			});
+			
+			runs(function() {
+				spyOnEvent($e, 'waypoint.reached');
+				$se.scrollTop(201);
+			});
+			
+			waits(standardWait);
+			
+			runs(function() {
+				expect('waypoint.reached').toHaveBeenTriggeredOn($('#inner3'));
+			});
+		});
+		
+		it('should respect % offsets within context', function() {
+			$e = $('#bottom > div').waypoint({
+				context: '#bottom',
+				offset: function() {
+					return $(this).height() / 2;
+				}
+			});
+			
+			runs(function() {
+				spyOnEvent($e, 'waypoint.reached');
+				$se.scrollTop(250);
+			});
+			
+			waits(standardWait);
+			
+			runs(function() {
+				expect('waypoint.reached').toHaveBeenTriggeredOn($('#inner3'));
+			});
+		});
+	});
+	
 	afterEach(function() {
 		$.waypoints().waypoint('destroy');
 		$se.scrollTop(0);

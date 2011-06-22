@@ -35,27 +35,154 @@ Support:
 	'$:nomunge';
 	
 	var $w = $(window),
-	/*
-	List of all elements that have been registered as waypoints.  Used privately.
-	Each object in the array contains:
-		element: jQuery object containing a single HTML element.
-		offset: The window scroll offset, in px, that triggers the waypoint event.
-		options: Options object that was passed to the waypoint fn function.
-	*/
-	waypoints = [],
-	
-	/*
-	Starting at a ridiculous negative number allows for a 'down' trigger of 0 or
-	negative offset waypoints on load. Useful for setting initial states.
-	*/
-	oldScroll = -99999,
-	
-	// Flags used in throttling.
-	didScroll = false,
-	didResize = false,
 	
 	// Keeping common strings as variables = better minification
 	eventName = 'waypoint.reached',
+	
+	/*
+	For the waypoint and direction passed in, trigger the waypoint.reached
+	event and deal with the triggerOnce option.
+	*/
+	triggerWaypoint = function(way, dir) {
+		way.element.trigger(eventName, dir);
+		if (way.options.triggerOnce) {
+			way.element[wp]('destroy');
+		}
+	},
+	
+	/*
+	Given a jQuery element and Context, returns the index of that element in the waypoints
+	array.  Returns the index, or -1 if the element is not a waypoint.
+	*/
+	waypointIndex = function(el, context) {
+		var i = context.waypoints.length - 1;
+		while (i >= 0 && context.waypoints[i].element[0] !== el[0]) {
+			i -= 1;
+		}
+		return i;
+	},
+	
+	/*
+	Private list of all elements used as scrolling contexts for waypoints.  Each
+	object in the array contains:
+		element: jQuery object containing a single HTML element.
+		waypoints: List of waypoints operating under this scroll context.
+	*/
+	contexts = [],
+	
+	Context = function(context) {
+		$.extend(this, {
+			'element': $(context),
+			
+			/*
+			Starting at a ridiculous negative number allows for a 'down' trigger of 0 or
+			negative offset waypoints on load. Useful for setting initial states.
+			*/
+			'oldScroll': -99999,
+			
+			/*
+			List of all elements that have been registered as waypoints.
+			Each object in the array contains:
+				element: jQuery object containing a single HTML element.
+				offset: The window scroll offset, in px, that triggers the waypoint event.
+				options: Options object that was passed to the waypoint fn function.
+			*/
+			'waypoints': [],
+			
+			// Flags used in throttling
+			didScroll: false,
+			didResize: false,
+			
+			/*
+			Function that checks the new scroll value against the old value.  If waypoints
+			were reached, fire the appropriate events.  Called within a throttled
+			scroll handler later.
+			*/
+			doScroll: $.proxy(function() {
+				var newScroll = this.element.scrollTop(),
+				
+				// Are we scrolling up or down? Used for direction argument in callback.
+				isDown = newScroll > this.oldScroll,
+				that = this,
+
+				// Get a list of all waypoints that were crossed since last scroll move.
+				pointsHit = $.grep(this.waypoints, function(el, i) {
+					return isDown ?
+						(el.offset > that.oldScroll && el.offset <= newScroll) :
+						(el.offset <= that.oldScroll && el.offset > newScroll);
+				}),
+				len = pointsHit.length;
+				
+				// iOS adjustment
+				if (!this.oldScroll || !newScroll) {
+					$[wps]('refresh');
+				}
+
+				// Done with scroll comparisons, store new scroll before ejection
+				this.oldScroll = newScroll;
+
+				// No waypoints crossed? Eject.
+				if (!len) return;
+
+				// If several waypoints triggered, need to do so in reverse order going up
+				if (!isDown) pointsHit.reverse();
+
+				/*
+				One scroll move may cross several waypoints.  If the waypoint's continuous
+				option is true it should fire even if it isn't the last waypoint.  If false,
+				it will only fire if it's the last one.
+				*/
+				$.each(pointsHit, function(i, point) {
+					if (point.options.continuous || i === len - 1) {
+						triggerWaypoint(point, [isDown ? 'down' : 'up']);
+					}
+				});
+			}, this)
+		});
+		
+		$(context).scroll($.proxy(function() {
+			// Throttle the scroll event. See doScroll() for actual scroll functionality.
+			if (!this.didScroll) {
+				this.didScroll = true;
+				window.setTimeout($.proxy(function() {
+					this.doScroll();
+					this.didScroll = false;
+				}, this), $[wps].settings.scrollThrottle);
+			}
+		}, this)).resize($.proxy(function() {
+			// Throttle the window resize event to call jQuery.waypoints('refresh').
+			if (!this.didResize) {
+				this.didResize = true;
+				window.setTimeout($.proxy(function() {
+					$[wps]('refresh');
+					this.didResize = false;
+				}, this), $[wps].settings.resizeThrottle);
+			}
+		}, this));
+		
+		$w.load($.proxy(function() {
+			/*
+			Fire a scroll check, should the page be loaded at a non-zero scroll value,
+			as with a fragment id link or a page refresh.
+			*/
+			this.doScroll();
+		}, this));
+	},
+	
+	/* Returns a Context object from the contexts array, given the raw HTML element
+	for that context. */
+	getContextByElement = function(element) {
+		var found = null;
+		
+		$.each(contexts, function(i, c) {
+			if (c.element[0] === element) {
+				found = c;
+				return false;
+			}
+		});
+		
+		return found;
+	},
 	
 	methods = {
 		/*
@@ -129,34 +256,59 @@ Support:
 		init: function(f, options) {
 			// Register each element as a waypoint, add to array.
 			this.each(function() {
-				var $this = $(this),
-				ndx = waypointIndex($this),
-				base = ndx < 0 ? $.fn[wp].defaults : waypoints[ndx].options,
+				var cElement = $.fn[wp].defaults.context,
+				context,
+				$this = $(this);
+
+				// Default window context or a specific element?
+				if (options && options.context) {
+					cElement = options.context;
+				}
+
+				// Find the closest element that matches the context
+				if (!$.isWindow(cElement)) {
+					cElement = $this.closest(cElement)[0];
+				}
+				context = getContextByElement(cElement);
+
+				// Element isn't a context yet? Create and push.
+				if (!context) {
+					context = new Context(cElement);
+					contexts.push(context);
+				}
+				
+				// Extend default and preexisting options
+				var ndx = waypointIndex($this, context),
+				base = ndx < 0 ? $.fn[wp].defaults : context.waypoints[ndx].options,
 				opts = $.extend({}, base, options);
 				
 				// Offset aliases
 				opts.offset = opts.offset === "bottom-in-view" ?
 					function() {
-						return $[wps]('viewportHeight') - $(this).outerHeight();
+						var cHeight = $.isWindow(cElement) ? $[wps]('viewportHeight')
+							: $(cElement).height();
+						return cHeight - $(this).outerHeight();
 					} : opts.offset;
 
 				// Update, or create new waypoint
 				if (ndx < 0) {
-					waypoints.push({
-						element: $this,
-						offset: $this.offset().top,
-						options: opts
+					context.waypoints.push({
+						'element': $this,
+						'offset': $this.offset().top,
+						'options': opts
 					});
 				}
 				else {
-					waypoints[ndx].options = opts;
+					context.waypoints[ndx].options = opts;
 				}
 				
 				// Bind the function if it was passed in.
-				f && $this.bind(eventName, f);
+				if (f) {
+					$this.bind(eventName, f);
+				}
 			});
 			
-			// Need to resort+refresh the waypoints array after new elements are added.
+			// Need to re-sort+refresh the waypoints array after new elements are added.
 			$[wps]('refresh');
 			
 			return this;
@@ -172,12 +324,16 @@ Support:
 		handlers would continue to work.
 		*/
 		remove: function() {
-			return this.each(function() {
-				var ndx = waypointIndex($(this));
+			return this.each(function(i, el) {
+				var $el = $(el);
 				
-				if (ndx >= 0) {
-					waypoints.splice(ndx, 1);
-				}
+				$.each(contexts, function(i, c) {
+					var ndx = waypointIndex($el, c);
+
+					if (ndx >= 0) {
+						c.waypoints.splice(ndx, 1);
+					}
+				});
 			});
 		},
 		
@@ -190,76 +346,108 @@ Support:
 		destroy: function() {
 			return this.unbind(eventName)[wp]('remove');
 		}
-	};
+	},
 	
 	/*
-	Given a jQuery element, returns the index of that element in the waypoints
-	array.  Returns the index, or -1 if the element is not a waypoint.
+	Methods used by the jQuery object extension.
 	*/
-	function waypointIndex(el) {
-		var i = waypoints.length - 1;
-		while (i >= 0 && waypoints[i].element[0] !== el[0]) {
-			i -= 1;
-		}
-		return i;
-	}
-	
-	/*
-	For the waypoint and direction passed in, trigger the waypoint.reached
-	event and deal with the triggerOnce option.
-	*/
-	function triggerWaypoint(way, dir) {
-		way.element.trigger(eventName, dir)
-		if (way.options.triggerOnce) {
-			way.element[wp]('destroy');
-		}
-	}
-	
-	/*
-	Function that checks the new scroll value against the old value.  If waypoints
-	were reached, fire the appropriate events.  Called within a throttled
-	window.scroll handler later.
-	*/
-	function doScroll() {
-		var newScroll = $w.scrollTop(),
-		
-		// Are we scrolling up or down? Used for direction argument in callback.
-		isDown = newScroll > oldScroll,
-		
-		// Get a list of all waypoints that were crossed since last scroll move.
-		pointsHit = $.grep(waypoints, function(el, i) {
-			return isDown ?
-				(el.offset > oldScroll && el.offset <= newScroll) :
-				(el.offset <= oldScroll && el.offset > newScroll);
-		}),
-		len = pointsHit.length;
-		
-		// iOS adjustment
-		if (!oldScroll || !newScroll) {
-			$[wps]('refresh');
-		}
-		
-		// Done with scroll comparisons, store new scroll before ejection
-		oldScroll = newScroll;
-		
-		// No waypoints crossed? Eject.
-		if (!len) return;
-		
-		// If several waypoints triggered, need to do so in reverse order going up
-		if (!isDown) pointsHit.reverse();
+	jQMethods = {
 		
 		/*
-		One scroll move may cross several waypoints.  If the waypoint's continuous
-		option is true it should fire even if it isn't the last waypoint.  If false,
-		it will only fire if it's the last one.
+		jQuery.waypoints('refresh')
+		
+		This will force a recalculation of each waypoint’s trigger point based on
+		its offset option. This is called automatically whenever the window is
+		resized, new waypoints are added, or a waypoint’s options are modified.
+		If your project is changing the DOM or page layout without doing one of
+		these things, you may want to manually call this refresh.
 		*/
-		$.each(pointsHit, function(i, point) {
-			if (point.options.continuous || i === len - 1) {
-				triggerWaypoint(point, [isDown ? 'down' : 'up']);
-			}
+		refresh: function() {
+			$.each(contexts, function(i, c) {
+				var isWin = $.isWindow(c.element[0]),
+				contextOffset = isWin ? 0 : c.element.offset().top,
+				contextHeight = isWin ? $[wps]('viewportHeight') : c.element.height();
+				
+				$.each(c.waypoints, function(j, o) {
+					// Adjustment is just the offset if it's a px value
+					var adjustment = o.options.offset,
+					oldOffset = o.offset;
+					
+					// Set adjustment to the return value if offset is a function.
+					if (typeof o.options.offset === "function") {
+						adjustment = o.options.offset.apply(o.element);
+					}
+					// Calculate the adjustment if offset is a percentage.
+					else if (typeof o.options.offset === "string") {
+						var amount = parseFloat(o.options.offset);
+						adjustment = o.options.offset.indexOf("%") ?
+							Math.ceil(contextHeight * (amount / 100)) : amount;
+					}
+
+					/* 
+					Set the element offset to the window scroll offset, less
+					the adjustment and the scroll context offset.
+					*/
+					o.offset = o.element.offset().top - contextOffset - adjustment;
+
+					/*
+					An element offset change across the current scroll point triggers
+					the event, just as if we scrolled past it.
+					*/
+					if (c.oldScroll > oldOffset && c.oldScroll <= o.offset) {
+						triggerWaypoint(o, ['up']);
+					}
+					else if (c.oldScroll < oldOffset && c.oldScroll >= o.offset) {
+						triggerWaypoint(o, ['down']);
+					}
+				});
+				
+				// Keep waypoints sorted by offset value.
+				c.waypoints.sort(function(a, b) {
+					return a.offset - b.offset;
+				});
+			});
+		},
+		
+		
+		/*
+		jQuery.waypoints('viewportHeight')
+		
+		This will return the height of the viewport, adjusting for inconsistencies
+		that come with calling $(window).height() in iOS. Recommended for use
+		within any offset functions.
+		*/
+		viewportHeight: function() {
+			return (window.innerHeight ? window.innerHeight : $w.height());
+		},
+		
+		
+		/*
+		jQuery.waypoints()
+		
+		This will return a jQuery object with a collection of all registered waypoint
+		elements.
+
+		$('.post').waypoint();
+		$('.ad-unit').waypoint(function(event, direction) {
+		   // Passed an ad unit
 		});
-	}
-	
+		console.log($.waypoints());
+		
+		The example above would log a jQuery object containing all .post and .ad-unit
+		elements.
+		*/
+		aggregate: function() {
+			var points = $();
+			$.each(contexts, function(i, c) {
+				$.each(c.waypoints, function(i, e) {
+					points = points.add(e.element);
+				});
+			});
+			return points;
+		}
+	};
+
 	
 	/*
 	fn extension.  Delegates to appropriate method.
@@ -341,105 +529,12 @@ Support:
 	$.fn[wp].defaults = {
 		continuous: true,
 		offset: 0,
-		triggerOnce: false
+		triggerOnce: false,
+		context: window
 	};
 	
 	
-	/*
-	Methods used by the jQuery object extension.
-	*/
-	var jQMethods = {
-		
-		/*
-		jQuery.waypoints('refresh')
-		
-		This will force a recalculation of each waypoint’s trigger point based on
-		its offset option. This is called automatically whenever the window is
-		resized, new waypoints are added, or a waypoint’s options are modified.
-		If your project is changing the DOM or page layout without doing one of
-		these things, you may want to manually call this refresh.
-		*/
-		refresh: function() {
-			$.each(waypoints, function(i, o) {
-				// Adjustment is just the offset if it's a px value
-				var adjustment = 0,
-				oldOffset = o.offset;
-				
-				// Set adjustment to the return value if offset is a function.
-				if (typeof o.options.offset === "function") {
-					adjustment = o.options.offset.apply(o.element);
-				}
-				// Calculate the adjustment if offset is a percentage.
-				else if (typeof o.options.offset === "string") {
-					var amount = parseFloat(o.options.offset),
-					adjustment = o.options.offset.indexOf("%") ?
-						Math.ceil($[wps]('viewportHeight') * (amount / 100)) :
-						amount;
-				}
-				else {
-					adjustment = o.options.offset;
-				}
-				
-				/* 
-				Set the element offset to the window scroll offset, less
-				the adjustment.
-				*/
-				o.offset = o.element.offset().top - adjustment;
-
-				/*
-				An element offset change across the current scroll point triggers
-				the event, just as if we scrolled past it.
-				*/
-				if (oldScroll > oldOffset && oldScroll <= o.offset) {
-					triggerWaypoint(o, ['up']);
-				}
-				else if (oldScroll < oldOffset && oldScroll >= o.offset) {
-					triggerWaypoint(o, ['down']);
-				}
-			});
-			
-			// Keep waypoints sorted by offset value.
-			waypoints.sort(function(a, b) {
-				return a.offset - b.offset;
-			});
-		},
-		
-		
-		/*
-		jQuery.waypoints('viewportHeight')
-		
-		This will return the height of the viewport, adjusting for inconsistencies
-		that come with calling $(window).height() in iOS. Recommended for use
-		within any offset functions.
-		*/
-		viewportHeight: function() {
-			return (window.innerHeight ? window.innerHeight : $w.height());
-		},
-		
-		
-		/*
-		jQuery.waypoints()
-		
-		This will return a jQuery object with a collection of all registered waypoint
-		elements.
-
-		$('.post').waypoint();
-		$('.ad-unit').waypoint(function(event, direction) {
-		   // Passed an ad unit
-		});
-		console.log($.waypoints());
-		
-		The example above would log a jQuery object containing all .post and .ad-unit
-		elements.
-		*/
-		aggregate: function() {
-			var points = $();
-			$.each(waypoints, function(i, e) {
-				points = points.add(e.element);
-			});
-			return points;
-		}
-	};
+	
 	
 	
 	/*
@@ -450,7 +545,7 @@ Support:
 			return jQMethods[method].apply(this);
 		}
 		else {
-			return jQMethods["aggregate"]();
+			return jQMethods['aggregate']();
 		}
 	};
 	
@@ -484,32 +579,8 @@ Support:
 	};
 	
 	/* Bind resize and scroll handlers */
-	$w.scroll(function() {
-		// Throttle the scroll event. See doScroll() for actual scroll functionality.
-		if (!didScroll) {
-			didScroll = true;
-			window.setTimeout(function() {
-				doScroll();
-				didScroll = false;
-			}, $[wps].settings.scrollThrottle);
-		}
-	}).resize(function() {
-		// Throttle the window resize event to call jQuery.waypoints('refresh').
-		if (!didResize) {
-			didResize = true;
-			window.setTimeout(function() {
-				$[wps]('refresh');
-				didResize = false;
-			}, $[wps].settings.resizeThrottle);
-		}
-	}).load(function() {
+	$w.load(function() {
 		// Calculate everything once on load.
 		$[wps]('refresh');
-
-		/*
-		Fire a scroll check, should the page be loaded at a non-zero scroll value,
-		as with a fragment id link or a page refresh.
-		*/
-		doScroll();
 	});
 })(jQuery, 'waypoint', 'waypoints', this);

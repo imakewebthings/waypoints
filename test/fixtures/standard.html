@@ -5,7 +5,12 @@
 	<div class="sameposition" id="same2"></div>
 	<div class="nearsame" id="near1"></div>
 	<div class="nearsame" id="near2"></div>
-	<div id="bottom"></div>
+	<div id="bottom">
+		<div id="inner1" class="inner"></div>
+		<div id="inner2" class="inner"></div>
+		<div id="inner3" class="inner"></div>
+		<div id="inner4" class="inner"></div>
+	</div>
 	<div id="postbottom"></div>
 </div>
 
@@ -51,6 +56,14 @@ body {
 
 #bottom {
 	top:2950px;
+	overflow:scroll;
+}
+
+#wp-container .inner {
+	position:static;
+	width:100%;
+	height:100px;
+	background:blue;
 }
 
 #postbottom {
