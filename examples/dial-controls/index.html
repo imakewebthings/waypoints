@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+
+<html lang="en-US">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<title>Dial Controls with jQuery Waypoints</title>
+	<meta name="description" content="An example of dial controls using the jQuery Waypoints plugin">
+	<meta name="viewport" content="width=480">
+	<link rel="stylesheet" href="style.css" type="text/css" media="all">
+	<script src="../modernizr.custom.js"></script>
+</head>
+<body>
+
+<div id="wrapper">
+	<hgroup>
+		<h1>Dial Controls</h1>
+		<h2>An example of <a href="../">Waypoints</a> within scrollable non-window elements</h2>
+	</hgroup>
+	
+	<div data-property="font-size" class="dial first">
+		<h2>Font Size:</h2>
+		<ul>
+			<li data-value="8px">8px</li>
+			<li data-value="10px">10px</li>
+			<li data-value="12px">12px</li>
+			<li data-value="14px">14px</li>
+			<li data-value="16px">16px</li>
+			<li data-value="18px">18px</li>
+			<li data-value="24px">24px</li>
+			<li data-value="36px">36px</li>
+			<li data-value="48px">48px</li>
+			<li data-value="72px">72px</li>
+		</ul>
+		<div class="indicator"></div>
+	</div>
+	
+	<div data-property="width" class="dial">
+		<h2>Width:</h2>
+		<ul>
+			<li data-value="150px">150px</li>
+			<li data-value="200px">200px</li>
+			<li data-value="250px">250px</li>
+			<li data-value="300px">300px</li>
+			<li data-value="350px">350px</li>
+			<li data-value="400px">400px</li>
+			<li data-value="500px">500px</li>
+			<li data-value="600px">600px</li>
+			<li data-value="700px">700px</li>
+			<li data-value="800px">800px</li>
+			<li data-value="1024px">1024px</li>
+			<li data-value="1280px">1280px</li>
+		</ul>
+		<div class="indicator"></div>
+	</div>
+	
+	<div data-property="background-color" class="dial">
+		<h2>BG Color:</h2>
+		<ul>
+			<li data-value="#fff">#fff</li>
+			<li data-value="#d1f2a5">#d1f2a5</li>
+			<li data-value="#effab4">#effab4</li>
+			<li data-value="#ffc48c">#ffc48c</li>
+			<li data-value="#ff9f80">#ff9f80</li>
+			<li data-value="#f56991">#f56991</li>
+		</ul>
+		<div class="indicator"></div>
+	</div>
+</div>
+
+<div id="main">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur blandit ultrices rutrum. Cras dignissim purus non purus mattis nec lobortis enim dignissim. Nulla a urna est. Proin volutpat odio id velit tempor sollicitudin. Aliquam lobortis nunc gravida orci fringilla in commodo lectus gravida. In hac habitasse platea dictumst. Maecenas tincidunt pulvinar blandit. Suspendisse a diam ligula. Mauris non tellus nisl, in interdum elit. Etiam rhoncus cursus lectus vel venenatis. Nulla facilisi. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Integer eleifend imperdiet lectus vitae aliquet. Mauris metus lorem, fermentum vitae malesuada quis, pretium id mi.</div>
+
+<script src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.4.min.js"></script>
+<script src="../../waypoints.js"></script>
+
+<script type="text/javascript">
+$(function() {
+	$('.dial li').waypoint(function(e, direction) {
+		var $active = $(this);
+
+		if (direction === "up") {
+			$active = $active.prev();
+		}
+		if (!$active.length) $active.end();
+		
+		$('#main').css($active.closest('.dial').data('property'), $active.data('value'));
+	}, {
+		offset: 25,
+		context: 'ul'
+	});
+});
+</script>
+
+</body>
+</html>

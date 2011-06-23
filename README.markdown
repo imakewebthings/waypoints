@@ -29,6 +29,12 @@ Unit tests for Waypoints are written with [Jasmine](http://pivotal.github.com/ja
 
 ## Changelog
 
+### v1.1
+- Moved the continuous option out of global settings and into the options
+  object for individual waypoints.
+- Added the context option, which allows for using waypoints within any
+  scrollable element, not just the window.
+
 ### v1.0.2
 
 - Moved scroll and resize handler bindings out of load.  Should play nicer with async loaders like Head JS and LABjs.
