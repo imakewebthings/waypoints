@@ -81,7 +81,6 @@ $(function() {
 			$active = $active.prev();
 		}
 		if (!$active.length) $active.end();
-		console.log($active.closest('.dial').data('property'));
 		
 		$('#main').css($active.closest('.dial').data('property'), $active.data('value'));
 	}, {
