@@ -366,7 +366,8 @@ Support:
 			$.each(contexts, function(i, c) {
 				var isWin = $.isWindow(c.element[0]),
 				contextOffset = isWin ? 0 : c.element.offset().top,
-				contextHeight = isWin ? $[wps]('viewportHeight') : c.element.height();
+				contextHeight = isWin ? $[wps]('viewportHeight') : c.element.height(),
+				contextScroll = isWin ? 0 : c.element.scrollTop();
 				
 				$.each(c.waypoints, function(j, o) {
 					// Adjustment is just the offset if it's a px value
@@ -386,9 +387,10 @@ Support:
 
 					/* 
 					Set the element offset to the window scroll offset, less
-					the adjustment and the scroll context offset.
+					all our adjustments.
 					*/
-					o.offset = o.element.offset().top - contextOffset - adjustment;
+					o.offset = o.element.offset().top - contextOffset
+						+ contextScroll - adjustment;
 
 					/*
 					An element offset change across the current scroll point triggers
