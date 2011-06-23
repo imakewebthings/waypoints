@@ -1,5 +1,5 @@
 /*!
-jQuery Waypoints - v1.0.2
+jQuery Waypoints - v1.1
 Copyright (c) 2011 Caleb Troughton
 Dual licensed under the MIT license and GPL license.
 https://github.com/imakewebthings/jquery-waypoints/blob/master/MIT-license.txt
@@ -14,6 +14,11 @@ GitHub Repository: https://github.com/imakewebthings/jquery-waypoints
 Documentation and Examples: http://imakewebthings.github.com/jquery-waypoints
 
 Changelog:
+	v1.1.
+		- Moved the continuous option out of global settings and into the options
+		  object for individual waypoints.
+		- Added the context option, which allows for using waypoints within any
+		  scrollable element, not just the window.
 	v1.0.2
 		- Moved scroll and resize handler bindings out of load.  Should play nicer
 		  with async loaders like Head JS and LABjs.
@@ -23,7 +28,8 @@ Changelog:
 		- Added $.waypoints('viewportHeight').
 		- Fixed iOS bug (using the new viewportHeight method).
 		- Added offset function alias: 'bottom-in-view'.
-	v1.0 - Initial release.
+	v1.0
+		- Initial release.
 	
 Support:
 	- jQuery versions 1.4+
@@ -62,14 +68,18 @@ Support:
 		return i;
 	},
 	
-	/*
-	Private list of all elements used as scrolling contexts for waypoints.  Each
-	object in the array contains:
-		element: jQuery object containing a single HTML element.
-		waypoints: List of waypoints operating under this scroll context.
-	*/
+	// Private list of all elements used as scrolling contexts for waypoints.
 	contexts = [],
 	
+	/*
+	Context Class - represents a scrolling context.  Properties include:
+		element: jQuery object containing a single HTML element.
+		waypoints: Array of waypoints operating under this scroll context.
+		oldScroll: Keeps the previous scroll position to determine scroll direction.
+		didScroll: Flag used in scrolling the context's scroll event.
+		didResize: Flag used in scrolling the context's resize event.
+		doScroll: Function that checks for crossed waypoints. Called from throttler.
+	*/
 	Context = function(context) {
 		$.extend(this, {
 			'element': $(context),
@@ -89,15 +99,9 @@ Support:
 			*/
 			'waypoints': [],
 			
-			// Flags used in throttling
 			didScroll: false,
 			didResize: false,
-			
-			/*
-			Function that checks the new scroll value against the old value.  If waypoints
-			were reached, fire the appropriate events.  Called within a throttled
-			scroll handler later.
-			*/
+	
 			doScroll: $.proxy(function() {
 				var newScroll = this.element.scrollTop(),
 				
@@ -140,8 +144,8 @@ Support:
 			}, this)
 		});
 		
+		// Setup scroll and resize handlers.  Throttled at the settings-defined rate limits.
 		$(context).scroll($.proxy(function() {
-			// Throttle the scroll event. See doScroll() for actual scroll functionality.
 			if (!this.didScroll) {
 				this.didScroll = true;
 				window.setTimeout($.proxy(function() {
@@ -150,7 +154,6 @@ Support:
 				}, this), $[wps].settings.scrollThrottle);
 			}
 		}, this)).resize($.proxy(function() {
-			// Throttle the window resize event to call jQuery.waypoints('refresh').
 			if (!this.didResize) {
 				this.didResize = true;
 				window.setTimeout($.proxy(function() {
@@ -184,6 +187,7 @@ Support:
 		return found;
 	},
 	
+	// Methods exposed to the effin' object 
 	methods = {
 		/*
 		jQuery.fn.waypoint([handler], [options])
@@ -271,7 +275,7 @@ Support:
 				}
 				context = getContextByElement(cElement);
 
-				// Element isn't a context yet? Create and push.
+				// Not a context yet? Create and push.
 				if (!context) {
 					context = new Context(cElement);
 					contexts.push(context);
@@ -357,10 +361,10 @@ Support:
 		jQuery.waypoints('refresh')
 		
 		This will force a recalculation of each waypoint’s trigger point based on
-		its offset option. This is called automatically whenever the window is
-		resized, new waypoints are added, or a waypoint’s options are modified.
-		If your project is changing the DOM or page layout without doing one of
-		these things, you may want to manually call this refresh.
+		its offset option and context. This is called automatically whenever the window
+		(or other defined context) is resized, new waypoints are added, or a waypoint’s
+		options are modified. If your project is changing the DOM or page layout without
+		doing one of these things, you may want to manually call this refresh.
 		*/
 		refresh: function() {
 			$.each(contexts, function(i, c) {
@@ -474,6 +478,22 @@ Support:
 	/*
 	The default options object that is extended when calling .waypoint. It has the
 	following properties:
+	
+	context
+		string | element | jQuery*
+		default: window
+		The context defines which scrollable element the waypoint belongs to and acts
+		within. The default, window, means the waypoint offset is calculated with relation
+		to the whole viewport.  You can set this to another element to use the waypoints
+		within that element.  Accepts a selector string, *but if you use jQuery 1.6+ it
+		also accepts a raw HTML element or jQuery object.
+	
+	continuous
+		boolean
+		default: true
+		If true, and multiple waypoints are triggered in one scroll, this waypoint will
+		trigger even if it is not the last waypoint reached.  If false, it will only
+		trigger if it is the last waypoint.
 
 	offset
 		number | string | function
@@ -487,13 +507,6 @@ Support:
 		boolean
 		default: false
 		If true, the waypoint will be destroyed when triggered.
-		
-	continuous
-		boolean
-		default: true
-		If true, and multiple waypoints are triggered in one scroll, this waypoint will
-		trigger even if it is not the last waypoint reached.  If false, it will only
-		trigger if it is the last waypoint.
 	
 	An offset of 250 would trigger the waypoint when the top of the element is 250px
 	from the top of the viewport. Negative values for any offset work as you might
@@ -527,6 +540,16 @@ Support:
 	This is just a shortcut for calling .waypoint('destroy') within the waypoint
 	handler. This is useful in situations such as scroll analytics, where you only
 	want to record an event once for each page visit.
+	
+	The context option lets you use Waypoints within an element other than the window.
+	You can define the context with a selector string and the waypoint will act within
+	the nearest ancestor that matches this selector.
+	
+	$('.something-scrollable .waypoint').waypoint({
+	   context: '.something-scrollable'
+	});
+	
+	You can see this in action on the Dial Controls example.
 	*/
 	$.fn[wp].defaults = {
 		continuous: true,
@@ -560,7 +583,7 @@ Support:
 	resizeThrottle
 		number
 		default: 200
-		For performance reasons, the refresh performed during window resizes is
+		For performance reasons, the refresh performed during resizes is
 		throttled. This value is the rate-limit in milliseconds between resize
 		refreshes. For more information on throttling, check out Ben Alman’s
 		throttle / debounce plugin.
@@ -569,7 +592,7 @@ Support:
 	scrollThrottle
 		number
 		default: 100
-		For performance reasons, checking for any crossed waypoints during the window
+		For performance reasons, checking for any crossed waypoints during a
 		scroll event is throttled. This value is the rate-limit in milliseconds
 		between scroll checks. For more information on throttling, check out Ben
 		Alman’s throttle / debounce plugin.
@@ -580,7 +603,6 @@ Support:
 		scrollThrottle: 100
 	};
 	
-	/* Bind resize and scroll handlers */
 	$w.load(function() {
 		// Calculate everything once on load.
 		$[wps]('refresh');
