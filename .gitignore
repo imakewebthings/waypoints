@@ -1,0 +1,4 @@
+.DS_Store
+*.jar
+/style.scss
+*.gz
