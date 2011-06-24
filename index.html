@@ -187,16 +187,12 @@
 						<dd class="typeof">string (| element | jQuery object if jQuery 1.6+)</dd>
 						<dd class="default">default: window</dd>
 						<dd>The context defines which scrollable element the waypoint belongs to and acts within. The default, window, means the waypoint offset is calculated with relation to the whole viewport.  You can set this to another element to use the waypoints within that element.  Accepts a selector string, but if you use jQuery 1.6+ it also accepts a raw HTML element or jQuery object.</dd>
-					</dl>
-					
-					<dl>
+						
 						<dt>continuous</dt>
 						<dd class="typeof">boolean</dd>
 						<dd class="default">default: true</dd>
 						<dd>If true, and multiple waypoints are triggered in one scroll, this waypoint will trigger even if it is not the last waypoint reached.  If false, it will only trigger if it is the last waypoint.</dd>
-					</dl>
-					
-					<dl>
+						
 						<dt>offset</dt>
 						<dd class="typeof">number | string | function</dd>
 						<dd class="default">default: 0</dd>
@@ -276,11 +272,6 @@ console.<span class="fn">log</span>($.<span class="fn">waypoints</span>());</cod
 					<h3 id="waypoints-settings">$.waypoints.settings</h3>
 					<p>Settings object that determines some of the plugin&rsquo;s behavior.</p>
 					<dl>
-						<dt>continuous</dt>
-						<dd class="typeof">boolean</dd>
-						<dd class="default">default: true</dd>
-						<dd>Determines which waypoints to trigger events for if a single scroll change passes more than one waypoint.  If false, only the last waypoint is triggered and the rest are ignored.  If true, all waypoints between the previous scroll position and the new one are triggered in order.</dd>
-						
 						<dt>resizeThrottle</dt>
 						<dd class="typeof">number</dd>
 						<dd class="default">default: 200</dd>
