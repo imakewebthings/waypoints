@@ -183,5 +183,9 @@ li[data-value="#f56991"] {
 	border:1px solid #ccc;
 	margin:0 auto;
 	padding:10px;
+	-webkit-transition:all 500ms ease-in-out;
+	-moz-transition:all 500ms ease-in-out;
+	-ms-transition:all 500ms ease-in-out;
+	transition:all 500ms ease-in-out;
 }
 
