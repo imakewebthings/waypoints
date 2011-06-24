@@ -38,11 +38,11 @@
 				<p>Waypoints makes a solid base for modern UI patterns that depend on a user&rsquo;s scroll position on the page.  Take a look at a few <a href="#examples">examples</a>.</p>
 				
 				<div class="rcol">
-					<a href="https://github.com/imakewebthings/jquery-waypoints/zipball/v1.0.2" class="download">
+					<a href="https://github.com/imakewebthings/jquery-waypoints/zipball/v1.1" class="download">
 						Download
-						<span class="version">v1.0.2</span>
+						<span class="version">v1.1</span>
 					</a>
-					<p class="sizes">1.2kB min+gzip, 2.7kB minified, 15.4kB full source</p>
+					<p class="sizes">1.5kB min+gzip, 3.6kB minified, 18.9kB full source</p>
 					<div class="meta">
 						<p>Waypoints is dual licensed under the <a href="https://github.com/imakewebthings/jquery-waypoints/blob/master/MIT-license.txt">MIT</a> and <a href="https://github.com/imakewebthings/jquery-waypoints/blob/master/GPL-license.txt">GPL</a> licenses.  You can fork the project or report any issues in the <a href="https://github.com/imakewebthings/jquery-waypoints">GitHub repository</a>.</p>
 						<p>Waypoints has been tested with jQuery versions 1.4+ in IE6+, FF3+, Safari 4+, Chrome 6+, and Opera 11.</p>
@@ -75,6 +75,13 @@
 					<a href="./scroll-analytics">
 						<div class="icon">&#960;</div>
 						<h2>Scroll Analytics</h2>
+					</a>
+				</li>
+				
+				<li>
+					<a href="./dial-controls">
+						<div class="icon">ː</div>
+						<h2>Dial Controls</h2>
 					</a>
 				</li>
 			</ul>
@@ -174,6 +181,21 @@
 				<div class="signature">
 					<h3 id="waypoint-options">$.fn.waypoint.defaults</h3>
 					<p>The default options object that is extended when calling <code>.waypoint</code>.  It has the following properties:</p>
+					
+					<dl>
+						<dt>context</dt>
+						<dd class="typeof">string (| element | jQuery object if jQuery 1.6+)</dd>
+						<dd class="default">default: window</dd>
+						<dd>The context defines which scrollable element the waypoint belongs to and acts within. The default, window, means the waypoint offset is calculated with relation to the whole viewport.  You can set this to another element to use the waypoints within that element.  Accepts a selector string, but if you use jQuery 1.6+ it also accepts a raw HTML element or jQuery object.</dd>
+					</dl>
+					
+					<dl>
+						<dt>continuous</dt>
+						<dd class="typeof">boolean</dd>
+						<dd class="default">default: true</dd>
+						<dd>If true, and multiple waypoints are triggered in one scroll, this waypoint will trigger even if it is not the last waypoint reached.  If false, it will only trigger if it is the last waypoint.</dd>
+					</dl>
+					
 					<dl>
 						<dt>offset</dt>
 						<dd class="typeof">number | string | function</dd>
@@ -208,6 +230,14 @@
 				<p>You can see this alias in use on the <a href="./scroll-analytics/">scroll analytics</a> example page.</p>
 				
 				<p>The <code>triggerOnce</code> flag, if true, will destroy the waypoint after the first trigger.  This is just a shortcut for calling <a href="#waypoint-destroy">.waypoint('destroy')</a> within the waypoint handler.  This is useful in situations such as <a href="./scroll-analytics/">scroll analytics</a>, where you only want to record an event once for each page visit.</p>
+				
+				<p>The <code>context</code> option lets you use Waypoints within an element other than the window. You can define the context with a selector string and the waypoint will act within the nearest ancestor that matches this selector.</p>
+
+				<pre><code><span class="fn">$</span>(<span class="str">'.something-scrollable .waypoint'</span>).<span class="fn">waypoint</span>({
+   <span class="key">context</span>: <span class="str">'.something-scrollable'</span>
+});</code></pre>
+
+				You can see this in action on the <a href="./dial-controls/">dial controls</a> example.
 			</section>
 			
 			<section>
