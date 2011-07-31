@@ -32,7 +32,7 @@ Changelog:
 		- Initial release.
 	
 Support:
-	- jQuery versions 1.4+
+	- jQuery versions 1.4.3+
 	- IE6+, FF3+, Chrome 6+, Safari 4+, Opera 11
 	- Other versions and browsers may work, these are just the ones I've looked at.
 */
