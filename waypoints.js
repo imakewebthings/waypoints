@@ -298,7 +298,7 @@ Support:
 				if (ndx < 0) {
 					context.waypoints.push({
 						'element': $this,
-						'offset': $this.offset().top,
+						'offset': null,
 						'options': opts
 					});
 				}
@@ -400,10 +400,10 @@ Support:
 					An element offset change across the current scroll point triggers
 					the event, just as if we scrolled past it.
 					*/
-					if (c.oldScroll > oldOffset && c.oldScroll <= o.offset) {
+					if (oldOffset !== null && c.oldScroll > oldOffset && c.oldScroll <= o.offset) {
 						triggerWaypoint(o, ['up']);
 					}
-					else if (c.oldScroll < oldOffset && c.oldScroll >= o.offset) {
+					else if (oldOffset !== null && c.oldScroll < oldOffset && c.oldScroll >= o.offset) {
 						triggerWaypoint(o, ['down']);
 					}
 				});
