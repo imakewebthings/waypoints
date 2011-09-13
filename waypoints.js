@@ -398,8 +398,11 @@ Support:
 
 					/*
 					An element offset change across the current scroll point triggers
-					the event, just as if we scrolled past it.
+					the event, just as if we scrolled past it unless prevented by an
+					optional flag.
 					*/
+					if (o.options.onlyOnScrollby) return;
+					
 					if (oldOffset !== null && c.oldScroll > oldOffset && c.oldScroll <= o.offset) {
 						triggerWaypoint(o, ['up']);
 					}
