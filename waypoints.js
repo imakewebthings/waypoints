@@ -401,7 +401,7 @@ Support:
 					the event, just as if we scrolled past it unless prevented by an
 					optional flag.
 					*/
-					if (o.options.onlyOnScrollby) return;
+					if (o.options.onlyOnScroll) return;
 					
 					if (oldOffset !== null && c.oldScroll > oldOffset && c.oldScroll <= o.offset) {
 						triggerWaypoint(o, ['up']);
