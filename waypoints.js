@@ -1,5 +1,5 @@
 /*!
-jQuery Waypoints - v1.1
+jQuery Waypoints - v1.1.1
 Copyright (c) 2011 Caleb Troughton
 Dual licensed under the MIT license and GPL license.
 https://github.com/imakewebthings/jquery-waypoints/blob/master/MIT-license.txt
@@ -14,7 +14,14 @@ GitHub Repository: https://github.com/imakewebthings/jquery-waypoints
 Documentation and Examples: http://imakewebthings.github.com/jquery-waypoints
 
 Changelog:
-	v1.1.
+	v1.1.1
+		- Fixed bug in initialization where all offsets were being calculated
+		  as if set to 0 initially, causing unwarranted triggers during the
+		  subsequent refresh.
+		- Added onlyOnScroll, an option for individual waypoints that disables
+		  triggers due to an offset refresh that crosses the current scroll
+		  point. (All credit to @knuton on this one.)
+	v1.1
 		- Moved the continuous option out of global settings and into the options
 		  object for individual waypoints.
 		- Added the context option, which allows for using waypoints within any
