@@ -513,6 +513,12 @@ Support:
 		of pixels, a string representing a percentage of the viewport height, or a
 		function that will return a number of pixels.
 		
+	onlyOnScroll
+		boolean
+		default: false
+		If true, this waypoint will not trigger if an offset change during a refresh
+		causes it to pass the current scroll point.
+		
 	triggerOnce
 		boolean
 		default: false
