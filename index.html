@@ -40,9 +40,9 @@
 				<div class="rcol">
 					<a href="https://github.com/imakewebthings/jquery-waypoints/zipball/v1.1" class="download">
 						Download
-						<span class="version">v1.1</span>
+						<span class="version">v1.1.1</span>
 					</a>
-					<p class="sizes">1.5kB min+gzip, 3.6kB minified, 18.9kB full source</p>
+					<p class="sizes">1.5kB min+gzip, 3.7kB minified, 19.6kB full source</p>
 					<div class="meta">
 						<p>Waypoints is dual licensed under the <a href="https://github.com/imakewebthings/jquery-waypoints/blob/master/MIT-license.txt">MIT</a> and <a href="https://github.com/imakewebthings/jquery-waypoints/blob/master/GPL-license.txt">GPL</a> licenses.  You can fork the project or report any issues in the <a href="https://github.com/imakewebthings/jquery-waypoints">GitHub repository</a>.</p>
 						<p>Waypoints has been tested with jQuery versions 1.4.3+ in IE6+, FF3+, Safari 4+, Chrome 6+, and Opera 11.</p>
@@ -197,6 +197,13 @@
 						<dd class="typeof">number | string | function</dd>
 						<dd class="default">default: 0</dd>
 						<dd>Determines how far the top of the element must be from the top of the browser window to trigger a waypoint.  It can be a number, which is taken as a number of pixels, a string representing a percentage of the viewport height, or a function that will return a number of pixels.</dd>
+						
+						
+						<dt>onlyOnScroll</dt>
+						<dd class="typeof">boolean</dd>
+						<dd class="default">default: false</dd>
+						<dd>If true, this waypoint will not trigger if an offset change during a refresh causes it to pass the current scroll point.</dd>
+		
 						
 						<dt>triggerOnce</dt>
 						<dd class="typeof">boolean</dd>
