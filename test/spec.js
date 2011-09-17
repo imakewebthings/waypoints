@@ -462,6 +462,7 @@ describe('jQuery Waypoints', function() {
 		var currentDirection;
 		
 		beforeEach(function() {
+			currentDirection = void(0);
 			$e = $('#same1').waypoint(function(event, direction) {
 				currentDirection = direction;
 			});
@@ -482,6 +483,26 @@ describe('jQuery Waypoints', function() {
 				$e.css('top', $e.offset().top + 50 + 'px');
 				$.waypoints('refresh');
 				expect(currentDirection).toEqual('up');
+			});
+		});
+		
+		it('should not trigger waypoint.reached when refresh crosses current scroll if prevented by option', function() {
+			runs(function() {
+				$se.scrollTop($e.offset().top - 1);
+				$e = $('#same1').waypoint('destroy').waypoint(function(event, direction) {
+					currentDirection = direction;
+				}, {onlyOnScroll: true});
+			});
+			
+			waits(standardWait);
+			
+			runs(function() {
+				$e.css('top', ($e.offset().top - 50) + 'px');
+				$.waypoints('refresh');
+				expect(currentDirection).toEqual(undefined);
+				$e.css('top', $e.offset().top + 50 + 'px');
+				$.waypoints('refresh');
+				expect(currentDirection).toEqual(undefined);
 			});
 		});
 		
