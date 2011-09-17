@@ -485,6 +485,24 @@ describe('jQuery Waypoints', function() {
 			});
 		});
 		
+		it('should not trigger waypoint.reached when refresh crosses current scroll if prevented by option', function() {
+			runs(function() {
+				$se.scrollTop($e.offset().top - 1);
+				$e.waypoint({ onlyOnScroll:true });
+			});
+			
+			waits(standardWait);
+			
+			runs(function() {
+				$e.css('top', ($e.offset().top - 50) + 'px');
+				$.waypoints('refresh');
+				expect('waypoint.reached').not.toHaveBeenTriggeredOn($e);
+				$e.css('top', $e.offset().top + 50 + 'px');
+				$.waypoints('refresh');
+				expect('waypoint.reached').not.toHaveBeenTriggeredOn($e);
+			});
+		});
+		
 		it('should update the offset', function() {
 			runs(function() {
 				$se.scrollTop($e.offset().top - 51);

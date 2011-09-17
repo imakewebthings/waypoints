@@ -30,7 +30,13 @@ Unit tests for Waypoints are written with [Jasmine](http://pivotal.github.com/ja
 
 ## Changelog
 
+### v1.1.1
+
+- Fixed bug in initialization where all offsets were being calculated as if set to 0 initially, causing unwarranted triggers during the subsequent refresh.
+- Added `onlyOnScroll`, an option for individual waypoints that disables triggers due to an offset refresh that crosses the current scroll point. (All credit to [@knuton](https://github.com/knuton) on this one.)
+
 ### v1.1
+
 - Moved the continuous option out of global settings and into the options
   object for individual waypoints.
 - Added the context option, which allows for using waypoints within any
