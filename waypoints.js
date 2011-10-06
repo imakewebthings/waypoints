@@ -381,6 +381,10 @@ Support:
 				contextScroll = isWin ? 0 : c.element.scrollTop();
 				
 				$.each(c.waypoints, function(j, o) {
+				   /* $.each isn't safe from element removal due to triggerOnce.
+				   Should rewrite the loop but this is way easier. */
+				   if (!o) return;
+				   
 					// Adjustment is just the offset if it's a px value
 					var adjustment = o.options.offset,
 					oldOffset = o.offset;
