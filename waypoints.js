@@ -14,6 +14,9 @@ GitHub Repository: https://github.com/imakewebthings/jquery-waypoints
 Documentation and Examples: http://imakewebthings.github.com/jquery-waypoints
 
 Changelog:
+   v1.1.2
+      - Fixed error thrown by waypoints with triggerOnce option that were
+        triggered via resize refresh.
 	v1.1.1
 		- Fixed bug in initialization where all offsets were being calculated
 		  as if set to 0 initially, causing unwarranted triggers during the
