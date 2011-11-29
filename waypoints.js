@@ -92,13 +92,8 @@ Support:
 	*/
 	Context = function(context) {
 		$.extend(this, {
-			'element': $(context),
-			
-			/*
-			Starting at a ridiculous negative number allows for a 'down' trigger of 0 or
-			negative offset waypoints on load. Useful for setting initial states.
-			*/
-			'oldScroll': -99999,
+			element: $(context),
+			oldScroll: 0,
 			
 			/*
 			List of all elements that have been registered as waypoints.
@@ -421,6 +416,11 @@ Support:
 						triggerWaypoint(o, ['up']);
 					}
 					else if (oldOffset !== null && c.oldScroll < oldOffset && c.oldScroll >= o.offset) {
+						triggerWaypoint(o, ['down']);
+					}
+					/* For new waypoints added after load, check that down should have
+					already been triggered */
+					else if (!oldOffset && contextScroll > o.offset) {
 						triggerWaypoint(o, ['down']);
 					}
 				});
