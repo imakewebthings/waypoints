@@ -698,4 +698,22 @@ describe('jQuery Waypoints', function() {
 		hit = false;
 		waits(standardWait);
 	});
+	
+	describe('Waypoints added after load, Issue #28', function() {
+		$e = $('#pretop');
+		
+		it('should trigger down on new but already reached waypoints', function() {
+			spyOnEvent($e, 'waypoint.reached');
+		});
+		
+		runs(function() {
+			$e.waypoint();
+		});
+		
+		waits(standardWait);
+		
+		runs(function() {
+			expect('waypoint.reached').toHaveBeenTriggeredOn($e);
+		});
+	});
 });
