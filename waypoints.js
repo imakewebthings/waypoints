@@ -1,5 +1,5 @@
 /*!
-jQuery Waypoints - v1.1.1
+jQuery Waypoints - v1.1.3
 Copyright (c) 2011 Caleb Troughton
 Dual licensed under the MIT license and GPL license.
 https://github.com/imakewebthings/jquery-waypoints/blob/master/MIT-license.txt
@@ -14,6 +14,12 @@ GitHub Repository: https://github.com/imakewebthings/jquery-waypoints
 Documentation and Examples: http://imakewebthings.github.com/jquery-waypoints
 
 Changelog:
+	v1.1.3
+		- Fix cases where waypoints are added post-load and should be triggered
+		  immediately. (Issue #28)
+	v1.1.2
+		- Fixed error thrown by waypoints with triggerOnce option that were
+			triggered via resize refresh.
 	v1.1.1
 		- Fixed bug in initialization where all offsets were being calculated
 		  as if set to 0 initially, causing unwarranted triggers during the
@@ -89,13 +95,8 @@ Support:
 	*/
 	Context = function(context) {
 		$.extend(this, {
-			'element': $(context),
-			
-			/*
-			Starting at a ridiculous negative number allows for a 'down' trigger of 0 or
-			negative offset waypoints on load. Useful for setting initial states.
-			*/
-			'oldScroll': -99999,
+			element: $(context),
+			oldScroll: 0,
 			
 			/*
 			List of all elements that have been registered as waypoints.
@@ -418,6 +419,11 @@ Support:
 						triggerWaypoint(o, ['up']);
 					}
 					else if (oldOffset !== null && c.oldScroll < oldOffset && c.oldScroll >= o.offset) {
+						triggerWaypoint(o, ['down']);
+					}
+					/* For new waypoints added after load, check that down should have
+					already been triggered */
+					else if (!oldOffset && contextScroll > o.offset) {
 						triggerWaypoint(o, ['down']);
 					}
 				});

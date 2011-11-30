@@ -30,6 +30,14 @@ Unit tests for Waypoints are written with [Jasmine](http://pivotal.github.com/ja
 
 ## Changelog
 
+### v1.1.3
+
+- Fix cases where waypoints are added post-load and should be triggered immediately.
+	
+### v1.1.2
+
+- Fixed error thrown by waypoints with triggerOnce option that were triggered via resize refresh.
+
 ### v1.1.1
 
 - Fixed bug in initialization where all offsets were being calculated as if set to 0 initially, causing unwarranted triggers during the subsequent refresh.
