@@ -1,11 +1,14 @@
 jQuery(function($) {
 	// Register each section as a waypoint.
-	$('article > section').waypoint({ offset: '50%' });
+	$('article > section')
+		.waypoint({ offset: '50%' })
+		// Highlight the first one out the gate
+		.eq(0).addClass('section-active');
 	
 	// The same for all waypoints
 	$('body').delegate('article > section', 'waypoint.reached', function(event, direction) {
 		var $active = $(this);
-		
+
 		if (direction === "up") {
 			$active = $active.prev();
 		}
