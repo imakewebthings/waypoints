@@ -318,6 +318,10 @@ Support:
 				if (f) {
 					$this.bind(eventName, f);
 				}
+				// Bind the function in the handler option if it exists.
+				if (options && options.handler) {
+					$this.bind(eventName, options.handler);
+				}
 			});
 			
 			// Need to re-sort+refresh the waypoints array after new elements are added.
@@ -514,6 +518,12 @@ Support:
 		If true, and multiple waypoints are triggered in one scroll, this waypoint will
 		trigger even if it is not the last waypoint reached.  If false, it will only
 		trigger if it is the last waypoint.
+		
+	handler
+		function
+		default: undefined
+		An alternative way to bind functions to the waypoint, without using the function
+		as the first argument to the waypoint function.
 
 	offset
 		number | string | function
@@ -576,6 +586,22 @@ Support:
 	});
 	
 	You can see this in action on the Dial Controls example.
+	
+	The handler option gives authors an alternative way to bind functions when
+	creating a waypoint.  In place of:
+	
+	$('.item').waypoint(function(event, direction) {
+	   // make things happen
+	});
+	
+	You may instead write:
+	
+	$('.item').waypoint({
+	   handler: function(event, direction) {
+	      // make things happen
+	   }
+	});
+	
 	*/
 	$.fn[wp].defaults = {
 		continuous: true,
