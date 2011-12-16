@@ -313,6 +313,25 @@ describe('jQuery Waypoints', function() {
 				expect(hitcount).toEqual(3);
 			});
 		});
+		
+		it('should use the handler option if provided', function() {
+			var hitcount = 0;
+			
+			runs(function() {
+				$e.waypoint({
+					handler: function(e, dir) {
+						hitcount++;
+					}
+				});
+				$se.scrollTop($e.offset().top);
+			});
+			
+			waits(standardWait);
+			
+			runs(function() {
+				expect(hitcount).toEqual(1);
+			});
+		});
 	});
 	
 	describe('.waypoint(callback, options)', function() {
