@@ -232,7 +232,11 @@
 
 				<p>You can see this alias in use on the <a href="./scroll-analytics/">scroll analytics</a> example page.</p>
 				
+				<hr>
+				
 				<p>The <code>triggerOnce</code> flag, if true, will destroy the waypoint after the first trigger.  This is just a shortcut for calling <a href="#waypoint-destroy">.waypoint('destroy')</a> within the waypoint handler.  This is useful in situations such as <a href="./scroll-analytics/">scroll analytics</a>, where you only want to record an event once for each page visit.</p>
+				
+				<hr>
 				
 				<p>The <code>context</code> option lets you use Waypoints within an element other than the window. You can define the context with a selector string and the waypoint will act within the nearest ancestor that matches this selector.</p>
 
@@ -240,7 +244,23 @@
    <span class="key">context</span>: <span class="str">'.something-scrollable'</span>
 });</code></pre>
 
-				You can see this in action on the <a href="./dial-controls/">dial controls</a> example.
+				<p>You can see this in action on the <a href="./dial-controls/">dial controls</a> example.</p>
+				
+				<hr>
+				
+				<p>The <code>handler</code> option gives authors an alternative way to bind functions when creating a waypoint.  In place of:</p>
+
+				<pre><code><span class="fn">$</span>(<span class="str">'.item'</span>).<span class="fn">waypoint</span>(<span class="kw">function</span>(event, direction) {
+   <span class="comment">// make things happen</span>
+});</code></pre>
+
+				<p>You may instead write:</p>
+
+				<pre><code><span class="fn">$</span>(<span class="str">'.item'</span>).<span clas="fn">waypoint</span>({
+   <span class="key">handler</span>: <span class="kw">function</span>(event, direction) {
+      <span class="comment">// make things happen</span>
+   }
+});</code></pre>
 			</section>
 			
 			<section>

@@ -1,10 +1,4 @@
 jQuery(function($) {
-	// Register each section as a waypoint.
-	$('article > section')
-		.waypoint({ offset: '50%' })
-		// Highlight the first one out the gate
-		.eq(0).addClass('section-active');
-	
 	// The same for all waypoints
 	$('body').delegate('article > section', 'waypoint.reached', function(event, direction) {
 		var $active = $(this);
@@ -12,7 +6,7 @@ jQuery(function($) {
 		if (direction === "up") {
 			$active = $active.prev();
 		}
-		if (!$active.length) $active.end();
+		if (!$active.length) $active = $active.end();
 		
 		$('.section-active').removeClass('section-active');
 		$active.addClass('section-active');
@@ -21,10 +15,13 @@ jQuery(function($) {
 		$('a[href=#'+$active.attr('id')+']').addClass('link-active');
 	});
 	
+	// Register each section as a waypoint.
+	$('article > section').waypoint({ offset: '50%' });
+	
 	// Negates the flash of non-active nav.
 	$('body > header nav a').click(function() {
 		$(this).addClass('link-active');
-	}).eq(0).addClass('link-active');
+	});
 	
 	// Wicked credit to
 	// http://www.zachstronaut.com/posts/2009/01/18/jquery-smooth-scroll-bugs.html
