@@ -2,9 +2,11 @@
 
 Waypoints is a small jQuery plugin that makes it easy to execute a function whenever you scroll to an element.
 
-    $('.entry').waypoint(function() {
-       alert('You have scrolled to an entry.');
-    });
+```js
+$('.entry').waypoint(function() {
+  alert('You have scrolled to an entry.');
+});
+```
 
 [Read the full documentation](http://imakewebthings.github.com/jquery-waypoints/#documentation) for more details on usage and customization.
 
@@ -19,7 +21,7 @@ Waypoints can be used as a base for several common scroll-based UI patterns. Che
 
 ## License
 
-Copyright (c) 2011 Caleb Troughton
+Copyright (c) 2011-2012 Caleb Troughton
 Dual licensed under the [MIT license](https://github.com/imakewebthings/jquery-waypoints/blob/master/MIT-license.txt) and [GPL license](https://github.com/imakewebthings/jquery-waypoints/blob/master/GPL-license.txt).
 
 ## Support
@@ -30,6 +32,10 @@ Unit tests for Waypoints are written with [Jasmine](http://pivotal.github.com/ja
 
 ## Changelog
 
+### v1.1.4
+
+- Add handler option to give alternate binding method.
+  
 ### v1.1.3
 
 - Fix cases where waypoints are added post-load and should be triggered immediately.
