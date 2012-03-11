@@ -18,11 +18,6 @@ jQuery(function($) {
 	// Register each section as a waypoint.
 	$('article > section').waypoint({ offset: '50%' });
 	
-	// Negates the flash of non-active nav.
-	$('body > header nav a').click(function() {
-		$(this).addClass('link-active');
-	});
-	
 	// Wicked credit to
 	// http://www.zachstronaut.com/posts/2009/01/18/jquery-smooth-scroll-bugs.html
 	var scrollElement = 'html, body';
