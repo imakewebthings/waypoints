@@ -1,5 +1,5 @@
 /*!
-jQuery Waypoints - v1.1.4
+jQuery Waypoints - v1.1.5
 Copyright (c) 2011-2012 Caleb Troughton
 Dual licensed under the MIT license and GPL license.
 https://github.com/imakewebthings/jquery-waypoints/blob/master/MIT-license.txt
@@ -14,8 +14,10 @@ GitHub Repository: https://github.com/imakewebthings/jquery-waypoints
 Documentation and Examples: http://imakewebthings.github.com/jquery-waypoints
 
 Changelog:
+  v1.1.5
+  	- Make plugin compatible with Browserify/RequireJS. (Thanks @cjroebuck)
   v1.1.4
-    - Add handler option to give alternate binding method. (Issue #34)
+  	- Add handler option to give alternate binding method. (Issue #34)
 	v1.1.3
 		- Fix cases where waypoints are added post-load and should be triggered
 		  immediately. (Issue #28)
@@ -661,4 +663,4 @@ Support:
 		// Calculate everything once on load.
 		$[wps]('refresh');
 	});
-})(jQuery, 'waypoint', 'waypoints', this);
+})(jQuery, 'waypoint', 'waypoints', window);
