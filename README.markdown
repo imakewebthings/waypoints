@@ -34,7 +34,7 @@ Unit tests for Waypoints are written with [Jasmine](http://pivotal.github.com/ja
 
 ### v1.1.5
 
-- Make plugin compatible with Browserify/RequireJS. (Thanks @cjroebuck)
+- Make plugin compatible with Browserify/RequireJS. (Thanks [@cjroebuck](https://github.com/cjroebuck))
 
 ### v1.1.4
 
