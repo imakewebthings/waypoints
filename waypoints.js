@@ -1,5 +1,5 @@
 /*!
-jQuery Waypoints - v1.1.5
+jQuery Waypoints - v1.1.6
 Copyright (c) 2011-2012 Caleb Troughton
 Dual licensed under the MIT license and GPL license.
 https://github.com/imakewebthings/jquery-waypoints/blob/master/MIT-license.txt
@@ -14,10 +14,12 @@ GitHub Repository: https://github.com/imakewebthings/jquery-waypoints
 Documentation and Examples: http://imakewebthings.github.com/jquery-waypoints
 
 Changelog:
-  v1.1.5
-  	- Make plugin compatible with Browserify/RequireJS. (Thanks @cjroebuck)
-  v1.1.4
-  	- Add handler option to give alternate binding method. (Issue #34)
+	v1.1.6
+		- Fix potential memory leak by unbinding events on empty context elements.
+	v1.1.5
+		- Make plugin compatible with Browserify/RequireJS. (Thanks @cjroebuck)
+	v1.1.4
+		- Add handler option to give alternate binding method. (Issue #34)
 	v1.1.3
 		- Fix cases where waypoints are added post-load and should be triggered
 		  immediately. (Issue #28)
@@ -78,6 +80,7 @@ Support:
 	array.  Returns the index, or -1 if the element is not a waypoint.
 	*/
 	waypointIndex = function(el, context) {
+		if (!context) return -1;
 		var i = context.waypoints.length - 1;
 		while (i >= 0 && context.waypoints[i].element[0] !== el[0]) {
 			i -= 1;
@@ -157,7 +160,7 @@ Support:
 		});
 		
 		// Setup scroll and resize handlers.  Throttled at the settings-defined rate limits.
-		$(context).scroll($.proxy(function() {
+		$(context).bind('scroll.waypoints', $.proxy(function() {
 			if (!this.didScroll) {
 				this.didScroll = true;
 				window.setTimeout($.proxy(function() {
@@ -165,7 +168,7 @@ Support:
 					this.didScroll = false;
 				}, this), $[wps].settings.scrollThrottle);
 			}
-		}, this)).resize($.proxy(function() {
+		}, this)).bind('resize.waypoints', $.proxy(function() {
 			if (!this.didResize) {
 				this.didResize = true;
 				window.setTimeout($.proxy(function() {
@@ -352,6 +355,11 @@ Support:
 
 					if (ndx >= 0) {
 						c.waypoints.splice(ndx, 1);
+
+						if (!c.waypoints.length) {
+							c.element.unbind('scroll.waypoints resize.waypoints');
+							contexts.splice(i, 1);
+						}
 					}
 				});
 			});
@@ -390,10 +398,10 @@ Support:
 				contextScroll = isWin ? 0 : c.element.scrollTop();
 				
 				$.each(c.waypoints, function(j, o) {
-				   /* $.each isn't safe from element removal due to triggerOnce.
-				   Should rewrite the loop but this is way easier. */
-				   if (!o) return;
-				   
+					/* $.each isn't safe from element removal due to triggerOnce.
+					Should rewrite the loop but this is way easier. */
+					if (!o) return;
+
 					// Adjustment is just the offset if it's a px value
 					var adjustment = o.options.offset,
 					oldOffset = o.offset;
@@ -498,7 +506,7 @@ Support:
 			return methods.init.apply(this, [null, method]);
 		}
 		else {
-			$.error( 'Method ' +  method + ' does not exist on jQuery ' + wp );
+			$.error( 'Method ' + method + ' does not exist on jQuery ' + wp );
 		}
 	};
 	
