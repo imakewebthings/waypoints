@@ -32,6 +32,10 @@ Unit tests for Waypoints are written with [Jasmine](http://pivotal.github.com/ja
 
 ## Changelog
 
+### v1.1.6
+
+- Fix potential memory leak by unbinding events on empty context elements.
+
 ### v1.1.5
 
 - Make plugin compatible with Browserify/RequireJS. (Thanks [@cjroebuck](https://github.com/cjroebuck))
