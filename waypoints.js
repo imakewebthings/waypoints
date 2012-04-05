@@ -430,7 +430,7 @@ Support:
 					optional flag.
 					*/
 					if (o.options.onlyOnScroll) return;
-					
+
 					if (oldOffset !== null && c.oldScroll > oldOffset && c.oldScroll <= o.offset) {
 						triggerWaypoint(o, ['up']);
 					}
@@ -439,7 +439,7 @@ Support:
 					}
 					/* For new waypoints added after load, check that down should have
 					already been triggered */
-					else if (!oldOffset && contextScroll > o.offset) {
+					else if (!oldOffset && c.element.scrollTop() > o.offset) {
 						triggerWaypoint(o, ['down']);
 					}
 				});

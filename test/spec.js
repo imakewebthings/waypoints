@@ -711,19 +711,14 @@ describe('jQuery Waypoints', function() {
 		});
 	});
 	
-	afterEach(function() {
-		$.waypoints().waypoint('destroy');
-		$se.scrollTop(0);
-		hit = false;
-		waits(standardWait);
-	});
-	
-	describe('Waypoints added after load, Issue #28', function() {
+	describe('Waypoints added after load, Issue #28, 62, 63', function() {
 		it('should trigger down on new but already reached waypoints', function() {
 			runs(function() {
-				$e = $('#pretop');
-				spyOnEvent($e, 'waypoint.reached');
+				$e = $('#same2');
+				$se.scrollTop($e.offset().top + 1);
 			});
+
+			waits(standardWait);
 			
 			runs(function() {
 				$e.waypoint(function(e, dir) {
@@ -733,14 +728,16 @@ describe('jQuery Waypoints', function() {
 				});
 			});
 
-			waits(standardWait);
-
-			runs(function() {
-				expect('waypoint.reached').toHaveBeenTriggeredOn($e);
-				expect(hit).toBeTruthy();
-			});
+			waitsFor(function() {
+				return hit;
+			}, '#same2 to trigger', 1000);
 		});
-		
-		
+	});
+
+	afterEach(function() {
+		$.waypoints().waypoint('destroy');
+		$se.scrollTop(0);
+		hit = false;
+		waits(standardWait);
 	});
 });
