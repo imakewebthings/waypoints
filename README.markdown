@@ -32,6 +32,9 @@ Unit tests for Waypoints are written with [Jasmine](http://pivotal.github.com/ja
 
 ## Changelog
 
+### v1.1.7
+- Actually fix the post-load bug in Issue #28 from v1.1.3.
+
 ### v1.1.6
 
 - Fix potential memory leak by unbinding events on empty context elements.
