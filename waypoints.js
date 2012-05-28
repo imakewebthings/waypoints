@@ -1,5 +1,5 @@
 /*!
-jQuery Waypoints - v1.1.6
+jQuery Waypoints - v1.1.7
 Copyright (c) 2011-2012 Caleb Troughton
 Dual licensed under the MIT license and GPL license.
 https://github.com/imakewebthings/jquery-waypoints/blob/master/MIT-license.txt
@@ -14,6 +14,8 @@ GitHub Repository: https://github.com/imakewebthings/jquery-waypoints
 Documentation and Examples: http://imakewebthings.github.com/jquery-waypoints
 
 Changelog:
+	v1.1.7
+		- Actually fix the post-load bug in Issue #28 from v1.1.3.
 	v1.1.6
 		- Fix potential memory leak by unbinding events on empty context elements.
 	v1.1.5
@@ -25,7 +27,7 @@ Changelog:
 		  immediately. (Issue #28)
 	v1.1.2
 		- Fixed error thrown by waypoints with triggerOnce option that were
-			triggered via resize refresh.
+		  triggered via resize refresh.
 	v1.1.1
 		- Fixed bug in initialization where all offsets were being calculated
 		  as if set to 0 initially, causing unwarranted triggers during the
@@ -430,7 +432,7 @@ Support:
 					optional flag.
 					*/
 					if (o.options.onlyOnScroll) return;
-					
+
 					if (oldOffset !== null && c.oldScroll > oldOffset && c.oldScroll <= o.offset) {
 						triggerWaypoint(o, ['up']);
 					}
@@ -439,7 +441,7 @@ Support:
 					}
 					/* For new waypoints added after load, check that down should have
 					already been triggered */
-					else if (!oldOffset && contextScroll > o.offset) {
+					else if (!oldOffset && c.element.scrollTop() > o.offset) {
 						triggerWaypoint(o, ['down']);
 					}
 				});
