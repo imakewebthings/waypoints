@@ -128,6 +128,10 @@ Support:
 
 				// Get a list of all waypoints that were crossed since last scroll move.
 				pointsHit = $.grep(this.waypoints, function(el, i) {
+					// Firefox (Mac) often returns negative el.offset, if user scrolls to fast 
+					if(isDown && el.offset < 0) {
+						el.offset = 0;
+					}
 					return isDown ?
 						(el.offset > that.oldScroll && el.offset <= newScroll) :
 						(el.offset <= that.oldScroll && el.offset > newScroll);
