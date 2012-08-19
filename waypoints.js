@@ -406,7 +406,8 @@ Support:
 
 					// Adjustment is just the offset if it's a px value
 					var adjustment = o.options.offset,
-					oldOffset = o.offset;
+					oldOffset = o.offset,
+					elemOffset = $.isWindow(o.element[0]) ? 0 : o.element.offset().top;
 					
 					// Set adjustment to the return value if offset is a function.
 					if (typeof o.options.offset === "function") {
@@ -423,8 +424,7 @@ Support:
 					Set the element offset to the window scroll offset, less
 					all our adjustments.
 					*/
-					o.offset = o.element.offset().top - contextOffset
-						+ contextScroll - adjustment;
+					o.offset = elemOffset - contextOffset + contextScroll - adjustment;
 
 					/*
 					An element offset change across the current scroll point triggers
