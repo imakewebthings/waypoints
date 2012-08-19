@@ -324,13 +324,13 @@ describe 'jQuery Waypoints', ->
     
     it 'returns waypoint elements', ->
       $e = $('#same1').waypoint()
-      expect($.waypoints()[0].get()).toEqual $e.get();
+      expect($.waypoints()[0]).toEqual $e[0];
     
     it 'works with multiple waypoints', ->
       $e = $('.sameposition, #top').waypoint()
       $e = $e.add $('#near1').waypoint()
       expect($.waypoints().length).toEqual 4
-      expect($.waypoints()[0].get()).toEqual $('#top').get()
+      expect($.waypoints()[0]).toEqual $('#top')[0]
   
   describe 'jQuery#waypoints("refresh")', ->
     currentDirection = null
@@ -517,9 +517,42 @@ describe 'jQuery Waypoints', ->
 
       waitsFor (-> hit), '#same2 to trigger', 1000
 
+  describe 'Multiple waypoints on the same element', ->
+    hit2 = false
+
+    beforeEach ->
+      hit2 = false
+      $e = $('#same1').waypoint
+        handler: ->
+          hit = true
+      $e.waypoint
+        handler: ->
+          hit2 = true
+        offset: -50
+
+    it 'triggers all handlers', ->
+      runs ->
+        $se.scrollTop($e.offset().top + 50)
+      waits standardWait
+
+      runs ->
+        expect(hit and hit2).toBeTruthy()
+
+    it 'uses only one element in $.waypoints() array', ->
+      expect($.waypoints().length).toEqual 1
+
+    it 'disables all waypoints on the element when #disabled called', ->
+      runs ->
+        $e.waypoint 'disable'
+        $se.scrollTop($e.offset().top + 50)
+      waits standardWait
+
+      runs ->
+        expect(hit or hit2).toBeFalsy()
+
   afterEach ->
-    $.each $.waypoints(), (i, $el) ->
-      $el.waypoint 'destroy'
+    $.each $.waypoints(), (i, el) ->
+      $(el).waypoint 'destroy'
     $se.scrollTop 0
     hit = false
     waits standardWait

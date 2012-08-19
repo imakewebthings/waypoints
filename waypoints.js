@@ -184,7 +184,7 @@
       this.element = $element[0];
       this.options = options;
       this.offset = null;
-      this.f = options != null ? options.handler : void 0;
+      this.callback = options.handler;
       this.context = context;
       this.id = waypointCounter++;
       this.enabled = options.enabled;
@@ -200,8 +200,8 @@
       if (!this.enabled) {
         return;
       }
-      if (this.f != null) {
-        this.f.apply(this.element, args);
+      if (this.callback != null) {
+        this.callback.apply(this.element, args);
       }
       this.$element.trigger(waypointEvent, args);
       if (this.options.triggerOnce) {
@@ -268,7 +268,8 @@
         var waypoints;
         waypoints = getWaypointsByElement(this);
         return $.each(waypoints, function(i, waypoint) {
-          return waypoint[method]();
+          waypoint[method]();
+          return true;
         });
       });
       return this;
@@ -318,9 +319,10 @@
       waypoints.sort(function(a, b) {
         return a.offset - b.offset;
       });
-      return $.map(waypoints, function(waypoint) {
-        return waypoint.$element;
+      waypoints = $.map(waypoints, function(waypoint) {
+        return waypoint.element;
       });
+      return $.unique(waypoints);
     }
   };
 

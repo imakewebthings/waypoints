@@ -142,7 +142,7 @@ class Waypoint
     @element = $element[0]
     @options = options
     @offset = null
-    @f = options?.handler
+    @callback = options.handler
     @context = context
     @id = waypointCounter++
     @enabled = options.enabled
@@ -156,8 +156,8 @@ class Waypoint
   
   trigger: (args) ->
     return unless @enabled
-    if @f?
-      @f.apply @element, args
+    if @callback?
+      @callback.apply @element, args
     @$element.trigger waypointEvent, args
     if @options.triggerOnce
       @destroy()
@@ -207,7 +207,9 @@ methods =
   _invoke: ($elements, method) ->
     $elements.each ->
       waypoints = getWaypointsByElement this
-      $.each waypoints, (i, waypoint) -> waypoint[method]()
+      $.each waypoints, (i, waypoint) ->
+        waypoint[method]()
+        true
     this
 
 
@@ -254,7 +256,9 @@ jQMethods =
     $.each contexts, (i, context) ->
       $.each context.waypoints, (j, waypoint) -> waypoints.push waypoint
     waypoints.sort (a, b) -> a.offset - b.offset
-    $.map waypoints, (waypoint) -> waypoint.$element
+    waypoints = $.map waypoints, (waypoint) -> waypoint.element
+    $.unique waypoints
+
 
 
 
