@@ -121,20 +121,19 @@
 	</footer>
 </div>
 
-<script src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.4.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
 <script src="../../waypoints.js"></script>
 
 <script type="text/javascript">
 $(document).ready(function() {
 	$('.top').addClass('hidden');
 	$.waypoints.settings.scrollThrottle = 30;
-	$('#wrapper').waypoint(function(event, direction) {
+	$('#wrapper').waypoint(function(direction) {
 		$('.top').toggleClass('hidden', direction === "up");
 	}, {
 		offset: '-100%'
-	}).find('#main-nav-holder').waypoint(function(event, direction) {
+	}).find('#main-nav-holder').waypoint(function(direction) {
 		$(this).parent().toggleClass('sticky', direction === "down");
-		event.stopPropagation();
 	});
 });
 </script>

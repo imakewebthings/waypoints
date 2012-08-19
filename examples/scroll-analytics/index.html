@@ -80,7 +80,7 @@
 	</aside>
 </div>
 
-<script src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.4.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
 <script src="../../waypoints.js"></script>
 
 <script type="text/javascript">
@@ -107,19 +107,18 @@ $(document).ready(function() {
 		});
 	}
 	
-	$('.ad-unit').waypoint(function(event) {
+	$('.ad-unit').waypoint(function() {
 		recordAdEvent($(this).data('analyticsid'));
-		event.stopPropagation();
 	}, {
 		triggerOnce: true,
 		offset: 'bottom-in-view'
 	});
 	
-	$('article').waypoint(function(event, direction) {
+	$('article').waypoint(function(direction) {
 		$('#article-finished').toggleClass('hiding', direction === "up");
 	}, {
 		offset: function() {
-			return $.waypoints('viewportHeight') - $(this).height();
+			return $.waypoints('viewportHeight') - $(this).height() + 100;
 		}
 	});
 });

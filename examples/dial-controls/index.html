@@ -69,12 +69,12 @@
 
 <div id="main">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur blandit ultrices rutrum. Cras dignissim purus non purus mattis nec lobortis enim dignissim. Nulla a urna est. Proin volutpat odio id velit tempor sollicitudin. Aliquam lobortis nunc gravida orci fringilla in commodo lectus gravida. In hac habitasse platea dictumst. Maecenas tincidunt pulvinar blandit. Suspendisse a diam ligula. Mauris non tellus nisl, in interdum elit. Etiam rhoncus cursus lectus vel venenatis. Nulla facilisi. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Integer eleifend imperdiet lectus vitae aliquet. Mauris metus lorem, fermentum vitae malesuada quis, pretium id mi.</div>
 
-<script src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.4.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
 <script src="../../waypoints.js"></script>
 
 <script type="text/javascript">
 $(function() {
-	$('.dial li').waypoint(function(e, direction) {
+	$('.dial li').waypoint(function(direction) {
 		var $active = $(this);
 
 		if (direction === "up") {

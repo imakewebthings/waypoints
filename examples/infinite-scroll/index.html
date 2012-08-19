@@ -56,28 +56,25 @@
 	</footer>
 </div>
 
-<script src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.4.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
 <script src="../../waypoints.js"></script>
 
 <script type="text/javascript">
 $(document).ready(function() {
-	var $loading = $("<div class='loading'><p>Loading more items&hellip;</p></div>"),
-	$footer = $('footer'),
-	opts = {
-		offset: '100%'
-	};
+	var $loading = $("<div class='loading'><p>Loading more items&hellip;</p></div>");
+	var $footer = $('footer');
 	
-	$footer.waypoint(function(event, direction) {
-		$footer.waypoint('remove');
+	$footer.waypoint(function(direction) {
+		$footer.waypoint('disable');
 		$('body').append($loading);
 		$.get($('.more a').attr('href'), function(data) {
 			var $data = $(data);
 			$('#container').append($data.find('.article'));
 			$loading.detach();
 			$('.more').replaceWith($data.find('.more'));
-			$footer.waypoint(opts);
+			$footer.waypoint('enable');
 		});
-	}, opts);
+	}, { offset: '100%' });
 });
 </script>
 
