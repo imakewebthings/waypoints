@@ -734,6 +734,35 @@ describe('jQuery Waypoints', function() {
 		});
 	});
 
+	describe('Waypoints attached to window object, pull request 86', function() {
+		var $win = $(window);
+
+		beforeEach(function() {
+			$e = $win.waypoint({
+				offset: function() {
+					return - $win.height();
+				}
+			});
+			spyOnEvent($e, 'waypoint.reached');
+			$e.bind('waypoint.reached', function() {
+				hit = true;
+			});
+		});
+
+		it('should work just fine', function() {
+			runs(function() {
+				$win.scrollTop($win.height() + 1);
+			});
+
+			waits(standardWait);
+
+			runs(function() {
+				expect('waypoint.reached').toHaveBeenTriggeredOn($e);
+				expect(hit).toEqual(true);
+			});
+		});
+	});
+
 	afterEach(function() {
 		$.waypoints().waypoint('destroy');
 		$se.scrollTop(0);
