@@ -69,12 +69,12 @@ describe 'jQuery Waypoints', ->
       waits standardWait
 
       runs ->
-        expect(currentDirection).toEqual 'down'
+        expect(currentDirection.down).toBeTruthy()
         $se.scrollTop($e.offset().top - 1)
       waits standardWait
 
       runs ->
-        expect(currentDirection).toEqual 'up'
+        expect(currentDirection.up).toBeTruthy()
 
   
   
@@ -349,10 +349,12 @@ describe 'jQuery Waypoints', ->
       runs ->
         $e.css('top', ($e.offset().top - 50) + 'px')
         $.waypoints 'refresh'
-        expect(currentDirection).toEqual 'down'
+        expect(currentDirection.down).toBeTruthy()
+        expect(currentDirection.up).toBeFalsy()
         $e.css('top', $e.offset().top + 50 + 'px')
         $.waypoints 'refresh'
-        expect(currentDirection).toEqual 'up'
+        expect(currentDirection.down).toBeFalsy()
+        expect(currentDirection.up).toBeTruthy()
     
     it 'does not trigger waypoint.reached if onlyOnScroll true', ->
       $f = null
@@ -387,14 +389,14 @@ describe 'jQuery Waypoints', ->
       runs ->
         expect('waypoint.reached').toHaveBeenTriggeredOn $e
   
-  describe '$.waypoints("viewportHeight")', ->
+  describe 'jQuery#waypoints("viewportHeight")', ->
     it 'returns window innerheight if it exists', ->
       if window.innerHeight
         expect($.waypoints 'viewportHeight').toEqual window.innerHeight
       else
         expect($.waypoints 'viewportHeight').toEqual $(window).height()
   
-  describe '$.waypoints.settings', ->
+  describe 'jQuery#waypoints.settings', ->
     count = curID = null
     
     beforeEach ->
@@ -512,7 +514,7 @@ describe 'jQuery Waypoints', ->
       
       runs ->
         $e.waypoint (direction) ->
-          if direction is 'down'
+          if direction.down
             hit = true
 
       waitsFor (-> hit), '#same2 to trigger', 1000
@@ -549,6 +551,8 @@ describe 'jQuery Waypoints', ->
 
       runs ->
         expect(hit or hit2).toBeFalsy()
+
+
 
   afterEach ->
     $.each $.waypoints(), (i, el) ->

@@ -13,12 +13,10 @@ wp = 'waypoint'
 wps = 'waypoints'
 window.contexts = contexts
 
-
 getWaypointsByElement = (element) ->
   ids = $(element).data waypointKey
   $.map ids, (id) ->
     allWaypoints[id]
-
 
 class Context
   constructor: ($element) ->
@@ -31,7 +29,6 @@ class Context
     @waypoints = {}
     
     $element.data contextKey, @id
-
     contexts[@id] = this
 
     $element.bind scrollEvent, =>
@@ -75,9 +72,13 @@ class Context
     waypointsHit.sort (a, b) -> a.offset - b.offset
     waypointsHit.reverse() unless isDown
 
+    direction =
+      down: isDown
+      up: !isDown
+
     $.each waypointsHit, (i, waypoint) =>
       if waypoint.options.continuous or i is length - 1
-        waypoint.trigger [if isDown then 'down' else 'up']
+        waypoint.trigger [direction]
 
   refresh: (waypoints) ->
     isWin = $.isWindow @element
@@ -108,25 +109,15 @@ class Context
       return if waypoint.options.onlyOnScroll or !waypoint.enabled
 
       if oldOffset isnt null && oldOffset < @oldScroll <= waypoint.offset
-        waypoint.trigger ['up']
+        waypoint.trigger [{ down: false, up: true }]
       else if oldOffset isnt null && oldOffset > @oldScroll >= waypoint.offset
-        waypoint.trigger ['down']
+        waypoint.trigger [{ down: true, up: false }]
       else if oldOffset is null && @$element.scrollTop() > waypoint.offset
-        waypoint.trigger ['down']
-
-
+        waypoint.trigger [{ down: true, up: false }]
 
   checkEmpty: ->
     if $.isEmptyObject @waypoints
       delete contexts[@id]
-
-
-
-
-
-
-
-
 
 class Waypoint
   constructor: ($element, context, options) ->
@@ -174,14 +165,6 @@ class Waypoint
     delete @context.waypoints[@id]
     @context.checkEmpty()
 
-
-
-
-
-
-
-
-
 methods =
   init: (f, options) ->
     options ?= {}
@@ -212,8 +195,6 @@ methods =
         true
     this
 
-
-
 $.fn[wp] = (method, args...) ->
   if methods[method]
     methods[method].apply this, args
@@ -224,25 +205,12 @@ $.fn[wp] = (method, args...) ->
   else
     $.error "The #{method} method does not exist in jQuery Waypoints."
 
-
 $.fn[wp].defaults =
   continuous: true
   offset: 0
   triggerOnce: false
   context: window
   enabled: true
-
-
-
-
-
-
-
-
-
-
-
-
 
 jQMethods =
   refresh: ->
@@ -258,12 +226,6 @@ jQMethods =
     waypoints.sort (a, b) -> a.offset - b.offset
     waypoints = $.map waypoints, (waypoint) -> waypoint.element
     $.unique waypoints
-
-
-
-
-
-
 
 $[wps] = (method) ->
   if jQMethods[method]

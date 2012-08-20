@@ -77,7 +77,7 @@
     }
 
     Context.prototype.doScroll = function() {
-      var isDown, length, newScroll, waypointsHit,
+      var direction, isDown, length, newScroll, waypointsHit,
         _this = this;
       newScroll = this.$element.scrollTop();
       isDown = newScroll > this.oldScroll;
@@ -108,9 +108,13 @@
       if (!isDown) {
         waypointsHit.reverse();
       }
+      direction = {
+        down: isDown,
+        up: !isDown
+      };
       return $.each(waypointsHit, function(i, waypoint) {
         if (waypoint.options.continuous || i === length - 1) {
-          return waypoint.trigger([isDown ? 'down' : 'up']);
+          return waypoint.trigger([direction]);
         }
       });
     };
@@ -146,11 +150,26 @@
           return;
         }
         if (oldOffset !== null && (oldOffset < (_ref = _this.oldScroll) && _ref <= waypoint.offset)) {
-          return waypoint.trigger(['up']);
+          return waypoint.trigger([
+            {
+              down: false,
+              up: true
+            }
+          ]);
         } else if (oldOffset !== null && (oldOffset > (_ref1 = _this.oldScroll) && _ref1 >= waypoint.offset)) {
-          return waypoint.trigger(['down']);
+          return waypoint.trigger([
+            {
+              down: true,
+              up: false
+            }
+          ]);
         } else if (oldOffset === null && _this.$element.scrollTop() > waypoint.offset) {
-          return waypoint.trigger(['down']);
+          return waypoint.trigger([
+            {
+              down: true,
+              up: false
+            }
+          ]);
         }
       });
     };
