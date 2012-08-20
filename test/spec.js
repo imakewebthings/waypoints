@@ -734,15 +734,15 @@ describe('jQuery Waypoints', function() {
 		});
 	});
 
-    describe('Waypoints attached to window object, pull request 86', function() {
-        var $win = $(window);
+	describe('Waypoints attached to window object, pull request 86', function() {
+		var $win = $(window);
 
 		beforeEach(function() {
 			$e = $win.waypoint({
-                offset: function() {
-                    return - $win.height();
-                }
-            });
+				offset: function() {
+					return - $win.height();
+				}
+			});
 			spyOnEvent($e, 'waypoint.reached');
 			$e.bind('waypoint.reached', function() {
 				hit = true;
@@ -751,7 +751,7 @@ describe('jQuery Waypoints', function() {
 
 		it('should work just fine', function() {
 			runs(function() {
-                $win.scrollTop($win.height() + 1);
+				$win.scrollTop($win.height() + 1);
 			});
 
 			waits(standardWait);
@@ -761,7 +761,7 @@ describe('jQuery Waypoints', function() {
 				expect(hit).toEqual(true);
 			});
 		});
-    });
+	});
 
 	afterEach(function() {
 		$.waypoints().waypoint('destroy');
