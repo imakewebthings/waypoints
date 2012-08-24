@@ -1,6 +1,8 @@
 $ = window.jQuery
-$w = $(window)
-allWaypoints = {}
+$w = $ window
+allWaypoints = 
+  horizontal: {}
+  vertical: {}
 contextCounter = 1
 contexts = {}
 contextKey = 'waypoints-context-id'
@@ -13,20 +15,19 @@ wp = 'waypoint'
 wps = 'waypoints'
 window.contexts = contexts
 
-getWaypointsByElement = (element) ->
-  ids = $(element).data waypointKey
-  $.map ids, (id) ->
-    allWaypoints[id]
-
 class Context
   constructor: ($element) ->
     @$element = $element
     @element = $element[0]
     @didResize = no
     @didScroll = no
-    @id = contextCounter++
-    @oldScroll = 0
-    @waypoints = {}
+    @id = 'context' + contextCounter++
+    @oldScroll =
+      x: $element.scrollLeft()
+      y: $element.scrollTop()
+    @waypoints =
+      vertical: {}
+      horizontal: {}
     
     $element.data contextKey, @id
     contexts[@id] = this
@@ -48,76 +49,96 @@ class Context
         window.setTimeout resizeHandler, $[wps].settings.resizeThrottle
 
   doScroll: ->
-    newScroll = @$element.scrollTop()
-    isDown = newScroll > @oldScroll
-    waypointsHit = []
+    axes =
+      horizontal:
+        newScroll: @$element.scrollLeft()
+        oldScroll: @oldScroll.x
+        forward: 'right'
+        backward: 'left'
+      vertical:
+        newScroll: @$element.scrollTop()
+        oldScroll: @oldScroll.y
+        forward: 'down'
+        backward: 'up'
 
-    $.each @waypoints, (key, waypoint) =>
-      if isDown
-        hit = @oldScroll < waypoint.offset <= newScroll
-      else
-        hit = newScroll < waypoint.offset <= @oldScroll
-      if hit
-        waypointsHit.push waypoint
-      true
+    if 'ontouchstart' in window \
+      and (!axes.vertical.oldScroll or !axes.vertical.newScroll)
+        $[wps] 'refresh'
 
-    length = waypointsHit.length
+    $.each axes, (aKey, axis) =>
+      triggered = []
+      isForward = axis.newScroll > axis.oldScroll
+      direction = if isForward then axis.forward else axis.backward
+      $.each @waypoints[aKey], (wKey, waypoint) ->
+        if axis.oldScroll < waypoint.offset <= axis.newScroll
+          triggered.push waypoint
+        else if axis.newScroll < waypoint.offset <= axis.oldScroll
+          triggered.push waypoint
+      triggered.sort (a, b) -> a.offset - b.offset
+      triggered.reverse() unless isForward
+      $.each triggered, (i, waypoint) ->
+        if waypoint.options.continuous or i is triggered.length - 1
+          waypoint.trigger [direction]
 
-    $[wps] 'refresh' unless @oldScroll && newScroll
+    @oldScroll =
+      x: axes.horizontal.newScroll
+      y: axes.vertical.newScroll
 
-    @oldScroll = newScroll
-
-    return unless length
-
-    waypointsHit.sort (a, b) -> a.offset - b.offset
-    waypointsHit.reverse() unless isDown
-
-    direction =
-      down: isDown
-      up: !isDown
-
-    $.each waypointsHit, (i, waypoint) =>
-      if waypoint.options.continuous or i is length - 1
-        waypoint.trigger [direction]
-
-  refresh: (waypoints) ->
+  refresh: () ->
     isWin = $.isWindow @element
-    contextOffset = contextScroll = 0
-    contextHeight = $[wps] 'viewportHeight'
-    unless isWin
-      contextOffset = @$element.offset().top
-      contextHeight = @$element.height()
-      contextScroll = @$element.scrollTop()
-    waypoints ?= @waypoints
+    cOffset = @$element.offset()
+    axes =
+      horizontal:
+        contextOffset: if isWin then 0 else cOffset.left
+        contextScroll: if isWin then 0 else @oldScroll.x
+        contextDimension: @$element.width()
+        oldScroll: @oldScroll.x
+        forward: 'right'
+        backward: 'left'
+      vertical:
+        contextOffset: if isWin then 0 else cOffset.top
+        contextScroll: if isWin then 0 else @oldScroll.y
+        contextDimension: if isWin then $[wps]('viewportHeight') else \
+          @$element.height()
+        oldScroll: @oldScroll.y
+        forward: 'down'
+        backward: 'up'
 
-    $.each waypoints, (i, waypoint) =>
-      adjustment = waypoint.options.offset
-      oldOffset = waypoint.offset
+    $.each axes, (aKey, axis) =>
+      $.each @waypoints[aKey], (i, waypoint) ->
+        adjustment = waypoint.options.offset
+        oldOffset = waypoint.offset
 
-      if $.isFunction waypoint.options.offset
-        adjustment = waypoint.options.offset.apply waypoint.element
-      else if typeof waypoint.options.offset is 'string'
-        adjustment = parseFloat waypoint.options.offset
-        if waypoint.options.offset.indexOf '%'
-          adjustment = Math.ceil(contextHeight * adjustment / 100)
+        if $.isFunction adjustment
+          adjustment = adjustment.apply waypoint.element
+        else if typeof adjustment is 'string'
+          adjustment = parseFloat adjustment
+          if waypoint.options.offset.indexOf '%'
+            adjustment = Math.ceil(axis.contextDimension * adjustment / 100)
 
-      waypoint.offset = waypoint.$element.offset().top \
-                        - contextOffset \
-                        + contextScroll \
+        waypoint.offset = waypoint.$element.offset().top \
+                        - axis.contextOffset \
+                        + axis.contextScroll \
                         - adjustment
 
-      return if waypoint.options.onlyOnScroll or !waypoint.enabled
+        return if waypoint.options.onlyOnScroll or !waypoint.enabled
+        
+        if @$element.data 'flag'
+          console.log oldOffset, axis, waypoint
 
-      if oldOffset isnt null && oldOffset < @oldScroll <= waypoint.offset
-        waypoint.trigger [{ down: false, up: true }]
-      else if oldOffset isnt null && oldOffset > @oldScroll >= waypoint.offset
-        waypoint.trigger [{ down: true, up: false }]
-      else if oldOffset is null && @$element.scrollTop() > waypoint.offset
-        waypoint.trigger [{ down: true, up: false }]
+        if oldOffset isnt null and \
+          oldOffset < axis.oldScroll <= waypoint.offset
+            waypoint.trigger [axis.backward]
+        else if oldOffset isnt null and \
+          oldOffset > axis.oldScroll >= waypoint.offset
+            waypoint.trigger [axis.forward]
+        else if oldOffset is null and axis.oldScroll > waypoint.offset
+          waypoint.trigger [axis.forward]
 
   checkEmpty: ->
-    if $.isEmptyObject @waypoints
-      delete contexts[@id]
+    if $.isEmptyObject @waypoints.horizontal and \
+      $.isEmptyObject @waypoints.vertical
+        delete contexts[@id]
 
 class Waypoint
   constructor: ($element, context, options) ->
@@ -131,15 +152,16 @@ class Waypoint
 
     @$element = $element
     @element = $element[0]
-    @options = options
-    @offset = null
+    @axis = if options.horizontal then 'horizontal' else 'vertical'
     @callback = options.handler
     @context = context
-    @id = waypointCounter++
     @enabled = options.enabled
+    @id = 'waypoints' + waypointCounter++
+    @offset = null
+    @options = options
 
-    context.waypoints[@id] = this
-    allWaypoints[@id] = this
+    context.waypoints[@axis][@id] = this
+    allWaypoints[@axis][@id] = this
     idList = $element.data(waypointKey) ? []
     idList.push @id
     $element.data waypointKey, idList
@@ -161,9 +183,16 @@ class Waypoint
     @enabled = true
 
   destroy: ->
-    delete allWaypoints[@id]
-    delete @context.waypoints[@id]
+    delete allWaypoints[@axis][@id]
+    delete @context.waypoints[@axis][@id]
     @context.checkEmpty()
+
+  @getWaypointsByElement: (element) ->
+    ids = $(element).data waypointKey
+    return [] unless ids
+    all = $.extend {}, allWaypoints.horizontal, allWaypoints.vertical
+    $.map ids, (id) ->
+      all[id]
 
 methods =
   init: (f, options) ->
@@ -173,7 +202,6 @@ methods =
     @each ->
       $this = $ this
       contextElement = options.context ? $.fn[wp].defaults.context
-
       unless $.isWindow contextElement
         contextElement = $this.closest contextElement
       contextElement = $ contextElement
@@ -189,7 +217,7 @@ methods =
 
   _invoke: ($elements, method) ->
     $elements.each ->
-      waypoints = getWaypointsByElement this
+      waypoints = Waypoint.getWaypointsByElement this
       $.each waypoints, (i, waypoint) ->
         waypoint[method]()
         true
@@ -206,11 +234,13 @@ $.fn[wp] = (method, args...) ->
     $.error "The #{method} method does not exist in jQuery Waypoints."
 
 $.fn[wp].defaults =
+  context: window
   continuous: true
+  enabled: true
+  horizontal: false
   offset: 0
   triggerOnce: false
-  context: window
-  enabled: true
+  
 
 jQMethods =
   refresh: ->
@@ -220,18 +250,19 @@ jQMethods =
     window.innerHeight ? $w.height()
 
   aggregate: ->
-    waypoints = []
-    $.each contexts, (i, context) ->
-      $.each context.waypoints, (j, waypoint) -> waypoints.push waypoint
-    waypoints.sort (a, b) -> a.offset - b.offset
-    waypoints = $.map waypoints, (waypoint) -> waypoint.element
-    $.unique waypoints
+    waypoints =
+      horizontal: []
+      vertical: []
+    $.each waypoints, (axis, arr) ->
+      $.each allWaypoints[axis], (key, waypoint) ->
+        arr.push waypoint
+      arr.sort (a, b) -> a.offset - b.offset
+      waypoints[axis] = $.map arr, (waypoint) -> waypoint.element
+      waypoints[axis] = $.unique waypoints[axis]
+    waypoints
 
 $[wps] = (method) ->
-  if jQMethods[method]
-    jQMethods[method]()
-  else
-    jQMethods.aggregate()
+  if jQMethods[method] then jQMethods[method]() else jQMethods.aggregate()
 
 $[wps].settings =
   resizeThrottle: 200
