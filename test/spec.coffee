@@ -334,6 +334,61 @@ describe 'jQuery Waypoints', ->
       $e = $e.add $('#near1').waypoint()
       expect($.waypoints().vertical.length).toEqual 4
       expect($.waypoints().vertical[0]).toEqual $('#top')[0]
+
+    it 'returns horizontal elements', ->
+      $e = $('#same1').waypoint
+        horizontal: true
+      expect($.waypoints().horizontal[0]).toEqual $e[0]
+
+    describe 'Directional filters', ->
+      $f = null
+
+      beforeEach ->
+        $e = $ '#same1'
+        $f = $ '#near1'
+
+      describe 'above', ->
+        it 'returns waypoints only above the current scroll position', ->
+          runs ->
+            $e.add($f).waypoint()
+            $se.scrollTop 1500
+          waits standardWait
+
+          runs ->
+            expect($.waypoints('above')).toEqual [$e[0]]
+
+      describe 'below', ->
+        it 'returns waypoints only below the current scroll position', ->
+          runs ->
+            $e.add($f).waypoint()
+            $se.scrollTop 1500
+          waits standardWait
+
+          runs ->
+            expect($.waypoints('below')).toEqual [$f[0]]
+
+      describe 'left', ->
+        it 'returns waypoints only left of the current scroll position', ->
+          runs ->
+            $e.add($f).waypoint
+              horizontal: true
+            $se.scrollLeft 1500
+          waits standardWait
+
+          runs ->
+            expect($.waypoints('left')).toEqual [$e[0]]
+
+      describe 'right', ->
+        it 'returns waypoints only right of the current scroll position', ->
+          runs ->
+            $e.add($f).waypoint
+              horizontal: true
+            $se.scrollLeft 1500
+          waits standardWait
+
+          runs ->
+            expect($.waypoints('right')).toEqual [$f[0]]
+
   
   describe 'jQuery#waypoints("refresh")', ->
     currentDirection = null

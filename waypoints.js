@@ -372,6 +372,57 @@
         return waypoints[axis] = $.unique(waypoints[axis]);
       });
       return waypoints;
+    },
+    _filter: function(selector, axis, test) {
+      var context, waypoints;
+      context = contexts[$(selector).data(contextKey)];
+      if (!context) {
+        console.log($(selector)["return"]([]));
+      }
+      waypoints = [];
+      $.each(context.waypoints[axis], function(i, waypoint) {
+        if (test(context, waypoint)) {
+          return waypoints.push(waypoint);
+        }
+      });
+      waypoints.sort(function(a, b) {
+        return a.offset - b.offset;
+      });
+      return $.map(waypoints, function(waypoint) {
+        return waypoint.element;
+      });
+    },
+    above: function(contextSelector) {
+      if (contextSelector == null) {
+        contextSelector = window;
+      }
+      return jQMethods._filter(contextSelector, 'vertical', function(context, waypoint) {
+        return waypoint.offset < context.oldScroll.y;
+      });
+    },
+    below: function(contextSelector) {
+      if (contextSelector == null) {
+        contextSelector = window;
+      }
+      return jQMethods._filter(contextSelector, 'vertical', function(context, waypoint) {
+        return waypoint.offset >= context.oldScroll.y;
+      });
+    },
+    left: function(contextSelector) {
+      if (contextSelector == null) {
+        contextSelector = window;
+      }
+      return jQMethods._filter(contextSelector, 'horizontal', function(context, waypoint) {
+        return waypoint.offset < context.oldScroll.x;
+      });
+    },
+    right: function(contextSelector) {
+      if (contextSelector == null) {
+        contextSelector = window;
+      }
+      return jQMethods._filter(contextSelector, 'horizontal', function(context, waypoint) {
+        return waypoint.offset >= context.oldScroll.x;
+      });
     }
   };
 

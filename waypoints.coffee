@@ -265,6 +265,33 @@ jQMethods =
       waypoints[axis] = $.unique waypoints[axis]
     waypoints
 
+  _filter: (selector, axis, test) ->
+    context = contexts[$(selector).data contextKey]
+    console.log $(selector).
+    return [] unless context
+    waypoints = []
+    $.each context.waypoints[axis], (i, waypoint) ->
+      waypoints.push waypoint if test context, waypoint
+    waypoints.sort (a, b) -> a.offset - b.offset
+    $.map waypoints, (waypoint) -> waypoint.element
+
+  above: (contextSelector = window) ->
+    jQMethods._filter contextSelector, 'vertical', (context, waypoint) ->
+      waypoint.offset < context.oldScroll.y
+
+  below: (contextSelector = window) ->
+    jQMethods._filter contextSelector, 'vertical', (context, waypoint) ->
+      waypoint.offset >= context.oldScroll.y
+
+  left: (contextSelector = window) ->
+    jQMethods._filter contextSelector, 'horizontal', (context, waypoint) ->
+      waypoint.offset < context.oldScroll.x
+
+  right: (contextSelector = window) ->
+    jQMethods._filter contextSelector, 'horizontal', (context, waypoint) ->
+      waypoint.offset >= context.oldScroll.x
+
+
 $[wps] = (method) ->
   if jQMethods[method] then jQMethods[method]() else jQMethods.aggregate()
 
