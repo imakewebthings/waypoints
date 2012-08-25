@@ -749,7 +749,7 @@ describe('jQuery Waypoints', function() {
 			});
 		});
 
-		it('should work just fine', function() {
+		it('triggers waypoint reached', function() {
 			runs(function() {
 				$win.scrollTop($win.height() + 1);
 			});
