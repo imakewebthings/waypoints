@@ -316,6 +316,22 @@ describe 'jQuery Waypoints', ->
       
       runs ->
         expect(hit).toBeFalsy()
+
+  describe '#waypoint("prev")', ->
+    it 'returns jQuery object containing previous waypoint', ->
+      $e = $ '#same1'
+      $f = $ '#near1'
+      $e.add($f).waypoint()
+      # console.log($f.waypoint('prev'))
+      # console.log($e)
+      expect($f.waypoint('prev')[0]).toEqual $e[0]
+
+  describe '#waypoint("next")', ->
+    it 'returns jQuery object containing next waypoint', ->
+      $e = $ '#same1'
+      $f = $ '#near1'
+      $e.add($f).waypoint()
+      expect($e.waypoint('next')[0]).toEqual $f[0]
   
   describe 'jQuery#waypoints()', ->
     it 'starts as an empty array for each axis', ->

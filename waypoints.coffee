@@ -219,6 +219,22 @@ methods =
   enable: -> methods._invoke this, 'enable'
   destroy: -> methods._invoke this, 'destroy'
 
+  prev: (axis, selector) ->
+    methods._traverse.call this, axis, selector, (stack, index, waypoints) ->
+      stack.push waypoints[index-1] if index > 0
+
+  next: (axis, selector) ->
+    methods._traverse.call this, axis, selector, (stack, index, waypoints) ->
+      stack.push waypoints[index+1] if index < waypoints.length-1
+
+  _traverse: (axis = 'vertical', selector = window, push) ->
+    waypoints = jQMethods.aggregate selector
+    stack = []
+    @each ->
+      index = $.inArray this, waypoints[axis]
+      push stack, index, waypoints[axis]
+    @pushStack stack
+
   _invoke: ($elements, method) ->
     $elements.each ->
       waypoints = Waypoint.getWaypointsByElement this
@@ -253,27 +269,20 @@ jQMethods =
   viewportHeight: ->
     window.innerHeight ? $w.height()
 
-  aggregate: ->
+  aggregate: (contextSelector) ->
+    collection = allWaypoints
+    if contextSelector
+      collection = contexts[$(contextSelector).data contextKey].waypoints
     waypoints =
       horizontal: []
       vertical: []
     $.each waypoints, (axis, arr) ->
-      $.each allWaypoints[axis], (key, waypoint) ->
+      $.each collection[axis], (key, waypoint) ->
         arr.push waypoint
       arr.sort (a, b) -> a.offset - b.offset
       waypoints[axis] = $.map arr, (waypoint) -> waypoint.element
       waypoints[axis] = $.unique waypoints[axis]
     waypoints
-
-  _filter: (selector, axis, test) ->
-    context = contexts[$(selector).data contextKey]
-    console.log $(selector).
-    return [] unless context
-    waypoints = []
-    $.each context.waypoints[axis], (i, waypoint) ->
-      waypoints.push waypoint if test context, waypoint
-    waypoints.sort (a, b) -> a.offset - b.offset
-    $.map waypoints, (waypoint) -> waypoint.element
 
   above: (contextSelector = window) ->
     jQMethods._filter contextSelector, 'vertical', (context, waypoint) ->
@@ -290,6 +299,15 @@ jQMethods =
   right: (contextSelector = window) ->
     jQMethods._filter contextSelector, 'horizontal', (context, waypoint) ->
       waypoint.offset >= context.oldScroll.x
+
+  _filter: (selector, axis, test) ->
+    context = contexts[$(selector).data contextKey]
+    return [] unless context
+    waypoints = []
+    $.each context.waypoints[axis], (i, waypoint) ->
+      waypoints.push waypoint if test context, waypoint
+    waypoints.sort (a, b) -> a.offset - b.offset
+    $.map waypoints, (waypoint) -> waypoint.element
 
 
 $[wps] = (method) ->
