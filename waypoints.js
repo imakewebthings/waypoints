@@ -141,7 +141,8 @@
           contextDimension: this.$element.width(),
           oldScroll: this.oldScroll.x,
           forward: 'right',
-          backward: 'left'
+          backward: 'left',
+          offsetProp: 'left'
         },
         vertical: {
           contextOffset: isWin ? 0 : cOffset.top,
@@ -149,14 +150,16 @@
           contextDimension: isWin ? $[wps]('viewportHeight') : this.$element.height(),
           oldScroll: this.oldScroll.y,
           forward: 'down',
-          backward: 'up'
+          backward: 'up',
+          offsetProp: 'top'
         }
       };
       return $.each(axes, function(aKey, axis) {
         return $.each(_this.waypoints[aKey], function(i, waypoint) {
-          var adjustment, oldOffset, _ref, _ref1;
+          var adjustment, elementOffset, oldOffset, _ref, _ref1;
           adjustment = waypoint.options.offset;
           oldOffset = waypoint.offset;
+          elementOffset = $.isWindow(waypoint.element) ? 0 : waypoint.$element.offset()[axis.offsetProp];
           if ($.isFunction(adjustment)) {
             adjustment = adjustment.apply(waypoint.element);
           } else if (typeof adjustment === 'string') {
@@ -165,7 +168,7 @@
               adjustment = Math.ceil(axis.contextDimension * adjustment / 100);
             }
           }
-          waypoint.offset = waypoint.$element.offset().top - axis.contextOffset + axis.contextScroll - adjustment;
+          waypoint.offset = elementOffset - axis.contextOffset + axis.contextScroll - adjustment;
           if (waypoint.options.onlyOnScroll || !waypoint.enabled) {
             return;
           }

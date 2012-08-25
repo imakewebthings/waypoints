@@ -95,6 +95,7 @@ class Context
         oldScroll: @oldScroll.x
         forward: 'right'
         backward: 'left'
+        offsetProp: 'left'
       vertical:
         contextOffset: if isWin then 0 else cOffset.top
         contextScroll: if isWin then 0 else @oldScroll.y
@@ -103,11 +104,14 @@ class Context
         oldScroll: @oldScroll.y
         forward: 'down'
         backward: 'up'
+        offsetProp: 'top'
 
     $.each axes, (aKey, axis) =>
       $.each @waypoints[aKey], (i, waypoint) ->
         adjustment = waypoint.options.offset
         oldOffset = waypoint.offset
+        elementOffset = if $.isWindow waypoint.element then 0 else \
+          waypoint.$element.offset()[axis.offsetProp]
 
         if $.isFunction adjustment
           adjustment = adjustment.apply waypoint.element
@@ -116,7 +120,7 @@ class Context
           if waypoint.options.offset.indexOf '%'
             adjustment = Math.ceil(axis.contextDimension * adjustment / 100)
 
-        waypoint.offset = waypoint.$element.offset().top \
+        waypoint.offset = elementOffset \
                         - axis.contextOffset \
                         + axis.contextScroll \
                         - adjustment

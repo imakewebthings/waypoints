@@ -578,6 +578,26 @@ describe 'jQuery Waypoints', ->
       runs ->
         expect(currentDirection).toEqual 'left'
 
+  describe 'Waypoints attached to window object, pull request 86', ->
+    $win = $ window;
+
+    beforeEach ->
+      $e = $win.waypoint
+        offset: 
+          -$win.height()
+      spyOnEvent $e, 'waypoint.reached'
+      $e.bind 'waypoint.reached', ->
+        hit = true
+
+    it 'triggers waypoint reached', ->
+      runs ->
+        $win.scrollTop($win.height() + 1)
+      waits standardWait
+
+      runs ->
+        expect('waypoint.reached').toHaveBeenTriggeredOn $e
+        expect(hit).toBeTruthy()
+
   afterEach ->
     $.each $.waypoints(), (i, axis) ->
       $.each axis, (i, el) ->
