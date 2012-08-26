@@ -9,7 +9,6 @@ contextKey = 'waypoints-context-id'
 resizeEvent = 'resize.waypoints'
 scrollEvent = 'scroll.waypoints'
 waypointCounter = 1
-waypointEvent = 'waypoint.reached'
 waypointKey = 'waypoints-waypoint-ids'
 wp = 'waypoint'
 wps = 'waypoints'
@@ -175,7 +174,6 @@ class Waypoint
     return unless @enabled
     if @callback?
       @callback.apply @element, args
-    @$element.trigger waypointEvent, args
     if @options.triggerOnce
       @destroy()
 
@@ -246,10 +244,12 @@ methods =
 $.fn[wp] = (method, args...) ->
   if methods[method]
     methods[method].apply this, args
-  else if $.isFunction(method) or !method
+  else if $.isFunction(method)
     methods.init.apply this, arguments
   else if $.isPlainObject(method)
     methods.init.apply this, [null, method]
+  else if !method
+    $.error "jQuery Waypoints needs a callback function or handler option."
   else
     $.error "The #{method} method does not exist in jQuery Waypoints."
 

@@ -14,34 +14,9 @@ describe 'jQuery Waypoints', ->
     hit = false
 
   describe '#waypoint()', ->
-    beforeEach ->
-      $e = $('#same1').waypoint()
-      $e.bind 'waypoint.reached', ->
-        hit = true
-
-    it 'creates a waypoint', ->
-      expect($.waypoints().vertical.length).toEqual 1
-
-    it 'is bindable through waypoint.reached', ->
-      runs ->
-        $se.scrollTop($e.offset().top + 100)
-      waits standardWait
-
-      runs ->
-        expect(hit).toBeTruthy()
-
-    it 'uses the default offset', ->
-      runs ->
-        $se.scrollTop($e.offset().top - 1)
-      waits standardWait
-
-      runs ->
-        expect(hit).toBeFalsy()
-        $se.scrollTop $e.offset().top
-      waits standardWait
-
-      runs ->
-        expect(hit).toBeTruthy()
+    it 'errors out', ->
+      fn = -> $('#same1').waypoint()
+      expect(fn).toThrow $.Error
 
   describe '#waypoint(callback)', ->
     currentDirection = null
@@ -57,6 +32,19 @@ describe 'jQuery Waypoints', ->
     
     it 'triggers the callback', ->
       runs ->
+        $se.scrollTop $e.offset().top
+      waits standardWait
+
+      runs ->
+        expect(hit).toBeTruthy()
+
+    it 'uses the default offset', ->
+      runs ->
+        $se.scrollTop($e.offset().top - 1)
+      waits standardWait
+
+      runs ->
+        expect(hit).toBeFalsy()
         $se.scrollTop $e.offset().top
       waits standardWait
 
@@ -81,7 +69,6 @@ describe 'jQuery Waypoints', ->
   describe '#waypoint(options)', ->
     beforeEach ->
       $e = $ '#same1'
-      spyOnEvent $e, 'waypoint.reached'
     
     it 'creates a waypoint', ->
       $e.waypoint
@@ -93,16 +80,17 @@ describe 'jQuery Waypoints', ->
       runs ->
         $e.waypoint
           offset: 50
+          handler: -> hit = true
         $se.scrollTop($e.offset().top - 51)
       waits standardWait
 
       runs ->
-        expect('waypoint.reached').not.toHaveBeenTriggeredOn $e
+        expect(hit).toBeFalsy()
         $se.scrollTop($e.offset().top - 50)
       waits standardWait
 
       runs ->
-        expect('waypoint.reached').toHaveBeenTriggeredOn $e
+        expect(hit).toBeTruthy()
     
     it 'respects a % offset', ->
       pos = null
@@ -110,33 +98,35 @@ describe 'jQuery Waypoints', ->
       runs ->
         $e.waypoint
           offset: '37%'
+          handler: -> hit = true
         pos = $e.offset().top - $.waypoints('viewportHeight') * .37 - 1
         $se.scrollTop pos
       waits standardWait
       
       runs ->
-        expect('waypoint.reached').not.toHaveBeenTriggeredOn $e
+        expect(hit).toBeFalsy()
         $se.scrollTop pos + 1
       waits standardWait
       
       runs ->
-        expect('waypoint.reached').toHaveBeenTriggeredOn $e
+        expect(hit).toBeTruthy()
     
     it 'respects a function offset', ->
       runs ->
         $e.waypoint
           offset: ->
             $(this).height() * -1
+          handler: -> hit = true
         $se.scrollTop($e.offset().top + $e.height() - 1)
       waits standardWait
       
       runs ->
-        expect('waypoint.reached').not.toHaveBeenTriggeredOn $e
+        expect(hit).toBeFalsy()
         $se.scrollTop($e.offset().top + $e.height())
       waits standardWait
       
       runs ->
-        expect('waypoint.reached').toHaveBeenTriggeredOn $e
+        expect(hit).toBeTruthy()
     
     it 'respects the bottom-in-view function alias', ->
       inview = $e.offset().top \
@@ -146,16 +136,17 @@ describe 'jQuery Waypoints', ->
       runs ->
         $e.waypoint
           offset: 'bottom-in-view'
+          handler: -> hit = true
         $se.scrollTop(inview - 1)      
       waits standardWait
 
       runs ->
-        expect('waypoint.reached').not.toHaveBeenTriggeredOn $e
+        expect(hit).toBeFalsy()
         $se.scrollTop inview
       waits standardWait
 
       runs ->
-        expect('waypoint.reached').toHaveBeenTriggeredOn $e
+        expect(hit).toBeTruthy()
     
     it 'destroys the waypoint if triggerOnce is true', ->
       runs ->
@@ -300,7 +291,7 @@ describe 'jQuery Waypoints', ->
     it 'removes waypoint from list of waypoints', ->
       expect($.waypoints().length).toBeFalsy()
     
-    it 'no longer triggers waypoint.reached', ->
+    it 'no longer triggers callback', ->
       runs ->
         $se.scrollTop $e.offset().top
       waits standardWait
@@ -310,7 +301,7 @@ describe 'jQuery Waypoints', ->
     
     it 'does not preserve callbacks if .waypoint recalled', ->
       runs ->
-        $e.waypoint()
+        $e.waypoint({})
         $se.scrollTop $e.offset().top
       waits standardWait
       
@@ -321,16 +312,14 @@ describe 'jQuery Waypoints', ->
     it 'returns jQuery object containing previous waypoint', ->
       $e = $ '#same1'
       $f = $ '#near1'
-      $e.add($f).waypoint()
-      # console.log($f.waypoint('prev'))
-      # console.log($e)
+      $e.add($f).waypoint({})
       expect($f.waypoint('prev')[0]).toEqual $e[0]
 
   describe '#waypoint("next")', ->
     it 'returns jQuery object containing next waypoint', ->
       $e = $ '#same1'
       $f = $ '#near1'
-      $e.add($f).waypoint()
+      $e.add($f).waypoint({})
       expect($e.waypoint('next')[0]).toEqual $f[0]
   
   describe 'jQuery#waypoints()', ->
@@ -342,12 +331,12 @@ describe 'jQuery Waypoints', ->
       expect($.isArray $.waypoints().vertical).toBeTruthy()
     
     it 'returns waypoint elements', ->
-      $e = $('#same1').waypoint()
+      $e = $('#same1').waypoint({})
       expect($.waypoints().vertical[0]).toEqual $e[0]
     
     it 'does not blow up with multiple waypoint', ->
-      $e = $('.sameposition, #top').waypoint()
-      $e = $e.add $('#near1').waypoint()
+      $e = $('.sameposition, #top').waypoint({})
+      $e = $e.add $('#near1').waypoint({})
       expect($.waypoints().vertical.length).toEqual 4
       expect($.waypoints().vertical[0]).toEqual $('#top')[0]
 
@@ -366,7 +355,7 @@ describe 'jQuery Waypoints', ->
       describe 'above', ->
         it 'returns waypoints only above the current scroll position', ->
           runs ->
-            $e.add($f).waypoint()
+            $e.add($f).waypoint({})
             $se.scrollTop 1500
           waits standardWait
 
@@ -376,7 +365,7 @@ describe 'jQuery Waypoints', ->
       describe 'below', ->
         it 'returns waypoints only below the current scroll position', ->
           runs ->
-            $e.add($f).waypoint()
+            $e.add($f).waypoint({})
             $se.scrollTop 1500
           waits standardWait
 
@@ -413,9 +402,8 @@ describe 'jQuery Waypoints', ->
       currentDirection = null
       $e = $('#same1').waypoint (direction) ->
         currentDirection = direction
-      spyOnEvent $e, 'waypoint.reached'
     
-    it 'triggers waypoint.reached if refresh crosses scroll', ->
+    it 'triggers callback if refresh crosses scroll', ->
       runs ->
         $se.scrollTop($e.offset().top - 1)
       waits standardWait
@@ -431,23 +419,23 @@ describe 'jQuery Waypoints', ->
         expect(currentDirection).toEqual 'up'
 
     
-    it 'does not trigger waypoint.reached if onlyOnScroll true', ->
+    it 'does not trigger callback if onlyOnScroll true', ->
       $f = null
-      
+    
       runs ->
         $f = $('#same2').waypoint
           onlyOnScroll: true
+          handler: -> hit = true
         $se.scrollTop($f.offset().top - 1)
-        spyOnEvent $f, 'waypoint.reached'
       waits standardWait
       
       runs ->
-        $e.css('top', ($f.offset().top - 50) + 'px')
+        $f.css('top', ($f.offset().top - 50) + 'px')
         $.waypoints 'refresh'
-        expect('waypoint.reached').not.toHaveBeenTriggeredOn $f
-        $e.css('top', $f.offset().top + 50 + 'px')
+        expect(hit).toBeFalsy()
+        $f.css('top', $f.offset().top + 50 + 'px')
         $.waypoints 'refresh'
-        expect('waypoint.reached').not.toHaveBeenTriggeredOn $f
+        expect(hit).toBeFalsy()
     
     it 'updates the offset', ->
       runs ->
@@ -457,12 +445,12 @@ describe 'jQuery Waypoints', ->
       waits standardWait
       
       runs ->
-        expect('waypoint.reached').not.toHaveBeenTriggeredOn $e
+        expect(currentDirection).toBeFalsy()
         $se.scrollTop $e.offset().top
       waits standardWait
       
       runs ->
-        expect('waypoint.reached').toHaveBeenTriggeredOn $e
+        expect(currentDirection).toBeTruthy()
   
   describe 'jQuery#waypoints("viewportHeight")', ->
     it 'returns window innerheight if it exists', ->
@@ -508,74 +496,74 @@ describe 'jQuery Waypoints', ->
     it 'triggers the waypoint within its context', ->
       $e = $('#inner3').waypoint
         context: '#bottom'
+        handler: -> hit = true
       
       runs ->
-        spyOnEvent $e, 'waypoint.reached'
         $inner.scrollTop 199
       waits standardWait
       
       runs ->
-        expect('waypoint.reached').not.toHaveBeenTriggeredOn $e
+        expect(hit).toBeFalsy()
         $inner.scrollTop 200
       waits standardWait
       
       runs ->
-        expect('waypoint.reached').toHaveBeenTriggeredOn $e
+        expect(hit).toBeTruthy()
     
     it 'respects % offsets within contexts', ->
       $e = $('#inner3').waypoint
         context: '#bottom'
         offset: '100%'
+        handler: -> hit = true
       
       runs ->
-        spyOnEvent $e, 'waypoint.reached'
         $inner.scrollTop 149
       waits standardWait
       
       runs ->
-        expect('waypoint.reached').not.toHaveBeenTriggeredOn $e
+        expect(hit).toBeFalsy()
         $inner.scrollTop 150
       waits standardWait
       
       runs ->
-        expect('waypoint.reached').toHaveBeenTriggeredOn $e
+        expect(hit).toBeTruthy()
     
     it 'respects function offsets within context', ->
       $e = $('#inner3').waypoint
         context: '#bottom'
         offset: ->
           $(this).height() / 2
+        handler: -> hit = true
       
       runs ->
-        spyOnEvent $e, 'waypoint.reached'
         $inner.scrollTop 149
       waits standardWait
       
       runs ->
-        expect('waypoint.reached').not.toHaveBeenTriggeredOn $e
+        expect(hit).toBeFalsy()
         $inner.scrollTop 150
       waits standardWait
       
       runs ->
-        expect('waypoint.reached').toHaveBeenTriggeredOn $e
+        expect(hit).toBeTruthy()
     
     it 'respects bottom-in-view alias', ->
       $e = $('#inner3').waypoint
         context: '#bottom'
         offset: 'bottom-in-view'
+        handler: -> hit = true
       
       runs ->
-        spyOnEvent $e, 'waypoint.reached'
         $inner.scrollTop 249
       waits standardWait
       
       runs ->
-        expect('waypoint.reached').not.toHaveBeenTriggeredOn $e
+        expect(hit).toBeFalsy()
         $inner.scrollTop 250
       waits standardWait
       
       runs ->
-        expect('waypoint.reached').toHaveBeenTriggeredOn $e
+        expect(hit).toBeTruthy()
     
     afterEach ->
       $inner.scrollTop 0
@@ -656,9 +644,7 @@ describe 'jQuery Waypoints', ->
       $e = $win.waypoint
         offset: 
           -$win.height()
-      spyOnEvent $e, 'waypoint.reached'
-      $e.bind 'waypoint.reached', ->
-        hit = true
+        handler: -> hit = true
 
     it 'triggers waypoint reached', ->
       runs ->
@@ -666,13 +652,12 @@ describe 'jQuery Waypoints', ->
       waits standardWait
 
       runs ->
-        expect('waypoint.reached').toHaveBeenTriggeredOn $e
         expect(hit).toBeTruthy()
 
   afterEach ->
     $.each $.waypoints(), (i, axis) ->
       $.each axis, (i, el) ->
         $(el).waypoint 'destroy'
-    $se.scrollTop 0
+    $se.scrollTop(0).scrollLeft 0
     hit = false
     waits standardWait
