@@ -458,6 +458,39 @@ describe 'jQuery Waypoints', ->
         expect($.waypoints 'viewportHeight').toEqual window.innerHeight
       else
         expect($.waypoints 'viewportHeight').toEqual $(window).height()
+
+  describe 'jQuery#waypoints("disable")', ->
+    it 'disables all waypoints', ->
+      count = 0
+
+      runs ->
+        $e = $('.sameposition').waypoint -> count++
+        $.waypoints 'disable'
+        $se.scrollTop($e.offset().top + 50)
+      waits standardWait
+
+      runs ->
+        expect(count).toEqual 0
+
+  describe 'jQuery#waypoints("enable")', ->
+    it 'enables all waypoints', ->
+      count = 0
+
+      runs ->
+        $e = $('.sameposition').waypoint -> count++
+        $.waypoints 'disable'
+        $.waypoints 'enable'
+        $se.scrollTop($e.offset().top + 50)
+      waits standardWait
+
+      runs ->
+        expect(count).toEqual 2
+
+  describe 'jQuery#waypoints("destroy")', ->
+    it 'destroys all waypoints', ->
+      $e = $('.sameposition').waypoint({})
+      $.waypoints 'destroy'
+      expect($.waypoints().vertical.length).toEqual 0
   
   describe 'jQuery#waypoints.settings', ->
     count = curID = null

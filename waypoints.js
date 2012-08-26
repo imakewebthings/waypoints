@@ -223,7 +223,6 @@
       idList = (_ref = $element.data(waypointKey)) != null ? _ref : [];
       idList.push(this.id);
       $element.data(waypointKey, idList);
-      $element.data('waypointPlugin', this);
     }
 
     Waypoint.prototype.trigger = function(args) {
@@ -437,6 +436,23 @@
       }
       return jQMethods._filter(contextSelector, 'horizontal', function(context, waypoint) {
         return waypoint.offset >= context.oldScroll.x;
+      });
+    },
+    enable: function() {
+      return jQMethods._invoke('enable');
+    },
+    disable: function() {
+      return jQMethods._invoke('disable');
+    },
+    destroy: function() {
+      return jQMethods._invoke('destroy');
+    },
+    _invoke: function(method) {
+      var waypoints;
+      waypoints = $.extend({}, allWaypoints.vertical, allWaypoints.horizontal);
+      return $.each(waypoints, function(key, waypoint) {
+        waypoint[method]();
+        return true;
       });
     },
     _filter: function(selector, axis, test) {

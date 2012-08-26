@@ -168,7 +168,6 @@ class Waypoint
     idList = $element.data(waypointKey) ? []
     idList.push @id
     $element.data waypointKey, idList
-    $element.data 'waypointPlugin', this
   
   trigger: (args) ->
     return unless @enabled
@@ -299,6 +298,16 @@ jQMethods =
   right: (contextSelector = window) ->
     jQMethods._filter contextSelector, 'horizontal', (context, waypoint) ->
       waypoint.offset >= context.oldScroll.x
+
+  enable: -> jQMethods._invoke 'enable'
+  disable: -> jQMethods._invoke 'disable'
+  destroy: -> jQMethods._invoke 'destroy'
+
+  _invoke: (method) ->
+    waypoints = $.extend {}, allWaypoints.vertical, allWaypoints.horizontal
+    $.each waypoints, (key, waypoint) ->
+      waypoint[method]()
+      true
 
   _filter: (selector, axis, test) ->
     context = contexts[$(selector).data contextKey]
