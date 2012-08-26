@@ -105,7 +105,7 @@ Support:
 	Context = function(context) {
 		$.extend(this, {
 			element: $(context),
-			oldScroll: 0,
+			oldScroll: -1,
 			
 			/*
 			List of all elements that have been registered as waypoints.
