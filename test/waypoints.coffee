@@ -1,4 +1,3 @@
-jasmine.getFixtures().fixturesPath = 'fixtures'
 $.waypoints.settings.scrollThrottle = 10
 $.waypoints.settings.resizeThrottle = 20
 standardWait = 50
@@ -491,6 +490,14 @@ describe 'jQuery Waypoints', ->
       $e = $('.sameposition').waypoint({})
       $.waypoints 'destroy'
       expect($.waypoints().vertical.length).toEqual 0
+
+  describe 'jQuery#waypoints("extendFn", methodName, function)', ->
+    it 'adds method to the waypoint namespace', ->
+      currentArg = null
+      $.waypoints 'extendFn', 'myMethod', (arg) ->
+        currentArg = arg
+      $('#same1').waypoint 'myMethod', 'test'
+      expect(currentArg).toEqual 'test'
   
   describe 'jQuery#waypoints.settings', ->
     count = curID = null
@@ -688,9 +695,7 @@ describe 'jQuery Waypoints', ->
         expect(hit).toBeTruthy()
 
   afterEach ->
-    $.each $.waypoints(), (i, axis) ->
-      $.each axis, (i, el) ->
-        $(el).waypoint 'destroy'
+    $.waypoints 'destroy'
     $se.scrollTop(0).scrollLeft 0
     hit = false
     waits standardWait

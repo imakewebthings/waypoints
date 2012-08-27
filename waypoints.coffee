@@ -567,7 +567,8 @@ jQMethods =
   aggregate: (contextSelector) ->
     collection = allWaypoints
     if contextSelector
-      collection = contexts[$(contextSelector).data contextKey].waypoints
+      collection = contexts[$(contextSelector).data contextKey]?.waypoints
+    return [] unless collection
     waypoints =
       horizontal: []
       vertical: []
@@ -579,7 +580,7 @@ jQMethods =
       waypoints[axis] = $.unique waypoints[axis]
     waypoints
 
-  # $.waypoints('above', [contextSelector = window])
+  # $.waypoints('above', [string|HTMLNode|jQuery])
 
   # Returns all vertical waypoints that lie above the current scroll position
   # of the context specified by "contextSelector". If no "contextSelector"
@@ -588,7 +589,7 @@ jQMethods =
     jQMethods._filter contextSelector, 'vertical', (context, waypoint) ->
       waypoint.offset <= context.oldScroll.y
 
-  # $.waypoints('below', [contextSelector = window])
+  # $.waypoints('below', [string|HTMLNode|jQuery])
 
   # Returns all vertical waypoints that lie below the current scroll position
   # of the context specified by "contextSelector". If no "contextSelector"
@@ -597,7 +598,7 @@ jQMethods =
     jQMethods._filter contextSelector, 'vertical', (context, waypoint) ->
       waypoint.offset > context.oldScroll.y
 
-  # $.waypoints('left', [contextSelector = window])
+  # $.waypoints('left', [string|HTMLNode|jQuery])
 
   # Returns all horizontal waypoints left of the current scroll position
   # of the context specified by "contextSelector". If no "contextSelector"
@@ -606,7 +607,7 @@ jQMethods =
     jQMethods._filter contextSelector, 'horizontal', (context, waypoint) ->
       waypoint.offset <= context.oldScroll.x
 
-  # $.waypoints('right', [contextSelector = window])
+  # $.waypoints('right', [string|HTMLNode|jQuery])
 
   # Returns all horizontal waypoints right of the current scroll position
   # of the context specified by "contextSelector". If no "contextSelector"
@@ -622,6 +623,13 @@ jQMethods =
   enable: -> jQMethods._invoke 'enable'
   disable: -> jQMethods._invoke 'disable'
   destroy: -> jQMethods._invoke 'destroy'
+
+  # $.waypoints('extendFn', string, function)
+
+  # Extends the $.fn.waypoint method object with a new method, "f". This
+  # just lets other modules piggyback on the .waypoint namespace.
+  extendFn: (methodName, f) ->
+    methods[methodName] = f
 
   # Internal: Invokes "method" on all waypoints.
   _invoke: (method) ->
@@ -645,9 +653,9 @@ jQMethods =
 # Hook up jQMethods to the $.waypoints namespace.
 $[wps] = (method, args...) ->
   if jQMethods[method]
-    jQMethods[method]()
+    jQMethods[method].apply null, args
   else
-    jQMethods.aggregate.apply null, args
+    jQMethods.aggregate.call null, method
 
 # Plugin-wide settings:
 

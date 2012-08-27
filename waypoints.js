@@ -388,10 +388,13 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
       return (_ref = window.innerHeight) != null ? _ref : $w.height();
     },
     aggregate: function(contextSelector) {
-      var collection, waypoints;
+      var collection, waypoints, _ref;
       collection = allWaypoints;
       if (contextSelector) {
-        collection = contexts[$(contextSelector).data(contextKey)].waypoints;
+        collection = (_ref = contexts[$(contextSelector).data(contextKey)]) != null ? _ref.waypoints : void 0;
+      }
+      if (!collection) {
+        return [];
       }
       waypoints = {
         horizontal: [],
@@ -452,6 +455,9 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
     destroy: function() {
       return jQMethods._invoke('destroy');
     },
+    extendFn: function(methodName, f) {
+      return methods[methodName] = f;
+    },
     _invoke: function(method) {
       var waypoints;
       waypoints = $.extend({}, allWaypoints.vertical, allWaypoints.horizontal);
@@ -485,9 +491,9 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
     var args, method;
     method = arguments[0], args = 2 <= arguments.length ? __slice.call(arguments, 1) : [];
     if (jQMethods[method]) {
-      return jQMethods[method]();
+      return jQMethods[method].apply(null, args);
     } else {
-      return jQMethods.aggregate.apply(null, args);
+      return jQMethods.aggregate.call(null, method);
     }
   };
 
