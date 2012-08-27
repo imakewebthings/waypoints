@@ -1,7 +1,9 @@
-build:
+build: compile minify
+
+compile:
 	coffee --compile waypoints.coffee 
 
-compress:
+minify:
 	uglifyjs -o waypoints.min.js waypoints.js
 
-.PHONY: build compress
+.PHONY: build compile minify
