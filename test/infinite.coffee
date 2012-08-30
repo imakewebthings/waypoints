@@ -2,7 +2,7 @@ $.waypoints.settings.scrollThrottle = 10
 $.waypoints.settings.resizeThrottle = 20
 standardWait = 50
 
-describe 'Waypoints Infinite Recipe', ->
+describe 'Waypoints Infinite Scroll Shortcut', ->
   $items = $container = $more = beforeHit = afterHit = null
   $win = $ window
 
