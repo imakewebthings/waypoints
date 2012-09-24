@@ -130,7 +130,8 @@ Support:
 				pointsHit = $.grep(this.waypoints, function(el, i) {
 					return isDown ?
 						(el.offset > that.oldScroll && el.offset <= newScroll) :
-						(el.offset <= that.oldScroll && el.offset > newScroll);
+						// @author dboskovic (the +1 allows the waypoint to be hit accurately on the way back up)
+						(el.offset+1 <= that.oldScroll && el.offset+1 > newScroll);
 				}),
 				len = pointsHit.length;
 				
