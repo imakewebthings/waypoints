@@ -110,24 +110,21 @@ article {
 	margin:0 auto;
 }
 
-#main-nav-holder {
-	height:30px;
-}
-
 #main-nav ul {
-	width:500px;
-	margin-left:-20px;
+	width:460px;
 	height:30px;
 	line-height:30px;
 	text-align:center;
 	font-size:14px;
 	background:#333;
+	margin:0 auto;
 	color:#ddd;
 }
 
 #main-nav li {
-	display:inline;
-	padding:0 15px;
+	float:left;
+	padding:0 10px;
+	width:71px;
 	border-left:1px solid #555;
 }
 
@@ -135,15 +132,11 @@ article {
 	border-left:0;
 }
 
-.sticky #main-nav {
+#main-nav.stuck {
 	position:fixed;
 	top:0;
 	left:0;
 	width:100%;
-}
-
-.sticky #main-nav ul {
-	margin:0 auto;
 }
 
 #container {

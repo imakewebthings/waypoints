@@ -17,17 +17,15 @@
 		<h2>An example of scroll context sticky nav and back to top links using <a href="../">Waypoints</a></h2>
 	</hgroup>
 
-	<div id="main-nav-holder">
-		<nav id="main-nav">
-			<ul>
-				<li>Section 1</li>
-				<li>Section 2</li>
-				<li>Section 3</li>
-				<li>Section 4</li>
-				<li>Section 5</li>
-			</ul>
-		</nav>
-	</div>
+	<nav id="main-nav">
+		<ul>
+			<li>Section 1</li>
+			<li>Section 2</li>
+			<li>Section 3</li>
+			<li>Section 4</li>
+			<li>Section 5</li>
+		</ul>
+	</nav>
 
 	<section id="container">
 		<article>
@@ -115,7 +113,7 @@
 	<footer>
 		<nav>
 			<ul>
-				<li><a class="top" href="#" title="Back to top">Top</a></li>
+				<li><a class="top hidden" href="#" title="Back to top">Top</a></li>
 			</ul>
 		</nav>
 	</footer>
@@ -123,18 +121,19 @@
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
 <script src="../../waypoints.js"></script>
+<script src="../../shortcuts/sticky-elements/waypoints-sticky.js"></script>
 
 <script type="text/javascript">
 $(document).ready(function() {
-	$('.top').addClass('hidden');
 	$.waypoints.settings.scrollThrottle = 30;
+
 	$('#wrapper').waypoint(function(direction) {
 		$('.top').toggleClass('hidden', direction === "up");
 	}, {
 		offset: '-100%'
-	}).find('#main-nav-holder').waypoint(function(direction) {
-		$(this).parent().toggleClass('sticky', direction === "down");
 	});
+
+	$('#main-nav').waypoint('sticky');
 });
 </script>
 
