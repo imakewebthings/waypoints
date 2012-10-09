@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+
+<html lang="en-US">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<title>jQuery Waypoints Sticky Shortcut</title>
+	<meta name="description" content="A jQuery Waypoints shortcut extension for easier sticky elements">
+	<meta name="viewport" content="width=480">
+
+	<style type="text/css">
+		* {
+			margin:0;
+			padding:0;
+		}
+
+		body {
+			font-size:16px;
+			line-height:1.5;
+			color:#000;
+			background:#fff;
+			padding-bottom:16px;
+			font-family:"Helvetica Neue", sans-serif;
+		}
+
+		.inner {
+			width:460px;
+			padding:0 10px;
+			margin:0 auto;
+		}
+
+		h1 {
+			font-size:54px;
+		}
+
+		h2.my-sticky-element {
+			text-align:center;
+			background:#000;
+			color:#fff;
+			width:460px;
+			margin:0 auto;
+			font-size:24px;
+		}
+
+		.my-sticky-element.stuck {
+			position:fixed;
+			top:0;
+		}
+
+		pre {
+			white-space:pre-wrap;
+			font-size:14px;
+			font-family:Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace;
+			border:1px solid #000;
+			padding:10px;
+		}
+
+		p, pre, ul {
+			margin-top:16px;
+		}
+
+		h3 {
+			font-size:24px;
+		}
+
+		ul {
+			margin-left:12px;
+		}
+
+		li {
+			margin-top:6px;
+		}
+
+		.does {
+			background:#000;
+			color:#fff;
+			padding:16px 0;
+			margin-top:16px;
+		}
+
+		.does-not {
+			background:#000;
+			color:#fff;
+			padding:16px 0;
+			border-top:1px solid #fff;
+		}
+
+		.does-not h3 em {
+			font-style:normal;
+			text-decoration:underline;
+		}
+	</style>
+</head>
+<body>
+
+<div class="header inner">
+	<h1>jQuery Waypoints</h1>
+	<h2 class="my-sticky-element">Sticky Elements</h2>
+</div>
+
+<div class="inner">
+	<p>The Sticky Elements shortcut is used to make elements "stick" to the top of the page when the user scrolls past. It packages a few best practices around this pattern into one simple function extension of jQuery Waypoints. The most basic usage looks like this:</p>
+
+	<pre><code>$('.my-sticky-element').waypoint('sticky');</code></pre>
+</div>
+
+<div class="does">
+	<div class="inner">
+		<h3>What This Shortcut Does</h3>
+
+		<ul>
+			<li><strong>Creates a wrapper around the element.</strong> This wrapper is what actually becomes the waypoint. It remains statically positioned in your document, acting as a placeholder while the sticky element is free to gain and lose fixed positioning.</li>
+			<li><strong>Sets that wrapper&rsquo;s height.</strong> When your sticky element gains fixed positioning it will no longer have an effect on the document flow. By giving the static wrapper the same height as the sticky element, we avoid any sudden "jumps" that come with shifting content.</li>
+			<li><strong>Adds a class to the sticky element when the user reaches it.</strong> By default, when the element reaches the top of the viewport it gains the <code>stuck</code> class.</li>
+		</ul>
+	</div>
+</div>
+
+<div class="does-not">
+	<div class="inner">
+		<h3>What This Shortcut <em>Does Not</em></h3>
+
+		<ul>
+			<li><strong>Give <code>stuck</code> elements fixed positioning.</strong> It is left to you, the author, to give the stuck elements fixed positioning in CSS. With so many design possibilities, the script cannot make any assumptions about how the sticky element should look. The shortcut only goes as far as to add the class to give you a hook for this styling.</li>
+			<li><strong>Adjust for the wrapper.</strong> Besides height, other CSS properties on your sticky element may effect the layout of surrounding content. Margins are one example. You should move any of these styles off of your sticky element and onto the wrapper so that they will persist during the "stuck" state.</li>
+		</ul>
+	</div>
+</div>
+
+<div class="inner">
+	<p>The "sticky" waypoint method may also be passed an options object. This options object can be used to override the class name of the "stuck" state and the HTML of the wrapper element. Here are the defaults:</p>
+
+	<pre><code>$('.my-sticky-element').waypoint('sticky', {
+  wrapper: '&lt;div class="sticky-wrapper" /&gt;',
+  stuckClass: 'stuck'
+});</code></pre>
+
+	<p>This options object is just an extension of the regular Waypoints options object, so you can pass along any traditional options you may want. A common one is the <code>offset</code> option.</p>
+
+	<pre><code>$('.my-sticky-element').waypoint('sticky', {
+  offset: 30 // Apply "stuck" when element 30px from top
+});</code></pre>
+</div>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+<script src="../../waypoints.js"></script>
+<script src="waypoints-sticky.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	$('.my-sticky-element').waypoint('sticky');
+});
+</script>
+
+</body>
+</html>

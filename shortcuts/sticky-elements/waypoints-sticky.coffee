@@ -28,6 +28,7 @@ wrap = ($elements, options) ->
   $elements.each ->
     $this = $ this
     $this.parent().height $this.height()
+    true
   $elements.parent()
 
 # .waypoint('sticky', [object])
