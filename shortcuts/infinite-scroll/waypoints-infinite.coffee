@@ -83,6 +83,7 @@ $.waypoints 'extendFn', 'infinite', (options) ->
         $more = $ options.more
         $newMore = $data.find options.more
         $container.append $data.find options.items
+        $container.removeClass options.loadingClass
 
         if $newMore.length
           $more.replaceWith $newMore

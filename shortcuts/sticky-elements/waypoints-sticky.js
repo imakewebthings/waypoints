@@ -23,7 +23,8 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
     $elements.each(function() {
       var $this;
       $this = $(this);
-      return $this.parent().height($this.height());
+      $this.parent().height($this.height());
+      return true;
     });
     return $elements.parent();
   };

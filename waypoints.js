@@ -499,7 +499,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
 
   $[wps].settings = {
     resizeThrottle: 200,
-    scrollThrottle: 30
+    scrollThrottle: 100
   };
 
   $w.load(function() {
