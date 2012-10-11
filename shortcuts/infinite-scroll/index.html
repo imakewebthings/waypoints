@@ -95,7 +95,8 @@
 
     .infinite-container.infinite-loading:after {
       content:"Loading...";
-      height:20px;
+      height:30px;
+      line-height:30px;
       position:absolute;
       left:0;
       right:0;
@@ -156,7 +157,7 @@
 <div class="options">
   <div class="inner">
     <pre><code>$('.infinite-container').waypoint('infinite', {
-  container: '.infinite-container',
+  container: 'auto',
   items: '.infinite-item',
   more: '.infinite-more-link',
   offset: 'bottom-in-view',
@@ -167,7 +168,7 @@
 
   <dl>
     <dt>container</dt>
-    <dd>A selector string that matches the container around the items that are infinitely loaded. New items are appended to this container. While it is not required, most of the time this should be the same selector as the waypoint itself.</dd>
+    <dd>The default value of 'auto' means that the element <code>.waypoint</code> is called on will act as the container. Newly loaded items are appended to this container. This can be set to a different selector, but should only be done when you want the waypoint trigger element to be different from the container of infinite items.</dd>
     <dt>items</dt>
     <dd>A selector string that matches the items to pull from each AJAX loaded page and append to the container.</dd>
     <dt>more</dt>

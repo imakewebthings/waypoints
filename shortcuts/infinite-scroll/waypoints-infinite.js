@@ -14,7 +14,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
   $ = window.jQuery;
 
   defaults = {
-    container: '.infinite-container',
+    container: 'auto',
     items: '.infinite-item',
     more: '.infinite-more-link',
     offset: 'bottom-in-view',
@@ -26,7 +26,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
   $.waypoints('extendFn', 'infinite', function(options) {
     var $container;
     options = $.extend({}, $.fn.waypoint.defaults, defaults, options);
-    $container = $(options.container);
+    $container = options.container === 'auto' ? this : $(options.container);
     options.handler = function(direction) {
       var $this;
       if (direction === 'down' || direction === 'right') {

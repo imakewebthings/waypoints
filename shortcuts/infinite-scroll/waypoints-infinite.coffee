@@ -10,6 +10,8 @@ $ = window.jQuery
 
 # - container: Selector that matches a container around the items that are
 #   infinitely loaded. Newly loaded items will be appended to this container.
+#   If this value is set to 'auto' as it is by default, the container will be
+#   the element .waypoint is called on.
 
 # - items: Selector that matches the items to pull from each AJAX loaded
 #   page and append to the "container".
@@ -31,7 +33,7 @@ $ = window.jQuery
 #   page load, after new items have been appended.
 
 defaults =
-  container: '.infinite-container'
+  container: 'auto'
   items: '.infinite-item'
   more: '.infinite-more-link'
   offset: 'bottom-in-view'
@@ -62,7 +64,7 @@ defaults =
 
 $.waypoints 'extendFn', 'infinite', (options) ->
   options = $.extend {}, $.fn.waypoint.defaults, defaults, options
-  $container = $ options.container
+  $container = if options.container is 'auto' then @ else $ options.container
 
   options.handler = (direction) ->
     if direction in ['down', 'right']
