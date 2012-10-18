@@ -416,7 +416,7 @@ Support:
 					else if (typeof o.options.offset === "string") {
 						var amount = parseFloat(o.options.offset);
 						adjustment = o.options.offset.indexOf("%") ?
-							Math.ceil(contextHeight * (amount / 100)) : amount;
+							-Math.ceil(o.element.height() * (amount / 100)) : amount;
 					}
 
 					/* 
