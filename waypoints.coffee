@@ -277,8 +277,8 @@ class Context
   # Looks at the waypoints hashes. If they are empty, the context removes
   # itself from the global contexts hash.
   checkEmpty: ->
-    if $.isEmptyObject @waypoints.horizontal and \
-      $.isEmptyObject @waypoints.vertical
+    if $.isEmptyObject(@waypoints.horizontal) and \
+      $.isEmptyObject(@waypoints.vertical)
         @$element.unbind [resizeEvent, scrollEvent].join(' ')
         delete contexts[@id]
 
