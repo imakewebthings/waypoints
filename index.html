@@ -10,11 +10,12 @@
   <body>
     <div class="nav">
       <h1>jQuery Waypoints</h1>
+      <p class="version">v2.0.0</p>
       <ul>
-        <li><a href="#about">About</a></li>
-        <li><a href="#whats-new">What&rsquo;s New</a></li>
-        <li><a href="#shortcuts-examples">Shortcuts &amp; Examples</a></li>
-        <li><a href="#docs">Docs</a></li>
+        <li><a class="nav-about" href="#about">About</a></li>
+        <li><a class="nav-new" href="#whats-new">What&rsquo;s New</a></li>
+        <li><a class="nav-shortcuts" href="#shortcuts-examples">Shortcuts &amp; Examples</a></li>
+        <li><a class="nav-docs" href="#docs">Docs</a></li>
       </ul>
     </div>
 
@@ -22,14 +23,14 @@
       <div class="inner">
         <p>Waypoints is a jQuery plugin that makes it easy to execute a function whenever you scroll to an element.</p>
         <pre><code>$('.thing').waypoint(function(direction) {
-  alert('You have reached a thing.');
+  alert('Top of thing hit top of viewport.');
 });</code></pre>
 
         <ul>
-          <li><a href="#XXX" class="icon about-download">Download</a></li>
+          <li><a href="#TODO" class="icon about-download">Download</a></li>
           <li><a href="http://github.com/imakewebthings/jquery-waypoints" class="icon about-github">GitHub</a></li>
           <li><a href="test/" class="icon about-tests">Tests</a></li>
-          <li><a href="#XXX" class="icon about-licenses">Licenses</a></li>
+          <li><a href="#TODO" class="icon about-licenses">Licenses</a></li>
         </ul>
       </div>
     </div>
@@ -39,20 +40,24 @@
         <div class="row">
           <div class="new-panel new-horizontals">
             <h2 class="icon">Horizontals</h2>
+            <p>Waypoints can now be created for horizontal scrolling. Just pass <code>horizontal:true</code> to your waypoint options.</p>
           </div>
 
           <div class="new-panel new-multiples">
             <h2 class="icon">Multiples</h2>
+            <p>One HTML element can now have multiple Waypoints attached to it, each with its own <code>offset</code> and handler.</p>
           </div>
         </div>
         
         <div class="row">
           <div class="new-panel new-shortcuts">
             <h2 class="icon">Shortcuts</h2>
+            <p>The most common uses for Waypoints are now even easier to implement with <a href="#shortcuts-examples">shortcut methods</a>.</p>
           </div>
 
           <div class="new-panel new-api">
             <h2 class="icon">Revised API</h2>
+            <p>A new handler signature, added introspection methods, and more. Be sure to check the new <a href="#docs">docs</a> and the <a href="#TODO">changelog</a>.</p>
           </div>
         </div>
       </div>
@@ -62,14 +67,16 @@
       <div class="inner">
         <div class="shortcuts">
           <h2>Shortcuts</h2>
-          <h3>Sticky Elements</h3>
-          <h3>Infinite Scroll</h3>
+          <p>jQuery Waypoints extensions that simplify some common UI patterns.</p>
+          <a href="shortcuts/sticky-elements" class="icon shortcut-sticky">Sticky Elements</a>
+          <a href="shortcuts/infinite-scroll" class="icon shortcut-infinite">Infinite Scroll</a>
         </div>
 
         <div class="examples">
           <h2>Examples</h2>
-          <h3>Dial Controls</h3>
-          <h3>Scroll Analytics</h3>
+          <p>Other custom uses of Waypoints.</p>
+          <a href="examples/dial-controls" class="icon example-dials">Dial Controls</a>
+          <a href="examples/scroll-analytics" class="icon example-analytics">Scroll Analytics</a>
         </div>
       </div>
     </div>
@@ -77,9 +84,446 @@
     <div id="docs" class="panel">
       <div class="inner">
         <ul class="docs-nav">
-          
+          <li>
+            <a href="#doc-waypoint">.waypoint</a>
+            <ul>
+              <li><a href="#doc-options">default options</a></li>
+              <li><a href="#doc-disable">disable</a></li>
+              <li><a href="#doc-enable">enable</a></li>
+              <li><a href="#doc-destroy">destroy</a></li>
+              <li><a href="#doc-prev">prev</a></li>
+              <li><a href="#doc-next">next</a></li>
+            </ul>
+          </li>
+
+          <li>
+            <a href="#doc-waypoints">$.waypoints</a>
+            <ul>
+              <li><a href="#doc-refresh">refresh</a></li>
+              <li><a href="#doc-viewport-height">viewportHeight</a></li>
+              <li><a href="#doc-above">above</a></li>
+              <li><a href="#doc-below">below</a></li>
+              <li><a href="#doc-left">left</a></li>
+              <li><a href="#doc-right">right</a></li>
+              <li><a href="#doc-disable-all">disable</a></li>
+              <li><a href="#doc-enable-all">enable</a></li>
+              <li><a href="#doc-destroy-all">destroy</a></li>
+              <li><a href="#doc-extend">extendFn</a></li>
+            </ul>
+          </li>
         </ul>
+
+        <div id="doc-waypoint" class="doc-section">
+          <h2>.waypoint([callback], [options])</h2>
+          <ul class="params">
+            <li>
+              <h3>callback</h3>
+              <dl>
+                <dt>type</dt>
+                <dd>function, optional</dd>
+              </dl>
+            </li>
+
+            <li>
+              <h3>options</h3>
+              <dl>
+                <dt>type</dt>
+                <dd>object, optional</dd>
+              </dl>
+            </li>
+          </ul>
+
+          <p>Calling the <code>waypoint</code> function on a set of elements registers them as waypoints. You can pass in a callback function&hellip;</p>
+
+          <pre><code>$('.thing').waypoint(function(direction) {
+  // do stuff
+});</code></pre>
+
+          <p>&hellip;an options object&hellip;</p>
+
+          <pre><code>$('.thing').waypoint({
+  handler: function(direction) {
+    // do stuff
+  }
+});</code></pre>
+
+          <p>&hellip;or both&hellip;</p>
+
+          <pre><code>$('.thing').waypoint(function(direction) {
+  // do stuff
+}, { offset: 50 })</code></pre>
+
+          <p>&hellip;but you must pass something. Attempting to call <code>waypoint</code> without parameters or without a callback function will result in an error.</p>
+
+          <pre><code>$('.thing').waypoint(); // error</code></pre>
+
+          <p>The waypoint callback function takes one parameter, <code>direction</code>. For vertical waypoints direction may be <code>'up'</code> or <code>'down'</code>. For horizontal waypoints, <code>'left'</code> or <code>'right'</code>.</p>
+
+          <pre><code>$('.thing').waypoint(function(direction) {
+  alert(direction); // up, down, left, or right
+});</code></pre>
+        </div>
+
+        <div id="doc-options" class="doc-section">
+          <p>The options object lets you define where in the viewport to trigger the waypoint, whether the waypoint should be on the horizontal axis, and much more.</p>
+
+          <pre><code>$.fn.waypoint.defaults = {
+  context: window,
+  continuous: true,
+  enabled: true,
+  horizontal: false,
+  offset: 0,
+  triggerOnce: false
+}</code></pre>
+
+          <dl class="options-list">
+            <dt>context</dt>
+            <dd class="option-type">string, HTMLElement, or jQuery object</dd>
+            <dd class="option-default">default: window</dd>
+            <dd>
+              <p>The <code>context</code> defines which scrollable element the waypoint belongs to and acts within. The default, <code>window</code>, means the waypoint offset is calculated with relation to the whole viewport. You can set this to another element to use the waypoints within that element. It accepts a selector string, raw HTML element, or jQuery object.</p>
+              <pre><code>$('.something-scrollable .thing').waypoint({
+  context: '.something-scrollable'
+});</code></pre>
+            </dd>
+
+            <dt>continuous</dt>
+            <dd class="option-type">boolean</dd>
+            <dd class="option-default">default: true</dd>
+            <dd>
+              <p>If true, and multiple waypoints are triggered in one scroll, this waypoint will trigger even if it is not the last waypoint reached. If false, it will only trigger if it is the last waypoint.</p>
+            </dd>
+
+            <dt>enabled</dt>
+            <dd class="option-type">boolean</dd>
+            <dd class="option-default">default: true</dd>
+            <dd>
+              <p>If false, this waypoint will be created but will be disabled from triggering. You must call <a href="#TODO">enable</a> to turn it back on.</p>
+            </dd>
+
+            <dt>handler</dt>
+            <dd class="option-type">function</dd>
+            <dd class="option-default">default: undefined</dd>
+            <dd>
+              <p>The waypoint's callback function can be passed in as the value of the <code>handler</code> option instead of as the first parameter to <code>.waypoint</code>. This is generally much nicer for users writing CoffeeScript.</p>
+              <pre><code>$('.thing').waypoint({
+  handler: function(direction) {
+    // do stuff
+  }
+});</code></pre>
+            </dd>
+
+            <dt>horizontal</dt>
+            <dd class="option-type">boolean</dd>
+            <dd class="option-default">default: false</dd>
+            <dd>
+              <p>Default waypoints live on the vertical axis. Their <code>offset</code> is calculated in relation to the <em>top</em> of the viewport and they listen for vertical scroll changes. If <code>horizontal</code> is set to true, <code>offset</code> is calculated in relation to the <em>left</em> of the viewport and listens for horizontal scroll changes.</p>
+
+              <pre><code>$('.thing').waypoint({
+  horizontal: true,
+  offset: 50 // when the left side of this element reaches
+             // 50px from the left side of the viewport.
+});</code></pre>
+            </dd>
+
+            <dt>offset</dt>
+            <dd class="option-type">number, string, or function</dd>
+            <dd class="option-default">default: 0</dd>
+            <dd>
+              <p>This option determines how far the top of the element must be from the top of the viewport to trigger the callback function. If <code>offset</code> is a number, it refers to the number of pixels between the viewport top and element top. The default of <code>0</code> means the waypoint triggers when the top of the element hits the top of the viewport. A value of <code>250</code> would trigger when the element is 250px from the top of the viewport.</p>
+
+              <pre><code>$('.thing').waypoint({
+  offset: 250
+});</code></pre>
+
+              <p>A string value with a percentage refers to a percentage of the height of the viewport. A value of <code>'50%'</code> would trigger the waypoint when the top of the element reaches the dead middle of the screen.</p>
+
+              <pre><code>$('.thing').waypoint({
+  offset: '50%'
+});</code></pre>
+
+              <p>Pixel and percentage values can also accept negative values, which behave as you may expect, triggering the waypoint when the top of the element goes a distance <em>past</em> the top of the viewport.</p>
+
+              <p>The <code>offset</code> may also be defined by a function. This function needs to return a <code>number</code>. The <code>this</code> keyword within the function is the raw HTML element of the waypoint. This example sets the waypoint to trigger when the middle of the element hits the top of the viewport.</p>
+
+              <pre><code>$('.thing').waypoint({
+  offset: function() {
+    return -$(this).height() / 2;
+  }
+});</code></pre>
+
+              <p>Vertical waypoints may also use the value <code>'bottom-in-view'</code>. This is a shortcut for a common function that sets the waypoint to triggerwhen the bottom of the element hits the bottom of the viewport.</p>
+
+              <pre><code>$('.thing').waypoint({
+  offset: 'bottom-in-view'
+});</code></pre>
+            </dd>
+
+            <dt>triggerOnce</dt>
+            <dd class="option-type">boolean</dd>
+            <dd class="option-default">default: false</dd>
+            <dd>
+              <p>If true, the waypoint will destroy itself after its first trigger. This is the same as calling <code>.waypoint('destroy')</code> at the end of the callback function.</p>
+            </dd>
+          </dl>
+        </div>
+
+        <div id="doc-disable" class="doc-section">
+          <h2>.waypoint('disable')</h2>
+          <p>Temporarily disables the waypoint callback function from firing. The waypoint can be re-enabled by calling <a href="#doc-enable">enable</a>.</p>
+          <pre><code>$('.thing').waypoint('disable');</code></pre>
+        </div>
+
+        <div id="doc-enable" class="doc-section">
+          <h2>.waypoint('enable')</h2>
+          <p>Re-enables a previously <a href="#doc-disable">disabled</a> waypoint.</p>
+          <pre><code>$('.thing').waypoint('enable');</code></pre>
+        </div>
+
+        <div id="doc-destroy" class="doc-section">
+          <h2>.waypoint('destroy')</h2>
+          <p>Destroys all waypoints associated with these elements.</p>
+          <pre><code>$('.thing').waypoint('destroy');</code></pre>
+        </div>
+
+        <div id="doc-prev" class="doc-section">
+          <h2>.waypoint('prev', [axis], [context])</h2>
+          <ul class="params">
+            <li>
+              <h3>axis</h3>
+              <dl>
+                <dt>type</dt>
+                <dd>string, optional</dd>
+                <dt>allowed</dt>
+                <dd>'vertical', 'horizontal'</dd>
+                <dt>default</dt>
+                <dd>'vertical</dd>
+              </dl>
+            </li>
+
+            <li>
+              <h3>context</h3>
+              <dl>
+                <dt>type</dt>
+                <dd>string, HTMLElement, or jQuery object, optional</dd>
+                <dt>default</dt>
+                <dd>window</dd>
+              </dl>
+            </li>
+          </ul>
+
+          <p>Returns a jQuery object containing the previous waypoint, as measured by the waypoints' trigger locations.</p>
+
+          <pre><code>$('#thing').waypoint(...);
+$('#thing-farther-down').waypoint(...);
+$('#thing-farther-down').waypoint('prev');
+// returns #thing jQuery object
+</code></pre>
+        </div>
+
+        <div id="doc-next" class="doc-section">
+          <h2>.waypoint('next', [axis], [context])</h2>
+          <ul class="params">
+            <li>
+              <h3>axis</h3>
+              <dl>
+                <dt>type</dt>
+                <dd>string, optional</dd>
+                <dt>allowed</dt>
+                <dd>'vertical', 'horizontal'</dd>
+                <dt>default</dt>
+                <dd>'vertical</dd>
+              </dl>
+            </li>
+
+            <li>
+              <h3>context</h3>
+              <dl>
+                <dt>type</dt>
+                <dd>string, HTMLElement, or jQuery object, optional</dd>
+                <dt>default</dt>
+                <dd>window</dd>
+              </dl>
+            </li>
+          </ul>
+
+          <p>Returns a jQuery object containing the previous waypoint, as measured by the waypoints' trigger locations.</p>
+
+          <pre><code>$('#thing').waypoint(...);
+$('#thing-farther-down').waypoint(...);
+$('#thing').waypoint('next');
+// returns #thing-farther-down jQuery object
+</code></pre>
+        </div>
+
+        <div id="doc-waypoints" class="doc-section">
+          <h2>$.waypoints([contextSelector])</h2>
+          <ul class="params">
+            <li>
+              <h3>contextSelector</h3>
+              <dl>
+                <dt>type</dt>
+                <dd>string, optional</dd>
+                <dt>default</dt>
+                <dd>window</dd>
+              </dl>
+            </li>
+          </ul>
+
+          <p>Returns an object with two keys, <code>vertical</code> and <code>horizontal</code>. Each of these key values is an HTMLElement array containing all waypoint elements on that axis. If <code>contextSelector</code> is provided, it only returns elements with a context matching that context selector. If no parameter is supplied, all waypoint elements are returned.</p>
+
+          <pre><code>$('.thing').waypoint(...);
+$.waypoints();
+// returns {
+//   vertical: [(all .thing elements)]
+//   horizontal: []
+// }</code></pre>
+        </div>
+
+        <div id="doc-refresh" class="doc-section">
+          <h2>$.waypoints('refresh')</h2>
+          <p>This will force a recalculation of each waypoint’s trigger point based on its offset option. This is called automatically whenever the window is resized or new waypoints are added. If your project is changing the DOM or page layout without doing one of these things, you may want to manually call it.</p>
+          <pre><code>$.waypoints('refresh');</code></pre>
+        </div>
+
+        <div id="doc-viewport-height" class="doc-section">
+          <h2>$.waypoints('viewportHeight')</h2>
+          <p>Return the height of the viewport, adjusting for inconsistencies that come with calling <code>$(window).height()</code> in iOS. When writing offset functions that use the window's height, using this is recommended.</p>
+          <pre><code>$.waypoints('viewportHeight');</code></pre>
+        </div>
+
+        <div id="doc-above" class="doc-section">
+          <h2>$.waypoints('above', [contextSelector])</h2>
+          <ul class="params">
+            <li>
+              <h3>contextSelector</h3>
+              <dl>
+                <dt>type</dt>
+                <dd>string, optional</dd>
+                <dt>default</dt>
+                <dd>window</dd>
+              </dl>
+            </li>
+          </ul>
+
+          <p>Returns an array of HTMLElements. This array contains all waypoint elements with trigger points that lie above the current scroll position of the <code>contextSelector</code> element.</p>
+
+          <pre><code>$('.things').waypoint(...);
+$.waypoints('above');
+// returns all "things" above current scroll position</code></pre>
+        </div>
+
+        <div id="doc-below" class="doc-section">
+          <h2>$.waypoints('below', [contextSelector])</h2>
+          <ul class="params">
+            <li>
+              <h3>contextSelector</h3>
+              <dl>
+                <dt>type</dt>
+                <dd>string, optional</dd>
+                <dt>default</dt>
+                <dd>window</dd>
+              </dl>
+            </li>
+          </ul>
+
+          <p>Returns an array of HTMLElements. This array contains all waypoint elements with trigger points that lie below the current scroll position of the <code>contextSelector</code> element.</p>
+
+          <pre><code>$('.things').waypoint(...);
+$.waypoints('below');
+// returns all "things" below current scroll position</code></pre>
+        </div>
+
+        <div id="doc-left" class="doc-section">
+          <h2>$.waypoints('left', [contextSelector])</h2>
+          <ul class="params">
+            <li>
+              <h3>contextSelector</h3>
+              <dl>
+                <dt>type</dt>
+                <dd>string, optional</dd>
+                <dt>default</dt>
+                <dd>window</dd>
+              </dl>
+            </li>
+          </ul>
+
+          <p>Returns an array of HTMLElements. This array contains all waypoint elements with trigger points that lie to the left of the current scroll position of the <code>contextSelector</code> element.</p>
+
+          <pre><code>$('.things').waypoint(...);
+$.waypoints('left');
+// returns all "things" left of current scroll position</code></pre>
+        </div>
+
+        <div id="doc-right" class="doc-section">
+          <h2>$.waypoints('right', [contextSelector])</h2>
+          <ul class="params">
+            <li>
+              <h3>contextSelector</h3>
+              <dl>
+                <dt>type</dt>
+                <dd>string, optional</dd>
+                <dt>default</dt>
+                <dd>window</dd>
+              </dl>
+            </li>
+          </ul>
+
+          <p>Returns an array of HTMLElements. This array contains all waypoint elements with trigger points that lie to the right of the current scroll position of the <code>contextSelector</code> element.</p>
+
+          <pre><code>$('.things').waypoint(...);
+$.waypoints('right');
+// returns all "things" right of current scroll position</code></pre>
+        </div>
+
+        <div id="doc-disable-all" class="doc-section">
+          <h2>$.waypoints('disable')</h2>
+          <p>Disables all waypoints.</p>
+        </div>
+
+        <div id="doc-enable-all" class="doc-section">
+          <h2>$.waypoints('enable')</h2>
+          <p>Re-enables all waypoints.</p>
+        </div>
+
+        <div id="doc-destroy-all" class="doc-section">
+          <h2>$.waypoints('destroy')</h2>
+          <p>Destroys all waypoints.</p>
+        </div>
+
+        <div id="doc-extend" class="doc-section">
+          <h2>$.waypoints('extendFn', name, method)</h2>
+          <ul class="params">
+            <li>
+              <h3>name</h3>
+              <dl>
+                <dt>type</dt>
+                <dd>string, required</dd>
+              </dl>
+            </li>
+
+            <li>
+              <h3>method</h3>
+              <dl>
+                <dt>type</dt>
+                <dd>function, required</dd>
+              </dl>
+            </li>
+          </ul>
+
+          <p>Adds <code>method</code> to the <a href="#doc-waypoint">.waypoint</a> namespace under the <code>name</code> key. <a href="#shortcuts-examples">Shortcuts</a> use this to add their methods to jQuery Waypoints.</p>
+
+          <pre><code>$.waypoints('extendFn', 'alert', function(msg) {
+  alert(msg + this.id);
+});
+$('#thing').waypoint('alert', 'Foo: ');
+// Alerts "Foo: thing"</code></pre>
+        </div>
       </div>
     </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+  <script src="waypoints.min.js"></script>
+  <script src="index.js"></script>
   </body>
 </html>

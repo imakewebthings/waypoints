@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @font-face {
   font-family: "FontAwesome";
   src: url("fonts/fontawesome-webfont.eot");
@@ -35,7 +36,7 @@ body {
   line-height: 1.5;
   overflow: hidden; }
 
-p {
+p, pre {
   margin-bottom: 16px; }
 
 pre {
@@ -55,13 +56,14 @@ pre {
   overflow: auto; }
 
 .nav {
-  width: 560px;
+  width: 620px;
+  height: 25px;
   padding: 10px;
   position: fixed;
   z-index: 2;
   top: 0;
   left: 50%;
-  margin-left: -290px;
+  margin-left: -320px;
   background: #000;
   color: #fff;
   overflow: hidden; }
@@ -82,19 +84,32 @@ pre {
     background: #fff;
     text-decoration: none;
     font-size: 12px;
-    padding: 0 5px; }
+    padding: 0 5px;
+    border: 1px solid #fff; }
+
+.version {
+  float: left;
+  font-size: 12px;
+  line-height: 1;
+  margin: 10px 0 0 10px; }
+
+.top-visible.left-visible .nav-about,
+.top-visible.right-visible .nav-new,
+.bottom-visible.left-visible .nav-shortcuts,
+.bottom-visible.right-visible .nav-docs {
+  background: #000;
+  color: #fff; }
 
 #about {
   left: 0;
   top: 0; }
   #about .inner {
-    width: 380px;
-    height: 150px;
-    padding-right: 140px;
+    width: 400px;
+    padding-right: 160px;
     position: absolute;
     left: 50%;
     top: 50%;
-    margin: -75px 0 0 -260px; }
+    margin: -60px 0 0 -280px; }
   #about ul {
     position: absolute;
     right: 0;
@@ -105,8 +120,9 @@ pre {
       color: #000;
       display: block; }
       #about ul a:before {
-        width: 36px;
-        font-size: 28px; }
+        width: 48px;
+        font-size: 24px;
+        text-align: center; }
 
 .about-download:before {
   content: '\f019'; }
@@ -126,9 +142,9 @@ pre {
   #whats-new .inner {
     position: absolute;
     width: 520px;
-    margin-left: -260px;
+    margin: -160px 0 0 -260px;
     left: 50%;
-    top: 120px; }
+    top: 50%; }
   #whats-new .row {
     width: 100%;
     overflow: hidden; }
@@ -161,7 +177,117 @@ pre {
 #shortcuts-examples {
   top: 100%;
   left: 0; }
+  #shortcuts-examples .inner {
+    position: absolute;
+    width: 520px;
+    margin: -185px 0 0 -260px;
+    left: 50%;
+    top: 50%; }
+  #shortcuts-examples a {
+    display: inline-block;
+    color: #000;
+    text-decoration: none;
+    margin-right: 10px;
+    width: 240px;
+    text-align: center;
+    border: 1px solid #000;
+    padding: 10px 0; }
+    #shortcuts-examples a:before {
+      display: block;
+      font-size: 48px; }
+
+.shortcuts {
+  margin-bottom: 32px; }
+
+.shortcut-sticky:before {
+  content: '\f08d'; }
+
+.shortcut-infinite:before {
+  font-family: 'Helvetica Neue', sans-serif;
+  content: '∞'; }
+
+.example-dials:before {
+  content: '\f0e4'; }
+
+.example-analytics:before {
+  content: '\f0c0'; }
 
 #docs {
   left: 100%;
   top: 100%; }
+  #docs .inner {
+    width: 510px;
+    padding: 60px 120px 0 10px;
+    margin: 0 auto;
+    position: relative; }
+  #docs h2 {
+    font-size: 24px;
+    line-height: 1;
+    margin-bottom: 16px;
+    background: #000;
+    color: #fff;
+    padding: 10px; }
+
+.docs-nav {
+  position: absolute;
+  right: 0;
+  top: 60px;
+  background: #fff;
+  padding: 5px 0;
+  font-size: 12px;
+  line-height: 2; }
+  .docs-nav, .docs-nav ul {
+    list-style: none; }
+  .docs-nav a {
+    color: #000;
+    text-decoration: none;
+    display: block;
+    padding: 0 5px; }
+  .docs-nav > li > a {
+    font-weight: bold; }
+  .docs-nav ul a {
+    padding-left: 10px; }
+
+.doc-section {
+  margin-bottom: 128px;
+  position: relative; }
+  .doc-section:after {
+    content: '༒';
+    position: absolute;
+    left: 0;
+    bottom: -40px;
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+    color: #000; }
+
+.params {
+  margin: -12px 0 16px 0;
+  list-style: none; }
+  .params > li {
+    display: block;
+    background: #000;
+    color: #fff;
+    padding: 5px 10px;
+    margin-bottom: 4px; }
+  .params h3 {
+    font-size: 16px;
+    float: left;
+    min-width: 80px;
+    padding-right: 20px; }
+  .params dl {
+    display: block;
+    overflow: hidden; }
+  .params dt {
+    float: left; }
+    .params dt:after {
+      content: ':';
+      padding-right: 5px; }
+  .params dd {
+    display: block;
+    overflow: hidden; }
+
+.options-list dt {
+  font-weight: bold; }
+.options-list dd {
+  padding-left: 10px; }
