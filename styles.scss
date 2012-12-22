@@ -1,3 +1,11 @@
+@mixin transition($val) {
+  -webkit-transition: $val;
+  -moz-transition: $val;
+  -o-transition: $val;
+  -ms-transition: $val;
+  transition: $val;
+}
+
 @font-face {
   font-family: "FontAwesome";
   src: url('fonts/fontawesome-webfont.eot');
@@ -59,6 +67,7 @@ pre {
   position:absolute;
   width:100%;
   height:100%;
+  top:0;
   overflow:auto;
 }
 
@@ -110,17 +119,16 @@ pre {
   margin:10px 0 0 10px;
 }
 
-.top-visible.left-visible .nav-about,
-.top-visible.right-visible .nav-new,
-.bottom-visible.left-visible .nav-shortcuts,
-.bottom-visible.right-visible .nav-docs {
+.about-visible .nav-about,
+.whats-new-visible .nav-new,
+.shortcuts-examples-visible .nav-shortcuts,
+.docs-visible .nav-docs {
   background:#000;
   color:#fff;
 }
 
 #about {
   left:0;
-  top:0;
 
   .inner {
     width:400px;
@@ -169,7 +177,6 @@ pre {
 
 #whats-new {
   left:100%;
-  top:0;
 
   .inner {
     position:absolute;
@@ -228,8 +235,7 @@ pre {
 }
 
 #shortcuts-examples {
-  top:100%;
-  left:0;
+  left:200%;
 
   .inner {
     position:absolute;
@@ -278,12 +284,11 @@ pre {
 }
 
 #docs {
-  left:100%;
-  top:100%;
+  left:300%;
 
   .inner {
     width:510px;
-    padding:60px 120px 0 10px;
+    padding:0 120px 0 10px;
     margin:0 auto;
     position:relative;
   }
@@ -299,13 +304,20 @@ pre {
 }
 
 .docs-nav {
-  position:absolute;
-  right:0;
+  @include transition(right 200ms ease-in-out);
+  position:fixed;
   top:60px;
+  right:-120px;
+  bottom:0;
+  overflow:auto;
+  width:120px;
   background:#fff;
-  padding:5px 0;
   font-size:12px;
   line-height:2;
+
+  .docs-visible & {
+    right:0;
+  }
 
   &, & ul {
     list-style:none;
@@ -325,11 +337,20 @@ pre {
   ul a {
     padding-left:10px;
   }
+
+  .active {
+    text-decoration:underline;
+
+    * {
+      text-decoration:none;
+    }
+  }
 }
 
 .doc-section {
-  margin-bottom:128px;
+  margin-bottom:64px;
   position:relative;
+  padding-top:60px;
 
   &:after {
     content:'༒';

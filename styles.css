@@ -53,6 +53,7 @@ pre {
   position: absolute;
   width: 100%;
   height: 100%;
+  top: 0;
   overflow: auto; }
 
 .nav {
@@ -93,16 +94,15 @@ pre {
   line-height: 1;
   margin: 10px 0 0 10px; }
 
-.top-visible.left-visible .nav-about,
-.top-visible.right-visible .nav-new,
-.bottom-visible.left-visible .nav-shortcuts,
-.bottom-visible.right-visible .nav-docs {
+.about-visible .nav-about,
+.whats-new-visible .nav-new,
+.shortcuts-examples-visible .nav-shortcuts,
+.docs-visible .nav-docs {
   background: #000;
   color: #fff; }
 
 #about {
-  left: 0;
-  top: 0; }
+  left: 0; }
   #about .inner {
     width: 400px;
     padding-right: 160px;
@@ -137,8 +137,7 @@ pre {
   content: '\f0e3'; }
 
 #whats-new {
-  left: 100%;
-  top: 0; }
+  left: 100%; }
   #whats-new .inner {
     position: absolute;
     width: 520px;
@@ -175,8 +174,7 @@ pre {
   content: '\f040'; }
 
 #shortcuts-examples {
-  top: 100%;
-  left: 0; }
+  left: 200%; }
   #shortcuts-examples .inner {
     position: absolute;
     width: 520px;
@@ -213,11 +211,10 @@ pre {
   content: '\f0c0'; }
 
 #docs {
-  left: 100%;
-  top: 100%; }
+  left: 300%; }
   #docs .inner {
     width: 510px;
-    padding: 60px 120px 0 10px;
+    padding: 0 120px 0 10px;
     margin: 0 auto;
     position: relative; }
   #docs h2 {
@@ -229,13 +226,22 @@ pre {
     padding: 10px; }
 
 .docs-nav {
-  position: absolute;
-  right: 0;
+  -webkit-transition: right 200ms ease-in-out;
+  -moz-transition: right 200ms ease-in-out;
+  -o-transition: right 200ms ease-in-out;
+  -ms-transition: right 200ms ease-in-out;
+  transition: right 200ms ease-in-out;
+  position: fixed;
   top: 60px;
+  right: -120px;
+  bottom: 0;
+  overflow: auto;
+  width: 120px;
   background: #fff;
-  padding: 5px 0;
   font-size: 12px;
   line-height: 2; }
+  .docs-visible .docs-nav {
+    right: 0; }
   .docs-nav, .docs-nav ul {
     list-style: none; }
   .docs-nav a {
@@ -247,10 +253,15 @@ pre {
     font-weight: bold; }
   .docs-nav ul a {
     padding-left: 10px; }
+  .docs-nav .active {
+    text-decoration: underline; }
+    .docs-nav .active * {
+      text-decoration: none; }
 
 .doc-section {
-  margin-bottom: 128px;
-  position: relative; }
+  margin-bottom: 64px;
+  position: relative;
+  padding-top: 60px; }
   .doc-section:after {
     content: '༒';
     position: absolute;
