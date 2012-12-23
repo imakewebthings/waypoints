@@ -27,13 +27,14 @@ $(function() {
     .waypoint(function(direction) {
       $body.toggleClass(this.id + '-visible', direction === 'right');
     }, {
+      offset: 200,
       horizontal: true
     })
     .waypoint(function(direction) {
       $body.toggleClass(this.id + '-visible', direction === 'left');
     }, {
       offset: function() {
-        return -$(window).width();
+        return -$(window).width() + 200;
       },
       horizontal: true
     });
