@@ -6,19 +6,154 @@
 	<title>Scroll Analytics with jQuery Waypoints</title>
 	<meta name="description" content="An example of how to use the jQuery Waypoints plugin to track ad views more accurately and respond to engaged users when they reach the end of content">
 	<meta name="viewport" content="width=480">
-	<link rel="stylesheet" href="style.css" type="text/css" media="all">
-	<script src="../modernizr.custom.js"></script>
+
+	<style type="text/css">
+		* {
+			margin:0;
+			padding:0;
+		}
+
+		body {
+			font-size:16px;
+			line-height:1.5;
+			color:#000;
+			background:#fff;
+			padding-bottom:16px;
+			font-family:"Helvetica Neue", sans-serif;
+		}
+
+		.inner {
+			width:460px;
+			padding:0 10px;
+			margin:0 auto;
+		}
+
+		h1 {
+			font-size:54px;
+		}
+
+		h2 {
+			text-align:center;
+			background:#000;
+			color:#fff;
+			font-size:24px;
+		}
+
+		h3 {
+			font-size:24px;
+		}
+
+		.header {
+			margin-bottom:32px;
+		}
+
+		#lcol {
+			float:left;
+			width:300px;
+		}
+
+		#rcol {
+			float:right;
+			width:120px;
+		}
+
+		#rcol h2 {
+			font-weight:bold;
+		}
+
+		#rcol ul {
+			list-style:disc;
+			margin:8px 0 24px 24px;
+		}
+
+		#rcol p {
+			font-size:12px;
+		}
+
+		.ad-unit {
+			padding:10px;
+			margin:16px 0;
+			border:1px solid #000;
+			text-transform:uppercase;
+			color:#000;
+			text-align:center;
+			height:40px;
+			line-height:40px;
+			background:#fafad2;
+		}
+
+		.ad-unit.active {
+			background:#faa7a7;
+		}
+
+		#rcol .ad-unit {
+			line-height:1.5;
+			height:50px;
+			padding:100px 0;
+		}
+
+		#rcol .ad-unit.short {
+			padding:25px 0;
+		}
+
+		.popup {
+			position:absolute;
+			background:#666;
+			font-size:11px;
+			color:#ddd;
+			padding:20px 5px 5px 5px;
+			border-radius-:5px 5px 0 0;
+		}
+
+		#article-finished {
+			position:fixed;
+			bottom:0px;
+			right:0px;
+			width:400px;
+			padding-top:5px;
+			-webkit-transition:right 700ms ease-in-out;
+			-moz-transition:right 700ms ease-in-out;
+			-o-transition:right 700ms ease-in-out;
+			-ms-transition:right 700ms ease-in-out;
+			transition:right 700ms ease-in-out;
+		}
+
+		#article-finished.hiding {
+			right:-420px;
+		}
+
+		#article-finished a {
+			color:#fff;
+			text-decoration:underline;
+		}
+
+		.close {
+			background:#333;
+			color:#fff;
+			position:absolute;
+			right:3px;
+			top:3px;
+			height:14px;
+			line-height:14px;
+			text-align:center;
+			width:14px;
+			display:block;
+			text-decoration:none;
+			font-size:8px;
+			border-radius:4px;
+		}
+	</style>
 </head>
 <body>
 
-<div id="wrapper">
-	<hgroup>
-		<h1>Scroll Analytics</h1>
-		<h2>Using <a href="../">Waypoints</a> to track user engagement and ad views</h2>
-	</hgroup>
+<div class="header inner">
+	<h1>jQuery Waypoints</h1>
+	<h2>Scroll Analytics</h2>
+</div>
 
-	<article id="lcol">
-		<h1>Lorem Ipsum</h1>
+<div class="inner">
+	<div id="lcol">
+		<h3>Lorem Ipsum</h3>
 		
 		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut mi eros, commodo vel porttitor vitae, facilisis eu quam. Suspendisse elementum nibh vel velit bibendum vitae accumsan sem pellentesque. Aliquam quis nisl in felis elementum facilisis. Suspendisse potenti. Suspendisse vel ligula erat, mollis sagittis tortor. Vestibulum lobortis rutrum sapien, id sodales leo hendrerit in. Nullam at risus et lectus mattis elementum. Aliquam porta dignissim leo id iaculis. Donec id magna turpis. Morbi convallis lacus gravida velit condimentum suscipit. Nunc dui ipsum, congue sit amet euismod in, aliquet quis mauris. Mauris quis libero a diam egestas gravida. Phasellus bibendum, sem quis vulputate consectetur, quam nulla feugiat sem, eu sodales mi velit a tellus.</p>
 
@@ -51,12 +186,12 @@
 		<p>Fusce tempor magna et metus rutrum volutpat. In pellentesque enim nec augue pretium egestas. Pellentesque viverra mauris eget enim rutrum sagittis vulputate ligula lobortis. Integer bibendum porttitor turpis at adipiscing. Nulla vulputate, ligula id adipiscing pharetra, lectus magna varius elit.</p>
 		
 		<p>A feugiat nisi nulla ut lorem. Etiam eu dui vitae erat molestie dignissim lacinia ac quam. Cras bibendum consequat risus sed tristique. Morbi mattis ultrices eros id iaculis. Maecenas vel euismod tellus. Aenean aliquet rhoncus quam ut gravida. Sed faucibus metus tellus, vitae suscipit neque. Morbi et odio vitae sem tempor eleifend. Praesent sagittis, magna sit amet commodo convallis, nibh lectus blandit sapien, vel congue lorem purus vitae magna. Curabitur velit metus, lacinia eu rhoncus at, facilisis eget est. Curabitur metus augue, ultricies id vehicula eget, tempor dignissim ipsum.</p>
-	</article>
+	</div>
 	
-	<aside id="rcol">
+	<div id="rcol">
 		<div class="ad-unit short" data-analyticsid="21">I&rsquo;m an ad! (ID:21)</div>
 		
-		<h2>Related Posts</h2>
+		<h4>Related Posts</h4>
 		<ul>
 			<li>Lorem</li>
 			<li>Lorem</li>
@@ -77,7 +212,7 @@
 		<p>A feugiat nisi nulla ut lorem. Etiam eu dui vitae erat molestie dignissim lacinia ac quam. Cras bibendum consequat risus sed tristique. Morbi mattis ultrices eros id iaculis. Maecenas vel euismod tellus. Aenean aliquet rhoncus quam ut gravida. Sed faucibus metus tellus, vitae suscipit neque. Morbi et odio vitae sem tempor eleifend. Praesent sagittis, magna sit amet commodo convallis, nibh lectus blandit sapien, vel congue lorem purus vitae magna. Curabitur velit metus, lacinia eu rhoncus at, facilisis eget est. Curabitur metus augue, ultricies id vehicula eget, tempor dignissim ipsum.</p>
 		
 		<div class="ad-unit" data-analyticsid="12345">I&rsquo;m an ad! (ID:12345)</div>
-	</aside>
+	</div>
 </div>
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
@@ -114,7 +249,7 @@ $(document).ready(function() {
 		offset: 'bottom-in-view'
 	});
 	
-	$('article').waypoint(function(direction) {
+	$('#lcol').waypoint(function(direction) {
 		$('#article-finished').toggleClass('hiding', direction === "up");
 	}, {
 		offset: function() {
