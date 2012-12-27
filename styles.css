@@ -95,7 +95,7 @@ pre {
   margin: 10px 0 0 10px; }
 
 .about-visible .nav-about,
-.whats-new-visible .nav-new,
+.get-started-visible .nav-started,
 .shortcuts-examples-visible .nav-shortcuts,
 .docs-visible .nav-docs {
   background: #000;
@@ -105,11 +105,9 @@ pre {
   left: 0; }
   #about .inner {
     width: 400px;
+    margin: 60px auto;
     padding-right: 160px;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    margin: -60px 0 0 -280px; }
+    position: relative; }
   #about ul {
     position: absolute;
     right: 0;
@@ -123,6 +121,12 @@ pre {
         width: 48px;
         font-size: 24px;
         text-align: center; }
+  #about .row {
+    width: 520px;
+    overflow: hidden;
+    margin-left: 20px; }
+    #about .row.first {
+      border-bottom: 1px solid #000; }
 
 .about-download:before {
   content: '\f019'; }
@@ -136,19 +140,12 @@ pre {
 .about-licenses:before {
   content: '\f0e3'; }
 
-#whats-new {
-  left: 100%; }
-  #whats-new .inner {
-    position: absolute;
-    width: 520px;
-    margin: -160px 0 0 -260px;
-    left: 50%;
-    top: 50%; }
-  #whats-new .row {
-    width: 100%;
-    overflow: hidden; }
-    #whats-new .row:first-child {
-      border-bottom: 1px solid #000; }
+.new-in-2 {
+  width: 560px;
+  background: #000;
+  color: #fff;
+  text-align: center;
+  margin-top: 32px; }
 
 .new-panel {
   float: left;
@@ -172,6 +169,13 @@ pre {
 
 .new-api > h2:before {
   content: '\f040'; }
+
+#get-started {
+  left: 100%; }
+  #get-started .inner {
+    width: 620px;
+    margin: 60px auto;
+    padding-bottom: 400px; }
 
 #shortcuts-examples {
   left: 200%; }

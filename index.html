@@ -13,7 +13,7 @@
       <p class="version">v2.0.0</p>
       <ul>
         <li><a class="nav-about" href="#about">About</a></li>
-        <li><a class="nav-new" href="#whats-new">What&rsquo;s New</a></li>
+        <li><a class="nav-started" href="#get-started">Get Started</a></li>
         <li><a class="nav-shortcuts" href="#shortcuts-examples">Shortcuts &amp; Examples</a></li>
         <li><a class="nav-docs" href="#docs">Docs</a></li>
       </ul>
@@ -32,12 +32,9 @@
           <li><a href="test/" class="icon about-tests">Tests</a></li>
           <li><a href="#TODO" class="icon about-licenses">Licenses</a></li>
         </ul>
-      </div>
-    </div>
 
-    <div id="whats-new" class="panel">
-      <div class="inner">
-        <div class="row">
+        <h2 class="new-in-2">New in 2.0</h2>
+        <div class="first row">
           <div class="new-panel new-horizontals">
             <h2 class="icon">Horizontals</h2>
             <p>Waypoints can now be created for horizontal scrolling. Just pass <code>horizontal:true</code> to your waypoint options.</p>
@@ -60,6 +57,115 @@
             <p>A new handler signature, added introspection methods, and more. Be sure to check the new <a href="#docs">docs</a> and the <a href="#TODO">changelog</a>.</p>
           </div>
         </div>
+      </div>
+    </div>
+
+    <div id="get-started" class="panel">
+
+      <div class="inner">
+        <p>Lorem ipsum describe how you need to include jQuery then waypoints and that once thats done you can now call waypoint on your jQuery objects.</p>
+
+        <hr>
+
+        <p>The simplest way to use Waypoints is to call <code>.waypoint</code> and pass in a function.</p>
+
+        <pre id="example-basic"><code>$('#example-basic').waypoint(function() {
+ notify('Basic example callback triggered.');
+});</code></pre>
+
+        <p>This example causes a notification whenever the top of <code>#example-basic</code> hits the top of the viewport. The callback triggers when you pass this point both scrolling up and scrolling down.</p>
+
+        <hr>
+
+        <p>More often than not we want to perform different actions depending on which direction the user is scrolling. Waypoints passes this direction as a parameter to the callback function.</p>
+
+        <pre id="example-direction"><code>$('#example-direction').waypoint(function(direction) {
+  notify('Direction example triggered scrolling ' + direction);
+});</code></pre>
+
+        <p>Here the notification reads "Direction example triggered scrolling down" or "Direction example triggered scrolling up".</p>
+
+        <hr>
+
+        <p>What if you want your waypoint to trigger in a location besides when the top of your element hits the top of the viewport? The <code>waypoint</code> function takes a second argument, an options object. One of the most useful options is <code>offset</code>, which tells Waypoints how far from the top of the window the callback should fire. This can be expressed in pixels&hellip;</p>
+
+        <pre id="example-offset-pixels"><code>$('#example-offset-pixels').waypoint(function() {
+  notify('100 pixels from the top');
+), { offset: 100 });</code></pre>
+
+        <p>&hellip;as a percentage of the viewport's height&hellip;</p>
+
+        <pre id="example-offset-percent"><code>$('#example-offset-percent').waypoint(function() {
+  notify('25% from the top');
+), { offset: '25%' });</code></pre>
+
+        <p>&hellip;or as a function. The function should return a number. The following example will fire when the bottom of the element hits the top of the viewport.</p>
+
+        <pre id="example-offset-function"><code>$('#example-offset-function').waypoint(function() {
+  notify('Element bottom hit window top');
+}, {
+  offset: function() {
+    return -$(this).height();
+  }
+});</code></pre>
+
+        <hr>
+
+        <p>Let's say you have a <code>div</code> with <code>overflow:scroll</code>, and you want a waypoint inside of this scrollable element. The <code>context</code> option lets you do this.</p>
+
+        <div class="example-scroll-div">
+          <pre id="example-context"><code>$('#example-context').waypoint(function() {
+  notify('Hit top of context');
+});</code></pre>
+        </div>
+
+        <hr>
+
+        <p>Not all sites scroll vertically. You can create a waypoint on the horizontal axis with the <code>horizontal</code> option. This project page uses horizontal waypoints to the user navigates between high-level sections.</p>
+
+        <pre><code>$('.panel').waypoint(function(direction) {
+  $body.toggleClass(this.id + '-visible', direction === 'right');
+}, {
+  offset: '50%',
+  horizontal: true
+});</code></pre>
+
+        <p>As you can see, when <code>horizontal</code> is set to true the <code>direction</code> passed to the callback changes from "down" and "up" to "right" and "left".</p>
+
+        <hr>
+
+        <p>You can also create multiple waypoints on the same HTML element. Each waypoint can have its own options. The horizontal example above isn't the only waypoint created on the <code>.panels</code>.</p>
+
+        <pre><code>$('.panel').waypoint(function(direction) {
+  $body.toggleClass(this.id + '-visible', direction === 'left');
+}, {
+  offset: '-50%',
+  horizontal: true
+});</code></pre>
+
+        <hr>
+
+        <p>CoffeeScript authors may find passing a function followed by an options object to be a bit clumsy. There is an alternative way to pass the waypoints callback, using the <code>handler</code> option. If you provide a <code>handler</code> option, you only need to pass the options object.</p>
+
+        <pre id="example-handler"><code>/* In JavaScript */
+$('#example-handler').waypoint({
+  handler: function() {
+    notify('Handler option used');
+  },
+  offset: '50%'
+});
+
+/* In CoffeeScript */
+$('#example-handler').waypoint
+  handler: ->
+    notify 'Handler option used'
+  offset: '50%'</code></pre>
+
+        <hr>
+
+        <p>If you've got these basics under control, take a look at the <a href="#docs">docs</a> for more information on all of the options and methods available in Waypoints.</p>
+
+        <p>If you're looking to implement one of a number of common scroll-based UI patterns, give the <a href="#shortcuts-examples">shortcuts</a> section a try.</p>
       </div>
     </div>
 
