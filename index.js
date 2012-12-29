@@ -138,4 +138,27 @@ $(function() {
   });
 });
 
+/* Centering for About and Shortcut panels */
+$(function() {
+  var $window = $(window);
+  var $centered = $('#about .inner, #shortcuts-examples .inner')
+
+  var center = function() {
+    var winHeight = $.waypoints('viewportHeight');
+
+    $centered.each(function() {
+      var $el = $(this);
+      var top = (winHeight - $el.height()) / 2;
+
+      top = top > 60 ? top : 60;
+      $el.css('top', top);
+    })
+  };
+
+  center();
+  $window.load(center).resize(center);
+}); 
+
+
+
 

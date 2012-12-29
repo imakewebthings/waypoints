@@ -135,20 +135,8 @@ pre {
     width:620px;
     position:absolute;
     left:50%;
-    top:50%;
-    margin:-140px 0 0 -310px;
-    position:relative;
-    overflow:hidden;
-  }
-
-  .row {
-    width:520px;
-    overflow:hidden;
-    margin-left:20px;
-
-    &.first {
-      border-bottom:1px solid #000;
-    }
+    top:60px;
+    margin:0 0 0 -310px;
   }
 }
 
@@ -228,16 +216,6 @@ pre {
   }
 }
 
-.new-panel {
-  float:left;
-  width:230px;
-  padding:15px 15px 15px 14px;
-
-  > h2:before {
-    width:30px;
-  }
-}
-
 .new-horizontals:before {
   content:'\f07e';
 }
@@ -267,9 +245,9 @@ pre {
   .inner {
     position:absolute;
     width:520px;
-    margin:-185px 0 0 -260px;
+    margin:0 0 0 -260px;
     left:50%;
-    top:50%;
+    top:60px;
   }
 
   a {
