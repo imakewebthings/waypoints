@@ -54,6 +54,7 @@ p, pre {
 pre {
   padding:10px;
   border:1px solid #000;
+  background:#fff;
 }
 
 .icon:before {
@@ -76,7 +77,7 @@ pre {
   height:25px;
   padding:10px;
   position:fixed;
-  z-index:2;
+  z-index:3;
   top:0;
   left:50%;
   margin-left:-320px;
@@ -131,11 +132,28 @@ pre {
   left:0;
 
   .inner {
-    width:400px;
-    margin:60px auto;
-    padding-right:160px;
+    width:620px;
+    position:absolute;
+    left:50%;
+    top:50%;
+    margin:-140px 0 0 -310px;
     position:relative;
+    overflow:hidden;
   }
+
+  .row {
+    width:520px;
+    overflow:hidden;
+    margin-left:20px;
+
+    &.first {
+      border-bottom:1px solid #000;
+    }
+  }
+}
+
+.summary {
+  padding-right:160px;
 
   ul {
     position:absolute;
@@ -153,16 +171,6 @@ pre {
         font-size:24px;
         text-align:center;
       }
-    }
-  }
-
-  .row {
-    width:520px;
-    overflow:hidden;
-    margin-left:20px;
-
-    &.first {
-      border-bottom:1px solid #000;
     }
   }
 }
@@ -184,11 +192,40 @@ pre {
 }
 
 .new-in-2 {
-  width:560px;
-  background:#000;
-  color:#fff;
-  text-align:center;
-  margin-top:32px;
+  > h2 {
+    background:#000;
+    color:#fff;
+    text-indent:10px;
+    width:120px;
+    font-size:18px;
+  }
+
+  ul {
+    list-style:none;
+    border:1px solid #000;
+    width:618px;
+    overflow:hidden;
+  }
+
+  li {
+    float:left;
+    width:134px;
+    font-size:12px;
+    padding:10px;
+  }
+
+  p {
+    margin:0;
+  }
+
+  h3 {
+    margin:0;
+    font-size:16px;
+
+    &:before {
+      padding-right:8px;
+    }
+  }
 }
 
 .new-panel {
@@ -201,32 +238,17 @@ pre {
   }
 }
 
-.new-horizontals {
-  border-right:1px solid #000;
-
-  > h2:before {
-    content:'\f07e';
-  }
+.new-horizontals:before {
+  content:'\f07e';
 }
-
-.new-multiples {
-  > h2:before {
-    content:'\f00a';
-  }
+.new-multiples:before {
+  content:'\f00a';
 }
-
-.new-shortcuts {
-  border-right:1px solid #000;
-
-  > h2:before {
-    content:'\f0d0';
-  }
+.new-shortcuts:before {
+  content:'\f0d0';
 }
-
-.new-api {
-  > h2:before {
-    content:'\f040';
-  }
+.new-api:before {
+  content:'\f040';
 }
 
 #get-started {
@@ -416,4 +438,35 @@ pre {
   dd {
     padding-left:10px;
   }
+}
+
+.notifications-wrapper {
+  position:fixed;
+  z-index:2;
+  height:0;
+  overflow:visible;
+  left:0;
+  right:0;
+  top:45px;
+}
+
+.notifications {
+  width:320px;
+  margin:0 auto;
+
+  > p {
+    height:32px;
+    line-height:32px;
+    background:#000;
+    color:#fff;
+    text-align:center;
+    margin:0;
+  }
+}
+
+.example-scroll-div {
+  padding:25px 0 100px 0;
+  background:#000;
+  overflow:scroll;
+  height:0;
 }

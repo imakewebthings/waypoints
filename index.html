@@ -21,41 +21,44 @@
 
     <div id="about" class="panel">
       <div class="inner">
-        <p>Waypoints is a jQuery plugin that makes it easy to execute a function whenever you scroll to an element.</p>
-        <pre><code>$('.thing').waypoint(function(direction) {
-  alert('Top of thing hit top of viewport.');
-});</code></pre>
+        <div class="summary">
+          <p>Waypoints is a jQuery plugin that makes it easy to execute a function whenever you scroll to an element.</p>
 
-        <ul>
-          <li><a href="#TODO" class="icon about-download">Download</a></li>
-          <li><a href="http://github.com/imakewebthings/jquery-waypoints" class="icon about-github">GitHub</a></li>
-          <li><a href="test/" class="icon about-tests">Tests</a></li>
-          <li><a href="#TODO" class="icon about-licenses">Licenses</a></li>
-        </ul>
+          <pre><code>$('.thing').waypoint(function(direction) {
+    alert('Top of thing hit top of viewport.');
+  });</code></pre>
 
-        <h2 class="new-in-2">New in 2.0</h2>
-        <div class="first row">
-          <div class="new-panel new-horizontals">
-            <h2 class="icon">Horizontals</h2>
-            <p>Waypoints can now be created for horizontal scrolling. Just pass <code>horizontal:true</code> to your waypoint options.</p>
-          </div>
-
-          <div class="new-panel new-multiples">
-            <h2 class="icon">Multiples</h2>
-            <p>One HTML element can now have multiple Waypoints attached to it, each with its own <code>offset</code> and handler.</p>
-          </div>
+          <ul>
+            <li><a href="#TODO" class="icon about-download">Download</a></li>
+            <li><a href="http://github.com/imakewebthings/jquery-waypoints" class="icon about-github">GitHub</a></li>
+            <li><a href="test/" class="icon about-tests">Tests</a></li>
+            <li><a href="#TODO" class="icon about-licenses">Licenses</a></li>
+          </ul>
         </div>
-        
-        <div class="row">
-          <div class="new-panel new-shortcuts">
-            <h2 class="icon">Shortcuts</h2>
-            <p>The most common uses for Waypoints are now even easier to implement with <a href="#shortcuts-examples">shortcut methods</a>.</p>
-          </div>
 
-          <div class="new-panel new-api">
-            <h2 class="icon">Revised API</h2>
-            <p>A new handler signature, added introspection methods, and more. Be sure to check the new <a href="#docs">docs</a> and the <a href="#TODO">changelog</a>.</p>
-          </div>
+        <div class="new-in-2">
+          <h2>New in 2.0</h2>
+          <ul>
+            <li>
+              <h3 class="icon new-horizontals">Horizontals</h3>
+              <p>Waypoints can now be created for horizontal scrolling. Just pass <code>horizontal:true</code> to your waypoint options.</p>
+            </li>
+
+            <li>
+              <h3 class="icon new-multiples">Multiples</h3>
+              <p>One HTML element can now have multiple Waypoints attached to it, each with its own <code>offset</code> and handler.</p>
+            </li>
+
+            <li>
+              <h3 class="icon new-shortcuts">Shortcuts</h3>
+              <p>The most common uses for Waypoints are now even easier to implement with <a href="#shortcuts-examples">shortcut methods</a>.</p>
+            </li>
+
+            <li>
+              <h3 class="icon new-api">Revised API</h3>
+              <p>A new handler signature, added introspection methods, and more. Be sure to check the new <a href="#docs">docs</a> and the <a href="#TODO">changelog</a>.</p>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
@@ -116,7 +119,7 @@
         <div class="example-scroll-div">
           <pre id="example-context"><code>$('#example-context').waypoint(function() {
   notify('Hit top of context');
-});</code></pre>
+}, { context: '.example-scroll-div' });</code></pre>
         </div>
 
         <hr>
@@ -134,7 +137,7 @@
 
         <hr>
 
-        <p>You can also create multiple waypoints on the same HTML element. Each waypoint can have its own options. The horizontal example above isn't the only waypoint created on the <code>.panels</code>.</p>
+        <p>You can also create multiple waypoints on the same HTML element. Each waypoint can have its own options. The horizontal example above isn't the only waypoint created on the <code>.panel</code> elements.</p>
 
         <pre><code>$('.panel').waypoint(function(direction) {
   $body.toggleClass(this.id + '-visible', direction === 'left');
@@ -626,6 +629,10 @@ $('#thing').waypoint('alert', 'Foo: ');
 // Alerts "Foo: thing"</code></pre>
         </div>
       </div>
+    </div>
+
+    <div class="notifications-wrapper">
+      <div class="notifications"></div>
     </div>
 
     <script src="jquery.js"></script>

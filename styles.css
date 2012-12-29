@@ -41,7 +41,8 @@ p, pre {
 
 pre {
   padding: 10px;
-  border: 1px solid #000; }
+  border: 1px solid #000;
+  background: #fff; }
 
 .icon:before {
   font-family: 'FontAwesome';
@@ -61,7 +62,7 @@ pre {
   height: 25px;
   padding: 10px;
   position: fixed;
-  z-index: 2;
+  z-index: 3;
   top: 0;
   left: 50%;
   margin-left: -320px;
@@ -104,29 +105,35 @@ pre {
 #about {
   left: 0; }
   #about .inner {
-    width: 400px;
-    margin: 60px auto;
-    padding-right: 160px;
-    position: relative; }
-  #about ul {
+    width: 620px;
     position: absolute;
-    right: 0;
-    top: 0;
-    list-style: none; }
-    #about ul a {
-      text-decoration: none;
-      color: #000;
-      display: block; }
-      #about ul a:before {
-        width: 48px;
-        font-size: 24px;
-        text-align: center; }
+    left: 50%;
+    top: 50%;
+    margin: -140px 0 0 -310px;
+    position: relative;
+    overflow: hidden; }
   #about .row {
     width: 520px;
     overflow: hidden;
     margin-left: 20px; }
     #about .row.first {
       border-bottom: 1px solid #000; }
+
+.summary {
+  padding-right: 160px; }
+  .summary ul {
+    position: absolute;
+    right: 0;
+    top: 0;
+    list-style: none; }
+    .summary ul a {
+      text-decoration: none;
+      color: #000;
+      display: block; }
+      .summary ul a:before {
+        width: 48px;
+        font-size: 24px;
+        text-align: center; }
 
 .about-download:before {
   content: '\f019'; }
@@ -140,12 +147,29 @@ pre {
 .about-licenses:before {
   content: '\f0e3'; }
 
-.new-in-2 {
-  width: 560px;
+.new-in-2 > h2 {
   background: #000;
   color: #fff;
-  text-align: center;
-  margin-top: 32px; }
+  text-indent: 10px;
+  width: 120px;
+  font-size: 18px; }
+.new-in-2 ul {
+  list-style: none;
+  border: 1px solid #000;
+  width: 618px;
+  overflow: hidden; }
+.new-in-2 li {
+  float: left;
+  width: 134px;
+  font-size: 12px;
+  padding: 10px; }
+.new-in-2 p {
+  margin: 0; }
+.new-in-2 h3 {
+  margin: 0;
+  font-size: 16px; }
+  .new-in-2 h3:before {
+    padding-right: 8px; }
 
 .new-panel {
   float: left;
@@ -154,20 +178,16 @@ pre {
   .new-panel > h2:before {
     width: 30px; }
 
-.new-horizontals {
-  border-right: 1px solid #000; }
-  .new-horizontals > h2:before {
-    content: '\f07e'; }
+.new-horizontals:before {
+  content: '\f07e'; }
 
-.new-multiples > h2:before {
+.new-multiples:before {
   content: '\f00a'; }
 
-.new-shortcuts {
-  border-right: 1px solid #000; }
-  .new-shortcuts > h2:before {
-    content: '\f0d0'; }
+.new-shortcuts:before {
+  content: '\f0d0'; }
 
-.new-api > h2:before {
+.new-api:before {
   content: '\f040'; }
 
 #get-started {
@@ -306,3 +326,29 @@ pre {
   font-weight: bold; }
 .options-list dd {
   padding-left: 10px; }
+
+.notifications-wrapper {
+  position: fixed;
+  z-index: 2;
+  height: 0;
+  overflow: visible;
+  left: 0;
+  right: 0;
+  top: 45px; }
+
+.notifications {
+  width: 320px;
+  margin: 0 auto; }
+  .notifications > p {
+    height: 32px;
+    line-height: 32px;
+    background: #000;
+    color: #fff;
+    text-align: center;
+    margin: 0; }
+
+.example-scroll-div {
+  padding: 25px 0 100px 0;
+  background: #000;
+  overflow: scroll;
+  height: 0; }

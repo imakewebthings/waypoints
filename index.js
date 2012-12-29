@@ -79,6 +79,63 @@ $(function() {
     });
 });
 
+/* Get Started section notification examples */
+$(function() {
+  var notify = function(message) {
+    var $message = $('<p style="display:none;">' + message + '</p>');
 
+    $('.notifications').append($message);
+    $message.slideDown(300, function() {
+      window.setTimeout(function() {
+        $message.slideUp(300, function() {
+          $message.remove();
+        });
+      }, 2000);
+    });
+  };
+
+  $('#example-basic').waypoint(function() {
+   notify('Basic example callback triggered.');
+  }, { context: '.panel' });
+
+  $('#example-direction').waypoint(function(direction) {
+    notify('Direction example triggered scrolling ' + direction);
+  }, { context: '.panel' });
+
+  $('#example-offset-pixels').waypoint(function() {
+    notify('100 pixels from the top');
+  }, {
+    offset: 100,
+    context: '.panel'
+  });
+
+  $('#example-offset-percent').waypoint(function() {
+    notify('25% from the top');
+  }, {
+    offset: '25%',
+    context: '.panel'
+  });
+
+  $('#example-offset-function').waypoint(function() {
+    notify('Element bottom hit window top');
+  }, {
+    offset: function() {
+      return -$(this).height();
+    },
+    context: '.panel'
+  });
+
+  $('#example-context').waypoint(function() {
+    notify('Hit top of context');
+  }, { context: '.example-scroll-div' });
+
+  $('#example-handler').waypoint({
+    handler: function() {
+      notify('Handler option used');
+    },
+    offset: '50%',
+    context: '.panel'
+  });
+});
 
 
