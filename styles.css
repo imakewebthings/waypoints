@@ -30,7 +30,7 @@ html {
 body {
   background: #fff;
   color: #000;
-  font-family: 'Helvetica Neue', sans-serif;
+  font-family: "Lato", sans-serif;
   width: 100%;
   height: 100%;
   line-height: 1.5;
@@ -41,8 +41,21 @@ p, pre {
 
 pre {
   padding: 10px;
-  border: 1px solid #000;
   background: #fff; }
+
+code {
+  font-family: "Ubuntu Mono", monospace; }
+
+h1, h2, h3, h4 {
+  font-family: "PT Serif", serif;
+  font-weight: normal; }
+
+hr {
+  margin: 32px 0; }
+
+a {
+  text-decoration: none;
+  border-bottom: 1px solid transparent; }
 
 .icon:before {
   font-family: 'FontAwesome';
@@ -66,9 +79,13 @@ pre {
   top: 0;
   left: 50%;
   margin-left: -320px;
-  background: #000;
-  color: #fff;
+  background: #fff;
+  color: #000;
   overflow: hidden; }
+  .about-visible .nav {
+    color: #225e7f; }
+    .about-visible .nav .nav-about, .about-visible .nav a:hover, .about-visible .nav a:focus {
+      background: #51a3d0; }
   .nav h1 {
     float: left;
     font-size: 24px;
@@ -82,12 +99,14 @@ pre {
   .nav a {
     display: block;
     line-height: 2;
-    color: #000;
-    background: #fff;
+    color: #fff;
+    background: #000;
     text-decoration: none;
     font-size: 12px;
-    padding: 0 5px;
-    border: 1px solid #fff; }
+    padding: 0 5px; }
+    .about-visible .nav a {
+      background: #b5d8eb;
+      color: #fff; }
 
 .version {
   float: left;
@@ -95,15 +114,18 @@ pre {
   line-height: 1;
   margin: 10px 0 0 10px; }
 
-.about-visible .nav-about,
-.get-started-visible .nav-started,
-.shortcuts-examples-visible .nav-shortcuts,
-.docs-visible .nav-docs {
-  background: #000;
-  color: #fff; }
-
 #about {
-  left: 0; }
+  left: 0;
+  background: #b5d8eb;
+  color: #225e7f; }
+  #about h3 {
+    color: #123143; }
+  #about a {
+    color: #225e7f;
+    border-bottom-color: #51a3d0; }
+    #about a:hover {
+      color: #123143;
+      border-bottom-color: #225e7f; }
   #about .inner {
     width: 620px;
     position: absolute;
@@ -116,12 +138,15 @@ pre {
   .summary ul {
     position: absolute;
     right: 0;
-    top: 0;
+    top: -3px;
     list-style: none; }
     .summary ul a {
       text-decoration: none;
-      color: #000;
-      display: block; }
+      display: block;
+      border: 0;
+      padding: 4px 10px 0 0; }
+      .summary ul a:hover, .summary ul a:focus {
+        background: #ddedf6; }
       .summary ul a:before {
         width: 48px;
         font-size: 24px;
@@ -139,29 +164,31 @@ pre {
 .about-licenses:before {
   content: '\f0e3'; }
 
-.new-in-2 > h2 {
-  background: #000;
-  color: #fff;
-  text-indent: 10px;
-  width: 120px;
-  font-size: 18px; }
-.new-in-2 ul {
-  list-style: none;
-  border: 1px solid #000;
-  width: 618px;
-  overflow: hidden; }
-.new-in-2 li {
-  float: left;
-  width: 134px;
-  font-size: 12px;
-  padding: 10px; }
-.new-in-2 p {
-  margin: 0; }
-.new-in-2 h3 {
-  margin: 0;
-  font-size: 16px; }
-  .new-in-2 h3:before {
-    padding-right: 8px; }
+.new-in-2 {
+  margin-top: 32px; }
+  .new-in-2 > h2 {
+    background: #ddedf6;
+    color: #225e7f;
+    width: 120px;
+    font-size: 18px;
+    margin: 0 auto;
+    text-align: center; }
+  .new-in-2 ul {
+    list-style: none;
+    width: 618px;
+    overflow: hidden; }
+  .new-in-2 li {
+    float: left;
+    width: 134px;
+    font-size: 12px;
+    padding: 10px; }
+  .new-in-2 p {
+    margin: 0; }
+  .new-in-2 h3 {
+    margin: 0;
+    font-size: 16px; }
+    .new-in-2 h3:before {
+      padding-right: 8px; }
 
 .new-horizontals:before {
   content: '\f07e'; }
@@ -272,6 +299,7 @@ pre {
   position: relative;
   padding-top: 60px; }
   .doc-section:after {
+    font-family: 'Helvetica Neue', sans-serif;
     content: '༒';
     position: absolute;
     left: 0;

@@ -1,3 +1,13 @@
+$bodyFont: 'Lato', sans-serif;
+$headerFont: 'PT Serif', serif;
+$monoFont: 'Ubuntu Mono', monospace;
+
+$aboutBase: #b5d8eb;
+$aboutLight: lighten($aboutBase, 10%);
+$aboutMid: darken($aboutBase, 25%);
+$aboutDark: darken($aboutBase, 50%);
+$aboutDarkest: darken($aboutBase, 65%);
+
 @mixin transition($val) {
   -webkit-transition: $val;
   -moz-transition: $val;
@@ -40,7 +50,7 @@ html {
 body {
   background:#fff;
   color:#000;
-  font-family:'Helvetica Neue', sans-serif;
+  font-family:$bodyFont;
   width:100%;
   height:100%;
   line-height:1.5;
@@ -53,8 +63,25 @@ p, pre {
 
 pre {
   padding:10px;
-  border:1px solid #000;
   background:#fff;
+}
+
+code {
+  font-family:$monoFont;
+}
+
+h1, h2, h3, h4 {
+  font-family:$headerFont;
+  font-weight:normal;
+}
+
+hr {
+  margin:32px 0;
+}
+
+a {
+  text-decoration:none;
+  border-bottom:1px solid transparent;
 }
 
 .icon:before {
@@ -81,9 +108,17 @@ pre {
   top:0;
   left:50%;
   margin-left:-320px;
-  background:#000;
-  color:#fff;
+  background:#fff;
+  color:#000;
   overflow:hidden;
+
+  .about-visible & {
+    color:$aboutDark;
+
+    .nav-about, a:hover, a:focus {
+      background:$aboutMid;
+    }
+  }
 
   h1 {
     float:left;
@@ -104,12 +139,16 @@ pre {
   a {
     display:block;
     line-height:2;
-    color:#000;
-    background:#fff;
+    color:#fff;
+    background:#000;
     text-decoration:none;
     font-size:12px;
     padding:0 5px;
-    border:1px solid #fff;
+
+    .about-visible & {
+      background:$aboutBase;
+      color:#fff;
+    }
   }
 }
 
@@ -120,16 +159,24 @@ pre {
   margin:10px 0 0 10px;
 }
 
-.about-visible .nav-about,
-.get-started-visible .nav-started,
-.shortcuts-examples-visible .nav-shortcuts,
-.docs-visible .nav-docs {
-  background:#000;
-  color:#fff;
-}
-
 #about {
   left:0;
+  background:$aboutBase;
+  color:$aboutDark;
+
+  h3 {
+    color:$aboutDarkest;
+  }
+
+  a {
+    color:$aboutDark;
+    border-bottom-color:$aboutMid;
+
+    &:hover {
+      color:$aboutDarkest;
+      border-bottom-color:$aboutDark;
+    }
+  }
 
   .inner {
     width:620px;
@@ -146,13 +193,18 @@ pre {
   ul {
     position:absolute;
     right:0;
-    top:0;
+    top:-3px;
     list-style:none;
 
     a {
       text-decoration:none;
-      color:#000;
       display:block;
+      border:0;
+      padding:4px 10px 0 0;
+
+      &:hover, &:focus {
+        background:$aboutLight;
+      }
 
       &:before {
         width:48px;
@@ -180,17 +232,19 @@ pre {
 }
 
 .new-in-2 {
+  margin-top:32px;
+
   > h2 {
-    background:#000;
-    color:#fff;
-    text-indent:10px;
+    background:$aboutLight;
+    color:$aboutDark;
     width:120px;
     font-size:18px;
+    margin:0 auto;
+    text-align:center;
   }
 
   ul {
     list-style:none;
-    border:1px solid #000;
     width:618px;
     overflow:hidden;
   }
@@ -358,6 +412,7 @@ pre {
   padding-top:60px;
 
   &:after {
+    font-family:'Helvetica Neue', sans-serif;
     content:'༒';
     position:absolute;
     left:0;

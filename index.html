@@ -4,6 +4,10 @@
     <meta charset="utf-8">
     <title>jQuery Waypoints</title>
     <meta name="viewport" content="width=device-width">
+    <link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=PT+Serif:700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="styles.css">
   </head>
 
@@ -25,8 +29,8 @@
           <p>Waypoints is a jQuery plugin that makes it easy to execute a function whenever you scroll to an element.</p>
 
           <pre><code>$('.thing').waypoint(function(direction) {
-    alert('Top of thing hit top of viewport.');
-  });</code></pre>
+  alert('Top of thing hit top of viewport.');
+});</code></pre>
 
           <ul>
             <li><a href="#TODO" class="icon about-download">Download</a></li>
@@ -66,7 +70,12 @@
     <div id="get-started" class="panel">
 
       <div class="inner">
-        <p>Lorem ipsum describe how you need to include jQuery then waypoints and that once thats done you can now call waypoint on your jQuery objects.</p>
+        <p>First thing's first, to get started with Waypoints, <a href="#TODO">download the plugin</a> and include it after you've included jQuery.</p>
+
+        <pre><code>&lt;script src=&quot;/path/to/jquery.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;/path/to/waypoints.min.js&quot;&gt;&lt;/script&gt;</code></pre>
+
+        <p>You'll now have access to the <code>.waypoint</code> method on your jQuery objects.</p>
 
         <hr>
 
@@ -90,7 +99,7 @@
 
         <hr>
 
-        <p>What if you want your waypoint to trigger in a location besides when the top of your element hits the top of the viewport? The <code>waypoint</code> function takes a second argument, an options object. One of the most useful options is <code>offset</code>, which tells Waypoints how far from the top of the window the callback should fire. This can be expressed in pixels&hellip;</p>
+        <p>What if you want your waypoint to trigger in a location other than when the top of your element hits the top of the viewport? The <code>waypoint</code> function takes a second argument, an options object. One of the most useful options is <code>offset</code>, which tells Waypoints how far from the top of the window the callback should fire. This can be expressed in pixels&hellip;</p>
 
         <pre id="example-offset-pixels"><code>$('#example-offset-pixels').waypoint(function() {
   notify('100 pixels from the top');
@@ -102,7 +111,7 @@
   notify('25% from the top');
 ), { offset: '25%' });</code></pre>
 
-        <p>&hellip;or as a function. The function should return a number. The following example will fire when the bottom of the element hits the top of the viewport.</p>
+        <p>&hellip;or as a function. The function needs to return a number. The following example will fire when the bottom of the element hits the top of the viewport.</p>
 
         <pre id="example-offset-function"><code>$('#example-offset-function').waypoint(function() {
   notify('Element bottom hit window top');
@@ -114,7 +123,7 @@
 
         <hr>
 
-        <p>Let's say you have a <code>div</code> with <code>overflow:scroll</code>, and you want a waypoint inside of this scrollable element. The <code>context</code> option lets you do this.</p>
+        <p>Let's say you have a <code>div</code> with <code>overflow:scroll</code>, and you want a waypoint inside of this scrollable element. The <code>context</code> option lets you do this. Scroll the box below.</p>
 
         <div class="example-scroll-div">
           <pre id="example-context"><code>$('#example-context').waypoint(function() {
@@ -361,7 +370,7 @@ $('#example-handler').waypoint
   }
 });</code></pre>
 
-              <p>Vertical waypoints may also use the value <code>'bottom-in-view'</code>. This is a shortcut for a common function that sets the waypoint to triggerwhen the bottom of the element hits the bottom of the viewport.</p>
+              <p>Vertical waypoints may also use the value <code>'bottom-in-view'</code>. This is a shortcut for a common function that sets the waypoint to trigger when the bottom of the element hits the bottom of the viewport.</p>
 
               <pre><code>$('.thing').waypoint({
   offset: 'bottom-in-view'
