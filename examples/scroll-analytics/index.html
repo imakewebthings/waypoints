@@ -7,6 +7,7 @@
 	<meta name="description" content="An example of how to use the jQuery Waypoints plugin to track ad views more accurately and respond to engaged users when they reach the end of content">
 	<meta name="viewport" content="width=480">
 
+	<link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono|Lato:400,700|PT+Serif:700' rel='stylesheet' type='text/css'>
 	<style type="text/css">
 		* {
 			margin:0;
@@ -16,10 +17,10 @@
 		body {
 			font-size:16px;
 			line-height:1.5;
-			color:#000;
-			background:#fff;
-			padding-bottom:16px;
-			font-family:"Helvetica Neue", sans-serif;
+			color:#6a6272;
+      background:#d5c5e5;
+      padding-bottom:16px;
+      font-family:"Lato", sans-serif;
 		}
 
 		.inner {
@@ -28,16 +29,22 @@
 			margin:0 auto;
 		}
 
-		h1 {
-			font-size:54px;
-		}
+		h1, h2, h3, h4 {
+      font-family:"PT Serif", serif;
+      font-weight:normal;
+    }
 
-		h2 {
-			text-align:center;
-			background:#000;
-			color:#fff;
-			font-size:24px;
-		}
+    h1 {
+      font-size:53px;
+      color:#444a50;
+    }
+
+    h2 {
+      text-align:center;
+      background:#6a6272;
+      color:#eae2f2;
+      font-size:24px;
+    }
 
 		h3 {
 			font-size:24px;
@@ -73,17 +80,17 @@
 		.ad-unit {
 			padding:10px;
 			margin:16px 0;
-			border:1px solid #000;
+			border:1px solid #444a50;
 			text-transform:uppercase;
-			color:#000;
+			color:#eae2f2;
 			text-align:center;
 			height:40px;
 			line-height:40px;
-			background:#fafad2;
+			background:#6a6272;
 		}
 
 		.ad-unit.active {
-			background:#faa7a7;
+			background:#444a50;
 		}
 
 		#rcol .ad-unit {
@@ -98,9 +105,8 @@
 
 		.popup {
 			position:absolute;
-			background:#666;
+			background:#eae2f2;
 			font-size:11px;
-			color:#ddd;
 			padding:20px 5px 5px 5px;
 			border-radius-:5px 5px 0 0;
 		}
@@ -123,12 +129,13 @@
 		}
 
 		#article-finished a {
+			background:#444a50;
 			color:#fff;
 			text-decoration:underline;
 		}
 
 		.close {
-			background:#333;
+			background:#444a50;
 			color:#fff;
 			position:absolute;
 			right:3px;

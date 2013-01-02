@@ -314,6 +314,13 @@ describe 'jQuery Waypoints', ->
       $e.add($f).waypoint({})
       expect($f.waypoint('prev')[0]).toEqual $e[0]
 
+    it 'can be used in a non-window context', ->
+      $e = $ '#inner1'
+      $f = $ '#inner2'
+      $e.add($f).waypoint
+        context: '#bottom'
+      expect($f.waypoint('prev', 'vertical', '#bottom')[0]).toEqual $e[0]
+
   describe '#waypoint("next")', ->
     it 'returns jQuery object containing next waypoint', ->
       $e = $ '#same1'
