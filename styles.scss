@@ -90,6 +90,10 @@ p, pre {
 pre {
   padding:10px;
   background:#fff;
+
+  code {
+    color:#888;
+  }
 }
 
 code {
@@ -133,6 +137,7 @@ a {
   background:#fff;
   color:#000;
   overflow:hidden;
+  box-shadow:0 3px 5px rgba(0, 0, 0, .3);
   @include transition(all 300ms ease-in-out);
 
   .about-visible & {
@@ -221,7 +226,7 @@ a {
   margin:10px 0 0 10px;
 }
 
-#about {
+.about {
   left:0;
   background:$aboutBase;
   color:$aboutDark;
@@ -343,19 +348,10 @@ a {
   content:'\f040';
 }
 
-#get-started {
+.get-started {
   left:100%;
   background:$startBase;
   color:$startDark;
-
-  hr {
-    display:block;
-    margin:32px auto;
-    width:4px;
-    height:4px;
-    border:0;
-    background:$startMid;
-  }
 
   a {
     color:$startDark;
@@ -367,6 +363,11 @@ a {
     }
   }
 
+  p > code {
+    padding:0 2px;
+    background:$startLight;
+  }
+
   .inner {
     width:620px;
     margin:60px auto;
@@ -374,7 +375,24 @@ a {
   }
 }
 
-#shortcuts-examples {
+.started-section {
+  position:relative;
+  margin-bottom:64px;
+
+  &:after {
+    font-family:'Helvetica Neue', sans-serif;
+    content:'༜';
+    position:absolute;
+    left:0;
+    bottom:-44px;
+    width:100%;
+    text-align:center;
+    font-size:16px;
+    color:$startMid;
+  }
+}
+
+.shortcuts-examples {
   left:200%;
   background:$shortBase;
   color:$shortDark;
@@ -433,7 +451,7 @@ a {
   content:'\f0c0';
 }
 
-#docs {
+.docs {
   left:300%;
   background:$docsBase;
   color:$docsDark;
@@ -470,23 +488,23 @@ a {
   }
 }
 
-.docs-nav {
+.docs-nav-wrapper {
   @include transition(right 200ms ease-in-out);
   position:fixed;
   z-index:6;
-  top:60px;
+  top:54px;
   right:-120px;
   bottom:24px;
   overflow:auto;
-  width:120px;
   font-size:12px;
   line-height:2;
+  padding:6px 0 0 6px;
 
   .docs-visible & {
     right:0;
   }
 
-  &, ul {
+  ul {
     list-style:none;
   }
 
@@ -494,26 +512,28 @@ a {
     background:#fff;
   }
 
-  a {
+  ul a {
     text-decoration:none;
     display:block;
     padding:2px 8px;
   }
 
-  > li > a {
-    font-weight:bold;
-  }
-
-  ul a {
+  ul ul a {
     padding-left:16px;
   }
 
-  .active {
+  .active, a:hover, a:focus {
     background:$docsLight;
+  }
+}
 
-    * {
-      text-decoration:none;
-    }
+.docs-nav {
+  width:120px;
+  box-shadow:0 2px 4px rgba(0, 0, 0, .3);
+
+  > li > a {
+    font-size:14px;
+    color:$docsDarkest;
   }
 }
 
@@ -524,10 +544,10 @@ a {
 
   &:after {
     font-family:'Helvetica Neue', sans-serif;
-    content:'༒';
+    content:'༜';
     position:absolute;
     left:0;
-    bottom:-40px;
+    bottom:-76px;
     width:100%;
     text-align:center;
     font-size:16px;
@@ -600,6 +620,7 @@ a {
 .notifications {
   width:320px;
   margin:0 auto;
+  box-shadow:0 1px 3px rgba(0, 0, 0, .3);
 
   > p {
     height:32px;
@@ -608,12 +629,13 @@ a {
     color:$startDark;
     text-align:center;
     margin:0;
+    border-top:1px solid $startBase;
   }
 }
 
 .example-scroll-div {
   padding:25px 0 100px 0;
-  background:#000;
+  background:$startDark;
   overflow:scroll;
   height:0;
 }
@@ -628,6 +650,7 @@ a {
   line-height:2;
   margin:0;
   padding:0 5px;
+  @include transition(all 300ms ease-in-out);
 
   .about-visible & {
     background:$aboutLight;
@@ -680,4 +703,20 @@ a {
       }
     }
   }
+}
+
+.fn {
+  color:#111;
+}
+.kw {
+  color:#a33;
+}
+.str {
+  color:#3a3;
+}
+.cm {
+  color:#33a;
+}
+.key {
+  color:#939;
 }

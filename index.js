@@ -63,6 +63,7 @@ $(function() {
       var $links = $('a[href="#' + this.id + '"]');
 
       $links.toggleClass('active', direction === 'down');
+      console.log(this.id, 'from bottom', direction);
     }, {
       context: '#docs',
       offset: '100%'
@@ -71,6 +72,7 @@ $(function() {
       var $links = $('a[href="#' + this.id + '"]');
 
       $links.toggleClass('active', direction === 'up');
+      console.log(this.id, 'from top', direction);
     }, {
       context: '#docs',
       offset: function() {

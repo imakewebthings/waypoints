@@ -42,6 +42,8 @@ p, pre {
 pre {
   padding: 10px;
   background: #fff; }
+  pre code {
+    color: #888; }
 
 code {
   font-family: "Ubuntu Mono", monospace; }
@@ -83,6 +85,7 @@ a {
   background: #fff;
   color: #000;
   overflow: hidden;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
   -webkit-transition: all 300ms ease-in-out;
   -moz-transition: all 300ms ease-in-out;
   -o-transition: all 300ms ease-in-out;
@@ -141,17 +144,17 @@ a {
   line-height: 1;
   margin: 10px 0 0 10px; }
 
-#about {
+.about {
   left: 0;
   background: #c5e5d5;
   color: #62726a; }
-  #about h3 {
+  .about h3 {
     color: #44504a; }
-  #about a {
+  .about a {
     color: #62726a; }
-    #about a:hover, #about a:focus {
+    .about a:hover, .about a:focus {
       color: #44504a; }
-  #about .inner {
+  .about .inner {
     width: 620px;
     position: absolute;
     left: 50%;
@@ -227,41 +230,51 @@ a {
 .new-api:before {
   content: '\f040'; }
 
-#get-started {
+.get-started {
   left: 100%;
   background: #c5d5e5;
   color: #626a72; }
-  #get-started hr {
-    display: block;
-    margin: 32px auto;
-    width: 4px;
-    height: 4px;
-    border: 0;
-    background: #939fab; }
-  #get-started a {
+  .get-started a {
     color: #626a72;
     border-bottom-color: #939fab; }
-    #get-started a:hover {
+    .get-started a:hover {
       color: #444a50;
       border-bottom-color: #626a72; }
-  #get-started .inner {
+  .get-started p > code {
+    padding: 0 2px;
+    background: #e2eaf2; }
+  .get-started .inner {
     width: 620px;
     margin: 60px auto;
     padding-bottom: 400px; }
 
-#shortcuts-examples {
+.started-section {
+  position: relative;
+  margin-bottom: 64px; }
+  .started-section:after {
+    font-family: 'Helvetica Neue', sans-serif;
+    content: '༜';
+    position: absolute;
+    left: 0;
+    bottom: -44px;
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+    color: #939fab; }
+
+.shortcuts-examples {
   left: 200%;
   background: #d5c5e5;
   color: #6a6272; }
-  #shortcuts-examples .inner {
+  .shortcuts-examples .inner {
     position: absolute;
     width: 520px;
     margin: 0 0 0 -260px;
     left: 50%;
     top: 60px; }
-  #shortcuts-examples h2 {
+  .shortcuts-examples h2 {
     color: #444a50; }
-  #shortcuts-examples a {
+  .shortcuts-examples a {
     display: inline-block;
     color: #6a6272;
     text-decoration: none;
@@ -269,10 +282,10 @@ a {
     width: 240px;
     text-align: center;
     padding: 10px 0; }
-    #shortcuts-examples a:hover, #shortcuts-examples a:focus {
+    .shortcuts-examples a:hover, .shortcuts-examples a:focus {
       background: #eae2f2;
       color: #4a4450; }
-    #shortcuts-examples a:before {
+    .shortcuts-examples a:before {
       display: block;
       font-size: 48px; }
 
@@ -292,33 +305,33 @@ a {
 .example-analytics:before {
   content: '\f0c0'; }
 
-#docs {
+.docs {
   left: 300%;
   background: #e5c5d5;
   color: #72626a; }
-  #docs .inner {
+  .docs .inner {
     width: 510px;
     padding: 0 120px 0 10px;
     margin: 0 auto;
     position: relative; }
-  #docs h2 {
+  .docs h2 {
     font-size: 24px;
     line-height: 1;
     margin-bottom: 16px;
     background: #50444a;
     color: #f2e2ea;
     padding: 10px; }
-  #docs a {
+  .docs a {
     color: #72626a;
     border-bottom-color: #ab939f; }
-    #docs a:hover {
+    .docs a:hover {
       color: #50444a;
       border-bottom-color: #72626a; }
-  #docs p > code {
+  .docs p > code {
     padding: 0 2px;
     background: #f2e2ea; }
 
-.docs-nav {
+.docs-nav-wrapper {
   -webkit-transition: right 200ms ease-in-out;
   -moz-transition: right 200ms ease-in-out;
   -o-transition: right 200ms ease-in-out;
@@ -326,31 +339,34 @@ a {
   transition: right 200ms ease-in-out;
   position: fixed;
   z-index: 6;
-  top: 60px;
+  top: 54px;
   right: -120px;
   bottom: 24px;
   overflow: auto;
-  width: 120px;
   font-size: 12px;
-  line-height: 2; }
-  .docs-visible .docs-nav {
+  line-height: 2;
+  padding: 6px 0 0 6px; }
+  .docs-visible .docs-nav-wrapper {
     right: 0; }
-  .docs-nav, .docs-nav ul {
+  .docs-nav-wrapper ul {
     list-style: none; }
-  .docs-nav li {
+  .docs-nav-wrapper li {
     background: #fff; }
-  .docs-nav a {
+  .docs-nav-wrapper ul a {
     text-decoration: none;
     display: block;
     padding: 2px 8px; }
-  .docs-nav > li > a {
-    font-weight: bold; }
-  .docs-nav ul a {
+  .docs-nav-wrapper ul ul a {
     padding-left: 16px; }
-  .docs-nav .active {
+  .docs-nav-wrapper .active, .docs-nav-wrapper a:hover, .docs-nav-wrapper a:focus {
     background: #f2e2ea; }
-    .docs-nav .active * {
-      text-decoration: none; }
+
+.docs-nav {
+  width: 120px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); }
+  .docs-nav > li > a {
+    font-size: 14px;
+    color: #50444a; }
 
 .doc-section {
   margin-bottom: 64px;
@@ -358,10 +374,10 @@ a {
   padding-top: 60px; }
   .doc-section:after {
     font-family: 'Helvetica Neue', sans-serif;
-    content: '༒';
+    content: '༜';
     position: absolute;
     left: 0;
-    bottom: -40px;
+    bottom: -76px;
     width: 100%;
     text-align: center;
     font-size: 16px;
@@ -412,18 +428,20 @@ a {
 
 .notifications {
   width: 320px;
-  margin: 0 auto; }
+  margin: 0 auto;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); }
   .notifications > p {
     height: 32px;
     line-height: 32px;
     background: #e2eaf2;
     color: #626a72;
     text-align: center;
-    margin: 0; }
+    margin: 0;
+    border-top: 1px solid #c5d5e5; }
 
 .example-scroll-div {
   padding: 25px 0 100px 0;
-  background: #000;
+  background: #626a72;
   overflow: scroll;
   height: 0; }
 
@@ -436,7 +454,12 @@ a {
   font-size: 12px;
   line-height: 2;
   margin: 0;
-  padding: 0 5px; }
+  padding: 0 5px;
+  -webkit-transition: all 300ms ease-in-out;
+  -moz-transition: all 300ms ease-in-out;
+  -o-transition: all 300ms ease-in-out;
+  -ms-transition: all 300ms ease-in-out;
+  transition: all 300ms ease-in-out; }
   .about-visible .footer {
     background: #e2f2ea;
     color: #93ab9f; }
@@ -465,3 +488,18 @@ a {
       color: #72626a; }
       .docs-visible .footer a:hover, .docs-visible .footer a:focus {
         color: #50444a; }
+
+.fn {
+  color: #111; }
+
+.kw {
+  color: #a33; }
+
+.str {
+  color: #3a3; }
+
+.cm {
+  color: #33a; }
+
+.key {
+  color: #939; }
