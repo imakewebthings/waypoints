@@ -50,12 +50,13 @@ h1, h2, h3, h4 {
   font-family: "PT Serif", serif;
   font-weight: normal; }
 
-hr {
-  margin: 32px 0; }
-
 a {
-  text-decoration: none;
-  border-bottom: 1px solid transparent; }
+  text-decoration: underline;
+  -webkit-transition: all 300ms ease-in-out;
+  -moz-transition: all 300ms ease-in-out;
+  -o-transition: all 300ms ease-in-out;
+  -ms-transition: all 300ms ease-in-out;
+  transition: all 300ms ease-in-out; }
 
 .icon:before {
   font-family: 'FontAwesome';
@@ -81,11 +82,28 @@ a {
   margin-left: -320px;
   background: #fff;
   color: #000;
-  overflow: hidden; }
+  overflow: hidden;
+  -webkit-transition: all 300ms ease-in-out;
+  -moz-transition: all 300ms ease-in-out;
+  -o-transition: all 300ms ease-in-out;
+  -ms-transition: all 300ms ease-in-out;
+  transition: all 300ms ease-in-out; }
   .about-visible .nav {
-    color: #225e7f; }
+    color: #62726a; }
     .about-visible .nav .nav-about, .about-visible .nav a:hover, .about-visible .nav a:focus {
-      background: #51a3d0; }
+      background: #62726a; }
+  .get-started-visible .nav {
+    color: #626a72; }
+    .get-started-visible .nav .nav-started, .get-started-visible .nav a:hover, .get-started-visible .nav a:focus {
+      background: #626a72; }
+  .shortcuts-examples-visible .nav {
+    color: #6a6272; }
+    .shortcuts-examples-visible .nav .nav-shortcuts, .shortcuts-examples-visible .nav a:hover, .shortcuts-examples-visible .nav a:focus {
+      background: #6a6272; }
+  .docs-visible .nav {
+    color: #72626a; }
+    .docs-visible .nav .nav-docs, .docs-visible .nav a:hover, .docs-visible .nav a:focus {
+      background: #72626a; }
   .nav h1 {
     float: left;
     font-size: 24px;
@@ -105,7 +123,16 @@ a {
     font-size: 12px;
     padding: 0 5px; }
     .about-visible .nav a {
-      background: #b5d8eb;
+      background: #93ab9f;
+      color: #fff; }
+    .get-started-visible .nav a {
+      background: #939fab;
+      color: #fff; }
+    .shortcuts-examples-visible .nav a {
+      background: #9f93ab;
+      color: #fff; }
+    .docs-visible .nav a {
+      background: #ab939f;
       color: #fff; }
 
 .version {
@@ -116,16 +143,14 @@ a {
 
 #about {
   left: 0;
-  background: #b5d8eb;
-  color: #225e7f; }
+  background: #c5e5d5;
+  color: #62726a; }
   #about h3 {
-    color: #123143; }
+    color: #44504a; }
   #about a {
-    color: #225e7f;
-    border-bottom-color: #51a3d0; }
-    #about a:hover {
-      color: #123143;
-      border-bottom-color: #225e7f; }
+    color: #62726a; }
+    #about a:hover, #about a:focus {
+      color: #44504a; }
   #about .inner {
     width: 620px;
     position: absolute;
@@ -146,7 +171,7 @@ a {
       border: 0;
       padding: 4px 10px 0 0; }
       .summary ul a:hover, .summary ul a:focus {
-        background: #ddedf6; }
+        background: #e2f2ea; }
       .summary ul a:before {
         width: 48px;
         font-size: 24px;
@@ -167,8 +192,8 @@ a {
 .new-in-2 {
   margin-top: 32px; }
   .new-in-2 > h2 {
-    background: #ddedf6;
-    color: #225e7f;
+    background: #62726a;
+    color: #fff;
     width: 120px;
     font-size: 18px;
     margin: 0 auto;
@@ -203,29 +228,50 @@ a {
   content: '\f040'; }
 
 #get-started {
-  left: 100%; }
+  left: 100%;
+  background: #c5d5e5;
+  color: #626a72; }
+  #get-started hr {
+    display: block;
+    margin: 32px auto;
+    width: 4px;
+    height: 4px;
+    border: 0;
+    background: #939fab; }
+  #get-started a {
+    color: #626a72;
+    border-bottom-color: #939fab; }
+    #get-started a:hover {
+      color: #444a50;
+      border-bottom-color: #626a72; }
   #get-started .inner {
     width: 620px;
     margin: 60px auto;
     padding-bottom: 400px; }
 
 #shortcuts-examples {
-  left: 200%; }
+  left: 200%;
+  background: #d5c5e5;
+  color: #6a6272; }
   #shortcuts-examples .inner {
     position: absolute;
     width: 520px;
     margin: 0 0 0 -260px;
     left: 50%;
     top: 60px; }
+  #shortcuts-examples h2 {
+    color: #444a50; }
   #shortcuts-examples a {
     display: inline-block;
-    color: #000;
+    color: #6a6272;
     text-decoration: none;
     margin-right: 10px;
     width: 240px;
     text-align: center;
-    border: 1px solid #000;
     padding: 10px 0; }
+    #shortcuts-examples a:hover, #shortcuts-examples a:focus {
+      background: #eae2f2;
+      color: #4a4450; }
     #shortcuts-examples a:before {
       display: block;
       font-size: 48px; }
@@ -247,7 +293,9 @@ a {
   content: '\f0c0'; }
 
 #docs {
-  left: 300%; }
+  left: 300%;
+  background: #e5c5d5;
+  color: #72626a; }
   #docs .inner {
     width: 510px;
     padding: 0 120px 0 10px;
@@ -257,9 +305,18 @@ a {
     font-size: 24px;
     line-height: 1;
     margin-bottom: 16px;
-    background: #000;
-    color: #fff;
+    background: #50444a;
+    color: #f2e2ea;
     padding: 10px; }
+  #docs a {
+    color: #72626a;
+    border-bottom-color: #ab939f; }
+    #docs a:hover {
+      color: #50444a;
+      border-bottom-color: #72626a; }
+  #docs p > code {
+    padding: 0 2px;
+    background: #f2e2ea; }
 
 .docs-nav {
   -webkit-transition: right 200ms ease-in-out;
@@ -268,29 +325,30 @@ a {
   -ms-transition: right 200ms ease-in-out;
   transition: right 200ms ease-in-out;
   position: fixed;
+  z-index: 6;
   top: 60px;
   right: -120px;
-  bottom: 0;
+  bottom: 24px;
   overflow: auto;
   width: 120px;
-  background: #fff;
   font-size: 12px;
   line-height: 2; }
   .docs-visible .docs-nav {
     right: 0; }
   .docs-nav, .docs-nav ul {
     list-style: none; }
+  .docs-nav li {
+    background: #fff; }
   .docs-nav a {
-    color: #000;
     text-decoration: none;
     display: block;
-    padding: 0 5px; }
+    padding: 2px 8px; }
   .docs-nav > li > a {
     font-weight: bold; }
   .docs-nav ul a {
-    padding-left: 10px; }
+    padding-left: 16px; }
   .docs-nav .active {
-    text-decoration: underline; }
+    background: #f2e2ea; }
     .docs-nav .active * {
       text-decoration: none; }
 
@@ -307,15 +365,15 @@ a {
     width: 100%;
     text-align: center;
     font-size: 16px;
-    color: #000; }
+    color: #ab939f; }
 
 .params {
   margin: -12px 0 16px 0;
   list-style: none; }
   .params > li {
     display: block;
-    background: #000;
-    color: #fff;
+    background: #f2e2ea;
+    color: #72626a;
     padding: 5px 10px;
     margin-bottom: 4px; }
   .params h3 {
@@ -336,9 +394,12 @@ a {
     overflow: hidden; }
 
 .options-list dt {
-  font-weight: bold; }
+  color: #50444a; }
 .options-list dd {
   padding-left: 10px; }
+
+.option-type, .option-default {
+  font-size: 12px; }
 
 .notifications-wrapper {
   position: fixed;
@@ -355,8 +416,8 @@ a {
   .notifications > p {
     height: 32px;
     line-height: 32px;
-    background: #000;
-    color: #fff;
+    background: #e2eaf2;
+    color: #626a72;
     text-align: center;
     margin: 0; }
 
@@ -365,3 +426,42 @@ a {
   background: #000;
   overflow: scroll;
   height: 0; }
+
+.footer {
+  position: fixed;
+  z-index: 7;
+  right: 0;
+  bottom: 0;
+  height: 24px;
+  font-size: 12px;
+  line-height: 2;
+  margin: 0;
+  padding: 0 5px; }
+  .about-visible .footer {
+    background: #e2f2ea;
+    color: #93ab9f; }
+    .about-visible .footer a {
+      color: #62726a; }
+      .about-visible .footer a:hover, .about-visible .footer a:focus {
+        color: #44504a; }
+  .get-started-visible .footer {
+    background: #e2eaf2;
+    color: #939fab; }
+    .get-started-visible .footer a {
+      color: #626a72; }
+      .get-started-visible .footer a:hover, .get-started-visible .footer a:focus {
+        color: #444a50; }
+  .shortcuts-examples-visible .footer {
+    background: #eae2f2;
+    color: #9f93ab; }
+    .shortcuts-examples-visible .footer a {
+      color: #6a6272; }
+      .shortcuts-examples-visible .footer a:hover, .shortcuts-examples-visible .footer a:focus {
+        color: #4a4450; }
+  .docs-visible .footer {
+    background: #f2e2ea;
+    color: #ab939f; }
+    .docs-visible .footer a {
+      color: #72626a; }
+      .docs-visible .footer a:hover, .docs-visible .footer a:focus {
+        color: #50444a; }

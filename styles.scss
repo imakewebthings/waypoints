@@ -1,12 +1,38 @@
+// tint+shade from Thoughtbot's Bourbon: http://bourbon.io/
+@function tint($color, $percent){
+  @return mix(white, $color, $percent);
+}
+@function shade($color, $percent){
+  @return mix(black, $color, $percent);
+}
+
 $bodyFont: 'Lato', sans-serif;
 $headerFont: 'PT Serif', serif;
 $monoFont: 'Ubuntu Mono', monospace;
 
-$aboutBase: #b5d8eb;
-$aboutLight: lighten($aboutBase, 10%);
-$aboutMid: darken($aboutBase, 25%);
-$aboutDark: darken($aboutBase, 50%);
-$aboutDarkest: darken($aboutBase, 65%);
+$aboutBase: #c5e5d5;
+$aboutLight: tint($aboutBase, 50%);
+$aboutMid: shade($aboutBase, 25%);
+$aboutDark: shade($aboutBase, 50%);
+$aboutDarkest: shade($aboutBase, 65%);
+
+$startBase: #c5d5e5;
+$startLight: tint($startBase, 50%);
+$startMid: shade($startBase, 25%);
+$startDark: shade($startBase, 50%);
+$startDarkest: shade($startBase, 65%);
+
+$shortBase: #d5c5e5;
+$shortLight: tint($shortBase, 50%);
+$shortMid: shade($shortBase, 25%);
+$shortDark: shade($shortBase, 50%);
+$shortDarkest: shade($shortBase, 65%);
+
+$docsBase: #e5c5d5;
+$docsLight: tint($docsBase, 50%);
+$docsMid: shade($docsBase, 25%);
+$docsDark: shade($docsBase, 50%);
+$docsDarkest: shade($docsBase, 65%);
 
 @mixin transition($val) {
   -webkit-transition: $val;
@@ -75,13 +101,9 @@ h1, h2, h3, h4 {
   font-weight:normal;
 }
 
-hr {
-  margin:32px 0;
-}
-
 a {
-  text-decoration:none;
-  border-bottom:1px solid transparent;
+  text-decoration:underline;
+  @include transition(all 300ms ease-in-out);
 }
 
 .icon:before {
@@ -111,12 +133,37 @@ a {
   background:#fff;
   color:#000;
   overflow:hidden;
+  @include transition(all 300ms ease-in-out);
 
   .about-visible & {
     color:$aboutDark;
 
     .nav-about, a:hover, a:focus {
-      background:$aboutMid;
+      background:$aboutDark;
+    }
+  }
+
+  .get-started-visible & {
+    color:$startDark;
+
+    .nav-started, a:hover, a:focus {
+      background:$startDark;
+    }
+  }
+
+  .shortcuts-examples-visible & {
+    color:$shortDark;
+
+    .nav-shortcuts, a:hover, a:focus {
+      background:$shortDark;
+    }
+  }
+
+  .docs-visible & {
+    color:$docsDark;
+
+    .nav-docs, a:hover, a:focus {
+      background:$docsDark;
     }
   }
 
@@ -146,7 +193,22 @@ a {
     padding:0 5px;
 
     .about-visible & {
-      background:$aboutBase;
+      background:$aboutMid;
+      color:#fff;
+    }
+
+    .get-started-visible & {
+      background:$startMid;
+      color:#fff;
+    }
+
+    .shortcuts-examples-visible & {
+      background:$shortMid;
+      color:#fff;
+    }
+
+    .docs-visible & {
+      background:$docsMid;
       color:#fff;
     }
   }
@@ -170,11 +232,9 @@ a {
 
   a {
     color:$aboutDark;
-    border-bottom-color:$aboutMid;
 
-    &:hover {
+    &:hover, &:focus {
       color:$aboutDarkest;
-      border-bottom-color:$aboutDark;
     }
   }
 
@@ -235,8 +295,8 @@ a {
   margin-top:32px;
 
   > h2 {
-    background:$aboutLight;
-    color:$aboutDark;
+    background:$aboutDark;
+    color:#fff;
     width:120px;
     font-size:18px;
     margin:0 auto;
@@ -285,6 +345,27 @@ a {
 
 #get-started {
   left:100%;
+  background:$startBase;
+  color:$startDark;
+
+  hr {
+    display:block;
+    margin:32px auto;
+    width:4px;
+    height:4px;
+    border:0;
+    background:$startMid;
+  }
+
+  a {
+    color:$startDark;
+    border-bottom-color:$startMid;
+
+    &:hover {
+      color:$startDarkest;
+      border-bottom-color:$startDark;
+    }
+  }
 
   .inner {
     width:620px;
@@ -295,6 +376,8 @@ a {
 
 #shortcuts-examples {
   left:200%;
+  background:$shortBase;
+  color:$shortDark;
 
   .inner {
     position:absolute;
@@ -304,15 +387,23 @@ a {
     top:60px;
   }
 
+  h2 {
+    color:$startDarkest;
+  }
+
   a {
     display:inline-block;
-    color:#000;
+    color:$shortDark;
     text-decoration:none;
     margin-right:10px;
     width:240px;
     text-align:center;
-    border:1px solid #000;
     padding:10px 0;
+
+    &:hover, &:focus {
+      background:$shortLight;
+      color:$shortDarkest;
+    }
 
     &:before {
       display:block;
@@ -344,6 +435,8 @@ a {
 
 #docs {
   left:300%;
+  background:$docsBase;
+  color:$docsDark;
 
   .inner {
     width:510px;
@@ -356,21 +449,36 @@ a {
     font-size:24px;
     line-height:1;
     margin-bottom:16px;
-    background:#000;
-    color:#fff;
+    background:$docsDarkest;
+    color:$docsLight;
     padding:10px;
+  }
+
+  a {
+    color:$docsDark;
+    border-bottom-color:$docsMid;
+
+    &:hover {
+      color:$docsDarkest;
+      border-bottom-color:$docsDark;
+    }
+  }
+
+  p > code {
+    padding:0 2px;
+    background:$docsLight;
   }
 }
 
 .docs-nav {
   @include transition(right 200ms ease-in-out);
   position:fixed;
+  z-index:6;
   top:60px;
   right:-120px;
-  bottom:0;
+  bottom:24px;
   overflow:auto;
   width:120px;
-  background:#fff;
   font-size:12px;
   line-height:2;
 
@@ -378,15 +486,18 @@ a {
     right:0;
   }
 
-  &, & ul {
+  &, ul {
     list-style:none;
   }
 
+  li {
+    background:#fff;
+  }
+
   a {
-    color:#000;
     text-decoration:none;
     display:block;
-    padding:0 5px;
+    padding:2px 8px;
   }
 
   > li > a {
@@ -394,11 +505,11 @@ a {
   }
 
   ul a {
-    padding-left:10px;
+    padding-left:16px;
   }
 
   .active {
-    text-decoration:underline;
+    background:$docsLight;
 
     * {
       text-decoration:none;
@@ -420,7 +531,7 @@ a {
     width:100%;
     text-align:center;
     font-size:16px;
-    color:#000;
+    color:$docsMid;
   }
 }
 
@@ -430,13 +541,12 @@ a {
 
   > li {
     display:block;
-    background:#000;
-    color:#fff;
+    background:$docsLight;
+    color:$docsDark;
     padding:5px 10px;
     margin-bottom:4px;
   }
   
-
   h3 {
     font-size:16px;
     float:left;
@@ -466,11 +576,15 @@ a {
 
 .options-list {
   dt {
-    font-weight:bold;
+    color:$docsDarkest;
   }
   dd {
     padding-left:10px;
   }
+}
+
+.option-type, .option-default {
+  font-size:12px;
 }
 
 .notifications-wrapper {
@@ -490,8 +604,8 @@ a {
   > p {
     height:32px;
     line-height:32px;
-    background:#000;
-    color:#fff;
+    background:$startLight;
+    color:$startDark;
     text-align:center;
     margin:0;
   }
@@ -502,4 +616,68 @@ a {
   background:#000;
   overflow:scroll;
   height:0;
+}
+
+.footer {
+  position:fixed;
+  z-index:7;
+  right:0;
+  bottom:0;
+  height:24px;
+  font-size:12px;
+  line-height:2;
+  margin:0;
+  padding:0 5px;
+
+  .about-visible & {
+    background:$aboutLight;
+    color:$aboutMid;
+
+    a {
+      color:$aboutDark;
+
+      &:hover, &:focus {
+        color:$aboutDarkest;
+      }
+    }
+  }
+
+  .get-started-visible & {
+    background:$startLight;
+    color:$startMid;
+
+    a {
+      color:$startDark;
+
+      &:hover, &:focus {
+        color:$startDarkest;
+      }
+    }
+  }
+
+  .shortcuts-examples-visible & {
+    background:$shortLight;
+    color:$shortMid;
+
+    a {
+      color:$shortDark;
+
+      &:hover, &:focus {
+        color:$shortDarkest;
+      }
+    }
+  }
+
+  .docs-visible & {
+    background:$docsLight;
+    color:$docsMid;
+
+    a {
+      color:$docsDark;
+
+      &:hover, &:focus {
+        color:$docsDarkest;
+      }
+    }
+  }
 }
