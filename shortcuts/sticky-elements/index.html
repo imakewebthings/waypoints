@@ -7,6 +7,7 @@
 	<meta name="description" content="A jQuery Waypoints shortcut extension for easier sticky elements">
 	<meta name="viewport" content="width=480">
 
+	<link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono|Lato:400,700|PT+Serif:700' rel='stylesheet' type='text/css'>
 	<style type="text/css">
 		* {
 			margin:0;
@@ -15,11 +16,11 @@
 
 		body {
 			font-size:16px;
-			line-height:1.5;
-			color:#000;
-			background:#fff;
-			padding-bottom:16px;
-			font-family:"Helvetica Neue", sans-serif;
+      line-height:1.5;
+      color:#6a6272;
+      background:#d5c5e5;
+      padding-bottom:16px;
+      font-family:"Lato", sans-serif;
 		}
 
 		.inner {
@@ -28,14 +29,20 @@
 			margin:0 auto;
 		}
 
+		h1, h2, h3, h4 {
+      font-family:"PT Serif", serif;
+      font-weight:normal;
+    }
+
 		h1 {
-			font-size:54px;
+			font-size:53px;
+      color:#444a50;
 		}
 
 		h2.my-sticky-element {
 			text-align:center;
-			background:#000;
-			color:#fff;
+			background:#6a6272;
+      color:#eae2f2;
 			width:460px;
 			margin:0 auto;
 			font-size:24px;
@@ -44,15 +51,19 @@
 		.my-sticky-element.stuck {
 			position:fixed;
 			top:0;
+			box-shadow:0 2px 4px rgba(0, 0, 0, .3);
 		}
 
 		pre {
-			white-space:pre-wrap;
-			font-size:14px;
-			font-family:Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace;
-			border:1px solid #000;
-			padding:10px;
-		}
+      white-space:pre-wrap;
+      font-size:14px;
+      background:#fff;
+      padding:10px;
+    }
+
+    code {
+      font-family:"Ubuntu Mono", monospace;
+    }
 
 		p, pre, ul {
 			margin-top:16px;
@@ -63,31 +74,65 @@
 		}
 
 		ul {
-			margin-left:12px;
+			margin-left:20px;
 		}
 
 		li {
 			margin-top:6px;
 		}
 
-		.does {
-			background:#000;
+		strong {
 			color:#fff;
+		}
+
+		.does {
+			background:#6a6272;
+      color:#eae2f2;
 			padding:16px 0;
 			margin-top:16px;
 		}
 
 		.does-not {
-			background:#000;
-			color:#fff;
+			background:#6a6272;
+      color:#eae2f2;
 			padding:16px 0;
-			border-top:1px solid #fff;
+			border-top:1px solid #9f93ab;
 		}
 
 		.does-not h3 em {
 			font-style:normal;
 			text-decoration:underline;
 		}
+
+		.fn {
+      color:#111;
+    }
+    .kw {
+      color:#a33;
+    }
+    .str {
+      color:#3a3;
+    }
+    .cm {
+      color:#33a;
+    }
+    .key {
+      color:#939;
+    }
+
+    pre code {
+    	color:#555;
+    }
+
+    p code, li code {
+    	padding:0 2px;
+    }
+    p code {
+    	background:#eae2f2;
+    }
+    li code {
+    	background:#444a50;
+    }
 	</style>
 </head>
 <body>
@@ -100,7 +145,7 @@
 <div class="inner">
 	<p>The Sticky Elements shortcut is used to make elements "stick" to the top of the page when the user scrolls past. It packages a few best practices around this pattern into one simple function extension of jQuery Waypoints. The most basic usage looks like this:</p>
 
-	<pre><code>$('.my-sticky-element').waypoint('sticky');</code></pre>
+	<pre><code><span class="fn">$</span>(<span class="str">'.my-sticky-element'</span>).<span class="fn">waypoint</span>(<span class="str">'sticky'</span>);</code></pre>
 </div>
 
 <div class="does">
@@ -129,15 +174,15 @@
 <div class="inner">
 	<p>The "sticky" waypoint method may also be passed an options object. This options object can be used to override the class name of the "stuck" state and the HTML of the wrapper element. Here are the defaults:</p>
 
-	<pre><code>$('.my-sticky-element').waypoint('sticky', {
-  wrapper: '&lt;div class="sticky-wrapper" /&gt;',
-  stuckClass: 'stuck'
+	<pre><code><span class="fn">$</span>(<span class="str">'.my-sticky-element'</span>).<span class="fn">waypoint</span>(<span class="str">'sticky'</span>, {
+  <span class="key">wrapper</span>: <span class="str">'&lt;div class="sticky-wrapper" /&gt;'</span>,
+  <span class="key">stuckClass</span>: <span class="str">'stuck'</span>
 });</code></pre>
 
 	<p>This options object is just an extension of the regular Waypoints options object, so you can pass along any traditional options you may want. A common one is the <code>offset</code> option.</p>
 
-	<pre><code>$('.my-sticky-element').waypoint('sticky', {
-  offset: 30 // Apply "stuck" when element 30px from top
+	<pre><code><span class="fn">$</span>(<span class="str">'.my-sticky-element'</span>).<span class="fn">waypoint</span>(<span class="str">'sticky'</span>, {
+  <span class="key">offset</span>: 30 <span class="cm">// Apply "stuck" when element 30px from top</span>
 });</code></pre>
 </div>
 
