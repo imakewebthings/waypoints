@@ -7,6 +7,7 @@
   <meta name="description" content="A jQuery Waypoints shortcut extension for easier sticky elements">
   <meta name="viewport" content="width=480">
 
+  <link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono|Lato:400,700|PT+Serif:700' rel='stylesheet' type='text/css'>
   <style type="text/css">
     * {
       margin:0;
@@ -16,10 +17,10 @@
     body {
       font-size:16px;
       line-height:1.5;
-      color:#000;
-      background:#fff;
+      color:#6a6272;
+      background:#d5c5e5;
       padding-bottom:16px;
-      font-family:"Helvetica Neue", sans-serif;
+      font-family:"Lato", sans-serif;
     }
 
     .inner {
@@ -28,23 +29,32 @@
       margin:0 auto;
     }
 
+    h1, h2, h3, h4 {
+      font-family:"PT Serif", serif;
+      font-weight:normal;
+    }
+
     h1 {
-      font-size:54px;
+      font-size:53px;
+      color:#444a50;
     }
 
     h2 {
       text-align:center;
-      background:#000;
-      color:#fff;
+      background:#6a6272;
+      color:#eae2f2;
       font-size:24px;
     }
 
     pre {
       white-space:pre-wrap;
       font-size:14px;
-      font-family:Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace;
-      border:1px solid #000;
+      background:#fff;
       padding:10px;
+    }
+
+    code {
+      font-family:"Ubuntu Mono", monospace;
     }
 
     p, pre, ul, .example, dl {
@@ -64,26 +74,60 @@
     }
 
     .steps {
-      background:#000;
-      color:#fff;
+      background:#6a6272;
+      color:#eae2f2;
       padding:16px 0;
       margin-top:16px;
     }
 
     .options {
-      background:#000;
-      color:#fff;
+      background:#6a6272;
+      color:#eae2f2;
       padding:16px 0;
       margin-top:16px;
     }
 
     dt {
       font-weight:bold;
+      color:#fff;
       margin-top:6px;
     }
 
     dd {
       margin-left:16px;
+    }
+
+    .fn {
+      color:#111;
+    }
+    .kw {
+      color:#a33;
+    }
+    .str {
+      color:#3a3;
+    }
+    .cm {
+      color:#33a;
+    }
+    .key {
+      color:#939;
+    }
+
+    p code, li code, dl code {
+      padding:0 2px;
+      background:#eae2f2;
+    }
+
+    .steps li code, .options dl code {
+      background:#444a50;
+    }
+
+    .options strong, .steps strong {
+      color:#fff;
+    }
+
+    pre code {
+      color:#555;
     }
 
     .infinite-container {
@@ -102,16 +146,22 @@
       right:0;
       bottom:0;
       text-align:center;
-      background:#000;
-      color:#fff;
+      background:#6a6272;
+      color:#eae2f2;
     }
 
     .infinite-item {
       float:left;
       width:100px;
       height:100px;
-      background:#000;
+      background:#444a50;
       margin:20px 0 20px 20px;
+    }
+    .infinite-item:nth-child(3n) {
+      background:#6a6272;
+    }
+    .infinite-item:nth-child(3n+1) {
+      background:#eae2f2;
     }
 
     .infinite-more-link {
@@ -127,9 +177,13 @@
 </div>
 
 <div class="inner">
+  <p>First include the shortcut script.</p>
+
+  <pre><code>&lt;<span class="fn">script</span> <span class="kw">src</span>=<span class="str">"/path/to/waypoints-infinite.min.js"</span>&gt;&lt;<span class="fn">/script</span>&gt;</code></pre>
+
   <p>The Infinite Scroll shortcut is used to transform a traditional "Next Page" navigation into an AJAX-powered infinite scrolling UI pattern. Its default usage looks like this:</p>
 
-  <pre><code>$('.infinite-container').waypoint('infinite');</code></pre>
+  <pre><code><span class="fn">$</span>(<span class="str">'.infinite-container'</span>).<span class="fn">waypoint</span>(<span class="str">'infinite'</span>);</code></pre>
 
   <p>In this example, our shortcut will create a waypoint to be fired when the bottom of <code>.infinite-container</code> comes into view. When that waypoint fires it will go through several steps:</p>
 </div>
@@ -156,19 +210,19 @@
 
 <div class="options">
   <div class="inner">
-    <pre><code>$('.infinite-container').waypoint('infinite', {
-  container: 'auto',
-  items: '.infinite-item',
-  more: '.infinite-more-link',
-  offset: 'bottom-in-view',
-  loadingClass: 'infinite-loading',
-  onBeforePageLoad: $.noop,
-  onAfterPageLoad: $.noop
-})</code></pre>
+    <pre><code><span class="fn">$</span>(<span class="str">'.infinite-container'</span>).<span class="fn">waypoint</span>(<span class="str">'infinite'</span>, {
+  <span class="key">container</span>: <span class="str">'auto'</span>,
+  <span class="key">items</span>: <span class="str">'.infinite-item'</span>,
+  <span class="key">more</span>: <span class="str">'.infinite-more-link'</span>,
+  <span class="key">offset</span>: <span class="str">'bottom-in-view'</span>,
+  <span class="key">loadingClass</span>: <span class="str">'infinite-loading'</span>,
+  <span class="key">onBeforePageLoad</span>: $.noop,
+  <span class="key">onAfterPageLoad</span>: $.noop
+});</code></pre>
 
     <dl>
       <dt>container</dt>
-      <dd>The default value of 'auto' means that the element <code>.waypoint</code> is called on will act as the container. Newly loaded items are appended to this container. This can be set to a different selector, but should only be done when you want the waypoint trigger element to be different from the container of infinite items.</dd>
+      <dd>The default value of <code>'auto'</code> means that the element <code>.waypoint</code> is called on will act as the container. Newly loaded items are appended to this container. This can be set to a different selector, but should only be done when you want the waypoint trigger element to be different from the container of infinite items.</dd>
       <dt>items</dt>
       <dd>A selector string that matches the items to pull from each AJAX loaded page and append to the container.</dd>
       <dt>more</dt>
