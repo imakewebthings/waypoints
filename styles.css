@@ -41,7 +41,8 @@ p, pre {
 
 pre {
   padding: 10px;
-  background: #fff; }
+  background: #fff;
+  white-space: pre-wrap; }
   pre code {
     color: #888; }
 
