@@ -131,7 +131,7 @@
         </div>
 
         <div class="started-section">
-          <p>Not all sites scroll vertically. You can create a waypoint on the horizontal axis with the <code>horizontal</code> option. This project page uses horizontal waypoints to the user navigates between high-level sections.</p>
+          <p>Not all sites scroll vertically. You can create a waypoint on the horizontal axis with the <code>horizontal</code> option. This project page uses horizontal waypoints when the user navigates between high-level sections.</p>
 
           <pre><code><span class="fn">$</span>(<span class="str">'.panel'</span>).<span class="fn">waypoint</span>(<span class="kw">function</span>(direction) {
   $body.<span class="fn">toggleClass</span>(<span class="kw">this</span>.id + <span class="str">'-visible'</span>, direction === <span class="str">'right'</span>);
@@ -155,7 +155,7 @@
         </div>
         
         <div class="started-section">
-          <p>CoffeeScript authors may find passing a function followed by an options object to be a bit clumsy. There is an alternative way to pass the waypoints callback, using the <code>handler</code> option. If you provide a <code>handler</code> option, you only need to pass the options object.</p>
+          <p>CoffeeScript authors may find passing a function followed by an options object to be a bit clumsy. There is another way to pass the waypoints callback, using the <code>handler</code> option. If you provide a <code>handler</code> option, you only need to pass the options object.</p>
 
           <pre id="example-handler"><code><span class="cm">/* In JavaScript */</span>
 <span class="fn">$</span>(<span class="str">'#example-handler'</span>).<span class="fn">waypoint</span>({
