@@ -1,31 +1,35 @@
 # jQuery Waypoints
 
-Waypoints is a small jQuery plugin that makes it easy to execute a function whenever you scroll to an element.
+Waypoints is a jQuery plugin that makes it easy to execute a function whenever you scroll to an element.
 
 ```js
-$('.entry').waypoint(function() {
-  alert('You have scrolled to an entry.');
+$('.thing').waypoint(function() {
+  alert('You have scrolled to a thing.');
 });
 ```
+If you're new to Waypoints, check out the [Get Started](http://imakewebthings.github.com/jquery-waypoints/#get-started) section.
 
-[Read the full documentation](http://imakewebthings.github.com/jquery-waypoints/#documentation) for more details on usage and customization.
+[Read the full documentation](http://imakewebthings.github.com/jquery-waypoints/#docs) for more details on usage and customization.
+
+## Shortcuts
+
+In addition to the normal Waypoints script, extensions exist to make common UI patterns just a little easier to implement:
+
+- [Infinite Scrolling](http://imakewebthings.github.com/jquery-waypoints/shortcuts/infinite-scroll)
+- [Sticky Elements](http://imakewebthings.github.com/jquery-waypoints/shortcuts/sticky-elements)
 
 ## Examples
 
-Waypoints can be used as a base for several common scroll-based UI patterns. Check out these examples of:
+Waypoints can also be used as a base for your own custom UI patterns. Here are a few examples:
 
-- [Infinite Scrolling](http://imakewebthings.github.com/jquery-waypoints/infinite-scroll)
-- [Sticky Elements](http://imakewebthings.github.com/jquery-waypoints/sticky-elements)
-- [Scroll Analytics](http://imakewebthings.github.com/jquery-waypoints/scroll-analytics)
-- [Dial Controls](http://imakewebthings.github.com/jquery-waypoints/dial-controls)
+- [Scroll Analytics](http://imakewebthings.github.com/jquery-waypoints/examples/scroll-analytics)
+- [Dial Controls](http://imakewebthings.github.com/jquery-waypoints/examples/dial-controls)
 
 ## License
 
 Copyright (c) 2011-2012 Caleb Troughton
-Dual licensed under the [MIT license](https://github.com/imakewebthings/jquery-waypoints/blob/master/MIT-license.txt) and [GPL license](https://github.com/imakewebthings/jquery-waypoints/blob/master/GPL-license.txt).
+Licensed under the [MIT license](https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt).
 
 ## Support
-
-Waypoints has been tested to work with jQuery versions 1.4.3+ in IE6+, FF3+, Safari 4+, Chrome 6+, and Opera 11+.  Other browsers and jQuery versions may work fine, but this is all I've looked at so far.
 
 Unit tests for Waypoints are written with [Jasmine](http://pivotal.github.com/jasmine/) and [jasmine-jquery](https://github.com/velesin/jasmine-jquery).  You can [run them here](http://imakewebthings.github.com/jquery-waypoints/test/). If any of the tests fail, please open an issue and include the browser used, operating system, and description of the failed test.
