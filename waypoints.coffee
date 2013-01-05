@@ -241,7 +241,7 @@ class Context
           adjustment = adjustment.apply waypoint.element
         else if typeof adjustment is 'string'
           adjustment = parseFloat adjustment
-          if waypoint.options.offset.indexOf '%'
+          if waypoint.options.offset.indexOf('%') > -1
             adjustment = Math.ceil(axis.contextDimension * adjustment / 100)
 
         # We've finally calculated all the crazy little adjustments that

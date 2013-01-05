@@ -169,7 +169,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
             adjustment = adjustment.apply(waypoint.element);
           } else if (typeof adjustment === 'string') {
             adjustment = parseFloat(adjustment);
-            if (waypoint.options.offset.indexOf('%')) {
+            if (waypoint.options.offset.indexOf('%') > -1) {
               adjustment = Math.ceil(axis.contextDimension * adjustment / 100);
             }
           }
