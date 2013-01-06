@@ -672,8 +672,8 @@ $[wps] = (method, args...) ->
 #   http://benalman.com/projects/jquery-throttle-debounce-plugin/
 
 $[wps].settings =
-  resizeThrottle: 200
-  scrollThrottle: 100
+  resizeThrottle: 100
+  scrollThrottle: 30
 
 # Ensure a refresh on page load. Newly loaded images often shift layout.
 $w.load -> $[wps] 'refresh'
