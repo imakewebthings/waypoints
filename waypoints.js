@@ -142,24 +142,24 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
       axes = {
         horizontal: {
           contextOffset: isWin ? 0 : cOffset.left,
-          contextScroll: isWin ? 0 : this.oldScroll.x,
+          contextScroll: isWin ? 0 : this.$element.scrollLeft(),
           contextDimension: this.$element.width(),
-          oldScroll: this.oldScroll.x,
+          elementScroll: this.$element.scrollLeft(),
           forward: 'right',
           backward: 'left',
           offsetProp: 'left'
         },
         vertical: {
           contextOffset: isWin ? 0 : cOffset.top,
-          contextScroll: isWin ? 0 : this.oldScroll.y,
+          contextScroll: isWin ? 0 : this.$element.scrollTop(),
           contextDimension: isWin ? $[wps]('viewportHeight') : this.$element.height(),
-          oldScroll: this.oldScroll.y,
+          elementScroll: this.$element.scrollTop(),
           forward: 'down',
           backward: 'up',
           offsetProp: 'top'
         }
       };
-      return $.each(axes, function(aKey, axis) {
+      $.each(axes, function(aKey, axis) {
         return $.each(_this.waypoints[aKey], function(i, waypoint) {
           var adjustment, elementOffset, oldOffset, _ref, _ref1;
           adjustment = waypoint.options.offset;
@@ -177,15 +177,17 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
           if ((waypoint.options.onlyOnScroll && (oldOffset != null)) || !waypoint.enabled) {
             return;
           }
-          if (oldOffset !== null && (oldOffset < (_ref = axis.oldScroll) && _ref <= waypoint.offset)) {
+          if (oldOffset !== null && (oldOffset < (_ref = axis.elementScroll) && _ref <= waypoint.offset)) {
             return waypoint.trigger([axis.backward]);
-          } else if (oldOffset !== null && (oldOffset > (_ref1 = axis.oldScroll) && _ref1 >= waypoint.offset)) {
+          } else if (oldOffset !== null && (oldOffset > (_ref1 = axis.elementScroll) && _ref1 >= waypoint.offset)) {
             return waypoint.trigger([axis.forward]);
-          } else if (oldOffset === null && axis.oldScroll >= waypoint.offset) {
+          } else if (oldOffset === null && axis.elementScroll >= waypoint.offset) {
             return waypoint.trigger([axis.forward]);
           }
         });
       });
+      this.oldScroll.x = axes.horizontal.elementScroll;
+      return this.oldScroll.y = axes.vertical.elementScroll;
     };
 
     Context.prototype.checkEmpty = function() {
