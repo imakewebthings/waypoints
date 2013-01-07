@@ -195,7 +195,7 @@ class Context
 
     # - contextDimension: Width or height of the context.
 
-    # - elementScroll: The scroll value of the context. Unlike "contextScroll",
+    # - oldScroll: The scroll value of the context. Unlike "contextScroll",
     #   this is the same no matter the type of context, and is used when
     #   determining whether a newly added waypoint should immediately fire
     #   on its first offset calculation.
@@ -208,18 +208,18 @@ class Context
     axes =
       horizontal:
         contextOffset: if isWin then 0 else cOffset.left
-        contextScroll: if isWin then 0 else @$element.scrollLeft()
+        contextScroll: if isWin then 0 else @oldScroll.x
         contextDimension: @$element.width()
-        elementScroll: @$element.scrollLeft()
+        oldScroll: @oldScroll.x
         forward: 'right'
         backward: 'left'
         offsetProp: 'left'
       vertical:
         contextOffset: if isWin then 0 else cOffset.top
-        contextScroll: if isWin then 0 else @$element.scrollTop()
+        contextScroll: if isWin then 0 else @oldScroll.y
         contextDimension: if isWin then $[wps]('viewportHeight') else \
           @$element.height()
-        elementScroll: @$element.scrollTop()
+        oldScroll: @oldScroll.y
         forward: 'down'
         backward: 'up'
         offsetProp: 'top'
@@ -259,22 +259,18 @@ class Context
 
         # Case where the refresh causes a backward trigger.
         if oldOffset isnt null and \
-          oldOffset < axis.elementScroll <= waypoint.offset
+          oldOffset < axis.oldScroll <= waypoint.offset
             waypoint.trigger [axis.backward]
 
         # Now the forward case.
         else if oldOffset isnt null and \
-          oldOffset > axis.elementScroll >= waypoint.offset
+          oldOffset > axis.oldScroll >= waypoint.offset
             waypoint.trigger [axis.forward]
 
         # "oldOffset" values of null mean this is the first calculation of
         # the waypoint's offset. It's a special time in a waypoint's life.
-        else if oldOffset is null and axis.elementScroll >= waypoint.offset
+        else if oldOffset is null and axis.oldScroll >= waypoint.offset
           waypoint.trigger [axis.forward]
-
-    # Update stored scroll values during a refresh as well
-    @oldScroll.x = axes.horizontal.elementScroll
-    @oldScroll.y = axes.vertical.elementScroll
 
   # checkEmpty()
 
