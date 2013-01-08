@@ -183,6 +183,9 @@ class Context
     isWin = $.isWindow @element
     cOffset = @$element.offset()
 
+    # Make sure we have the most up-to-date scroll values for our context.
+    @doScroll()
+
     # Each axis recalculation needs to know some things:
 
     # - contextOffset: The distance between the edge of the document and
