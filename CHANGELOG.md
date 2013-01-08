@@ -1,5 +1,11 @@
 # Changelog
 
+## v2.0.1
+
+- Lower default throttle values for `scrollThrottle` and `resizeThrottle`.
+- Fix Issue #104: Pixel offsets written as strings are interpreted as %s.
+- Fix Issue #100: Work around IE not firing scroll event on document shortening by forcing a scroll check on `refresh` calls.
+
 ## v2.0.0
 
 - Rewrite Waypoints in CoffeeScript.
@@ -7,9 +13,9 @@
 - Allow multiple Waypoints on each element. (Issue #40)
 - Allow horizontal scrolling Waypoints. (Issue #14)
 - API additions: (#69, 83, 88)
--- prev, next, above, below, left, right, extendFn, enable, disable
+    - prev, next, above, below, left, right, extendFn, enable, disable
 - API subtractions:
--- remove
+    - remove
 - Remove custom 'waypoint.reached' jQuery Event from powering the trigger.
 - $.waypoints now returns object with vertical+horizontal properties and HTMLElement arrays instead of jQuery object (to preserve trigger order instead of jQuery's forced source order).
 - Add enabled option.
