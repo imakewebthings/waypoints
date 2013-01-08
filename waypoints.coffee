@@ -1,6 +1,6 @@
 ###
-jQuery Waypoints - v2.0.0
-Copyright (c) 2011-2012 Caleb Troughton
+jQuery Waypoints - v2.0.1
+Copyright (c) 2011-2013 Caleb Troughton
 Dual licensed under the MIT license and GPL license.
 https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
 ###
@@ -183,6 +183,9 @@ class Context
     isWin = $.isWindow @element
     cOffset = @$element.offset()
 
+    # Make sure we have the most up-to-date scroll values for our context.
+    @doScroll()
+
     # Each axis recalculation needs to know some things:
 
     # - contextOffset: The distance between the edge of the document and
@@ -241,7 +244,7 @@ class Context
           adjustment = adjustment.apply waypoint.element
         else if typeof adjustment is 'string'
           adjustment = parseFloat adjustment
-          if waypoint.options.offset.indexOf '%'
+          if waypoint.options.offset.indexOf('%') > -1
             adjustment = Math.ceil(axis.contextDimension * adjustment / 100)
 
         # We've finally calculated all the crazy little adjustments that
@@ -672,8 +675,8 @@ $[wps] = (method, args...) ->
 #   http://benalman.com/projects/jquery-throttle-debounce-plugin/
 
 $[wps].settings =
-  resizeThrottle: 200
-  scrollThrottle: 100
+  resizeThrottle: 100
+  scrollThrottle: 30
 
 # Ensure a refresh on page load. Newly loaded images often shift layout.
 $w.load -> $[wps] 'refresh'
