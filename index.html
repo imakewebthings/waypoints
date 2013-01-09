@@ -301,8 +301,8 @@
             <dd class="option-default">default: window</dd>
             <dd>
               <p>The <code>context</code> defines which scrollable element the waypoint belongs to and acts within. The default, <code>window</code>, means the waypoint offset is calculated with relation to the whole viewport. You can set this to another element to use the waypoints within that element. It accepts a selector string, raw HTML element, or jQuery object.</p>
-              <pre><code>$('.something-scrollable .thing').waypoint({
-  context: '.something-scrollable'
+              <pre><code><span class="fn">$</span>(<span class="str">'.something-scrollable .thing'</span>).<span class="fn">waypoint</span>({
+  <span class="key">context</span>: <span class="str">'.something-scrollable'</span>
 });</code></pre>
             </dd>
 
