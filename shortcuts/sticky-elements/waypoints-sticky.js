@@ -9,38 +9,42 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
 
 
 (function() {
-  var $, defaults, wrap;
 
-  $ = window.jQuery;
-
-  defaults = {
-    wrapper: '<div class="sticky-wrapper" />',
-    stuckClass: 'stuck'
-  };
-
-  wrap = function($elements, options) {
-    $elements.wrap(options.wrapper);
-    $elements.each(function() {
-      var $this;
-      $this = $(this);
-      $this.parent().height($this.height());
-      return true;
-    });
-    return $elements.parent();
-  };
-
-  $.waypoints('extendFn', 'sticky', function(options) {
-    var $wrap;
-    options = $.extend({}, $.fn.waypoint.defaults, defaults, options);
-    $wrap = wrap(this, options);
-    options.handler = function(direction) {
-      var $sticky, shouldBeStuck;
-      $sticky = $(this).children(':first');
-      shouldBeStuck = direction === 'down' || direction === 'right';
-      return $sticky.toggleClass(options.stuckClass, shouldBeStuck);
+  (function(root, factory) {
+    if (typeof define === 'function' && define.amd) {
+      return define(['jquery', 'waypoints'], factory);
+    } else {
+      return factory(root.jQuery);
+    }
+  })(this, function($) {
+    var defaults, wrap;
+    defaults = {
+      wrapper: '<div class="sticky-wrapper" />',
+      stuckClass: 'stuck'
     };
-    $wrap.waypoint(options);
-    return this;
+    wrap = function($elements, options) {
+      $elements.wrap(options.wrapper);
+      $elements.each(function() {
+        var $this;
+        $this = $(this);
+        $this.parent().height($this.height());
+        return true;
+      });
+      return $elements.parent();
+    };
+    return $.waypoints('extendFn', 'sticky', function(options) {
+      var $wrap;
+      options = $.extend({}, $.fn.waypoint.defaults, defaults, options);
+      $wrap = wrap(this, options);
+      options.handler = function(direction) {
+        var $sticky, shouldBeStuck;
+        $sticky = $(this).children(':first');
+        shouldBeStuck = direction === 'down' || direction === 'right';
+        return $sticky.toggleClass(options.stuckClass, shouldBeStuck);
+      };
+      $wrap.waypoint(options);
+      return this;
+    });
   });
 
 }).call(this);
