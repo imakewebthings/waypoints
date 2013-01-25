@@ -64,6 +64,6 @@ $.waypoints 'extendFn', 'sticky', (options) ->
     $sticky = $(this).children ':first'
     shouldBeStuck = direction in ['down', 'right']
     $sticky.toggleClass options.stuckClass, shouldBeStuck
-    optHandler.call(this) if optHandler?
+    optHandler.call this,direction if optHandler?
   $wrap.waypoint options
   this
