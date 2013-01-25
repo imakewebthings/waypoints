@@ -59,9 +59,11 @@ wrap = ($elements, options) ->
 $.waypoints 'extendFn', 'sticky', (options) ->
   options = $.extend {}, $.fn.waypoint.defaults, defaults, options
   $wrap = wrap this, options
+  optHandler = options.handler
   options.handler = (direction) ->
     $sticky = $(this).children ':first'
     shouldBeStuck = direction in ['down', 'right']
     $sticky.toggleClass options.stuckClass, shouldBeStuck
+    optHandler.call this,direction if optHandler?
   $wrap.waypoint options
   this
