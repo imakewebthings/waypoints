@@ -13,6 +13,9 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
 ) this, ($, window) ->
   $w = $ window
 
+  # Touch support feature test
+  isTouch = 'ontouchstart' in window
+
   # Internal plugin-wide variables:
 
   # - allWaypoints: A hash containing two hashes, one for vertical waypoints
@@ -110,7 +113,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
 
       # Run scroll checks on scroll, but throttle it for performance reasons.
       $element.bind scrollEvent, =>
-        unless @didScroll
+        unless @didScroll or isTouch
           @didScroll = yes
           scrollHandler = =>
             @doScroll()
@@ -151,8 +154,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
       # This is a small "hack" for iOS, needed because scrolls in mobile
       # Safari that start or end with the URL bar showing will cause window
       # height changes without firing a resize event.
-      if 'ontouchstart' in window \
-        and (!axes.vertical.oldScroll or !axes.vertical.newScroll)
+      if isTouch and (!axes.vertical.oldScroll or !axes.vertical.newScroll)
           $[wps] 'refresh'
 
       # For each axis, check to see if any waypoints have been crossed.

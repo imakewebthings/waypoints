@@ -21,8 +21,9 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
       return factory(root.jQuery, root);
     }
   })(this, function($, window) {
-    var $w, Context, Waypoint, allWaypoints, contextCounter, contextKey, contexts, jQMethods, methods, resizeEvent, scrollEvent, waypointCounter, waypointKey, wp, wps;
+    var $w, Context, Waypoint, allWaypoints, contextCounter, contextKey, contexts, isTouch, jQMethods, methods, resizeEvent, scrollEvent, waypointCounter, waypointKey, wp, wps;
     $w = $(window);
+    isTouch = __indexOf.call(window, 'ontouchstart') >= 0;
     allWaypoints = {
       horizontal: {},
       vertical: {}
@@ -57,7 +58,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
         contexts[this.id] = this;
         $element.bind(scrollEvent, function() {
           var scrollHandler;
-          if (!_this.didScroll) {
+          if (!(_this.didScroll || isTouch)) {
             _this.didScroll = true;
             scrollHandler = function() {
               _this.doScroll();
@@ -96,7 +97,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
             backward: 'up'
           }
         };
-        if (__indexOf.call(window, 'ontouchstart') >= 0 && (!axes.vertical.oldScroll || !axes.vertical.newScroll)) {
+        if (isTouch && (!axes.vertical.oldScroll || !axes.vertical.newScroll)) {
           $[wps]('refresh');
         }
         $.each(axes, function(aKey, axis) {
