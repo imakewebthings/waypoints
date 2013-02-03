@@ -25,6 +25,10 @@ Waypoints can also be used as a base for your own custom UI patterns. Here are a
 - [Scroll Analytics](http://imakewebthings.github.com/jquery-waypoints/examples/scroll-analytics)
 - [Dial Controls](http://imakewebthings.github.com/jquery-waypoints/examples/dial-controls)
 
+## AMD Module Loader Support
+
+If you're using an AMD loader like [RequireJS](http://requirejs.org/), Waypoints registers itself as a named module, `'waypoints'`. Shortcut scripts are anonymous modules.
+
 ## License
 
 Copyright (c) 2011-2012 Caleb Troughton
