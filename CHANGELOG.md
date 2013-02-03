@@ -1,5 +1,11 @@
 # Changelog
 
+## v2.0.2
+
+- Add AMD support. (Issue #116)
+- Work around iOS issue with cancelled `setTimeout` timers by not using scroll throttling on touch devices. (Issue #120)
+- If defined, execute `handler` option passed to sticky shortcut at the end of the stuck/unstuck change. (Issue #123)
+
 ## v2.0.1
 
 - Lower default throttle values for `scrollThrottle` and `resizeThrottle`.
