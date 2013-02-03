@@ -27,20 +27,24 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
       $elements.each(function() {
         var $this;
         $this = $(this);
-        $this.parent().height($this.height());
+        $this.parent().height($this.outerHeight());
         return true;
       });
       return $elements.parent();
     };
     return $.waypoints('extendFn', 'sticky', function(options) {
-      var $wrap;
+      var $wrap, originalHandler;
       options = $.extend({}, $.fn.waypoint.defaults, defaults, options);
       $wrap = wrap(this, options);
+      originalHandler = options.handler;
       options.handler = function(direction) {
         var $sticky, shouldBeStuck;
         $sticky = $(this).children(':first');
         shouldBeStuck = direction === 'down' || direction === 'right';
-        return $sticky.toggleClass(options.stuckClass, shouldBeStuck);
+        $sticky.toggleClass(options.stuckClass, shouldBeStuck);
+        if (originalHandler != null) {
+          return originalHandler.call(this, direction);
+        }
       };
       $wrap.waypoint(options);
       return this;

@@ -32,7 +32,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
     $elements.wrap options.wrapper
     $elements.each ->
       $this = $ this
-      $this.parent().height $this.height()
+      $this.parent().height $this.outerHeight()
       true
     $elements.parent()
 
@@ -65,9 +65,11 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
   $.waypoints 'extendFn', 'sticky', (options) ->
     options = $.extend {}, $.fn.waypoint.defaults, defaults, options
     $wrap = wrap this, options
+    originalHandler = options.handler
     options.handler = (direction) ->
       $sticky = $(this).children ':first'
       shouldBeStuck = direction in ['down', 'right']
       $sticky.toggleClass options.stuckClass, shouldBeStuck
+      originalHandler.call this, direction if originalHandler?
     $wrap.waypoint options
     this
