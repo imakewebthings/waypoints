@@ -73,3 +73,9 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
       originalHandler.call this, direction if originalHandler?
     $wrap.waypoint options
     this
+
+  $.waypoints 'extendFn', 'unsticky', () ->
+    $this = $ this
+    $this.parent().waypoint 'destroy'
+    $this.unwrap()
+    $this

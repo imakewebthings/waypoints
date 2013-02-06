@@ -32,7 +32,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
       });
       return $elements.parent();
     };
-    return $.waypoints('extendFn', 'sticky', function(options) {
+    $.waypoints('extendFn', 'sticky', function(options) {
       var $wrap, originalHandler;
       options = $.extend({}, $.fn.waypoint.defaults, defaults, options);
       $wrap = wrap(this, options);
@@ -48,6 +48,13 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
       };
       $wrap.waypoint(options);
       return this;
+    });
+    return $.waypoints('extendFn', 'unsticky', function() {
+      var $this;
+      $this = $(this);
+      $this.parent().waypoint('destroy');
+      $this.unwrap();
+      return $this;
     });
   });
 
