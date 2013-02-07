@@ -43,6 +43,19 @@ describe 'Waypoints Sticky Elements Shortcut', ->
     runs ->
       expect(handlerSpy).toHaveBeenCalled()
 
+  describe 'Waypoint unsticky element', ->
+    beforeEach ->
+      $return = $sticky.waypoint 'unsticky'
+
+    it 'returns the same jQuery object for chaining', ->
+      expect($return.get()).toEqual $sticky.get()
+
+    it 'unwraps the sticky element', ->
+      expect($sticky.parent()).not.toHaveClass 'sticky-wrapper'
+
+    it 'should not have stuck class', ->
+      expect($sticky).not.toHaveClass 'stuck'
+
   afterEach ->
     $.waypoints 'destroy'
     $win.scrollTop 0

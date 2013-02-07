@@ -26,6 +26,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
     wrapper: '<div class="sticky-wrapper" />'
     stuckClass: 'stuck'
 
+  options = {}
   # Internal: Wraps the sticky elements in the sticky wrapper and returns the
   # wrapper elements.
   wrap = ($elements, options) ->
@@ -62,8 +63,8 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
   # to define any margins on their sticky elements as margins on this
   # wrapper instead.
 
-  $.waypoints 'extendFn', 'sticky', (options) ->
-    options = $.extend {}, $.fn.waypoint.defaults, defaults, options
+  $.waypoints 'extendFn', 'sticky', (opt) ->
+    options = $.extend {}, $.fn.waypoint.defaults, defaults, opt
     $wrap = wrap this, options
     originalHandler = options.handler
     options.handler = (direction) ->
@@ -73,3 +74,9 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
       originalHandler.call this, direction if originalHandler?
     $wrap.waypoint options
     this
+
+  $.waypoints 'extendFn', 'unsticky', () ->
+    $this = $ this
+    $this.parent().waypoint 'destroy'
+    $this.unwrap()
+    $this.removeClass options.stuckClass
