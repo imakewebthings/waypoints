@@ -73,6 +73,48 @@
     });
   });
 
+  /* Fix scroll snapping during browser finds */
+  $(function() {
+    var $window = $(window);
+    var timer;
+
+    /* Most finds will scroll a single panel. */
+    var scrollToPanel = function(panel) {
+      $scrollElement.scrollLeft($(panel).offset().left);
+    };
+
+    /* Others will scroll between panels but not cause a panel scroll */
+    var scrollToClosestPanel = function() {
+      var currentScroll = $window.scrollLeft();
+      var panelOffsets = $.map($('.panel').get(), function(el) {
+        return $(el).offset().left;
+      });
+      var closestOffset = 0;
+      var closestDistance = 99999999;
+
+      $.each(panelOffsets, function(i, offset) {
+        var offsetDistance = Math.abs(currentScroll - offset);
+        if(offsetDistance < closestDistance) {
+          closestDistance = offsetDistance;
+          closestOffset = offset;
+        }
+      });
+      $scrollElement.scrollLeft(closestOffset);
+    };
+
+    $('.panel').scroll(function() {
+      window.clearTimeout(timer);
+      timer = window.setTimeout(scrollToPanel, 50, this);
+    });
+
+    /* 50ms is enough time to let the animation between panels do its
+       thing without triggering this debounced panel snap. */
+    $window.scroll(function() {
+      window.clearTimeout(timer);
+      timer = window.setTimeout(scrollToClosestPanel, 50);
+    });
+  });
+
   /* Docs nav highlighting */
   $(function() {
     $('.doc-section')
