@@ -20,7 +20,8 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
     var defaults, wrap;
     defaults = {
       wrapper: '<div class="sticky-wrapper" />',
-      stuckClass: 'stuck'
+      stuckClass: 'stuck',
+      complete: function(){}
     };
     wrap = function($elements, options) {
       $elements.wrap(options.wrapper);
@@ -42,6 +43,9 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
         $sticky = $(this).children(':first');
         shouldBeStuck = direction === 'down' || direction === 'right';
         $sticky.toggleClass(options.stuckClass, shouldBeStuck);
+        if( shouldBeStuck ){
+          options.complete(this,direction);
+        }
         if (originalHandler != null) {
           return originalHandler.call(this, direction);
         }
