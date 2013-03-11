@@ -43,7 +43,7 @@ describe 'Waypoints Sticky Elements Shortcut', ->
     runs ->
       expect(handlerSpy).toHaveBeenCalled()
 
-  describe 'Waypoint unsticky element', ->
+  describe '#waypoint("unsticky")', ->
     beforeEach ->
       $return = $sticky.waypoint 'unsticky'
 
