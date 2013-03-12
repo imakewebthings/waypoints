@@ -26,7 +26,6 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
     wrapper: '<div class="sticky-wrapper" />'
     stuckClass: 'stuck'
 
-  options = {}
   # Internal: Wraps the sticky elements in the sticky wrapper and returns the
   # wrapper elements.
   wrap = ($elements, options) ->
@@ -73,10 +72,15 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
       $sticky.toggleClass options.stuckClass, shouldBeStuck
       originalHandler.call this, direction if originalHandler?
     $wrap.waypoint options
-    this
+    this.data 'stuckClass', options.stuckClass
+
+  # .waypoint('unsticky')
+
+  # Undoes everything done within the sticky shortcut by removing the parent
+  # sticky wrapper, destroying the waypoint, and removing any stuck class
+  # that may be applied.
 
   $.waypoints 'extendFn', 'unsticky', () ->
-    $this = $ this
-    $this.parent().waypoint 'destroy'
-    $this.unwrap()
-    $this.removeClass options.stuckClass
+    this.parent().waypoint 'destroy'
+    this.unwrap()
+    this.removeClass this.data 'stuckClass'

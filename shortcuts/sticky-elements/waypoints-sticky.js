@@ -17,12 +17,11 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
       return factory(root.jQuery);
     }
   })(this, function($) {
-    var defaults, options, wrap;
+    var defaults, wrap;
     defaults = {
       wrapper: '<div class="sticky-wrapper" />',
       stuckClass: 'stuck'
     };
-    options = {};
     wrap = function($elements, options) {
       $elements.wrap(options.wrapper);
       $elements.each(function() {
@@ -34,7 +33,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
       return $elements.parent();
     };
     $.waypoints('extendFn', 'sticky', function(opt) {
-      var $wrap, originalHandler;
+      var $wrap, options, originalHandler;
       options = $.extend({}, $.fn.waypoint.defaults, defaults, opt);
       $wrap = wrap(this, options);
       originalHandler = options.handler;
@@ -48,14 +47,12 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
         }
       };
       $wrap.waypoint(options);
-      return this;
+      return this.data('stuckClass', options.stuckClass);
     });
     return $.waypoints('extendFn', 'unsticky', function() {
-      var $this;
-      $this = $(this);
-      $this.parent().waypoint('destroy');
-      $this.unwrap();
-      return $this.removeClass(options.stuckClass);
+      this.parent().waypoint('destroy');
+      this.unwrap();
+      return this.removeClass(this.data('stuckClass'));
     });
   });
 
