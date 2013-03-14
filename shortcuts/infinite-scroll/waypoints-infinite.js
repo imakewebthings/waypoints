@@ -33,7 +33,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
       $container = options.container === 'auto' ? this : $(options.container);
       options.handler = function(direction) {
         var $this;
-        if (direction === 'down' || direction === 'right') {
+        if ( (direction === 'down' || direction === 'right') && $(options.more).length) {
           $this = $(this);
           options.onBeforePageLoad();
           $this.waypoint('disable');
