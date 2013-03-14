@@ -30,10 +30,13 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
     return $.waypoints('extendFn', 'infinite', function(options) {
       var $container;
       options = $.extend({}, $.fn.waypoint.defaults, defaults, options);
+      if ($(options.more).length === 0) {
+        return this;
+      }
       $container = options.container === 'auto' ? this : $(options.container);
       options.handler = function(direction) {
         var $this;
-        if ( (direction === 'down' || direction === 'right') && $(options.more).length) {
+        if (direction === 'down' || direction === 'right') {
           $this = $(this);
           options.onBeforePageLoad();
           $this.waypoint('disable');

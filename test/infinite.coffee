@@ -41,6 +41,14 @@ describe 'Waypoints Infinite Scroll Shortcut', ->
     it 'fires the after callback', ->
       expect(afterHit).toBeTruthy()
 
+  describe 'when no more link on initialize', ->
+    beforeEach ->
+      $more.remove()
+      $container.waypoint 'infinite'
+
+    it 'does not create the waypoint', ->
+      expect($.waypoints().vertical.length).toEqual 0
+
   afterEach ->
     $.waypoints 'destroy'
     $win.scrollTop 0

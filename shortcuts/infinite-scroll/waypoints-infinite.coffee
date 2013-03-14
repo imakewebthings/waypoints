@@ -68,6 +68,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
 
   $.waypoints 'extendFn', 'infinite', (options) ->
     options = $.extend {}, $.fn.waypoint.defaults, defaults, options
+    return @ if $(options.more).length is 0
     $container = if options.container is 'auto' then @ else $ options.container
 
     options.handler = (direction) ->
