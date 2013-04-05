@@ -24,12 +24,6 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
     };
     wrap = function($elements, options) {
       $elements.wrap(options.wrapper);
-      $elements.each(function() {
-        var $this;
-        $this = $(this);
-        $this.parent().height($this.outerHeight());
-        return true;
-      });
       return $elements.parent();
     };
     $.waypoints('extendFn', 'sticky', function(opt) {
@@ -42,6 +36,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
         $sticky = $(this).children(':first');
         shouldBeStuck = direction === 'down' || direction === 'right';
         $sticky.toggleClass(options.stuckClass, shouldBeStuck);
+        $wrap.height(shouldBeStuck ? $sticky.outerHeight() : '');
         if (originalHandler != null) {
           return originalHandler.call(this, direction);
         }
