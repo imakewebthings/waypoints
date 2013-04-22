@@ -86,7 +86,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
 
         # Load items from the next page.
         $.get $(options.more).attr('href'), (data) ->
-          $data = $ data
+          $data = $ $.parseHTML(data)
           $more = $ options.more
           $newMore = $data.find options.more
           $container.append $data.find options.items
