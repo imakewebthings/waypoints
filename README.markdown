@@ -29,6 +29,10 @@ Waypoints can also be used as a base for your own custom UI patterns. Here are a
 
 If you're using an AMD loader like [RequireJS](http://requirejs.org/), Waypoints registers itself as a named module, `'waypoints'`. Shortcut scripts are anonymous modules.
 
+## Development Environment
+
+If you want to contribute to Waypoints, I love pull requests that include changes to the source `coffee` files as well as the compiled JS and minified files. You can set up the same environment by running `make setup` (which just aliases to `npm install`). This will install the version of CoffeeScript and UglifyJS that I'm using. From there, running `make build` will compile and minify all the necessary files. Test coffee files are compiled on the fly, so compile and minify do not apply to those files.
+
 ## License
 
 Copyright (c) 2011-2012 Caleb Troughton
