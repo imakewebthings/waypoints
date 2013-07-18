@@ -24,7 +24,8 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
   #   particular design.
   defaults =
     wrapper: '<div class="sticky-wrapper" />'
-    stuckClass: 'stuck'
+    stuckClass: 'stuck',
+    direction: 'down right'
 
   # Internal: Wraps the sticky elements in the sticky wrapper and returns the
   # wrapper elements.
@@ -64,7 +65,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
     originalHandler = options.handler
     options.handler = (direction) ->
       $sticky = $(this).children ':first'
-      shouldBeStuck = direction in ['down', 'right']
+      shouldBeStuck = options.direction.indexOf(direction) != -1
       $sticky.toggleClass options.stuckClass, shouldBeStuck
       $wrap.height if shouldBeStuck then $sticky.outerHeight() else ''
       originalHandler.call this, direction if originalHandler?
