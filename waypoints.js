@@ -111,10 +111,9 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
           direction = isForward ? axis.forward : axis.backward;
           $.each(_this.waypoints[aKey], function(wKey, waypoint) {
             var _ref, _ref1;
-
             if ((axis.oldScroll < (_ref = waypoint.offset) && _ref <= axis.newScroll)) {
               return triggered.push(waypoint);
-            } else if ((axis.newScroll < (_ref1 = waypoint.offset) && _ref1 <= axis.oldScroll)) {
+            } else if ((axis.newScroll <= (_ref1 = waypoint.offset) && _ref1 < axis.oldScroll)) {
               return triggered.push(waypoint);
             }
           });
