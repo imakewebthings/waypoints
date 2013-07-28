@@ -239,6 +239,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
           return;
         }
         if (this.callback != null) {
+          args.push(this)
           this.callback.apply(this.element, args);
         }
         if (this.options.triggerOnce) {
