@@ -1,5 +1,5 @@
 ###
-Infinite Scroll Shortcut for jQuery Waypoints - v2.0.2
+Infinite Scroll Shortcut for jQuery Waypoints - v2.0.3
 Copyright (c) 2011-2013 Caleb Troughton
 Dual licensed under the MIT license and GPL license.
 https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
@@ -68,6 +68,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
 
   $.waypoints 'extendFn', 'infinite', (options) ->
     options = $.extend {}, $.fn.waypoint.defaults, defaults, options
+    return @ if $(options.more).length is 0
     $container = if options.container is 'auto' then @ else $ options.container
 
     options.handler = (direction) ->
@@ -85,7 +86,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
 
         # Load items from the next page.
         $.get $(options.more).attr('href'), (data) ->
-          $data = $ data
+          $data = $ $.parseHTML(data)
           $more = $ options.more
           $newMore = $data.find options.more
           $container.append $data.find options.items

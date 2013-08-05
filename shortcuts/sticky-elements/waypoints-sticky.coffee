@@ -1,5 +1,5 @@
 ###
-Sticky Elements Shortcut for jQuery Waypoints - v2.0.2
+Sticky Elements Shortcut for jQuery Waypoints - v2.0.3
 Copyright (c) 2011-2013 Caleb Troughton
 Dual licensed under the MIT license and GPL license.
 https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
@@ -30,10 +30,6 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
   # wrapper elements.
   wrap = ($elements, options) ->
     $elements.wrap options.wrapper
-    $elements.each ->
-      $this = $ this
-      $this.parent().height $this.outerHeight()
-      true
     $elements.parent()
 
   # .waypoint('sticky', [object])
@@ -62,14 +58,26 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
   # to define any margins on their sticky elements as margins on this
   # wrapper instead.
 
-  $.waypoints 'extendFn', 'sticky', (options) ->
-    options = $.extend {}, $.fn.waypoint.defaults, defaults, options
+  $.waypoints 'extendFn', 'sticky', (opt) ->
+    options = $.extend {}, $.fn.waypoint.defaults, defaults, opt
     $wrap = wrap this, options
     originalHandler = options.handler
     options.handler = (direction) ->
       $sticky = $(this).children ':first'
       shouldBeStuck = direction in ['down', 'right']
       $sticky.toggleClass options.stuckClass, shouldBeStuck
+      $wrap.height if shouldBeStuck then $sticky.outerHeight() else ''
       originalHandler.call this, direction if originalHandler?
     $wrap.waypoint options
-    this
+    this.data 'stuckClass', options.stuckClass
+
+  # .waypoint('unsticky')
+
+  # Undoes everything done within the sticky shortcut by removing the parent
+  # sticky wrapper, destroying the waypoint, and removing any stuck class
+  # that may be applied.
+
+  $.waypoints 'extendFn', 'unsticky', () ->
+    this.parent().waypoint 'destroy'
+    this.unwrap()
+    this.removeClass this.data 'stuckClass'

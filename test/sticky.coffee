@@ -10,7 +10,7 @@ describe 'Waypoints Sticky Elements Shortcut', ->
     loadFixtures 'sticky.html'
     $sticky = $ '.sticky'
     handlerSpy = jasmine.createSpy 'on handler'
-    $return = $sticky.waypoint 'sticky'
+    $return = $sticky.waypoint 'sticky',
       handler: handlerSpy
 
   it 'returns the same jQuery object for chaining', ->
@@ -42,6 +42,19 @@ describe 'Waypoints Sticky Elements Shortcut', ->
 
     runs ->
       expect(handlerSpy).toHaveBeenCalled()
+
+  describe '#waypoint("unsticky")', ->
+    beforeEach ->
+      $return = $sticky.waypoint 'unsticky'
+
+    it 'returns the same jQuery object for chaining', ->
+      expect($return.get()).toEqual $sticky.get()
+
+    it 'unwraps the sticky element', ->
+      expect($sticky.parent()).not.toHaveClass 'sticky-wrapper'
+
+    it 'should not have stuck class', ->
+      expect($sticky).not.toHaveClass 'stuck'
 
   afterEach ->
     $.waypoints 'destroy'
