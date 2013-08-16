@@ -167,7 +167,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
         $.each @waypoints[aKey], (wKey, waypoint) ->
           if axis.oldScroll < waypoint.offset <= axis.newScroll
             triggered.push waypoint
-          else if axis.newScroll < waypoint.offset <= axis.oldScroll
+          else if axis.newScroll <= waypoint.offset < axis.oldScroll
             triggered.push waypoint
         triggered.sort (a, b) -> a.offset - b.offset
         triggered.reverse() unless isForward
@@ -356,6 +356,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
     trigger: (args) ->
       return unless @enabled
       if @callback?
+        args.push @
         @callback.apply @element, args
       if @options.triggerOnce
         @destroy()
