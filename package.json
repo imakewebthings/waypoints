@@ -11,6 +11,7 @@
     "jquery",
     "scroll"
   ],
+  "main": ["waypoints.js"],
   "devDependencies": {
     "coffee-script": "1.6.2",
     "uglify-js" :  "2.2.5"
