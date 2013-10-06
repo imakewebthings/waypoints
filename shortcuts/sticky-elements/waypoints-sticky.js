@@ -53,3 +53,56 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
   });
 
 }).call(this);
+
+(function() {
+
+  (function(root, factory) {
+    if (typeof define === 'function' && define.amd) {
+      return define(['jquery', 'waypoints'], factory);
+    } else {
+      return factory(root.jQuery);
+    }
+  })(this, function($) {
+    var defaults, wrap;
+    defaults = {
+      wrapper: '<div class="sticky-wrapper" />',
+      stuckClass: 'stuck'
+    };
+    wrap = function($elements, options) {
+      $elements.wrap(options.wrapper);
+      $elements.each(function() {
+        var $this;
+        $this = $(this);
+        
+		    if ($(window).scrollTop() + $(window).height(); < $this.offset().top + $this.height())
+		    {
+			    $this.addClass(options.stuckClass);
+		    }
+		  
+        $this.parent().height($this.outerHeight());
+		
+        return true;
+      });
+      return $elements.parent();
+    };
+    return $.waypoints('extendFn', 'sticky_btm', function(options) {
+      var $wrap, originalHandler;
+      options = $.extend({}, $.fn.waypoint.defaults, defaults, options);
+      $wrap = wrap(this, options);
+      originalHandler = options.handler;
+	  options.offset  = function (){return $(window).height()-$(this).height();};
+      options.handler = function(direction) {
+        var $sticky, shouldBeStuck;
+        $sticky = $(this).children(':first');
+        shouldBeStuck = direction === 'up' || direction === 'right';
+        $sticky.toggleClass(options.stuckClass, shouldBeStuck);
+        if (originalHandler != null) {
+          return originalHandler.call(this, direction);
+        }
+      };
+      $wrap.waypoint(options);
+      return this;
+    });
+  });
+
+}).call(this);
