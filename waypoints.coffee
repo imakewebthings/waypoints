@@ -92,14 +92,61 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
 
   class Context
     constructor: ($element) ->
+      element = $element[0]
+      element.scrollSuppliers = [
+        {
+          obj: element,
+          x: 'scrollLeft',
+          y: 'scrollTop'
+        },
+        {
+          obj: element,
+          x: 'scrollX',
+          y: 'scrollY'
+        },
+        {
+          obj: document.body,
+          x: 'scrollLeft',
+          y: 'scrollTop'
+        },
+        {
+          obj: document.documentElement,
+          x: 'scrollLeft',
+          y: 'scrollTop'
+        },
+        {
+          obj: window,
+          x: 'pageXOffset',
+          y: 'pageYOffset'
+        },
+        {
+          obj: document.body.parentElement || {},
+          x: 'scrollLeft',
+          y: 'scrollTop'
+        }
+      ]
+      element.scrollSupplier = null
+      element.scrollSupplierGet = () ->
+        for s, i in element.scrollSuppliers
+          if s.obj[s.x] || s.obj[s.y]
+            return (element.scrollSupplier = s)
+        return null
+
+      if supplier = element.scrollSupplierGet()
+        x = supplier.obj[supplier.x]
+        y = supplier.obj[supplier.y]
+      else
+        x = $element.scrollLeft()
+        y = $element.scrollTop()
+
       @$element = $element
       @element = $element[0]
       @didResize = no
       @didScroll = no
       @id = 'context' + contextCounter++
       @oldScroll =
-        x: $element.scrollLeft()
-        y: $element.scrollTop()
+        x: x
+        y: y
       @waypoints =
         horizontal: {}
         vertical: {}
@@ -135,18 +182,28 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
     # scroll values, and checks to see if any waypoints should be triggered
     # by that change.
     doScroll: ->
+      if !(supplier = @element.scrollSupplier)
+        if supplier = @element.scrollSupplierGet()
+          x = supplier.obj[supplier.x]
+          y = supplier.obj[supplier.y]
+        else
+          x = @$element.scrollLeft()
+          y = @$element.scrollTop()
+      else
+        x = supplier.obj[supplier.x]
+        y = supplier.obj[supplier.y]
 
       # We use some hashes with common values for each axis so that we can
       # just iterate over it rather than write the whole thing twice for
       # each axis.
       axes =
         horizontal:
-          newScroll: @$element.scrollLeft()
+          newScroll: x
           oldScroll: @oldScroll.x
           forward: 'right'
           backward: 'left'
         vertical:
-          newScroll: @$element.scrollTop()
+          newScroll: y
           oldScroll: @oldScroll.y
           forward: 'down'
           backward: 'up'
