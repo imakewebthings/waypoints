@@ -1,5 +1,10 @@
 # Changelog
 
+## v2.0.4
+
+- Fix enable, disable, and destroys calls not chaining the jQuery object. (Thanks @robharper)
+- Fix destroy not unregistering internal waypoint references if underlying node has been removed from the document, causing memory leaks.
+
 ## v2.0.3
 
 - Add "unsticky" function for sticky shortcut. (Issue #130)
