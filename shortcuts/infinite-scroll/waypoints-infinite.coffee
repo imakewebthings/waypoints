@@ -1,6 +1,6 @@
 ###
-Infinite Scroll Shortcut for jQuery Waypoints - v2.0.3
-Copyright (c) 2011-2013 Caleb Troughton
+Infinite Scroll Shortcut for jQuery Waypoints - v2.0.4
+Copyright (c) 2011-2014 Caleb Troughton
 Dual licensed under the MIT license and GPL license.
 https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
 ###

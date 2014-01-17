@@ -5,7 +5,7 @@ standardWait = 50
 # Go tests, go
 
 describe 'jQuery Waypoints', ->
-  hit = $se = $e = null
+  hit = $se = $e = $return = null
 
   beforeEach ->
     loadFixtures 'standard.html'
@@ -256,7 +256,7 @@ describe 'jQuery Waypoints', ->
     beforeEach ->
       $e = $('#same1').waypoint ->
         hit = true
-      $e.waypoint 'disable'
+      $return = $e.waypoint 'disable'
 
     it 'disables callback triggers', ->
       runs ->
@@ -266,12 +266,15 @@ describe 'jQuery Waypoints', ->
       runs ->
         expect(hit).toBeFalsy()
 
+    it 'returns the same jQuery object for chaining', ->
+      expect($return.get()).toEqual $e.get()
+
   describe '.waypoint("enable")', ->
     beforeEach ->
       $e = $('#same1').waypoint ->
         hit = true
       $e.waypoint 'disable'
-      $e.waypoint 'enable'
+      $return = $e.waypoint 'enable'
 
     it 'enables callback triggers', ->
       runs ->
@@ -280,12 +283,16 @@ describe 'jQuery Waypoints', ->
 
       runs ->
         expect(hit).toBeTruthy()
+
+    it 'returns the same jQuery object for chaining', ->
+      expect($return.get()).toEqual $e.get()
+
   
   describe '#waypoint("destroy")', ->
     beforeEach ->
       $e = $('#same1').waypoint ->
         hit = true
-      $e.waypoint 'destroy'
+      $return = $e.waypoint 'destroy'
     
     it 'removes waypoint from list of waypoints', ->
       expect($.waypoints().length).toBeFalsy()
@@ -306,6 +313,16 @@ describe 'jQuery Waypoints', ->
       
       runs ->
         expect(hit).toBeFalsy()
+
+    it 'returns the same jQuery object for chaining', ->
+      expect($return.get()).toEqual $e.get()
+
+    it 'unregisters waypoint even if underlying nodes are removed', ->
+      $e = $('#same2').waypoint ->
+        hit = true
+      $e.remove()
+      $e.waypoint 'destroy'
+      expect($.waypoints().vertical.length).toEqual(0);
 
   describe '#waypoint("prev")', ->
     it 'returns jQuery object containing previous waypoint', ->
