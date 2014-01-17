@@ -317,6 +317,13 @@ describe 'jQuery Waypoints', ->
     it 'returns the same jQuery object for chaining', ->
       expect($return.get()).toEqual $e.get()
 
+    it 'unregisters waypoint even if underlying nodes are removed', ->
+      $e = $('#same2').waypoint ->
+        hit = true
+      $e.remove()
+      $e.waypoint 'destroy'
+      expect($.waypoints().vertical.length).toEqual(0);
+
   describe '#waypoint("prev")', ->
     it 'returns jQuery object containing previous waypoint', ->
       $e = $ '#same1'

@@ -54,7 +54,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
           horizontal: {},
           vertical: {}
         };
-        $element.data(contextKey, this.id);
+        this.element[contextKey] = this.id;
         contexts[this.id] = this;
         $element.bind(scrollEvent, function() {
           var scrollHandler;
@@ -230,9 +230,9 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
         this.options = options;
         context.waypoints[this.axis][this.id] = this;
         allWaypoints[this.axis][this.id] = this;
-        idList = (_ref = $element.data(waypointKey)) != null ? _ref : [];
+        idList = (_ref = this.element[waypointKey]) != null ? _ref : [];
         idList.push(this.id);
-        $element.data(waypointKey, idList);
+        this.element[waypointKey] = idList;
       }
 
       Waypoint.prototype.trigger = function(args) {
@@ -265,7 +265,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
       Waypoint.getWaypointsByElement = function(element) {
         var all, ids;
 
-        ids = $(element).data(waypointKey);
+        ids = element[waypointKey];
         if (!ids) {
           return [];
         }
@@ -297,7 +297,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
             contextElement = $this.closest(contextElement);
           }
           contextElement = $(contextElement);
-          context = contexts[contextElement.data(contextKey)];
+          context = contexts[contextElement[0][contextKey]];
           if (!context) {
             context = new Context(contextElement);
           }
@@ -401,7 +401,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
 
         collection = allWaypoints;
         if (contextSelector) {
-          collection = (_ref = contexts[$(contextSelector).data(contextKey)]) != null ? _ref.waypoints : void 0;
+          collection = (_ref = contexts[$(contextSelector)[0][contextKey]]) != null ? _ref.waypoints : void 0;
         }
         if (!collection) {
           return [];
@@ -480,7 +480,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
       _filter: function(selector, axis, test) {
         var context, waypoints;
 
-        context = contexts[$(selector).data(contextKey)];
+        context = contexts[$(selector)[0][contextKey]];
         if (!context) {
           return [];
         }
