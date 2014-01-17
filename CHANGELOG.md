@@ -2,8 +2,8 @@
 
 ## v2.0.4
 
-- Fix enable, disable, and destroys calls not chaining the jQuery object. (Thanks @robharper)
-- Fix destroy not unregistering internal waypoint references if underlying node has been removed from the document, causing memory leaks.
+- Fix enable, disable, and destroys calls not chaining the jQuery object. (Issue #244) (Thanks [@robharper](https://github.com/robharper))
+- Fix destroy not unregistering internal waypoint references if underlying node has been removed from the document, causing memory leaks. (Issue #243)
 
 ## v2.0.3
 
