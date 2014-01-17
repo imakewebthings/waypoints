@@ -433,9 +433,9 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
 
     # Disable, enable, and destroy all just delegate to the instance methods
     # of the waypoints attached to the subject elements.
-    disable: -> methods._invoke this, 'disable'
-    enable: -> methods._invoke this, 'enable'
-    destroy: -> methods._invoke this, 'destroy'
+    disable: -> methods._invoke.call this, 'disable'
+    enable: -> methods._invoke.call this, 'enable'
+    destroy: -> methods._invoke.call this, 'destroy'
 
     # .waypoint('prev', string, string|HTMLNode|jQuery)
 
@@ -472,8 +472,8 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
 
     # Internal: Finds all waypoints on a given set of "$elements" and invokes
     # "method" on each instance.
-    _invoke: ($elements, method) ->
-      $elements.each ->
+    _invoke: (method) ->
+      this.each ->
         waypoints = Waypoint.getWaypointsByElement this
         $.each waypoints, (i, waypoint) ->
           waypoint[method]()

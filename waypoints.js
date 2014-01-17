@@ -307,13 +307,13 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
         return this;
       },
       disable: function() {
-        return methods._invoke(this, 'disable');
+        return methods._invoke.call(this, 'disable');
       },
       enable: function() {
-        return methods._invoke(this, 'enable');
+        return methods._invoke.call(this, 'enable');
       },
       destroy: function() {
-        return methods._invoke(this, 'destroy');
+        return methods._invoke.call(this, 'destroy');
       },
       prev: function(axis, selector) {
         return methods._traverse.call(this, axis, selector, function(stack, index, waypoints) {
@@ -348,8 +348,8 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
         });
         return this.pushStack(stack);
       },
-      _invoke: function($elements, method) {
-        $elements.each(function() {
+      _invoke: function(method) {
+        this.each(function() {
           var waypoints;
 
           waypoints = Waypoint.getWaypointsByElement(this);
