@@ -27,7 +27,7 @@ Waypoints can also be used as a base for your own custom UI patterns. Here are a
 
 ## AMD Module Loader Support
 
-If you're using an AMD loader like [RequireJS](http://requirejs.org/), Waypoints registers itself as a named module, `'waypoints'`. Shortcut scripts are anonymous modules.
+If you're using an AMD loader like [RequireJS](http://requirejs.org/), Waypoints and Shortcut scripts register themselves as anonymous modules.
 
 ## Development Environment
 
