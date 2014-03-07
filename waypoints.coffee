@@ -6,7 +6,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
 ###
 ((root, factory) ->
   if typeof define is 'function' and define.amd
-    define 'waypoints', ['jquery'], ($) ->
+    define ['jquery'], ($) ->
       factory $, root
   else
     factory root.jQuery, root
