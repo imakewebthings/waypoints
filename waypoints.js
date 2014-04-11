@@ -46,28 +46,17 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
         this.didResize = false;
         this.didScroll = false;
         this.id = 'context' + contextCounter++;
-        this.oldScroll = {
-          x: $element.scrollLeft(),
-          y: $element.scrollTop()
-        };
         this.waypoints = {
           horizontal: {},
           vertical: {}
         };
         this.element[contextKey] = this.id;
+	//TODO change Context accessibility
+	$element.data('wp-context', this);
         contexts[this.id] = this;
-        $element.bind(scrollEvent, function() {
-          var scrollHandler;
-
-          if (!(_this.didScroll || isTouch)) {
-            _this.didScroll = true;
-            scrollHandler = function() {
-              _this.doScroll();
-              return _this.didScroll = false;
-            };
-            return window.setTimeout(scrollHandler, $[wps].settings.scrollThrottle);
-          }
-        });
+        
+        this.bindScroll();
+        
         $element.bind(resizeEvent, function() {
           var resizeHandler;
 
@@ -82,6 +71,32 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
         });
       }
 
+      Context.prototype.bindScroll = function(){
+	//reset 
+	this.oldScroll = {
+          x: this.$element.scrollLeft(),
+          y: this.$element.scrollTop()
+        };
+
+        var _this = this;
+        this.$element.bind(scrollEvent, function() {
+          var scrollHandler;
+
+          if (!(_this.didScroll || isTouch)) {
+           _this.didScroll = true;
+            scrollHandler = function() {
+              _this.doScroll();
+              return _this.didScroll = false;
+            };
+            return window.setTimeout(scrollHandler, $[wps].settings.scrollThrottle);
+          }
+        });
+      }
+
+      Context.prototype.unbindScroll = function(){
+        this.$element.unbind(scrollEvent);
+      }
+      
       Context.prototype.doScroll = function() {
         var axes,
           _this = this;
