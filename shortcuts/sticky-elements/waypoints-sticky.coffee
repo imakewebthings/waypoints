@@ -24,7 +24,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
   #   particular design.
   defaults =
     wrapper: '<div class="sticky-wrapper" />'
-    stuckClass: 'stuck',
+    stuckClass: 'stuck'
     direction: 'down right'
 
   # Internal: Wraps the sticky elements in the sticky wrapper and returns the

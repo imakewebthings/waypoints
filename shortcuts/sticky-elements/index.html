@@ -176,11 +176,12 @@
 </div>
 
 <div class="inner">
-	<p>The "sticky" waypoint method may also be passed an options object. This options object can be used to override the class name of the "stuck" state and the HTML of the wrapper element. Here are the defaults:</p>
+	<p>The "sticky" waypoint method may also be passed an options object. This options object can be used to override the class name of the "stuck" state, the direction(s) in which the stuck class should be applied, and the HTML of the wrapper element. Here are the defaults:</p>
 
 	<pre><code><span class="fn">$</span>(<span class="str">'.my-sticky-element'</span>).<span class="fn">waypoint</span>(<span class="str">'sticky'</span>, {
-  <span class="key">wrapper</span>: <span class="str">'&lt;div class="sticky-wrapper" /&gt;'</span>,
-  <span class="key">stuckClass</span>: <span class="str">'stuck'</span>
+  <span class="key">direction</span>: <span class="str">'down right'</span>,
+  <span class="key">stuckClass</span>: <span class="str">'stuck'</span>,
+  <span class="key">wrapper</span>: <span class="str">'&lt;div class="sticky-wrapper" /&gt;'</span>
 });</code></pre>
 
 	<p>This options object is just an extension of the regular Waypoints options object, so you can pass along any traditional options you may want. A common one is the <code>offset</code> option.</p>
