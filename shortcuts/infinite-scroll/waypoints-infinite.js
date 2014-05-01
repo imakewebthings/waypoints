@@ -15,7 +15,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
       return factory(root.jQuery);
     }
   })(this, function($) {
-    var defaults;
+    var createWaypoint, defaults;
 
     defaults = {
       container: 'auto',
@@ -25,6 +25,9 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
       loadingClass: 'infinite-loading',
       onBeforePageLoad: $.noop,
       onAfterPageLoad: $.noop
+    };
+    createWaypoint = function($container, options) {
+      return $container.waypoint(options);
     };
     return $.waypoints('extendFn', 'infinite', function(options) {
       var $container;
@@ -40,7 +43,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
         if (direction === 'down' || direction === 'right') {
           $this = $(this);
           options.onBeforePageLoad();
-          $this.waypoint('disable');
+          $this.waypoint('destroy');
           $container.addClass(options.loadingClass);
           return $.get($(options.more).attr('href'), function(data) {
             var $data, $more, $newMore;
@@ -52,15 +55,13 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
             $container.removeClass(options.loadingClass);
             if ($newMore.length) {
               $more.replaceWith($newMore);
-              $this.waypoint('enable');
-            } else {
-              $this.waypoint('destroy');
+              createWaypoint(this, options);
             }
             return options.onAfterPageLoad();
           });
         }
       };
-      return this.waypoint(options);
+      return createWaypoint($container, options);
     });
   });
 

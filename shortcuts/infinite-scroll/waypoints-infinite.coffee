@@ -45,6 +45,9 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
     onBeforePageLoad: $.noop
     onAfterPageLoad: $.noop
 
+  createWaypoint = ($container, options) ->
+    $container.waypoint options
+
   # .waypoint('infinite', [object])
 
   # The infinite method is a shortcut method for a common UI pattern, infinite
@@ -78,7 +81,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
 
         # We disable the waypoint during item loading so that we can't trigger
         # it again and cause duplicate loads.
-        $this.waypoint 'disable'
+        $this.waypoint 'destroy'
 
         # During loading a class is added to the container, should the user
         # wish to style it during this state.
@@ -94,11 +97,10 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
 
           if $newMore.length
             $more.replaceWith $newMore
-            $this.waypoint 'enable'
-          else
-            $this.waypoint 'destroy'
+            createWaypoint @, options
+
           options.onAfterPageLoad()
 
     # Initialize the waypoint with our built-up options. Returns the original
     # jQuery object per normal for chaining.
-    @waypoint options
+    createWaypoint $container, options
