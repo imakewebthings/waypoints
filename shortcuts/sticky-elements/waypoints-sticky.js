@@ -23,8 +23,11 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
       direction: 'down right'
     };
     wrap = function($elements, options) {
+      var $parent;
+
       $elements.wrap(options.wrapper);
-      return $elements.parent();
+      $parent = $elements.parent();
+      return $parent.data('isWaypointStickyWrapper', true);
     };
     $.waypoints('extendFn', 'sticky', function(opt) {
       var $wrap, options, originalHandler;
@@ -47,7 +50,13 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
       return this.data('stuckClass', options.stuckClass);
     });
     return $.waypoints('extendFn', 'unsticky', function() {
-      this.parent().waypoint('destroy');
+      var $parent;
+
+      $parent = this.parent();
+      if (!$parent.data('isWaypointStickyWrapper')) {
+        return this;
+      }
+      $parent.waypoint('destroy');
       this.unwrap();
       return this.removeClass(this.data('stuckClass'));
     });

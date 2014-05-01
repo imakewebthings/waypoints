@@ -56,6 +56,11 @@ describe 'Waypoints Sticky Elements Shortcut', ->
     it 'should not have stuck class', ->
       expect($sticky).not.toHaveClass 'stuck'
 
+    it 'does nothing if called on a non-sticky element', ->
+      $parent = $sticky.parent()
+      $sticky.waypoint 'unsticky'
+      expect($parent.closest('body')).toExist()
+
   afterEach ->
     $.waypoints 'destroy'
     $win.scrollTop 0

@@ -31,7 +31,8 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
   # wrapper elements.
   wrap = ($elements, options) ->
     $elements.wrap options.wrapper
-    $elements.parent()
+    $parent = $elements.parent()
+    $parent.data 'isWaypointStickyWrapper', true
 
   # .waypoint('sticky', [object])
 
@@ -61,16 +62,16 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
 
   $.waypoints 'extendFn', 'sticky', (opt) ->
     options = $.extend {}, $.fn.waypoint.defaults, defaults, opt
-    $wrap = wrap this, options
+    $wrap = wrap @, options
     originalHandler = options.handler
     options.handler = (direction) ->
-      $sticky = $(this).children ':first'
+      $sticky = $(@).children ':first'
       shouldBeStuck = options.direction.indexOf(direction) != -1
       $sticky.toggleClass options.stuckClass, shouldBeStuck
       $wrap.height if shouldBeStuck then $sticky.outerHeight() else ''
-      originalHandler.call this, direction if originalHandler?
+      originalHandler.call @, direction if originalHandler?
     $wrap.waypoint options
-    this.data 'stuckClass', options.stuckClass
+    @data 'stuckClass', options.stuckClass
 
   # .waypoint('unsticky')
 
@@ -79,6 +80,8 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
   # that may be applied.
 
   $.waypoints 'extendFn', 'unsticky', () ->
-    this.parent().waypoint 'destroy'
-    this.unwrap()
-    this.removeClass this.data 'stuckClass'
+    $parent = @parent()
+    return @ unless $parent.data('isWaypointStickyWrapper')
+    $parent.waypoint 'destroy'
+    @unwrap()
+    @removeClass @data 'stuckClass'
