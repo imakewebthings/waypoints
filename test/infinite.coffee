@@ -14,7 +14,7 @@ describe 'Waypoints Infinite Scroll Shortcut', ->
     beforeHit = afterHit = false
 
   it 'returns the same jQuery object for chaining', ->
-    expect($items.waypoint('infinite').get()).toEqual $items.get()
+    expect($container.waypoint('infinite').get()).toEqual $container.get()
 
   describe 'loading new pages', ->
     beforeEach ->

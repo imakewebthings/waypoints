@@ -15,7 +15,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
       return factory(root.jQuery);
     }
   })(this, function($) {
-    var createWaypoint, defaults;
+    var defaults;
 
     defaults = {
       container: 'auto',
@@ -25,9 +25,6 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
       loadingClass: 'infinite-loading',
       onBeforePageLoad: $.noop,
       onAfterPageLoad: $.noop
-    };
-    createWaypoint = function($container, options) {
-      return $container.waypoint(options);
     };
     return $.waypoints('extendFn', 'infinite', function(options) {
       var $container;
@@ -55,13 +52,13 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
             $container.removeClass(options.loadingClass);
             if ($newMore.length) {
               $more.replaceWith($newMore);
-              createWaypoint(this, options);
+              $this.waypoint(options);
             }
             return options.onAfterPageLoad();
           });
         }
       };
-      return createWaypoint($container, options);
+      return this.waypoint(options);
     });
   });
 

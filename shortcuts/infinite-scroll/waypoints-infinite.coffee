@@ -45,9 +45,6 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
     onBeforePageLoad: $.noop
     onAfterPageLoad: $.noop
 
-  createWaypoint = ($container, options) ->
-    $container.waypoint options
-
   # .waypoint('infinite', [object])
 
   # The infinite method is a shortcut method for a common UI pattern, infinite
@@ -97,10 +94,10 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
 
           if $newMore.length
             $more.replaceWith $newMore
-            createWaypoint @, options
+            $this.waypoint options
 
           options.onAfterPageLoad()
 
     # Initialize the waypoint with our built-up options. Returns the original
     # jQuery object per normal for chaining.
-    createWaypoint $container, options
+    @waypoint options
