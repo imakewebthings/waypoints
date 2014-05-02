@@ -15,7 +15,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
       return factory(root.jQuery);
     }
   })(this, function($) {
-    var c, defaults;
+    var defaults;
 
     defaults = {
       container: 'auto',
@@ -26,7 +26,6 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
       onBeforePageLoad: $.noop,
       onAfterPageLoad: $.noop
     };
-    c = 0;
     return $.waypoints('extendFn', 'infinite', function(options) {
       var $container, opts;
 

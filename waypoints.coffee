@@ -320,7 +320,6 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
   #   See $.fn.waypoint.defaults for more information on those options.
   class Waypoint
     constructor: ($element, context, options) ->
-      options = $.extend {}, $.fn[wp].defaults, options
       if options.offset is 'bottom-in-view'
         options.offset = ->
           contextHeight = $[wps] 'viewportHeight'
@@ -416,7 +415,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
     #   // Do things
     # }, { offset: '100%' });
     init: (f, options) ->
-      options ?= {}
+      options = $.extend {}, $.fn[wp].defaults, options
       options.handler ?= f
 
       @each ->

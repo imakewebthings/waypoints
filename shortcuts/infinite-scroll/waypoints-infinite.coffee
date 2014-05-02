@@ -65,7 +65,6 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
 
   # An options object can optionally be passed in to override any of the
   # defaults specified above, as well as the baseline waypoint defaults.
-  c = 0
   $.waypoints 'extendFn', 'infinite', (options) ->
     opts = $.extend {}, $.fn.waypoint.defaults, defaults, options
     return @ if $(opts.more).length is 0

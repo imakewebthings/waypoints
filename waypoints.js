@@ -207,7 +207,6 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
       function Waypoint($element, context, options) {
         var idList, _ref;
 
-        options = $.extend({}, $.fn[wp].defaults, options);
         if (options.offset === 'bottom-in-view') {
           options.offset = function() {
             var contextHeight;
@@ -282,9 +281,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
       init: function(f, options) {
         var _ref;
 
-        if (options == null) {
-          options = {};
-        }
+        options = $.extend({}, $.fn[wp].defaults, options);
         if ((_ref = options.handler) == null) {
           options.handler = f;
         }
