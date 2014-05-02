@@ -1,4 +1,4 @@
-###
+###!
 jQuery Waypoints - v2.0.4
 Copyright (c) 2011-2014 Caleb Troughton
 Licensed under the MIT license.
