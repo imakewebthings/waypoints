@@ -21,8 +21,8 @@ describe 'Waypoints Infinite Scroll Shortcut', ->
       options =
         onBeforePageLoad: -> beforeHit = true
         onAfterPageLoad: -> afterHit = true
-      $container.waypoint 'infinite', options
       runs ->
+        $container.waypoint 'infinite', options
         scrollVal = $.waypoints('viewportHeight') - $container.height()
         $win.scrollTop scrollVal
       done = -> $('.infinite-item').length > $items.length

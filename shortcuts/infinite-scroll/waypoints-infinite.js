@@ -15,7 +15,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
       return factory(root.jQuery);
     }
   })(this, function($) {
-    var defaults;
+    var c, defaults;
 
     defaults = {
       container: 'auto',
@@ -26,39 +26,43 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
       onBeforePageLoad: $.noop,
       onAfterPageLoad: $.noop
     };
+    c = 0;
     return $.waypoints('extendFn', 'infinite', function(options) {
-      var $container;
+      var $container, opts;
 
-      options = $.extend({}, $.fn.waypoint.defaults, defaults, options);
-      if ($(options.more).length === 0) {
+      opts = $.extend({}, $.fn.waypoint.defaults, defaults, options);
+      if ($(opts.more).length === 0) {
         return this;
       }
-      $container = options.container === 'auto' ? this : $(options.container);
-      options.handler = function(direction) {
+      $container = opts.container === 'auto' ? this : $(opts.container);
+      opts.handler = function(direction) {
         var $this;
 
         if (direction === 'down' || direction === 'right') {
           $this = $(this);
-          options.onBeforePageLoad();
+          opts.onBeforePageLoad();
           $this.waypoint('destroy');
-          $container.addClass(options.loadingClass);
-          return $.get($(options.more).attr('href'), function(data) {
-            var $data, $more, $newMore;
+          $container.addClass(opts.loadingClass);
+          return $.get($(opts.more).attr('href'), function(data) {
+            var $data, $more, $newMore, fn;
 
             $data = $($.parseHTML(data));
-            $more = $(options.more);
-            $newMore = $data.find(options.more);
-            $container.append($data.find(options.items));
-            $container.removeClass(options.loadingClass);
+            $more = $(opts.more);
+            $newMore = $data.find(opts.more);
+            $container.append($data.find(opts.items));
+            $container.removeClass(opts.loadingClass);
             if ($newMore.length) {
               $more.replaceWith($newMore);
-              $this.waypoint(options);
+              fn = function() {
+                return $this.waypoint(opts);
+              };
+              setTimeout(fn, 0);
             }
-            return options.onAfterPageLoad();
+            return opts.onAfterPageLoad();
           });
         }
       };
-      return this.waypoint(options);
+      return this.waypoint(opts);
     });
   });
 
