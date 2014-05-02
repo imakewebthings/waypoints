@@ -56,6 +56,8 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
                 return $this.waypoint(opts);
               };
               setTimeout(fn, 0);
+            } else {
+              $more.remove();
             }
             return opts.onAfterPageLoad();
           });

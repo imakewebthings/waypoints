@@ -95,6 +95,8 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
             $more.replaceWith $newMore
             fn = -> $this.waypoint opts
             setTimeout fn, 0
+          else
+            $more.remove()
 
           opts.onAfterPageLoad()
 
