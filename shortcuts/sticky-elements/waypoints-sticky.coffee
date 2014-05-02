@@ -1,7 +1,7 @@
 ###
-Sticky Elements Shortcut for jQuery Waypoints - v2.0.4
+Sticky Elements Shortcut for jQuery Waypoints - v2.0.5
 Copyright (c) 2011-2014 Caleb Troughton
-Dual licensed under the MIT license and GPL license.
+Licensed under the MIT license.
 https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
 ###
 ((root, factory) ->
@@ -9,7 +9,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
     define ['jquery', 'waypoints'], factory
   else
     factory root.jQuery
-) this, ($) ->
+) window, ($) ->
 
   # An extension of the waypoint defaults when calling the "sticky" method.
 
@@ -25,12 +25,14 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
   defaults =
     wrapper: '<div class="sticky-wrapper" />'
     stuckClass: 'stuck'
+    direction: 'down right'
 
   # Internal: Wraps the sticky elements in the sticky wrapper and returns the
   # wrapper elements.
   wrap = ($elements, options) ->
     $elements.wrap options.wrapper
-    $elements.parent()
+    $parent = $elements.parent()
+    $parent.data 'isWaypointStickyWrapper', true
 
   # .waypoint('sticky', [object])
 
@@ -60,16 +62,16 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
 
   $.waypoints 'extendFn', 'sticky', (opt) ->
     options = $.extend {}, $.fn.waypoint.defaults, defaults, opt
-    $wrap = wrap this, options
+    $wrap = wrap @, options
     originalHandler = options.handler
     options.handler = (direction) ->
-      $sticky = $(this).children ':first'
-      shouldBeStuck = direction in ['down', 'right']
+      $sticky = $(@).children ':first'
+      shouldBeStuck = options.direction.indexOf(direction) != -1
       $sticky.toggleClass options.stuckClass, shouldBeStuck
       $wrap.height if shouldBeStuck then $sticky.outerHeight() else ''
-      originalHandler.call this, direction if originalHandler?
+      originalHandler.call @, direction if originalHandler?
     $wrap.waypoint options
-    this.data 'stuckClass', options.stuckClass
+    @data 'stuckClass', options.stuckClass
 
   # .waypoint('unsticky')
 
@@ -78,6 +80,8 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
   # that may be applied.
 
   $.waypoints 'extendFn', 'unsticky', () ->
-    this.parent().waypoint 'destroy'
-    this.unwrap()
-    this.removeClass this.data 'stuckClass'
+    $parent = @parent()
+    return @ unless $parent.data('isWaypointStickyWrapper')
+    $parent.waypoint 'destroy'
+    @unwrap()
+    @removeClass @data 'stuckClass'

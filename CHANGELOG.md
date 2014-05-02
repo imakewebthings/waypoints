@@ -1,9 +1,19 @@
 # Changelog
 
+## v2.0.5
+
+- Allow sticky users to define which direction the stuck class shold be applied. (Issue #192)
+- Fix bug where short content on a large screen could cause the infinite shortcut to stall after the first page load. (Issue #207)
+- Make `unsticky` safe to use on any element. Previously it would unwrap the parent even if the element had never had `sticky` called on it or already had `unsticky` called previously. (Issue #225)
+- Fix bug that would cause handlers to be overwritten when trying to reuse an options object. (Issue #253)
+- Remove "More" link when infinite shortcut reaches last page. (Issue #260)
+- Fix use of `this` instead of `window`, causing Browserify to fail. (Issue #262)
+- Stop using deprecated jQuery `load` method. (Issue #283)
+
 ## v2.0.4
 
-- Fix enable, disable, and destroys calls not chaining the jQuery object. (Thanks @robharper)
-- Fix destroy not unregistering internal waypoint references if underlying node has been removed from the document, causing memory leaks.
+- Fix enable, disable, and destroys calls not chaining the jQuery object. (Issue #244) (Thanks [@robharper](https://github.com/robharper))
+- Fix destroy not unregistering internal waypoint references if underlying node has been removed from the document, causing memory leaks. (Issue #243)
 
 ## v2.0.3
 

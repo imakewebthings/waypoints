@@ -1,7 +1,7 @@
-###
-jQuery Waypoints - v2.0.4
+###!
+jQuery Waypoints - v2.0.5
 Copyright (c) 2011-2014 Caleb Troughton
-Dual licensed under the MIT license and GPL license.
+Licensed under the MIT license.
 https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
 ###
 ((root, factory) ->
@@ -10,7 +10,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
       factory $, root
   else
     factory root.jQuery, root
-) this, ($, window) ->
+) window, ($, window) ->
   $w = $ window
 
   # Touch support feature test
@@ -320,7 +320,6 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
   #   See $.fn.waypoint.defaults for more information on those options.
   class Waypoint
     constructor: ($element, context, options) ->
-      options = $.extend {}, $.fn[wp].defaults, options
       if options.offset is 'bottom-in-view'
         options.offset = ->
           contextHeight = $[wps] 'viewportHeight'
@@ -416,7 +415,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
     #   // Do things
     # }, { offset: '100%' });
     init: (f, options) ->
-      options ?= {}
+      options = $.extend {}, $.fn[wp].defaults, options
       options.handler ?= f
 
       @each ->
@@ -689,4 +688,4 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
     scrollThrottle: 30
 
   # Ensure a refresh on page load. Newly loaded images often shift layout.
-  $w.load -> $[wps] 'refresh'
+  $w.on 'load.waypoints', -> $[wps] 'refresh'

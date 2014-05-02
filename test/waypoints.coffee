@@ -718,6 +718,21 @@ describe 'jQuery Waypoints', ->
       runs ->
         expect(hit).toBeTruthy()
 
+  describe 'Options object reuse, issue #253', ->
+    beforeEach ->
+      options =
+        offset: 0
+      fn = -> hit = true
+      $('#same1').waypoint $.noop, options
+      $e = $('#same2').waypoint fn, options
+
+    it 'does not override previous waypoint options', ->
+      runs ->
+        $se.scrollTop $e.offset().top
+      waits standardWait
+      runs ->
+        expect(hit).toBeTruthy()
+
   afterEach ->
     $.waypoints 'destroy'
     $se.scrollTop(0).scrollLeft 0

@@ -14,15 +14,15 @@ describe 'Waypoints Infinite Scroll Shortcut', ->
     beforeHit = afterHit = false
 
   it 'returns the same jQuery object for chaining', ->
-    expect($items.waypoint('infinite').get()).toEqual $items.get()
+    expect($container.waypoint('infinite').get()).toEqual $container.get()
 
   describe 'loading new pages', ->
     beforeEach ->
       options =
         onBeforePageLoad: -> beforeHit = true
         onAfterPageLoad: -> afterHit = true
-      $container.waypoint 'infinite', options
       runs ->
+        $container.waypoint 'infinite', options
         scrollVal = $.waypoints('viewportHeight') - $container.height()
         $win.scrollTop scrollVal
       done = -> $('.infinite-item').length > $items.length

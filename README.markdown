@@ -35,7 +35,7 @@ If you want to contribute to Waypoints, I love pull requests that include change
 
 ## License
 
-Copyright (c) 2011-2013 Caleb Troughton
+Copyright (c) 2011-2014 Caleb Troughton
 Licensed under the [MIT license](https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt).
 
 ## Support

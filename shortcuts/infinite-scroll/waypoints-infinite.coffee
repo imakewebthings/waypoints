@@ -1,7 +1,7 @@
 ###
-Infinite Scroll Shortcut for jQuery Waypoints - v2.0.4
+Infinite Scroll Shortcut for jQuery Waypoints - v2.0.5
 Copyright (c) 2011-2014 Caleb Troughton
-Dual licensed under the MIT license and GPL license.
+Licensed under the MIT license.
 https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
 ###
 ((root, factory) ->
@@ -9,7 +9,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
     define ['jquery', 'waypoints'], factory
   else
     factory root.jQuery
-) this, ($) ->
+) window, ($) ->
 
   # An extension of the waypoint defaults when calling the "infinite" method.
 
@@ -65,40 +65,41 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
 
   # An options object can optionally be passed in to override any of the
   # defaults specified above, as well as the baseline waypoint defaults.
-
   $.waypoints 'extendFn', 'infinite', (options) ->
-    options = $.extend {}, $.fn.waypoint.defaults, defaults, options
-    return @ if $(options.more).length is 0
-    $container = if options.container is 'auto' then @ else $ options.container
+    opts = $.extend {}, $.fn.waypoint.defaults, defaults, options
+    return @ if $(opts.more).length is 0
+    $container = if opts.container is 'auto' then @ else $ opts.container
 
-    options.handler = (direction) ->
+    opts.handler = (direction) ->
       if direction in ['down', 'right']
         $this = $ this
-        options.onBeforePageLoad()
+        opts.onBeforePageLoad()
 
         # We disable the waypoint during item loading so that we can't trigger
         # it again and cause duplicate loads.
-        $this.waypoint 'disable'
+        $this.waypoint 'destroy'
 
         # During loading a class is added to the container, should the user
         # wish to style it during this state.
-        $container.addClass options.loadingClass
+        $container.addClass opts.loadingClass
 
         # Load items from the next page.
-        $.get $(options.more).attr('href'), (data) ->
+        $.get $(opts.more).attr('href'), (data) ->
           $data = $ $.parseHTML(data)
-          $more = $ options.more
-          $newMore = $data.find options.more
-          $container.append $data.find options.items
-          $container.removeClass options.loadingClass
+          $more = $ opts.more
+          $newMore = $data.find opts.more
+          $container.append $data.find opts.items
+          $container.removeClass opts.loadingClass
 
           if $newMore.length
             $more.replaceWith $newMore
-            $this.waypoint 'enable'
+            fn = -> $this.waypoint opts
+            setTimeout fn, 0
           else
-            $this.waypoint 'destroy'
-          options.onAfterPageLoad()
+            $more.remove()
+
+          opts.onAfterPageLoad()
 
     # Initialize the waypoint with our built-up options. Returns the original
     # jQuery object per normal for chaining.
-    @waypoint options
+    @.waypoint opts
