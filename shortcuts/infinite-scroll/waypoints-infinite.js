@@ -14,7 +14,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
     } else {
       return factory(root.jQuery);
     }
-  })(this, function($) {
+  })(window, function($) {
     var defaults;
 
     defaults = {

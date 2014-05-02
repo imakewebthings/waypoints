@@ -19,7 +19,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
     } else {
       return factory(root.jQuery, root);
     }
-  })(this, function($, window) {
+  })(window, function($, window) {
     var $w, Context, Waypoint, allWaypoints, contextCounter, contextKey, contexts, isTouch, jQMethods, methods, resizeEvent, scrollEvent, waypointCounter, waypointKey, wp, wps;
 
     $w = $(window);

@@ -9,7 +9,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
     define ['jquery', 'waypoints'], factory
   else
     factory root.jQuery
-) this, ($) ->
+) window, ($) ->
 
   # An extension of the waypoint defaults when calling the "infinite" method.
 

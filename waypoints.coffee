@@ -10,7 +10,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
       factory $, root
   else
     factory root.jQuery, root
-) this, ($, window) ->
+) window, ($, window) ->
   $w = $ window
 
   # Touch support feature test
