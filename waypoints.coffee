@@ -688,4 +688,4 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
     scrollThrottle: 30
 
   # Ensure a refresh on page load. Newly loaded images often shift layout.
-  $w.load -> $[wps] 'refresh'
+  $w.on 'load.waypoints', -> $[wps] 'refresh'
