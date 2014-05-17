@@ -1,6 +1,6 @@
 describe('jQuery Waypoints', function() {
   var standard = 50
-  var hit, $scroller, $target, $return = null
+  var hit, $scroller, $target, $return
 
   function setHitTrue() {
     hit = true
