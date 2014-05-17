@@ -1,0 +1,18 @@
+{
+  "framework": "jasmine",
+  "launch_in_dev": [
+    "PhantomJS"
+  ],
+  "launch_in_ci": [
+    "PhantomJS"
+  ],
+  "src_files": [
+    "bower_components/jquery/dist/jquery.js",
+    "bower_components/jasmine-jquery/lib/jasmine-jquery.js",
+    "lib/waypoints.js",
+    "lib/waypoints-infinite.js",
+    "lib/waypoints-sticky.js",
+    "test/settings.js",
+    "test/*-spec.js"
+  ]
+}

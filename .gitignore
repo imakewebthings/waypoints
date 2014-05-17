@@ -3,3 +3,4 @@
 /style.scss
 *.gz
 node_modules
+bower_components
