@@ -12,6 +12,12 @@
     "lib/waypoints.js",
     "lib/waypoints-infinite.js",
     "lib/waypoints-sticky.js",
+
+
+    "src/waypoint.js",
+    "src/context.js",
+
+
     "test/settings.js",
     "test/*-spec.js"
   ]
