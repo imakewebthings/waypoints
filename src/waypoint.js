@@ -9,17 +9,20 @@
       throw new Error('No element option passed to Waypoint constructor')
     }
 
-    this.key = keyCounter
+    this.key = 'waypoint-' + keyCounter
     this.options = $.extend({}, Waypoint.defaults, options)
-    this.context = Waypoint.Context.findOrCreateByElement(this.options.context)
-    this.context.add(this)
-    this.callback = options.handler
     this.element = this.options.element
     this.$element = $(this.element)
+    this.callback = options.handler
     this.axis = this.options.horizontal ? 'horizontal' : 'vertical'
     this.enabled = this.options.enabled
     this.triggerPoint = null
+    this.context = Waypoint.Context.findOrCreateByElement(this.options.context)
 
+    if (Waypoint.offsetAliases[this.options.offset]) {
+      this.options.offset = Waypoint.offsetAliases[this.options.offset]
+    }
+    this.context.add(this)
     keyCounter += 1
   }
 
@@ -37,16 +40,17 @@
 
   Waypoint.prototype.disable = function() {
     this.enabled = false
+    return this
   }
 
   Waypoint.prototype.enable = function() {
     this.context.refresh()
     this.enabled = true
+    return this
   }
 
   Waypoint.prototype.destroy = function() {
     this.context.remove(this)
-    this.context.checkEmpty()
   }
 
   Waypoint.prototype.canTriggerOnRefresh = function() {
@@ -65,6 +69,12 @@
   Waypoint.settings = {
     scrollThrottle: 30,
     resizeThrottle: 100
+  }
+
+  Waypoint.offsetAliases = {
+    'bottom-in-view': function() {
+      return this.context.height() - this.$element.outerHeight()
+    }
   }
 
   Waypoint.isTouch = 'ontouchstart' in window

@@ -13,8 +13,8 @@
       y: this.$element.scrollTop()
     }
     this.waypoints = {
-      vertical: [],
-      horizontal: []
+      vertical: {},
+      horizontal: {}
     }
 
     element.waypointContextKey = this.key
@@ -160,7 +160,7 @@
         }
 
         if (typeof adjustment === 'function') {
-          adjustment = adjustment.apply(waypoint.element)
+          adjustment = adjustment.apply(waypoint)
         }
         else if (typeof adjustment === 'string') {
           adjustment = parseFloat(adjustment)
@@ -196,11 +196,13 @@
   Context.prototype.add = function(waypoint) {
     var axis = waypoint.options.horizontal ? 'horizontal' : 'vertical'
     this.waypoints[axis][waypoint.key] = waypoint
+    this.refresh()
   }
 
   Context.prototype.remove = function(waypoint) {
     var axis = waypoint.options.horizontal ? 'horizontal' : 'vertical'
     delete this.waypoints[axis][waypoint.key]
+    this.checkEmpty()
   }
 
   Context.prototype.checkEmpty = function() {
@@ -210,6 +212,13 @@
       this.$element.off('.waypoints')
       delete contexts[this.key]
     }
+  }
+
+  Context.prototype.height = function() {
+    if ($.isWindow(this.element)) {
+      return Waypoint.viewportHeight()
+    }
+    return this.$element.height()
   }
 
   Context.findByElement = function(element) {
