@@ -172,7 +172,7 @@
         contextModifier = axis.contextScroll - axis.contextOffset
         waypoint.triggerPoint = elementOffset + contextModifier - adjustment
 
-        if (canTriggerOnRefresh) {
+        if (!canTriggerOnRefresh) {
           return
         }
 
@@ -186,7 +186,7 @@
         else if (!freshWaypoint && triggeredForward) {
           waypoint.trigger([axis.forward])
         }
-        else if (freshWaypoint && waypoint.triggerPoint >= axis.oldScroll) {
+        else if (freshWaypoint && axis.oldScroll >= waypoint.triggerPoint) {
           waypoint.trigger([axis.forward])
         }
       })
@@ -200,8 +200,7 @@
   }
 
   Context.prototype.remove = function(waypoint) {
-    var axis = waypoint.options.horizontal ? 'horizontal' : 'vertical'
-    delete this.waypoints[axis][waypoint.key]
+    delete this.waypoints[waypoint.axis][waypoint.key]
     this.checkEmpty()
   }
 

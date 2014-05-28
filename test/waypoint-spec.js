@@ -18,7 +18,7 @@ describe('Waypoint', function() {
   })
 
   afterEach(function() {
-    if (waypoint && waypoint.destroy) {
+    if (waypoint) {
       waypoint.destroy()
     }
     $scroller.scrollTop(0).scrollLeft(0)
@@ -45,6 +45,23 @@ describe('Waypoint', function() {
       expect(function() {
         new Waypoint({})
       }).toThrow()
+    })
+
+    it('triggers down on new already-reached waypoints', function() {
+      runs(function() {
+        $target = $('#same2')
+        $scroller.scrollTop($target.offset().top + 1)
+      })
+      waits(standard)
+      runs(function() {
+        waypoint = new Waypoint({
+          element: $target[0],
+          handler: function(direction) {
+            hit = direction === 'down'
+          }
+        })
+      })
+      waitsFor(hitToBeTrue, 'callback to trigger')
     })
   })
 
@@ -176,8 +193,132 @@ describe('Waypoint', function() {
   })
 
   describe('context option', function() {
-    it('needs specs', function() {
-      expect('implemented').toBeFalsy()
+    beforeEach(function() {
+      $scroller = $('#bottom')
+      $target = $('#inner3')
+    })
+
+    it('works with px offset', function() {
+      waypoint = new Waypoint({
+        element: $target[0],
+        handler: setHitTrue,
+        context: $scroller[0],
+        offset: 10
+      })
+      runs(function() {
+        $scroller.scrollTop(189)
+      })
+      waits(standard)
+      runs(function() {
+        expect(hit).toBeFalsy()
+        $scroller.scrollTop(190)
+      })
+      waitsFor(hitToBeTrue, 'callback to trigger')
+    })
+
+    it('works with % offset', function() {
+      waypoint = new Waypoint({
+        element: $target[0],
+        handler: setHitTrue,
+        context: $scroller[0],
+        offset: '100%'
+      })
+      runs(function() {
+        $scroller.scrollTop(149)
+      })
+      waits(standard)
+      runs(function() {
+        expect(hit).toBeFalsy()
+        $scroller.scrollTop(150)
+      })
+      waitsFor(hitToBeTrue, 'callback to trigger')
+    })
+
+    it('works with function offset', function() {
+      waypoint = new Waypoint({
+        element: $target[0],
+        handler: setHitTrue,
+        context: $scroller[0],
+        offset: function() {
+          return this.$element.height() / 2
+        }
+      })
+      runs(function() {
+        $scroller.scrollTop(149)
+      })
+      waits(standard)
+      runs(function() {
+        expect(hit).toBeFalsy()
+        $scroller.scrollTop(150)
+      })
+      waitsFor(hitToBeTrue, 'callback to trigger')
+    })
+
+    it('works with bottom-in-view offset alias', function() {
+      waypoint = new Waypoint({
+        element: $target[0],
+        handler: setHitTrue,
+        context: $scroller[0],
+        offset: 'bottom-in-view'
+      })
+      runs(function() {
+        $scroller.scrollTop(249)
+      })
+      waits(standard)
+      runs(function() {
+        expect(hit).toBeFalsy()
+        $scroller.scrollTop(250)
+      })
+      waitsFor(hitToBeTrue, 'callback to trigger')
+    })
+  })
+
+  describe('horizontal option', function() {
+    var currentDirection
+
+    beforeEach(function() {
+      currentDirection = null
+      $target = $('#same1')
+      waypoint = new Waypoint({
+        element: $target[0],
+        horizontal: true,
+        handler: function(direction) {
+          currentDirection = direction
+        }
+      })
+    })
+
+    it('triggers right/left directions', function() {
+      runs(function() {
+        $scroller.scrollLeft($target.offset().left)
+      })
+      waitsFor(function() {
+        return currentDirection === 'right'
+      }, 'right direction to trigger')
+      runs(function() {
+        $scroller.scrollLeft($target.offset().left - 1)
+      })
+      waitsFor(function() {
+        return currentDirection === 'left'
+      })
+    })
+  })
+
+  describe('with window as the waypoint element', function() {
+    beforeEach(function() {
+      $target = $(window)
+      waypoint = new Waypoint({
+        element: $target[0],
+        offset: -$target.height(),
+        handler: setHitTrue
+      })
+    })
+
+    it('triggers waypoint', function() {
+      runs(function() {
+        $target.scrollTop($target.height() + 1)
+      })
+      waitsFor(hitToBeTrue, 'callback to trigger')
     })
   })
 

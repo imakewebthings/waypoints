@@ -54,7 +54,7 @@
   }
 
   Waypoint.prototype.canTriggerOnRefresh = function() {
-    return (!this.options.onlyOnScroll || this.offset == null) && this.enabled
+    return !this.options.onlyOnScroll || this.triggerPoint == null
   }
 
   Waypoint.defaults = {
