@@ -406,4 +406,12 @@ describe('Waypoint', function() {
       }
     })
   })
+
+  describe('Waypoint.refresh()', function() {
+    it('is an alias for Waypoint.Context.refreshAll', function() {
+      spyOn(Waypoint.Context, 'refreshAll')
+      Waypoint.refresh()
+      expect(Waypoint.Context.refreshAll).toHaveBeenCalled()
+    })
+  })
 })

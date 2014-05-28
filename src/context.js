@@ -113,7 +113,7 @@
   }
 
   Context.prototype.handleResize = function() {
-
+    Waypoint.refresh()
   }
 
   Context.prototype.refresh = function() {
@@ -191,19 +191,24 @@
         }
       })
     }, this))
+
+    return this
   }
 
+  /* Internal */
   Context.prototype.add = function(waypoint) {
     var axis = waypoint.options.horizontal ? 'horizontal' : 'vertical'
     this.waypoints[axis][waypoint.key] = waypoint
     this.refresh()
   }
 
+  /* Internal */
   Context.prototype.remove = function(waypoint) {
     delete this.waypoints[waypoint.axis][waypoint.key]
     this.checkEmpty()
   }
 
+  /* Internal */
   Context.prototype.checkEmpty = function() {
     var horizontalEmpty = $.isEmptyObject(this.waypoints.horizontal)
     var verticalEmpty = $.isEmptyObject(this.waypoints.vertical)
@@ -213,6 +218,7 @@
     }
   }
 
+  /* Internal */
   Context.prototype.height = function() {
     if ($.isWindow(this.element)) {
       return Waypoint.viewportHeight()
@@ -220,10 +226,18 @@
     return this.$element.height()
   }
 
+  Context.refreshAll = function() {
+    $.each(contexts, function(contextId, context) {
+      context.refresh()
+    })
+  }
+
+  /* Internal */
   Context.findByElement = function(element) {
     return contexts[element.waypointContextKey]
   }
 
+  /* Internal */
   Context.findOrCreateByElement = function(element) {
     return Context.findByElement(element) || new Context(element)
   }

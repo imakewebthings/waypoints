@@ -26,17 +26,6 @@
     keyCounter += 1
   }
 
-  Waypoint.prototype.trigger = function(args) {
-    if (!this.enabled) {
-      return
-    }
-    if (this.callback) {
-      this.callback.apply(this.element, args)
-    }
-    if (this.options.triggerOnce) {
-      this.destroy()
-    }
-  }
 
   Waypoint.prototype.disable = function() {
     this.enabled = false
@@ -53,8 +42,22 @@
     this.context.remove(this)
   }
 
+  /* Internal */
   Waypoint.prototype.canTriggerOnRefresh = function() {
     return !this.options.onlyOnScroll || this.triggerPoint == null
+  }
+
+  /* Internal */
+  Waypoint.prototype.trigger = function(args) {
+    if (!this.enabled) {
+      return
+    }
+    if (this.callback) {
+      this.callback.apply(this.element, args)
+    }
+    if (this.options.triggerOnce) {
+      this.destroy()
+    }
   }
 
   Waypoint.defaults = {
@@ -81,6 +84,10 @@
 
   Waypoint.viewportHeight = function() {
     return window.innerHeight || document.documentElement.clientHeight
+  }
+
+  Waypoint.refresh = function() {
+    Waypoint.Context.refreshAll()
   }
 
   window.Waypoint = Waypoint
