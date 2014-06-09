@@ -17,15 +17,19 @@
     this.axis = this.options.horizontal ? 'horizontal' : 'vertical'
     this.enabled = this.options.enabled
     this.triggerPoint = null
+    this.group = Waypoint.Group.findOrCreate({
+      name: this.options.group,
+      axis: this.axis
+    })
     this.context = Waypoint.Context.findOrCreateByElement(this.options.context)
 
     if (Waypoint.offsetAliases[this.options.offset]) {
       this.options.offset = Waypoint.offsetAliases[this.options.offset]
     }
     this.context.add(this)
+    this.group.add(this)
     keyCounter += 1
   }
-
 
   Waypoint.prototype.disable = function() {
     this.enabled = false
@@ -40,6 +44,7 @@
 
   Waypoint.prototype.destroy = function() {
     this.context.remove(this)
+    this.group.remove(this)
   }
 
   /* Internal */
@@ -53,17 +58,23 @@
       return
     }
     if (this.callback) {
-      this.callback.apply(this.element, args)
+      this.callback.apply(this, args)
     }
     if (this.options.triggerOnce) {
       this.destroy()
     }
   }
 
+  /* Internal */
+  Waypoint.prototype.queueTrigger = function(direction) {
+    this.group.queueTrigger(this, direction)
+  }
+
   Waypoint.defaults = {
     context: window,
     continuous: true,
     enabled: true,
+    group: 'default',
     horizontal: false,
     offset: 0,
     triggerOnce: false
@@ -79,8 +90,6 @@
       return this.context.height() - this.$element.outerHeight()
     }
   }
-
-  Waypoint.isTouch = 'ontouchstart' in window
 
   Waypoint.viewportHeight = function() {
     return window.innerHeight || document.documentElement.clientHeight

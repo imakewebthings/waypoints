@@ -304,6 +304,63 @@ describe('Waypoint', function() {
     })
   })
 
+  describe('continuous option', function() {
+    var $later, laterWaypoint, hitCount, hitWaypoint
+
+    function incrementHitCount(direction) {
+      hitCount += 1
+      hitWaypoint = this
+    }
+
+    beforeEach(function() {
+      $target = $('#same1')
+      $later = $('#near1')
+      hitCount = 0
+      waypoint = new Waypoint({
+        element: $target[0],
+        continuous: false,
+        handler: incrementHitCount
+      })
+      laterWaypoint = new Waypoint({
+        element: $later[0],
+        continuous: false,
+        handler: incrementHitCount
+      })
+    })
+
+    afterEach(function() {
+      laterWaypoint.destroy()
+    })
+
+    it('does not trigger the earlier waypoint', function() {
+      runs(function() {
+        $scroller.scrollTop($later.offset().top)
+      })
+      waitsFor(function() {
+        return hitCount
+      }, 'later callback to trigger')
+      runs(function() {
+        expect(hitCount).toEqual(1)
+        expect(hitWaypoint).toEqual(laterWaypoint)
+      })
+    })
+
+    it('prevents earlier trigger on refresh', function() {
+      runs(function() {
+        $target.css('top', '-1px')
+        $later.css('top', '-2px')
+        Waypoint.refresh()
+      })
+      waitsFor(function() {
+        return hitCount
+      }, 'later callback to trigger')
+      runs(function() {
+        expect(hitCount).toEqual(1)
+        expect(hitWaypoint).toEqual(waypoint)
+      })
+    })
+  })
+
   describe('with window as the waypoint element', function() {
     beforeEach(function() {
       $target = $(window)

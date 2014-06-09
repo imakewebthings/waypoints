@@ -13,10 +13,9 @@
     "lib/waypoints-infinite.js",
     "lib/waypoints-sticky.js",
 
-
     "src/waypoint.js",
     "src/context.js",
-
+    "src/group.js",
 
     "test/settings.js",
     "test/*-spec.js"

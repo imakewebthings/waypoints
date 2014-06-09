@@ -54,6 +54,7 @@
   }
 
   Context.prototype.handleScroll = function(options) {
+    var triggeredGroups = {}
     var axes = {
       horizontal: {
         newScroll: this.$element.scrollLeft(),
@@ -68,18 +69,8 @@
         backward: 'up'
       }
     }
-    var atTop = !axes.vertical.oldScroll || !axes.vertical.newScroll
-    var skipIOSRefresh = options && options.skipIOSRefresh
-
-    /* Hack for iOS, needed because scrolls in mobile Safari that start
-     * or end with the URL bar showing will cause window height to change
-     * without firing a resize event. */
-    if (Waypoint.isTouch && atTop && !skipIOSRefresh) {
-      this.refresh()
-    }
 
     $.each(axes, $.proxy(function(axisKey, axis) {
-      var triggered = []
       var isForward = axis.newScroll > axis.oldScroll
       var direction = isForward ? axis.forward : axis.backward
 
@@ -89,22 +80,15 @@
         var crossedForward = wasBeforeTriggerPoint && nowAfterTriggerPoint
         var crossedBackward = !wasBeforeTriggerPoint && !nowAfterTriggerPoint
         if (crossedForward || crossedBackward) {
-          triggered.push(waypoint)
-        }
-      })
-
-      triggered.sort(function(a, b) {
-        return a.triggerPoint - b.triggerPoint
-      })
-      if (!isForward) {
-        triggered.reverse()
-      }
-      $.each(triggered, function(i, waypoint) {
-        if (waypoint.options.continuous || i === triggered.length - 1) {
-          waypoint.trigger([direction])
+          waypoint.queueTrigger(direction)
+          triggeredGroups[waypoint.group.id] = waypoint.group
         }
       })
     }, this))
+
+    $.each(triggeredGroups, function(key, group) {
+      group.flushTriggers()
+    })
 
     this.oldScroll = {
       x: axes.horizontal.newScroll,
@@ -113,18 +97,17 @@
   }
 
   Context.prototype.handleResize = function() {
-    Waypoint.refresh()
+    Waypoint.Context.refreshAll()
   }
 
   Context.prototype.refresh = function() {
     var isWindow = $.isWindow(this.element)
     var contextOffset = this.$element.offset()
     var height = isWindow ? Waypoint.viewportHeight() : this.$element.height()
+    var triggeredGroups = {}
     var axes
 
-    this.handleScroll({
-      skipIOSRefresh: true
-    })
+    this.handleScroll()
     axes = {
       horizontal: {
         contextOffset: isWindow ? 0 : contextOffset.left,
@@ -181,16 +164,23 @@
         var triggeredBackward = wasBeforeScroll && nowAfterScroll
         var triggeredForward = !wasBeforeScroll && !nowAfterScroll
         if (!freshWaypoint && triggeredBackward) {
-          waypoint.trigger([axis.backward])
+          waypoint.queueTrigger(axis.backward)
+          triggeredGroups[waypoint.group.id] = waypoint.group
         }
         else if (!freshWaypoint && triggeredForward) {
-          waypoint.trigger([axis.forward])
+          waypoint.queueTrigger(axis.forward)
+          triggeredGroups[waypoint.group.id] = waypoint.group
         }
         else if (freshWaypoint && axis.oldScroll >= waypoint.triggerPoint) {
-          waypoint.trigger([axis.forward])
+          waypoint.queueTrigger(axis.forward)
+          triggeredGroups[waypoint.group.id] = waypoint.group
         }
       })
     }, this))
+
+    $.each(triggeredGroups, function(key, group) {
+      group.flushTriggers()
+    })
 
     return this
   }
