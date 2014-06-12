@@ -6,13 +6,13 @@
   $(function() {
     $('html, body').each(function () {
       var initScrollLeft = $(this).attr('scrollLeft');
-      
+
       $(this).attr('scrollLeft', initScrollLeft + 1);
       if ($(this).attr('scrollLeft') == initScrollLeft + 1) {
         scrollElement = this.nodeName.toLowerCase();
         $(this).attr('scrollLeft', initScrollLeft);
         return false;
-      }    
+      }
     });
     $scrollElement = $(scrollElement);
   });
@@ -112,7 +112,7 @@
     $window.scroll(function() {
       window.clearTimeout(timer);
       timer = window.setTimeout(scrollToClosestPanel, 50);
-    });
+    }).bind('load', scrollToClosestPanel);
   });
 
   /* Docs nav highlighting */
