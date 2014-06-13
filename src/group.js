@@ -23,13 +23,13 @@
 
   Group.prototype.previous = function(waypoint) {
     this.sort()
-    var index = $.inArray(waypoint, this.waypoints)
+    var index = window.Waypoint.Adapter.inArray(waypoint, this.waypoints)
     return index ? this.waypoints[index - 1] : null
   }
 
   Group.prototype.next = function(waypoint) {
     this.sort()
-    var index = $.inArray(waypoint, this.waypoints)
+    var index = window.Waypoint.Adapter.inArray(waypoint, this.waypoints)
     var isLast = index === this.waypoints.length - 1
     return isLast ? null : this.waypoints[index + 1]
   }
@@ -49,7 +49,7 @@
 
   /* Internal */
   Group.prototype.remove = function(waypoint) {
-    this.waypoints.splice($.inArray(waypoint), 1)
+    this.waypoints.splice(window.Waypoint.Adapter.inArray(waypoint), 1)
   }
 
   /* Internal */
@@ -76,15 +76,17 @@
 
   /* Internal */
   Group.prototype.flushTriggers = function() {
-    $.each(this.triggerQueues, function(direction, waypoints) {
+    for (var direction in this.triggerQueues) {
+      var waypoints = this.triggerQueues[direction]
       var reverse = direction === 'up' || direction === 'left'
       waypoints.sort(reverse ? byReverseTriggerPoint : byTriggerPoint)
-      $.each(waypoints, function(i, waypoint) {
+      for (var i = 0, end = waypoints.length; i < end; i += 1) {
+        var waypoint = waypoints[i]
         if (waypoint.options.continuous || i === waypoints.length - 1) {
           waypoint.trigger([direction])
         }
-      })
-    })
+      }
+    }
     this.clearTriggerQueues()
   }
 

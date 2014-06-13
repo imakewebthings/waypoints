@@ -4,13 +4,14 @@
 
   var Context = function(element) {
     this.element = element
-    this.$element = $(element)
+    this.Adapter = window.Waypoint.Adapter
+    this.adapter = new this.Adapter(element)
     this.key = 'waypoint-context-' + keyCounter
     this.didScroll = false
     this.didResize = false
     this.oldScroll = {
-      x: this.$element.scrollLeft(),
-      y: this.$element.scrollTop()
+      x: this.adapter.scrollLeft(),
+      y: this.adapter.scrollTop()
     }
     this.waypoints = {
       vertical: {},
@@ -26,55 +27,59 @@
   }
 
   Context.prototype.createThrottledScrollHandler = function() {
-    var scrollHandler = $.proxy(function() {
-      this.handleScroll()
-      this.didScroll = false
-    }, this)
+    var self = this
+    var scrollHandler = function() {
+      self.handleScroll()
+      self.didScroll = false
+    }
 
-    this.$element.on('scroll.waypoints', $.proxy(function() {
-      if (!this.didScroll || Waypoint.isTouch) {
-        this.didScroll = true
+    this.adapter.on('scroll.waypoints', function() {
+      if (!self.didScroll || Waypoint.isTouch) {
+        self.didScroll = true
         window.setTimeout(scrollHandler, Waypoint.settings.scrollThrottle)
       }
-    }, this))
+    })
   }
 
   Context.prototype.createThrottledResizeHandler = function() {
-    var resizeHandler = $.proxy(function() {
-      this.handleResize()
-      this.didResize = false
-    }, this)
+    var self = this
+    var resizeHandler = function() {
+      self.handleResize()
+      self.didResize = false
+    }
 
-    this.$element.on('resize.waypoints', $.proxy(function() {
-      if (!this.didResize) {
-        this.didResize = true
+    this.adapter.on('resize.waypoints', function() {
+      if (!self.didResize) {
+        self.didResize = true
         window.setTimeout(resizeHandler, Waypoint.settings.resizeThrottle)
       }
-    }))
+    })
   }
 
   Context.prototype.handleScroll = function(options) {
     var triggeredGroups = {}
     var axes = {
       horizontal: {
-        newScroll: this.$element.scrollLeft(),
+        newScroll: this.adapter.scrollLeft(),
         oldScroll: this.oldScroll.x,
         forward: 'right',
         backward: 'left'
       },
       vertical: {
-        newScroll: this.$element.scrollTop(),
+        newScroll: this.adapter.scrollTop(),
         oldScroll: this.oldScroll.y,
         forward: 'down',
         backward: 'up'
       }
     }
 
-    $.each(axes, $.proxy(function(axisKey, axis) {
+    for (var axisKey in axes) {
+      var axis = axes[axisKey]
       var isForward = axis.newScroll > axis.oldScroll
       var direction = isForward ? axis.forward : axis.backward
 
-      $.each(this.waypoints[axisKey], function(waypointKey, waypoint) {
+      for (var waypointKey in this.waypoints[axisKey]) {
+        var waypoint = this.waypoints[axisKey][waypointKey]
         var wasBeforeTriggerPoint = axis.oldScroll < waypoint.triggerPoint
         var nowAfterTriggerPoint = axis.newScroll >= waypoint.triggerPoint
         var crossedForward = wasBeforeTriggerPoint && nowAfterTriggerPoint
@@ -83,12 +88,12 @@
           waypoint.queueTrigger(direction)
           triggeredGroups[waypoint.group.id] = waypoint.group
         }
-      })
-    }, this))
+      }
+    }
 
-    $.each(triggeredGroups, function(key, group) {
-      group.flushTriggers()
-    })
+    for (var groupKey in triggeredGroups) {
+      triggeredGroups[groupKey].flushTriggers()
+    }
 
     this.oldScroll = {
       x: axes.horizontal.newScroll,
@@ -101,9 +106,9 @@
   }
 
   Context.prototype.refresh = function() {
-    var isWindow = $.isWindow(this.element)
-    var contextOffset = this.$element.offset()
-    var height = isWindow ? Waypoint.viewportHeight() : this.$element.height()
+    var isWindow = this.element === this.element.window
+    var contextOffset = this.adapter.offset()
+    var height = isWindow ? Waypoint.viewportHeight() : this.adapter.height()
     var triggeredGroups = {}
     var axes
 
@@ -112,7 +117,7 @@
       horizontal: {
         contextOffset: isWindow ? 0 : contextOffset.left,
         contextScroll: isWindow ? 0 : this.oldScroll.x,
-        contextDimension: this.$element.width(),
+        contextDimension: this.adapter.width(),
         oldScroll: this.oldScroll.x,
         forward: 'right',
         backward: 'left',
@@ -129,8 +134,10 @@
       }
     }
 
-    $.each(axes, $.proxy(function(axisKey, axis) {
-      $.each(this.waypoints[axisKey], function(i, waypoint) {
+    for (var axisKey in axes) {
+      var axis = axes[axisKey]
+      for (var waypointKey in this.waypoints[axisKey]) {
+        var waypoint = this.waypoints[axisKey][waypointKey]
         var adjustment = waypoint.options.offset
         var oldTriggerPoint = waypoint.triggerPoint
         var elementOffset = 0
@@ -138,8 +145,8 @@
         var freshWaypoint = oldTriggerPoint == null
         var contextModifier
 
-        if (!$.isWindow(waypoint.element)) {
-          elementOffset = waypoint.$element.offset()[axis.offsetProp]
+        if (waypoint.element !== waypoint.element.window) {
+          elementOffset = waypoint.adapter.offset()[axis.offsetProp]
         }
 
         if (typeof adjustment === 'function') {
@@ -175,12 +182,12 @@
           waypoint.queueTrigger(axis.forward)
           triggeredGroups[waypoint.group.id] = waypoint.group
         }
-      })
-    }, this))
+      }
+    }
 
-    $.each(triggeredGroups, function(key, group) {
-      group.flushTriggers()
-    })
+    for (var groupKey in triggeredGroups) {
+      triggeredGroups[groupKey].flushTriggers()
+    }
 
     return this
   }
@@ -200,26 +207,26 @@
 
   /* Internal */
   Context.prototype.checkEmpty = function() {
-    var horizontalEmpty = $.isEmptyObject(this.waypoints.horizontal)
-    var verticalEmpty = $.isEmptyObject(this.waypoints.vertical)
+    var horizontalEmpty = this.Adapter.isEmptyObject(this.waypoints.horizontal)
+    var verticalEmpty = this.Adapter.isEmptyObject(this.waypoints.vertical)
     if (horizontalEmpty && verticalEmpty) {
-      this.$element.off('.waypoints')
+      this.adapter.off('.waypoints')
       delete contexts[this.key]
     }
   }
 
   /* Internal */
   Context.prototype.height = function() {
-    if ($.isWindow(this.element)) {
+    if (this.element === this.element.window) {
       return Waypoint.viewportHeight()
     }
-    return this.$element.height()
+    return this.adapter.height()
   }
 
   Context.refreshAll = function() {
-    $.each(contexts, function(contextId, context) {
-      context.refresh()
-    })
+    for (var contextId in contexts) {
+      contexts[contextId].refresh()
+    }
   }
 
   /* Internal */

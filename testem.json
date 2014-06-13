@@ -16,6 +16,7 @@
     "src/waypoint.js",
     "src/context.js",
     "src/group.js",
+    "src/adapters/*.js",
     "src/shortcuts/*.js",
 
     "test/settings.js",

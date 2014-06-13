@@ -141,7 +141,7 @@ describe('Waypoint', function() {
           element: $target[0],
           handler: setHitTrue,
           offset: function() {
-            return -this.$element.height()
+            return -$(this.element).height()
           }
         })
         $scroller.scrollTop($target.offset().top + $target.height() - 1)
@@ -240,7 +240,7 @@ describe('Waypoint', function() {
         handler: setHitTrue,
         context: $scroller[0],
         offset: function() {
-          return this.$element.height() / 2
+          return $(this.element).height() / 2
         }
       })
       runs(function() {

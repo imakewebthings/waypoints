@@ -10,9 +10,9 @@
     }
 
     this.key = 'waypoint-' + keyCounter
-    this.options = $.extend({}, Waypoint.defaults, options)
+    this.options = Waypoint.Adapter.extend({}, Waypoint.defaults, options)
     this.element = this.options.element
-    this.$element = $(this.element)
+    this.adapter = new Waypoint.Adapter(this.element)
     this.callback = options.handler
     this.axis = this.options.horizontal ? 'horizontal' : 'vertical'
     this.enabled = this.options.enabled
@@ -70,6 +70,8 @@
     this.group.queueTrigger(this, direction)
   }
 
+  Waypoint.adapters = []
+
   Waypoint.defaults = {
     context: window,
     continuous: true,
@@ -80,15 +82,15 @@
     triggerOnce: false
   }
 
+  Waypoint.offsetAliases = {
+    'bottom-in-view': function() {
+      return this.context.height() - this.adapter.outerHeight()
+    }
+  }
+
   Waypoint.settings = {
     scrollThrottle: 30,
     resizeThrottle: 100
-  }
-
-  Waypoint.offsetAliases = {
-    'bottom-in-view': function() {
-      return this.context.height() - this.$element.outerHeight()
-    }
   }
 
   Waypoint.viewportHeight = function() {
