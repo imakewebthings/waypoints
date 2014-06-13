@@ -1,6 +1,15 @@
 (function() {
+  function requestAnimationFrameShim(callback) {
+    window.setTimeout(callback, 1000 / 60)
+  }
+
   var keyCounter = 0
   var contexts = {}
+
+  var requestAnimationFrame = window.requestAnimationFrame ||
+    window.mozRequestAnimationFrame ||
+    window.webkitRequestAnimationFrame ||
+    requestAnimationFrameShim
 
   var Context = function(element) {
     this.element = element
@@ -36,7 +45,7 @@
     this.adapter.on('scroll.waypoints', function() {
       if (!self.didScroll || Waypoint.isTouch) {
         self.didScroll = true
-        window.setTimeout(scrollHandler, Waypoint.settings.scrollThrottle)
+        requestAnimationFrame(scrollHandler)
       }
     })
   }
@@ -51,7 +60,7 @@
     this.adapter.on('resize.waypoints', function() {
       if (!self.didResize) {
         self.didResize = true
-        window.setTimeout(resizeHandler, Waypoint.settings.resizeThrottle)
+        requestAnimationFrame(resizeHandler)
       }
     })
   }

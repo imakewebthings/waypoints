@@ -88,11 +88,6 @@
     }
   }
 
-  Waypoint.settings = {
-    scrollThrottle: 30,
-    resizeThrottle: 100
-  }
-
   Waypoint.viewportHeight = function() {
     return window.innerHeight || document.documentElement.clientHeight
   }
