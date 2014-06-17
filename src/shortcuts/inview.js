@@ -44,9 +44,7 @@
       }, {
         right: 'entered',
         left: 'exit',
-        offset: function() {
-          return this.context.adapter.width() - this.adapter.width()
-        }
+        offset: 'right-in-view'
       }, {
         right: 'exit',
         left: 'entered',

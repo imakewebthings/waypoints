@@ -150,7 +150,6 @@
         var adjustment = waypoint.options.offset
         var oldTriggerPoint = waypoint.triggerPoint
         var elementOffset = 0
-        var canTriggerOnRefresh = waypoint.canTriggerOnRefresh()
         var freshWaypoint = oldTriggerPoint == null
         var contextModifier
 
@@ -170,10 +169,6 @@
 
         contextModifier = axis.contextScroll - axis.contextOffset
         waypoint.triggerPoint = elementOffset + contextModifier - adjustment
-
-        if (!canTriggerOnRefresh) {
-          return
-        }
 
         var wasBeforeScroll = oldTriggerPoint < axis.oldScroll
         var nowAfterScroll = waypoint.triggerPoint >= axis.oldScroll

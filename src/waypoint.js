@@ -48,11 +48,6 @@
   }
 
   /* Internal */
-  Waypoint.prototype.canTriggerOnRefresh = function() {
-    return !this.options.onlyOnScroll || this.triggerPoint == null
-  }
-
-  /* Internal */
   Waypoint.prototype.trigger = function(args) {
     if (!this.enabled) {
       return
@@ -85,6 +80,9 @@
   Waypoint.offsetAliases = {
     'bottom-in-view': function() {
       return this.context.height() - this.adapter.outerHeight()
+    },
+    'right-in-view': function() {
+      return this.context.adapter.width() - this.adapter.outerWidth()
     }
   }
 
