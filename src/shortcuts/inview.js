@@ -3,6 +3,7 @@
 
   var Inview = function(options) {
     this.options = window.Waypoint.Adapter.extend({}, Inview.defaults, options)
+    this.axis = this.options.horizontal ? 'horizontal' : 'vertical'
     this.waypoints = []
     this.createWaypoints()
   }
@@ -16,39 +17,68 @@
 
   /* Internal */
   Inview.prototype.createWaypoints = function() {
-    var self = this
-    var configs = [{
-      down: 'enter',
-      up: 'exited',
-      offset: '100%'
-    }, {
-      down: 'entered',
-      up: 'exit',
-      offset: 'bottom-in-view'
-    }, {
-      down: 'exit',
-      up: 'entered',
-      offset: 0
-    }, {
-      down: 'exited',
-      up: 'enter',
-      offset: function() {
-        return -this.adapter.outerHeight()
-      }
-    }]
-
-    for (var i = 0, end = configs.length; i < end; i++) {
-      var config = configs[i]
-      this.waypoints.push(new Waypoint({
-        element: this.options.element,
-        handler: (function(config) {
-          return function(direction) {
-            self.options[config[direction]].call(this, direction)
-          }
-        })(config),
-        offset: config.offset
-      }))
+    var configs = {
+      vertical: [{
+        down: 'enter',
+        up: 'exited',
+        offset: '100%'
+      }, {
+        down: 'entered',
+        up: 'exit',
+        offset: 'bottom-in-view'
+      }, {
+        down: 'exit',
+        up: 'entered',
+        offset: 0
+      }, {
+        down: 'exited',
+        up: 'enter',
+        offset: function() {
+          return -this.adapter.outerHeight()
+        }
+      }],
+      horizontal: [{
+        right: 'enter',
+        left: 'exited',
+        offset: '100%'
+      }, {
+        right: 'entered',
+        left: 'exit',
+        offset: function() {
+          return this.context.adapter.width() - this.adapter.width()
+        }
+      }, {
+        right: 'exit',
+        left: 'entered',
+        offset: 0
+      }, {
+        right: 'exited',
+        left: 'enter',
+        offset: function() {
+          return -this.adapter.outerWidth()
+        }
+      }]
     }
+
+    for (var i = 0, end = configs[this.axis].length; i < end; i++) {
+      var config = configs[this.axis][i]
+      this.createWaypoint(config)
+    }
+  }
+
+  /* Internal */
+  Inview.prototype.createWaypoint = function(config) {
+    var self = this
+    this.waypoints.push(new Waypoint({
+      element: this.options.element,
+      handler: (function(config) {
+        return function(direction) {
+          self.options[config[direction]].call(this, direction)
+        }
+      })(config),
+      offset: config.offset,
+      horizontal: this.options.horizontal
+    }))
   }
 
   Inview.defaults = {

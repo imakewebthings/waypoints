@@ -35,13 +35,6 @@ describe('Waypoints Inview Shortcut', function() {
     loadFixtures('standard.html')
     $target = $('#near2')
     hits = {}
-    waypoint = new Waypoint.Inview({
-      element: $target[0],
-      enter: setsTrue('enter'),
-      entered: setsTrue('entered'),
-      exit: setsTrue('exit'),
-      exited: setsTrue('exited')
-    })
   })
 
   afterEach(function() {
@@ -51,6 +44,15 @@ describe('Waypoints Inview Shortcut', function() {
   })
 
   describe('vertical', function() {
+    beforeEach(function() {
+      waypoint = new Waypoint.Inview({
+        element: $target[0],
+        enter: setsTrue('enter'),
+        entered: setsTrue('entered'),
+        exit: setsTrue('exit'),
+        exited: setsTrue('exited')
+      })
+    })
 
     describe('enter callback', function() {
       it('triggers when element starts entering from below', function() {
@@ -97,7 +99,7 @@ describe('Waypoints Inview Shortcut', function() {
       })
     })
 
-    xdescribe('exit callback', function() {
+    describe('exit callback', function() {
       it('triggers when element starts leaving below', function() {
         runs(function() {
           var top = $target.offset().top
@@ -113,7 +115,7 @@ describe('Waypoints Inview Shortcut', function() {
         waitsFor(toBeTrue('exit'), 'exit to trigger')
       })
 
-      xit('triggers when element starts leaving above', function() {
+      it('triggers when element starts leaving above', function() {
         runs(function() {
           $scroller.scrollTop($target.offset().top)
         })
@@ -141,4 +143,107 @@ describe('Waypoints Inview Shortcut', function() {
       })
     })
   })
+
+  describe('horizontal', function() {
+    beforeEach(function() {
+      waypoint = new Waypoint.Inview({
+        horizontal: true,
+        element: $target[0],
+        enter: setsTrue('enter'),
+        entered: setsTrue('entered'),
+        exit: setsTrue('exit'),
+        exited: setsTrue('exited')
+      })
+    })
+
+    describe('enter callback', function() {
+      it('triggers when element starts entering from right', function() {
+        runs(function() {
+          $scroller.scrollLeft($target.offset().left - $scroller.width())
+        })
+        waitsFor(toBeTrue('enter'), 'enter to trigger')
+      })
+
+      it('triggers when element starts entering from left', function() {
+        runs(function() {
+          $scroller.scrollLeft($target.offset().left + $target.outerWidth())
+        })
+        waits(standard)
+        runs(function() {
+          hits.enter = false
+          $scroller.scrollLeft($scroller.scrollLeft() - 1)
+        })
+        waitsFor(toBeTrue('enter'), 'enter to trigger')
+      })
+    })
+
+    describe('entered callback', function() {
+      it('triggers when element finishes entering from right', function() {
+        runs(function() {
+          var left = $target.offset().left
+          var viewportWidth = $scroller.width()
+          var elementWidth = $target.outerWidth()
+          $scroller.scrollLeft(left - viewportWidth + elementWidth)
+        })
+        waitsFor(toBeTrue('entered'), 'entered to trigger')
+      })
+
+      it('triggers when element finishes entering from left', function() {
+        runs(function() {
+          $scroller.scrollLeft($target.offset().left)
+        })
+        waits(standard)
+        runs(function() {
+          hits.entered = false
+          $scroller.scrollLeft($scroller.scrollLeft() - 1)
+        })
+        waitsFor(toBeTrue('entered'), 'entered to trigger')
+      })
+    })
+
+    describe('exit callback', function() {
+      it('triggers when element starts leaving on the right', function() {
+        runs(function() {
+          var left = $target.offset().left
+          var viewportWidth = $scroller.width()
+          var elementWidth = $target.outerWidth()
+          $scroller.scrollLeft(left - viewportWidth + elementWidth)
+        })
+        waits(standard)
+        runs(function() {
+          expect(hits.exit).toBeFalsy()
+          $scroller.scrollLeft($scroller.scrollLeft() - 1)
+        })
+        waitsFor(toBeTrue('exit'), 'exit to trigger')
+      })
+
+      it('triggers when element starts leaving on the left', function() {
+        runs(function() {
+          $scroller.scrollLeft($target.offset().left)
+        })
+        waitsFor(toBeTrue('exit'), 'exit to trigger')
+      })
+    })
+
+    describe('exited callback', function() {
+      it('triggers when element finishes exiting to the right', function() {
+        runs(function() {
+          $scroller.scrollLeft($target.offset().left - $scroller.width())
+        })
+        waits(standard)
+        runs(function() {
+          $scroller.scrollLeft($scroller.scrollLeft() - 1)
+        })
+        waitsFor(toBeTrue('exited'), 'exited to trigger')
+      })
+
+      it('triggers when element finishes exiting to the left', function() {
+        runs(function() {
+          $scroller.scrollLeft($target.offset().left + $target.outerWidth())
+        })
+        waitsFor(toBeTrue('exited'), 'exited to trigger')
+      })
+    })
+  })
+
 })

@@ -11,6 +11,7 @@
     'offset',
     'on',
     'outerHeight',
+    'outerWidth',
     'scrollLeft',
     'scrollTop',
     'width'
