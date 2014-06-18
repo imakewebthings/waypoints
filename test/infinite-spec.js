@@ -1,4 +1,5 @@
 describe('Waypoint Sticky Shortcut', function() {
+  var $ = jQuery
   var standard = 50
   var $scroller = $(window)
   var $container, $items, $more, waypoint, beforeSpy, afterSpy

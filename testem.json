@@ -9,9 +9,7 @@
   "src_files": [
     "bower_components/jquery/dist/jquery.js",
     "bower_components/jasmine-jquery/lib/jasmine-jquery.js",
-    "lib/waypoints.js",
-    "lib/waypoints-infinite.js",
-    "lib/waypoints-sticky.js",
+    "bower_components/zepto/zepto.js",
 
     "src/waypoint.js",
     "src/context.js",

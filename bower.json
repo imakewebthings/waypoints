@@ -4,6 +4,7 @@
   "devDependencies": {
     "jquery": "~1.11.1",
     "lodash": "~2.4.1",
-    "jasmine-jquery": "~1.7.0"
+    "jasmine-jquery": "~1.7.0",
+    "zepto": "~1.1.3"
   }
 }

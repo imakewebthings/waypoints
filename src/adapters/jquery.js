@@ -30,6 +30,9 @@
     JQueryAdapter[method] = $[method]
   })
 
-  window.Waypoint.adapters.push(JQueryAdapter)
+  window.Waypoint.adapters.push({
+    name: 'jquery',
+    Adapter: JQueryAdapter
+  })
   window.Waypoint.Adapter = JQueryAdapter
 })()
