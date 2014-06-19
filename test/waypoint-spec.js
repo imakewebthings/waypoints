@@ -158,7 +158,7 @@ jQuery.each(Waypoint.adapters, function(i, adapter) {
           waitsFor(hitToBeTrue, 'callback to trigger')
         })
 
-        it('takes a botton-in-view function alias', function() {
+        it('takes a bottom-in-view function alias', function() {
           var top = $target.offset().top
           var height = $target.outerHeight()
           var windowHeight = Waypoint.viewportHeight()
