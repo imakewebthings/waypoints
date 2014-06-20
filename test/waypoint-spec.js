@@ -475,6 +475,23 @@ jQuery.each(Waypoint.adapters, function(i, adapter) {
           expect(Waypoint.Context.refreshAll).toHaveBeenCalled()
         })
       })
+
+      describe('Waypoint.destroyAll()', function() {
+        it('calls destroy on all waypoints', function() {
+          var secondWaypoint = new Waypoint({
+            element: $('#same1')[0]
+          })
+          waypoint = new Waypoint({
+            element: $('#same1')[0]
+          })
+          spyOn(secondWaypoint, 'destroy')
+          spyOn(waypoint, 'destroy')
+          Waypoint.destroyAll()
+          expect(secondWaypoint.destroy).toHaveBeenCalled()
+          expect(waypoint.destroy).toHaveBeenCalled()
+          waypoint = null
+        })
+      })
     })
   })
 })

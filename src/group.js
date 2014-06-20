@@ -49,7 +49,10 @@
 
   /* Internal */
   Group.prototype.remove = function(waypoint) {
-    this.waypoints.splice(window.Waypoint.Adapter.inArray(waypoint), 1)
+    var index = window.Waypoint.Adapter.inArray(waypoint, this.waypoints)
+    if (index > -1) {
+      this.waypoints.splice(index, 1)
+    }
   }
 
   /* Internal */

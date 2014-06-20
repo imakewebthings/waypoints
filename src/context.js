@@ -35,6 +35,7 @@
     this.createThrottledResizeHandler()
   }
 
+  /* Internal */
   Context.prototype.createThrottledScrollHandler = function() {
     var self = this
     var scrollHandler = function() {
@@ -50,6 +51,7 @@
     })
   }
 
+  /* Internal */
   Context.prototype.createThrottledResizeHandler = function() {
     var self = this
     var resizeHandler = function() {
@@ -65,6 +67,7 @@
     })
   }
 
+  /* Internal */
   Context.prototype.handleScroll = function(options) {
     var triggeredGroups = {}
     var axes = {
@@ -110,6 +113,7 @@
     }
   }
 
+  /* Internal */
   Context.prototype.handleResize = function() {
     Waypoint.Context.refreshAll()
   }
@@ -194,6 +198,18 @@
     }
 
     return this
+  }
+
+  Context.prototype.destroy = function() {
+    var allWaypoints = []
+    for (var axis in this.waypoints) {
+      for (var waypointKey in this.waypoints[axis]) {
+        allWaypoints.push(this.waypoints[axis][waypointKey])
+      }
+    }
+    for (var i = 0, end = allWaypoints.length; i < end; i++) {
+      allWaypoints[i].destroy()
+    }
   }
 
   /* Internal */

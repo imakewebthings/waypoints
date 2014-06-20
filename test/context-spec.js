@@ -3,7 +3,7 @@ jQuery.each(Waypoint.adapters, function(i, adapter) {
     describe('Waypoint.Context', function() {
       var $ = jQuery
       var standard = 50
-      var currentDirection, $scroller, waypoint, $target, context
+      var currentDirection, $scroller, waypoint, $target, context, skipDestroy
 
       function setDirection(direction) {
         currentDirection = direction
@@ -18,6 +18,7 @@ jQuery.each(Waypoint.adapters, function(i, adapter) {
         loadFixtures('standard.html')
         $scroller = $(window)
         currentDirection = null
+        skipDestroy = false
         $target = $('#same1')
         waypoint = new Waypoint({
           element: $target[0],
@@ -27,7 +28,9 @@ jQuery.each(Waypoint.adapters, function(i, adapter) {
       })
 
       afterEach(function() {
-        waypoint.destroy()
+        if (!skipDestroy) {
+          waypoint.destroy()
+        }
         $scroller.scrollTop(0).scrollLeft(0)
         waits(standard)
       })
@@ -58,6 +61,26 @@ jQuery.each(Waypoint.adapters, function(i, adapter) {
 
         it('returns the same context instance for chaining', function() {
           expect(context.refresh()).toEqual(context)
+        })
+      })
+
+      describe('#destroy', function() {
+        it('prevents further waypoint triggers', function() {
+          skipDestroy = true
+          runs(function() {
+            context.destroy()
+            $scroller.scrollTop($target.offset().top)
+          })
+          waits(standard)
+          runs(function() {
+            expect(currentDirection).toBeNull()
+          })
+        })
+
+        it('removes context from global lookup', function() {
+          skipDestroy = true
+          context.destroy()
+          expect(Waypoint.Context.findByElement(window)).toBeFalsy()
         })
       })
 

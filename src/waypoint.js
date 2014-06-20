@@ -1,5 +1,6 @@
 (function() {
   var keyCounter = 0
+  var allWaypoints = {}
 
   var Waypoint = function(options) {
     if (!options) {
@@ -28,6 +29,7 @@
     }
     this.context.add(this)
     this.group.add(this)
+    allWaypoints[this.key] = this
     keyCounter += 1
   }
 
@@ -45,6 +47,7 @@
   Waypoint.prototype.destroy = function() {
     this.context.remove(this)
     this.group.remove(this)
+    delete allWaypoints[this.key]
   }
 
   /* Internal */
@@ -92,6 +95,16 @@
 
   Waypoint.refresh = function() {
     Waypoint.Context.refreshAll()
+  }
+
+  Waypoint.destroyAll = function() {
+    var allWaypointsArray = []
+    for (var waypointKey in allWaypoints) {
+      allWaypointsArray.push(allWaypoints[waypointKey])
+    }
+    for (var i = 0, end = allWaypointsArray.length; i < end; i++) {
+      allWaypointsArray[i].destroy()
+    }
   }
 
   window.Waypoint = Waypoint
