@@ -1,5 +1,10 @@
 (function() {
-  var Infinite = function(options) {
+  'use strict'
+
+  var $ = window.jQuery
+  var Waypoint = window.Waypoint
+
+  function Infinite(options) {
     this.options = $.extend({}, Infinite.defaults, options)
     this.container = this.options.element
     if (this.options.container !== 'auto') {
@@ -11,7 +16,7 @@
 
     if (this.more) {
       this.setupHandler()
-      this.waypoint = new window.Waypoint(this.options)
+      this.waypoint = new Waypoint(this.options)
     }
   }
 
@@ -23,7 +28,7 @@
 
   /* Internal */
   Infinite.prototype.setupHandler = function() {
-    this.options.handler = $.proxy(function(direction) {
+    this.options.handler = $.proxy(function() {
       window.setTimeout($.proxy(function() {
         this.options.onBeforePageLoad()
         this.destroy()
@@ -63,5 +68,5 @@
     onAfterPageLoad: $.noop
   }
 
-  window.Waypoint.Infinite = Infinite
-})()
+  Waypoint.Infinite = Infinite
+}())

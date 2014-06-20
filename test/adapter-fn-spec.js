@@ -1,11 +1,17 @@
-jQuery.each(jQuery.grep(Waypoint.adapters, function(adapter) {
-  return "jquery zepto".indexOf(adapter.name) > -1
+'use strict'
+/* global
+ * describe, it, beforeEach, afterEach, expect, spyOn, waits, runs,
+ * waitsFor, loadFixtures, Waypoint
+ */
+
+window.jQuery.each(window.jQuery.grep(Waypoint.adapters, function(adapter) {
+  return 'jquery zepto'.indexOf(adapter.name) > -1
 }), function(i, adapter) {
   describe('$.fn extension for ' + adapter.name + ':', function() {
     var $, waypoints
 
     beforeEach(function() {
-      $ = adapter.name === 'jquery' ? jQuery : Zepto
+      $ = adapter.name === 'jquery' ? window.jQuery : window.Zepto
       Waypoint.Adapter = adapter.Adapter
       loadFixtures('standard.html')
     })
@@ -31,7 +37,7 @@ jQuery.each(jQuery.grep(Waypoint.adapters, function(adapter) {
       })
 
       it('can take the handler as the first parameter', function() {
-        var handler = function() {}
+        function handler() {}
         waypoints = $('#near1').waypoint(handler)
         expect(waypoints[0].callback).toBe(handler)
       })

@@ -1,5 +1,11 @@
+'use strict'
+/* global
+ * describe, it, beforeEach, afterEach, expect, spyOn, waits, runs,
+ * waitsFor, loadFixtures, Waypoint, jasmine
+ */
+
 describe('Waypoint Sticky Shortcut', function() {
-  var $ = jQuery
+  var $ = window.jQuery
   var standard = 50
   var $scroller = $(window)
   var $container, $items, $more, waypoint, beforeSpy, afterSpy

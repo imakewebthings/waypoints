@@ -1,6 +1,8 @@
 (function() {
+  'use strict'
+
   function isWindow(element) {
-    return element == element.window
+    return element === element.window
   }
 
   function getWindow(element) {
@@ -10,10 +12,9 @@
     return element.defaultView
   }
 
-  var eventHandlers = {}
-
-  var NoFrameworkAdapter = function(element) {
+  function NoFrameworkAdapter(element) {
     this.element = element
+    this.handlers = {}
   }
 
   NoFrameworkAdapter.prototype.height = function() {
@@ -36,28 +37,28 @@
     var namespace = eventParts[1]
     var element = this.element
 
-    if (namespace && eventHandlers[namespace] && eventType) {
-      removeListeners(element, eventHandlers[namespace][eventType], handler)
-      eventHandlers[namespace][eventType] = []
+    if (namespace && this.handlers[namespace] && eventType) {
+      removeListeners(element, this.handlers[namespace][eventType], handler)
+      this.handlers[namespace][eventType] = []
     }
     else if (eventType) {
-      for (var ns in eventHandlers) {
-        removeListeners(element, eventHandlers[ns][eventType] || [], handler)
-        eventHandlers[ns][eventType] = []
+      for (var ns in this.handlers) {
+        removeListeners(element, this.handlers[ns][eventType] || [], handler)
+        this.handlers[ns][eventType] = []
       }
     }
-    else if (namespace && eventHandlers[namespace]) {
-      for (var type in eventHandlers[namespace]) {
-        removeListeners(element, eventHandlers[namespace][type], handler)
+    else if (namespace && this.handlers[namespace]) {
+      for (var type in this.handlers[namespace]) {
+        removeListeners(element, this.handlers[namespace][type], handler)
       }
-      eventHandlers[namespace] = {}
+      this.handlers[namespace] = {}
     }
   }
 
   /* Adapted from jQuery 1.x offset() */
   NoFrameworkAdapter.prototype.offset = function() {
     if (!this.element.ownerDocument) {
-      return
+      return null
     }
 
     var documentElement = this.element.ownerDocument.documentElement
@@ -81,7 +82,7 @@
     var eventParts = event.split('.')
     var eventType = eventParts[0]
     var namespace = eventParts[1] || '__default'
-    var nsHandlers = eventHandlers[namespace] = eventHandlers[namespace] || {}
+    var nsHandlers = this.handlers[namespace] = this.handlers[namespace] || {}
     var nsTypeList = nsHandlers[eventType] = nsHandlers[eventType] || []
 
     nsTypeList.push(handler)
@@ -155,6 +156,7 @@
   }
 
   NoFrameworkAdapter.isEmptyObject = function(obj) {
+    /* eslint no-unused-vars: 0 */
     for (var name in obj) {
       return false
     }
@@ -166,4 +168,4 @@
     Adapter: NoFrameworkAdapter
   })
   window.Waypoint.Adapter = NoFrameworkAdapter
-})()
+}())

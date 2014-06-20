@@ -1,7 +1,13 @@
-jQuery.each(Waypoint.adapters, function(i, adapter) {
+'use strict'
+/* global
+ * describe, it, beforeEach, afterEach, expect, spyOn, waits, runs,
+ * waitsFor, loadFixtures, Waypoint
+ */
+
+window.jQuery.each(Waypoint.adapters, function(i, adapter) {
   describe(adapter.name + ' adapter: ', function() {
     describe('Waypoint', function() {
-      var $ = jQuery
+      var $ = window.jQuery
       var standard = 50
       var hit, $scroller, waypoint, $target, returnValue
 
@@ -32,7 +38,7 @@ jQuery.each(Waypoint.adapters, function(i, adapter) {
       describe('new Waypoint()', function() {
         it('errors out', function() {
           expect(function() {
-            new Waypoint()
+            waypoint = new Waypoint()
           }).toThrow()
         })
       })
@@ -47,7 +53,7 @@ jQuery.each(Waypoint.adapters, function(i, adapter) {
 
         it('requires the element option', function() {
           expect(function() {
-            new Waypoint({})
+            waypoint = new Waypoint({})
           }).toThrow()
         })
 
@@ -122,7 +128,7 @@ jQuery.each(Waypoint.adapters, function(i, adapter) {
         })
 
         it('takes a % offset', function() {
-          var trigger = $target.offset().top - Waypoint.viewportHeight() * .37
+          var trigger = $target.offset().top - Waypoint.viewportHeight() * 0.37
           runs(function() {
             waypoint = new Waypoint({
               element: $target[0],
@@ -311,7 +317,7 @@ jQuery.each(Waypoint.adapters, function(i, adapter) {
       describe('continuous option', function() {
         var $later, laterWaypoint, hitCount, hitWaypoint
 
-        function incrementHitCount(direction) {
+        function incrementHitCount() {
           hitCount += 1
           hitWaypoint = this
         }

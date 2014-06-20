@@ -16,7 +16,9 @@
     "scroll"
   ],
   "devDependencies": {
-    "gulp": "^3.6.2"
+    "eslint": "^0.6.2",
+    "gulp": "^3.6.2",
+    "gulp-eslint": "^0.1.7"
   },
   "license": "MIT"
 }

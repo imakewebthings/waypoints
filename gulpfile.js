@@ -1,12 +1,12 @@
 var gulp = require('gulp')
-var mochaPhantomJS = require('gulp-mocha-phantomjs')
+var eslint = require('gulp-eslint')
 
-gulp.task('test', function() {
-  return gulp.src('test/index.html').pipe(mochaPhantomJS({
-    reporter: 'tap'
-  }))
+var jsFiles = ['src/**/*.js', 'test/**/*.js', '!test/lib/**/*.js']
+
+gulp.task('lint', function() {
+  gulp.src(jsFiles).pipe(eslint('.eslintrc')).pipe(eslint.format())
 })
 
-gulp.task('watch-test', function() {
-  gulp.watch(['lib/**', 'test/**'], ['test'])
+gulp.task('watch', function() {
+  gulp.watch(jsFiles, ['lint'])
 })

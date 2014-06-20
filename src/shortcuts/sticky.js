@@ -1,5 +1,10 @@
 (function() {
-  var Sticky = function(options) {
+  'use strict'
+
+  var $ = window.jQuery
+  var Waypoint = window.Waypoint
+
+  function Sticky(options) {
     this.options = $.extend({}, Waypoint.defaults, Sticky.defaults, options)
     this.element = this.options.element
     this.$element = $(this.element)
@@ -45,5 +50,5 @@
     direction: 'down right'
   }
 
-  window.Waypoint.Sticky = Sticky
-})()
+  Waypoint.Sticky = Sticky
+}())

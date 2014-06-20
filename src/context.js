@@ -1,19 +1,22 @@
 (function() {
+  'use strict'
+
   function requestAnimationFrameShim(callback) {
     window.setTimeout(callback, 1000 / 60)
   }
 
   var keyCounter = 0
   var contexts = {}
+  var Waypoint = window.Waypoint
 
   var requestAnimationFrame = window.requestAnimationFrame ||
     window.mozRequestAnimationFrame ||
     window.webkitRequestAnimationFrame ||
     requestAnimationFrameShim
 
-  var Context = function(element) {
+  function Context(element) {
     this.element = element
-    this.Adapter = window.Waypoint.Adapter
+    this.Adapter = Waypoint.Adapter
     this.adapter = new this.Adapter(element)
     this.key = 'waypoint-context-' + keyCounter
     this.didScroll = false
@@ -38,7 +41,7 @@
   /* Internal */
   Context.prototype.createThrottledScrollHandler = function() {
     var self = this
-    var scrollHandler = function() {
+    function scrollHandler() {
       self.handleScroll()
       self.didScroll = false
     }
@@ -54,7 +57,8 @@
   /* Internal */
   Context.prototype.createThrottledResizeHandler = function() {
     var self = this
-    var resizeHandler = function() {
+
+    function resizeHandler() {
       self.handleResize()
       self.didResize = false
     }
@@ -68,7 +72,7 @@
   }
 
   /* Internal */
-  Context.prototype.handleScroll = function(options) {
+  Context.prototype.handleScroll = function() {
     var triggeredGroups = {}
     var axes = {
       horizontal: {
@@ -259,5 +263,5 @@
     return Context.findByElement(element) || new Context(element)
   }
 
-  window.Waypoint.Context = Context
-})()
+  Waypoint.Context = Context
+}())

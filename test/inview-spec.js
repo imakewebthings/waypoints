@@ -1,7 +1,13 @@
-jQuery.each(Waypoint.adapters, function(i, adapter) {
+'use strict'
+/* global
+ * describe, it, beforeEach, afterEach, expect, spyOn, waits, runs,
+ * waitsFor, loadFixtures, Waypoint
+ */
+
+window.jQuery.each(Waypoint.adapters, function(i, adapter) {
   describe(adapter.name + ' adapter:', function() {
     describe('Waypoints Inview Shortcut', function() {
-      var $ = jQuery
+      var $ = window.jQuery
       var standard = 50
       var $scroller = $(window)
       var $target, waypoint, hits
@@ -10,22 +16,6 @@ jQuery.each(Waypoint.adapters, function(i, adapter) {
         return function() {
           hits[key] = true
         }
-      }
-
-      function setsEnter() {
-        hits.enter = true
-      }
-
-      function setsEntered() {
-        hits.entered = true
-      }
-
-      function setsExit() {
-        hits.exit = true
-      }
-
-      function setsExited() {
-        hits.exited = true
       }
 
       function toBeTrue(key) {

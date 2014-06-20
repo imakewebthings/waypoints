@@ -1,7 +1,9 @@
 (function() {
-  var $ = jQuery
+  'use strict'
 
-  var JQueryAdapter = function(element) {
+  var $ = window.jQuery
+
+  function JQueryAdapter(element) {
     this.$element = $(element)
   }
 
@@ -35,4 +37,4 @@
     Adapter: JQueryAdapter
   })
   window.Waypoint.Adapter = JQueryAdapter
-})()
+}())

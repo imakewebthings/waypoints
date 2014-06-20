@@ -1,8 +1,10 @@
 (function() {
+  'use strict'
+
   var keyCounter = 0
   var allWaypoints = {}
 
-  var Waypoint = function(options) {
+  function Waypoint(options) {
     if (!options) {
       throw new Error('No options passed to Waypoint constructor')
     }
@@ -108,4 +110,4 @@
   }
 
   window.Waypoint = Waypoint
-})()
+}())

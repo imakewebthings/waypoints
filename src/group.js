@@ -1,4 +1,12 @@
 (function() {
+  'use strict'
+
+  var groups = {
+    vertical: {},
+    horizontal: {}
+  }
+  var Waypoint = window.Waypoint
+
   function byTriggerPoint(a, b) {
     return a.triggerPoint - b.triggerPoint
   }
@@ -7,12 +15,7 @@
     return b.triggerPoint - a.triggerPoint
   }
 
-  var groups = {
-    vertical: {},
-    horizontal: {}
-  }
-
-  var Group = function(options) {
+  function Group(options) {
     this.name = options.name
     this.axis = options.axis
     this.id = this.name + '-' + this.axis
@@ -23,13 +26,13 @@
 
   Group.prototype.previous = function(waypoint) {
     this.sort()
-    var index = window.Waypoint.Adapter.inArray(waypoint, this.waypoints)
+    var index = Waypoint.Adapter.inArray(waypoint, this.waypoints)
     return index ? this.waypoints[index - 1] : null
   }
 
   Group.prototype.next = function(waypoint) {
     this.sort()
-    var index = window.Waypoint.Adapter.inArray(waypoint, this.waypoints)
+    var index = Waypoint.Adapter.inArray(waypoint, this.waypoints)
     var isLast = index === this.waypoints.length - 1
     return isLast ? null : this.waypoints[index + 1]
   }
@@ -49,7 +52,7 @@
 
   /* Internal */
   Group.prototype.remove = function(waypoint) {
-    var index = window.Waypoint.Adapter.inArray(waypoint, this.waypoints)
+    var index = Waypoint.Adapter.inArray(waypoint, this.waypoints)
     if (index > -1) {
       this.waypoints.splice(index, 1)
     }
@@ -98,5 +101,5 @@
     return groups[options.axis][options.name] || new Group(options)
   }
 
-  window.Waypoint.Group = Group
-})()
+  Waypoint.Group = Group
+}())

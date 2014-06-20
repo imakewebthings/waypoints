@@ -1,7 +1,9 @@
 (function() {
-  var $ = Zepto
+  'use strict'
 
-  var ZeptoAdapter = function(element) {
+  var $ = window.Zepto
+
+  function ZeptoAdapter(element) {
     this.element = element
     this.$element = $(element)
   }
@@ -21,7 +23,7 @@
   })
 
   ZeptoAdapter.prototype.offset = function() {
-    if (this.element != this.element.window) {
+    if (this.element !== this.element.window) {
       return this.$element.offset()
     }
   }
@@ -49,12 +51,13 @@
 
   $.each([
     'extend',
-    'inArray',
+    'inArray'
   ], function(i, method) {
     ZeptoAdapter[method] = $[method]
   })
 
   ZeptoAdapter.isEmptyObject = function(obj) {
+    /* eslint no-unused-vars: 0 */
     for (var name in obj) {
       return false
     }
@@ -66,4 +69,4 @@
     Adapter: ZeptoAdapter
   })
   window.Waypoint.Adapter = ZeptoAdapter
-})()
+}())

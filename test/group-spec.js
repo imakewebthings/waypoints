@@ -1,38 +1,30 @@
-jQuery.each(Waypoint.adapters, function(i, adapter) {
+'use strict'
+/* global
+ * describe, it, beforeEach, afterEach, expect, spyOn, waits, runs,
+ * waitsFor, loadFixtures, Waypoint
+ */
+
+window.jQuery.each(Waypoint.adapters, function(i, adapter) {
   describe(adapter.name + ' adapter:', function() {
     describe('Waypoint.Group', function() {
-      var $ = jQuery
+      var $ = window.jQuery
       var standard = 50
-      var currentDirection, firstWaypoint, secondWaypoint, customGroupWaypoint
-      var defaultGroup, customGroup
-
-      function setDirection(direction) {
-        currentDirection = direction
-      }
-
-      function hasDirection() {
-        return currentDirection != null
-      }
+      var firstWaypoint, secondWaypoint, customGroupWaypoint, defaultGroup
 
       beforeEach(function() {
         Waypoint.Adapter = adapter.Adapter
         loadFixtures('standard.html')
-        currentDirection = null
         firstWaypoint = new Waypoint({
-          element: $('#same1')[0],
-          handler: setDirection
+          element: $('#same1')[0]
         })
         secondWaypoint = new Waypoint({
-          element: $('#near1')[0],
-          handler: setDirection
+          element: $('#near1')[0]
         })
         customGroupWaypoint = new Waypoint({
           element: $('#same2')[0],
-          handler: setDirection,
           group: 'custom'
         })
         defaultGroup = firstWaypoint.group
-        customGroup = customGroupWaypoint.group
       })
 
       afterEach(function() {

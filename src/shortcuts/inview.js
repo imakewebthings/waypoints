@@ -1,8 +1,12 @@
 (function() {
+  'use strict'
+
+  var Waypoint = window.Waypoint
+
   function noop() {}
 
-  var Inview = function(options) {
-    this.options = window.Waypoint.Adapter.extend({}, Inview.defaults, options)
+  function Inview(options) {
+    this.options = Waypoint.Adapter.extend({}, Inview.defaults, options)
     this.axis = this.options.horizontal ? 'horizontal' : 'vertical'
     this.waypoints = []
     this.createWaypoints()
@@ -73,7 +77,7 @@
         return function(direction) {
           self.options[config[direction]].call(this, direction)
         }
-      })(config),
+      }(config)),
       offset: config.offset,
       horizontal: this.options.horizontal
     }))
@@ -86,5 +90,5 @@
     exited: noop
   }
 
-  window.Waypoint.Inview = Inview
-})()
+  Waypoint.Inview = Inview
+}())

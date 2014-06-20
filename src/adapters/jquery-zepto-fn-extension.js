@@ -1,4 +1,8 @@
 (function() {
+  'use strict'
+
+  var Waypoint = window.Waypoint
+
   function createExtension(framework) {
     return function() {
       var waypoints = []
@@ -29,4 +33,4 @@
   if (window.Zepto) {
     window.Zepto.fn.waypoint = createExtension(window.Zepto)
   }
-})()
+}())

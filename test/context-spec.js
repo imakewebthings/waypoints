@@ -1,16 +1,18 @@
-jQuery.each(Waypoint.adapters, function(i, adapter) {
+'use strict'
+/* global
+ * describe, it, beforeEach, afterEach, expect, spyOn, waits, runs,
+ * waitsFor, loadFixtures, Waypoint
+ */
+
+window.jQuery.each(Waypoint.adapters, function(i, adapter) {
   describe(adapter.name + ' adapter:', function() {
     describe('Waypoint.Context', function() {
-      var $ = jQuery
+      var $ = window.jQuery
       var standard = 50
       var currentDirection, $scroller, waypoint, $target, context, skipDestroy
 
       function setDirection(direction) {
         currentDirection = direction
-      }
-
-      function hasDirection() {
-        return currentDirection != null
       }
 
       beforeEach(function() {
