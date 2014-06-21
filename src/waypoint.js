@@ -35,24 +35,7 @@
     keyCounter += 1
   }
 
-  Waypoint.prototype.disable = function() {
-    this.enabled = false
-    return this
-  }
-
-  Waypoint.prototype.enable = function() {
-    this.context.refresh()
-    this.enabled = true
-    return this
-  }
-
-  Waypoint.prototype.destroy = function() {
-    this.context.remove(this)
-    this.group.remove(this)
-    delete allWaypoints[this.key]
-  }
-
-  /* Internal */
+  /* Private */
   Waypoint.prototype.trigger = function(args) {
     if (!this.enabled) {
       return
@@ -65,9 +48,50 @@
     }
   }
 
-  /* Internal */
+  /* Private */
   Waypoint.prototype.queueTrigger = function(direction) {
     this.group.queueTrigger(this, direction)
+  }
+
+  /* Public */
+  Waypoint.prototype.disable = function() {
+    this.enabled = false
+    return this
+  }
+
+  /* Public */
+  Waypoint.prototype.enable = function() {
+    this.context.refresh()
+    this.enabled = true
+    return this
+  }
+
+  /* Public */
+  Waypoint.prototype.destroy = function() {
+    this.context.remove(this)
+    this.group.remove(this)
+    delete allWaypoints[this.key]
+  }
+
+  /* Public */
+  Waypoint.destroyAll = function() {
+    var allWaypointsArray = []
+    for (var waypointKey in allWaypoints) {
+      allWaypointsArray.push(allWaypoints[waypointKey])
+    }
+    for (var i = 0, end = allWaypointsArray.length; i < end; i++) {
+      allWaypointsArray[i].destroy()
+    }
+  }
+
+  /* Public */
+  Waypoint.refreshAll = function() {
+    Waypoint.Context.refreshAll()
+  }
+
+  /* Public */
+  Waypoint.viewportHeight = function() {
+    return window.innerHeight || document.documentElement.clientHeight
   }
 
   Waypoint.adapters = []
@@ -88,24 +112,6 @@
     },
     'right-in-view': function() {
       return this.context.adapter.width() - this.adapter.outerWidth()
-    }
-  }
-
-  Waypoint.viewportHeight = function() {
-    return window.innerHeight || document.documentElement.clientHeight
-  }
-
-  Waypoint.refresh = function() {
-    Waypoint.Context.refreshAll()
-  }
-
-  Waypoint.destroyAll = function() {
-    var allWaypointsArray = []
-    for (var waypointKey in allWaypoints) {
-      allWaypointsArray.push(allWaypoints[waypointKey])
-    }
-    for (var i = 0, end = allWaypointsArray.length; i < end; i++) {
-      allWaypointsArray[i].destroy()
     }
   }
 

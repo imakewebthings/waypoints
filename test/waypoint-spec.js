@@ -359,7 +359,7 @@ window.jQuery.each(Waypoint.adapters, function(i, adapter) {
           runs(function() {
             $target.css('top', '-1px')
             $later.css('top', '-2px')
-            Waypoint.refresh()
+            Waypoint.refreshAll()
           })
           waitsFor(function() {
             return hitCount
@@ -474,10 +474,10 @@ window.jQuery.each(Waypoint.adapters, function(i, adapter) {
         })
       })
 
-      describe('Waypoint.refresh()', function() {
+      describe('Waypoint.refreshAll()', function() {
         it('is an alias for Waypoint.Context.refreshAll', function() {
           spyOn(Waypoint.Context, 'refreshAll')
-          Waypoint.refresh()
+          Waypoint.refreshAll()
           expect(Waypoint.Context.refreshAll).toHaveBeenCalled()
         })
       })

@@ -12,19 +12,7 @@
     this.createWaypoint()
   }
 
-  Sticky.prototype.destroy = function() {
-    this.waypoint.destroy()
-    this.$element.removeClass(this.options.stuckClass).unwrap()
-  }
-
-  /* Internal */
-  Sticky.prototype.createWrapper = function() {
-    this.$element.wrap(this.options.wrapper)
-    this.$wrapper = this.$element.parent()
-    this.wrapper = this.$wrapper[0]
-  }
-
-  /* Internal */
+  /* Private */
   Sticky.prototype.createWaypoint = function() {
     var originalHandler = this.options.handler
 
@@ -42,6 +30,19 @@
         }
       }, this)
     }))
+  }
+
+  /* Private */
+  Sticky.prototype.createWrapper = function() {
+    this.$element.wrap(this.options.wrapper)
+    this.$wrapper = this.$element.parent()
+    this.wrapper = this.$wrapper[0]
+  }
+
+  /* Public */
+  Sticky.prototype.destroy = function() {
+    this.waypoint.destroy()
+    this.$element.removeClass(this.options.stuckClass).unwrap()
   }
 
   Sticky.defaults = {

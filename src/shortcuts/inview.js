@@ -1,9 +1,9 @@
 (function() {
   'use strict'
 
-  var Waypoint = window.Waypoint
-
   function noop() {}
+
+  var Waypoint = window.Waypoint
 
   function Inview(options) {
     this.options = Waypoint.Adapter.extend({}, Inview.defaults, options)
@@ -12,14 +12,7 @@
     this.createWaypoints()
   }
 
-  Inview.prototype.destroy = function() {
-    for (var i = 0, end = this.waypoints.length; i < end; i++) {
-      this.waypoints[i].destroy()
-    }
-    this.waypoints = []
-  }
-
-  /* Internal */
+  /* Private */
   Inview.prototype.createWaypoints = function() {
     var configs = {
       vertical: [{
@@ -68,7 +61,7 @@
     }
   }
 
-  /* Internal */
+  /* Private */
   Inview.prototype.createWaypoint = function(config) {
     var self = this
     this.waypoints.push(new Waypoint({
@@ -81,6 +74,14 @@
       offset: config.offset,
       horizontal: this.options.horizontal
     }))
+  }
+
+  /* Public */
+  Inview.prototype.destroy = function() {
+    for (var i = 0, end = this.waypoints.length; i < end; i++) {
+      this.waypoints[i].destroy()
+    }
+    this.waypoints = []
   }
 
   Inview.defaults = {

@@ -20,13 +20,7 @@
     }
   }
 
-  Infinite.prototype.destroy = function() {
-    if (this.waypoint) {
-      this.waypoint.destroy()
-    }
-  }
-
-  /* Internal */
+  /* Private */
   Infinite.prototype.setupHandler = function() {
     this.options.handler = $.proxy(function() {
       window.setTimeout($.proxy(function() {
@@ -56,6 +50,13 @@
         }, this), 0)
       }, this))
     }, this)
+  }
+
+  /* Public */
+  Infinite.prototype.destroy = function() {
+    if (this.waypoint) {
+      this.waypoint.destroy()
+    }
   }
 
   Infinite.defaults = {

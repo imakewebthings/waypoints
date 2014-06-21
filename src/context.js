@@ -8,7 +8,6 @@
   var keyCounter = 0
   var contexts = {}
   var Waypoint = window.Waypoint
-
   var requestAnimationFrame = window.requestAnimationFrame ||
     window.mozRequestAnimationFrame ||
     window.webkitRequestAnimationFrame ||
@@ -38,23 +37,24 @@
     this.createThrottledResizeHandler()
   }
 
-  /* Internal */
-  Context.prototype.createThrottledScrollHandler = function() {
-    var self = this
-    function scrollHandler() {
-      self.handleScroll()
-      self.didScroll = false
-    }
-
-    this.adapter.on('scroll.waypoints', function() {
-      if (!self.didScroll || Waypoint.isTouch) {
-        self.didScroll = true
-        requestAnimationFrame(scrollHandler)
-      }
-    })
+  /* Private */
+  Context.prototype.add = function(waypoint) {
+    var axis = waypoint.options.horizontal ? 'horizontal' : 'vertical'
+    this.waypoints[axis][waypoint.key] = waypoint
+    this.refresh()
   }
 
-  /* Internal */
+  /* Private */
+  Context.prototype.checkEmpty = function() {
+    var horizontalEmpty = this.Adapter.isEmptyObject(this.waypoints.horizontal)
+    var verticalEmpty = this.Adapter.isEmptyObject(this.waypoints.vertical)
+    if (horizontalEmpty && verticalEmpty) {
+      this.adapter.off('.waypoints')
+      delete contexts[this.key]
+    }
+  }
+
+  /* Private */
   Context.prototype.createThrottledResizeHandler = function() {
     var self = this
 
@@ -71,7 +71,28 @@
     })
   }
 
-  /* Internal */
+  /* Private */
+  Context.prototype.createThrottledScrollHandler = function() {
+    var self = this
+    function scrollHandler() {
+      self.handleScroll()
+      self.didScroll = false
+    }
+
+    this.adapter.on('scroll.waypoints', function() {
+      if (!self.didScroll || Waypoint.isTouch) {
+        self.didScroll = true
+        requestAnimationFrame(scrollHandler)
+      }
+    })
+  }
+
+  /* Private */
+  Context.prototype.handleResize = function() {
+    Waypoint.Context.refreshAll()
+  }
+
+  /* Private */
   Context.prototype.handleScroll = function() {
     var triggeredGroups = {}
     var axes = {
@@ -117,11 +138,34 @@
     }
   }
 
-  /* Internal */
-  Context.prototype.handleResize = function() {
-    Waypoint.Context.refreshAll()
+  /* Private */
+  Context.prototype.height = function() {
+    if (this.element === this.element.window) {
+      return Waypoint.viewportHeight()
+    }
+    return this.adapter.height()
   }
 
+  /* Private */
+  Context.prototype.remove = function(waypoint) {
+    delete this.waypoints[waypoint.axis][waypoint.key]
+    this.checkEmpty()
+  }
+
+  /* Public */
+  Context.prototype.destroy = function() {
+    var allWaypoints = []
+    for (var axis in this.waypoints) {
+      for (var waypointKey in this.waypoints[axis]) {
+        allWaypoints.push(this.waypoints[axis][waypointKey])
+      }
+    }
+    for (var i = 0, end = allWaypoints.length; i < end; i++) {
+      allWaypoints[i].destroy()
+    }
+  }
+
+  /* Public */
   Context.prototype.refresh = function() {
     var isWindow = this.element === this.element.window
     var contextOffset = this.adapter.offset()
@@ -159,7 +203,8 @@
         var oldTriggerPoint = waypoint.triggerPoint
         var elementOffset = 0
         var freshWaypoint = oldTriggerPoint == null
-        var contextModifier
+        var contextModifier, wasBeforeScroll, nowAfterScroll
+        var triggeredBackward, triggeredForward
 
         if (waypoint.element !== waypoint.element.window) {
           elementOffset = waypoint.adapter.offset()[axis.offsetProp]
@@ -177,11 +222,11 @@
 
         contextModifier = axis.contextScroll - axis.contextOffset
         waypoint.triggerPoint = elementOffset + contextModifier - adjustment
+        wasBeforeScroll = oldTriggerPoint < axis.oldScroll
+        nowAfterScroll = waypoint.triggerPoint >= axis.oldScroll
+        triggeredBackward = wasBeforeScroll && nowAfterScroll
+        triggeredForward = !wasBeforeScroll && !nowAfterScroll
 
-        var wasBeforeScroll = oldTriggerPoint < axis.oldScroll
-        var nowAfterScroll = waypoint.triggerPoint >= axis.oldScroll
-        var triggeredBackward = wasBeforeScroll && nowAfterScroll
-        var triggeredForward = !wasBeforeScroll && !nowAfterScroll
         if (!freshWaypoint && triggeredBackward) {
           waypoint.queueTrigger(axis.backward)
           triggeredGroups[waypoint.group.id] = waypoint.group
@@ -204,63 +249,21 @@
     return this
   }
 
-  Context.prototype.destroy = function() {
-    var allWaypoints = []
-    for (var axis in this.waypoints) {
-      for (var waypointKey in this.waypoints[axis]) {
-        allWaypoints.push(this.waypoints[axis][waypointKey])
-      }
-    }
-    for (var i = 0, end = allWaypoints.length; i < end; i++) {
-      allWaypoints[i].destroy()
-    }
+  /* Private */
+  Context.findOrCreateByElement = function(element) {
+    return Context.findByElement(element) || new Context(element)
   }
 
-  /* Internal */
-  Context.prototype.add = function(waypoint) {
-    var axis = waypoint.options.horizontal ? 'horizontal' : 'vertical'
-    this.waypoints[axis][waypoint.key] = waypoint
-    this.refresh()
-  }
-
-  /* Internal */
-  Context.prototype.remove = function(waypoint) {
-    delete this.waypoints[waypoint.axis][waypoint.key]
-    this.checkEmpty()
-  }
-
-  /* Internal */
-  Context.prototype.checkEmpty = function() {
-    var horizontalEmpty = this.Adapter.isEmptyObject(this.waypoints.horizontal)
-    var verticalEmpty = this.Adapter.isEmptyObject(this.waypoints.vertical)
-    if (horizontalEmpty && verticalEmpty) {
-      this.adapter.off('.waypoints')
-      delete contexts[this.key]
-    }
-  }
-
-  /* Internal */
-  Context.prototype.height = function() {
-    if (this.element === this.element.window) {
-      return Waypoint.viewportHeight()
-    }
-    return this.adapter.height()
-  }
-
-  Context.refreshAll = function() {
-    for (var contextId in contexts) {
-      contexts[contextId].refresh()
-    }
-  }
-
-  /* Internal */
+  /* Public */
   Context.findByElement = function(element) {
     return contexts[element.waypointContextKey]
   }
 
-  /* Internal */
-  Context.findOrCreateByElement = function(element) {
-    return Context.findByElement(element) || new Context(element)
+  /* Public */
+  Context.refreshAll = function() {
+    for (var contextId in contexts) {
+      contexts[contextId].refresh()
+    }
   }
 
   Waypoint.Context = Context
