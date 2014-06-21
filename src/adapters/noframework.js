@@ -1,6 +1,8 @@
 (function() {
   'use strict'
 
+  var Waypoint = window.Waypoint
+
   function isWindow(element) {
     return element === element.window
   }
@@ -163,9 +165,9 @@
     return true
   }
 
-  window.Waypoint.adapters.push({
+  Waypoint.adapters.push({
     name: 'noframework',
     Adapter: NoFrameworkAdapter
   })
-  window.Waypoint.Adapter = NoFrameworkAdapter
+  Waypoint.Adapter = NoFrameworkAdapter
 }())

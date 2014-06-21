@@ -2,6 +2,7 @@
   'use strict'
 
   var $ = window.jQuery
+  var Waypoint = window.Waypoint
 
   function JQueryAdapter(element) {
     this.$element = $(element)
@@ -32,9 +33,9 @@
     JQueryAdapter[method] = $[method]
   })
 
-  window.Waypoint.adapters.push({
+  Waypoint.adapters.push({
     name: 'jquery',
     Adapter: JQueryAdapter
   })
-  window.Waypoint.Adapter = JQueryAdapter
+  Waypoint.Adapter = JQueryAdapter
 }())

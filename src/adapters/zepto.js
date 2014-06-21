@@ -2,6 +2,7 @@
   'use strict'
 
   var $ = window.Zepto
+  var Waypoint = window.Waypoint
 
   function ZeptoAdapter(element) {
     this.element = element
@@ -64,9 +65,9 @@
     return true
   }
 
-  window.Waypoint.adapters.push({
+  Waypoint.adapters.push({
     name: 'zepto',
     Adapter: ZeptoAdapter
   })
-  window.Waypoint.Adapter = ZeptoAdapter
+  Waypoint.Adapter = ZeptoAdapter
 }())
