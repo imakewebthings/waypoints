@@ -36,6 +36,11 @@
   }
 
   /* Private */
+  Waypoint.prototype.queueTrigger = function(direction) {
+    this.group.queueTrigger(this, direction)
+  }
+
+  /* Private */
   Waypoint.prototype.trigger = function(args) {
     if (!this.enabled) {
       return
@@ -48,9 +53,11 @@
     }
   }
 
-  /* Private */
-  Waypoint.prototype.queueTrigger = function(direction) {
-    this.group.queueTrigger(this, direction)
+  /* Public */
+  Waypoint.prototype.destroy = function() {
+    this.context.remove(this)
+    this.group.remove(this)
+    delete allWaypoints[this.key]
   }
 
   /* Public */
@@ -64,13 +71,6 @@
     this.context.refresh()
     this.enabled = true
     return this
-  }
-
-  /* Public */
-  Waypoint.prototype.destroy = function() {
-    this.context.remove(this)
-    this.group.remove(this)
-    delete allWaypoints[this.key]
   }
 
   /* Public */
