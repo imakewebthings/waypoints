@@ -152,6 +152,14 @@
     this.checkEmpty()
   }
 
+  /* Private */
+  Context.prototype.width = function() {
+    if (this.element === this.element.window) {
+      return Waypoint.viewportWidth()
+    }
+    return this.adapter.width()
+  }
+
   /* Public */
   Context.prototype.destroy = function() {
     var allWaypoints = []
@@ -169,7 +177,6 @@
   Context.prototype.refresh = function() {
     var isWindow = this.element === this.element.window
     var contextOffset = this.adapter.offset()
-    var height = isWindow ? Waypoint.viewportHeight() : this.adapter.height()
     var triggeredGroups = {}
     var axes
 
@@ -178,7 +185,7 @@
       horizontal: {
         contextOffset: isWindow ? 0 : contextOffset.left,
         contextScroll: isWindow ? 0 : this.oldScroll.x,
-        contextDimension: this.adapter.width(),
+        contextDimension: this.width(),
         oldScroll: this.oldScroll.x,
         forward: 'right',
         backward: 'left',
@@ -187,7 +194,7 @@
       vertical: {
         contextOffset: isWindow ? 0 : contextOffset.top,
         contextScroll: isWindow ? 0 : this.oldScroll.y,
-        contextDimension: height,
+        contextDimension: this.height(),
         oldScroll: this.oldScroll.y,
         forward: 'down',
         backward: 'up',

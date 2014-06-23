@@ -18,6 +18,6 @@
     "src/shortcuts/*.js",
 
     "test/settings.js",
-    "test/*-spec.js"
+    "test/inview-spec.js"
   ]
 }

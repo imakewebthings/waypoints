@@ -28,9 +28,7 @@ window.jQuery.each(Waypoint.adapters, function(i, adapter) {
       })
 
       afterEach(function() {
-        if (waypoint) {
-          waypoint.destroy()
-        }
+        Waypoint.destroyAll()
         $scroller.scrollTop(0).scrollLeft(0)
         waits(standard)
       })
@@ -338,10 +336,6 @@ window.jQuery.each(Waypoint.adapters, function(i, adapter) {
           })
         })
 
-        afterEach(function() {
-          laterWaypoint.destroy()
-        })
-
         it('does not trigger the earlier waypoint', function() {
           runs(function() {
             $scroller.scrollTop($later.offset().top)
@@ -462,6 +456,46 @@ window.jQuery.each(Waypoint.adapters, function(i, adapter) {
         })
       })
 
+      describe('#previous', function() {
+        beforeEach(function() {
+          $target = $('#same1')
+          waypoint = new Waypoint({
+            element: $target[0],
+            handler: setHitTrue
+          })
+        })
+
+        it('calls previous on the waypoint group', function() {
+          spyOn(waypoint.group, 'previous')
+          waypoint.previous()
+          expect(waypoint.group.previous).toHaveBeenCalledWith(waypoint)
+        })
+
+        it('returns the group call results', function() {
+          expect(waypoint.previous()).toBeNull()
+        })
+      })
+
+      describe('#next', function() {
+        beforeEach(function() {
+          $target = $('#same1')
+          waypoint = new Waypoint({
+            element: $target[0],
+            handler: setHitTrue
+          })
+        })
+
+        it('calls next on the waypoint group', function() {
+          spyOn(waypoint.group, 'next')
+          waypoint.next()
+          expect(waypoint.group.next).toHaveBeenCalledWith(waypoint)
+        })
+
+        it('returns the group call results', function() {
+          expect(waypoint.next()).toBeNull()
+        })
+      })
+
       describe('Waypoint.viewportHeight()', function() {
         it('returns window innerHeight if it exists', function() {
           var height = Waypoint.viewportHeight()
@@ -471,6 +505,13 @@ window.jQuery.each(Waypoint.adapters, function(i, adapter) {
           else {
             expect(height).toEqual(document.documentElement.clientHeight)
           }
+        })
+      })
+
+      describe('Waypoint.viewportWidth()', function() {
+        it('returns client width', function() {
+          var clientWidth = document.documentElement.clientWidth
+          expect(Waypoint.viewportWidth()).toEqual(clientWidth)
         })
       })
 
@@ -490,8 +531,8 @@ window.jQuery.each(Waypoint.adapters, function(i, adapter) {
           waypoint = new Waypoint({
             element: $('#same1')[0]
           })
-          spyOn(secondWaypoint, 'destroy')
-          spyOn(waypoint, 'destroy')
+          spyOn(secondWaypoint, 'destroy').andCallThrough()
+          spyOn(waypoint, 'destroy').andCallThrough()
           Waypoint.destroyAll()
           expect(secondWaypoint.destroy).toHaveBeenCalled()
           expect(waypoint.destroy).toHaveBeenCalled()

@@ -74,6 +74,16 @@
   }
 
   /* Public */
+  Waypoint.prototype.previous = function() {
+    return this.group.previous(this)
+  }
+
+  /* Public */
+  Waypoint.prototype.next = function() {
+    return this.group.next(this)
+  }
+
+  /* Public */
   Waypoint.destroyAll = function() {
     var allWaypointsArray = []
     for (var waypointKey in allWaypoints) {
@@ -94,6 +104,11 @@
     return window.innerHeight || document.documentElement.clientHeight
   }
 
+  /* Public */
+  Waypoint.viewportWidth = function() {
+    return document.documentElement.clientWidth
+  }
+
   Waypoint.adapters = []
 
   Waypoint.defaults = {
@@ -111,7 +126,7 @@
       return this.context.height() - this.adapter.outerHeight()
     },
     'right-in-view': function() {
-      return this.context.adapter.width() - this.adapter.outerWidth()
+      return this.context.width() - this.adapter.outerWidth()
     }
   }
 

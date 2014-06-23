@@ -21,6 +21,9 @@ describe('Waypoint Sticky Shortcut', function() {
   })
 
   afterEach(function() {
+    if (waypoint) {
+      waypoint.destroy()
+    }
     $scroller.scrollTop(0)
     waits(standard)
   })
