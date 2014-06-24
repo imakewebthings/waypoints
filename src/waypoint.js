@@ -74,13 +74,13 @@
   }
 
   /* Public */
-  Waypoint.prototype.previous = function() {
-    return this.group.previous(this)
+  Waypoint.prototype.next = function() {
+    return this.group.next(this)
   }
 
   /* Public */
-  Waypoint.prototype.next = function() {
-    return this.group.next(this)
+  Waypoint.prototype.previous = function() {
+    return this.group.previous(this)
   }
 
   /* Public */
