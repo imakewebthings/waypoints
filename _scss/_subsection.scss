@@ -1,0 +1,28 @@
+$sections:
+  (getting-started, jquery-waypoints, creating-adapters, debugging-waypoints);
+
+.subsection-nav {
+  margin:0;
+  padding:0;
+
+  li {
+    display:block;
+    background:black;
+    margin:1px 0 0 0;
+    padding:5px 0;
+    text-align:center;
+  }
+
+  a {
+    color:white;
+    text-decoration:none;
+  }
+}
+
+@each $section in $sections {
+  @each $subsection in $section {
+    .on-#{$subsection} .nav-#{$subsection} {
+      text-decoration:underline;
+    }
+  }
+}

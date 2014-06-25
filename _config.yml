@@ -1,0 +1,10 @@
+pygments: true
+exclude:
+  - node_modules
+  - bower_components
+  - README.md
+  - package.json
+  - gulpfile.js
+  - Gemfile
+  - Gemfile.lock
+name: Waypoints

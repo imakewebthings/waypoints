@@ -1,0 +1,21 @@
+{
+  "name": "waypoints-ghpages",
+  "version": "0.0.0",
+  "description": "Waypoints project page",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Caleb Troughton <caleb@imakewebthings.com> (http://imakewebthings.com)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/imakewebthings/waypoints.git"
+  },
+  "devDependencies": {
+    "browser-sync": "^1.1.0",
+    "gulp": "^3.8.2",
+    "gulp-autoprefixer": "0.0.7",
+    "gulp-sass": "^0.7.2"
+  }
+}
