@@ -323,6 +323,12 @@ table {
 td, th {
   padding: 0; }
 
+main {
+  padding: 10px; }
+
+h2 {
+  margin: 8px 0; }
+
 header {
   background: black;
   color: white;
@@ -341,15 +347,11 @@ header {
       padding: 0 8px; }
   header a {
     color: white;
+    display: block;
     text-decoration: none; }
-  header .on-about .nav-about {
-    text-decoration: underline; }
-  header .on-guides .nav-guides {
-    text-decoration: underline; }
-  header .on-shortcuts .nav-shortcuts {
-    text-decoration: underline; }
-  header .on-api .nav-api {
-    text-decoration: underline; }
+
+.on-about .nav-about, .on-guides .nav-guides, .on-shortcuts .nav-shortcuts, .on-api .nav-api, .on-getting-started .nav-getting-started, .on-jquery-waypoints .nav-jquery-waypoints, .on-creating-adapters .nav-creating-adapters, .on-debugging-waypoints .nav-debugging-waypoints, .on-sticky-elements .nav-sticky-elements, .on-infinite-scroll .nav-infinite-scroll, .on-inview .nav-inview {
+  text-decoration: underline; }
 
 .subsection-nav {
   margin: 0;
@@ -358,20 +360,13 @@ header {
     display: block;
     background: black;
     margin: 1px 0 0 0;
-    padding: 5px 0;
     text-align: center; }
   .subsection-nav a {
     color: white;
+    display: block;
+    padding: 5px 0;
     text-decoration: none; }
 
-.on-getting-started .nav-getting-started {
+.on-about .nav-about, .on-guides .nav-guides, .on-shortcuts .nav-shortcuts, .on-api .nav-api, .on-getting-started .nav-getting-started, .on-jquery-waypoints .nav-jquery-waypoints, .on-creating-adapters .nav-creating-adapters, .on-debugging-waypoints .nav-debugging-waypoints, .on-sticky-elements .nav-sticky-elements, .on-infinite-scroll .nav-infinite-scroll, .on-inview .nav-inview {
   text-decoration: underline; }
 
-.on-jquery-waypoints .nav-jquery-waypoints {
-  text-decoration: underline; }
-
-.on-creating-adapters .nav-creating-adapters {
-  text-decoration: underline; }
-
-.on-debugging-waypoints .nav-debugging-waypoints {
-  text-decoration: underline; }

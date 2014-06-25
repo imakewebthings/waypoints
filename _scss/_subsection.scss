@@ -1,5 +1,6 @@
 $sections:
-  (getting-started, jquery-waypoints, creating-adapters, debugging-waypoints);
+  (getting-started, jquery-waypoints, creating-adapters, debugging-waypoints),
+  (sticky-elements, infinite-scroll, inview);
 
 .subsection-nav {
   margin:0;
@@ -9,20 +10,25 @@ $sections:
     display:block;
     background:black;
     margin:1px 0 0 0;
-    padding:5px 0;
     text-align:center;
   }
 
   a {
     color:white;
+    display:block;
+    padding:5px 0;
     text-decoration:none;
   }
+}
+
+%active {
+  text-decoration:underline;
 }
 
 @each $section in $sections {
   @each $subsection in $section {
     .on-#{$subsection} .nav-#{$subsection} {
-      text-decoration:underline;
+      @extend %active;
     }
   }
 }

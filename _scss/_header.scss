@@ -27,12 +27,18 @@ header {
 
   a {
     color:white;
+    display:block;
     text-decoration:none;
   }
+}
 
-  @each $section in $sections {
-    .on-#{$section} .nav-#{$section} {
-      text-decoration:underline;
-    }
+%active {
+  text-decoration:underline;
+}
+
+@each $section in $sections {
+  .on-#{$section} .nav-#{$section} {
+    @extend %active;
   }
 }
+
