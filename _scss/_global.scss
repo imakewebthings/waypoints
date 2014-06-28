@@ -1,7 +1,71 @@
+html, body {
+  height:100%;
+}
+
 main {
   padding:10px;
+  background:rgba(255,255,255,.5);
+  overflow:hidden;
+}
+
+footer {
+  position:absolute;
+  bottom:0;
+  height:32px;
+  line-height:32px;
+  background:rgba(0,0,0,.1);
+  left:0;
+  right:0;
+  padding:0 10px;
+  font-size:11px;
+
+  p {
+    display:inline;
+  }
+}
+
+a {
+  color:$baseColor;
+
+  &:hover, &:focus {
+    color:$complementColor;
+  }
 }
 
 h2 {
   margin:8px 0;
+  color:#348ec0;
+  font-weight:300;
+  font-size:32px;
+}
+
+pre {
+  margin:0;
+  padding:6px 10px;
+  font-size:14px;
+}
+
+.container {
+  position:relative;
+  z-index:2;
+  min-height:100%;
+  padding-bottom:32px;
+}
+
+.background {
+  //background:url(http://dl.dropboxusercontent.com/u/1149620/portland/Live/MirrorLake/MirrorLakeSnow/IMG_2325.JPG) center 0 no-repeat;
+  background:url(https://dl.dropboxusercontent.com/u/1149620/portland/Live/MirrorLake/MirrorLakeSnow/IMG_2360.JPG) center 0 no-repeat;
+  background-size:cover;
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  z-index:1;
+  filter:blur(3px)
+}
+
+.background-wash {
+  height:100%;
+  background:rgba(255,255,255, .8);
 }

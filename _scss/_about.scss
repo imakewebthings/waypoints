@@ -1,0 +1,42 @@
+.about-main {
+  text-align:center;
+
+  .highlight {
+    text-align:left;
+  }
+}
+
+.large-button {
+  display:block;
+  background:$baseColor;
+  color:white;
+  text-decoration:none;
+  padding:10px;
+  font-size:24px;
+
+  &:before {
+    color:rgba(255,255,255,.5);
+    padding-right:10px;
+    font-size:18px;
+  }
+
+  &:hover, &:focus {
+    background:$complementColor;
+    color:white;
+  }
+}
+
+.or {
+  color:#999;
+  font-size:12px;
+  margin:12px 0;
+
+  &:before, &:after {
+    content:'-';
+    padding:0 1px;
+  }
+}
+
+.one-liner {
+  border:1px solid rgba(0,0,0,.1);
+}

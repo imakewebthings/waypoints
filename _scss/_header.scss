@@ -1,44 +1,61 @@
 $sections: (about, guides, shortcuts, api);
 
 header {
-  background:black;
-  color:white;
   padding:0 10px;
   text-align:center;
 
   h1 {
     margin:0;
+    padding:4px 0;
     text-align:center;
+    font-weight:300;
+    font-size:36px;
+
+    a, a:hover, a:focus {
+      color:#111;
+    }
   }
 
   nav {
     display:inline-block;
 
     ul {
-      padding:0;
-      margin:8px 0;
+      padding:0 0 8px 0;
+      margin:0;
     }
 
     li {
       display:inline-block;
-      padding:0 8px;
+      padding:0 3px;
+    }
+
+    a {
+      border-radius:25px;
+      padding:5px 8px;
+      color:#555;
+
+      &:hover, &:focus {
+        background:rgba(0,0,0,0.1);
+        color:#555;
+      }
     }
   }
 
   a {
-    color:white;
-    display:block;
     text-decoration:none;
+    display:block;
   }
 }
 
-%active {
-  text-decoration:underline;
+%header-active {
+  background:$baseColor;
+  color:white;
+  cursor:default;
 }
 
 @each $section in $sections {
   .on-#{$section} .nav-#{$section} {
-    @extend %active;
+    @extend %header-active;
   }
 }
 

@@ -9,27 +9,44 @@ $sections:
 
   li {
     display:block;
-    background:black;
-    margin:1px 0 0 0;
     text-align:center;
   }
 
   a {
+    background:rgba(0,0,0,.7);
+    border-top:1px solid rgba(255,255,255,.3);
     color:white;
     display:block;
-    padding:5px 0;
+    padding:5px 10px;
     text-decoration:none;
+    position:relative;
+
+    &:hover, &:focus {
+      &:after {
+        content:'';
+        position:absolute;
+        right:0;
+        top:0;
+        bottom:0;
+        width:10px;
+        background:$baseColor;
+      }
+    }
+  }
+
+  li:first-child a {
+    border-top:0;
   }
 }
 
-%active {
-  text-decoration:underline;
+%subsection-active {
+  background:$baseColor;
 }
 
 @each $section in $sections {
   @each $subsection in $section {
     .on-#{$subsection} .nav-#{$subsection} {
-      @extend %active;
+      @extend %subsection-active;
     }
   }
 }

@@ -9,18 +9,20 @@
  *    user zoom.
  */
 html {
-  font-family: sans-serif;
+  font-family: 'Lato', sans-serif;
   /* 1 */
   -ms-text-size-adjust: 100%;
   /* 2 */
   -webkit-text-size-adjust: 100%;
-  /* 2 */ }
+  /* 2 */
+  font-weight: 400; }
 
 /**
  * Remove default margin.
  */
 body {
-  margin: 0; }
+  margin: 0;
+  color: #555; }
 
 /* HTML5 display definitions
 ========================================================================== */
@@ -167,7 +169,7 @@ pre {
  * Address odd `em`-unit font size rendering in all browsers.
  */
 code, kbd, pre, samp {
-  font-family: monospace, monospace;
+  font-family: Consolas, "Lucida Console", Monaco, monospace;
   font-size: 1em; }
 
 /* Forms
@@ -323,50 +325,396 @@ table {
 td, th {
   padding: 0; }
 
+html, body {
+  height: 100%; }
+
 main {
-  padding: 10px; }
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.5);
+  overflow: hidden; }
+
+footer {
+  position: absolute;
+  bottom: 0;
+  height: 32px;
+  line-height: 32px;
+  background: rgba(0, 0, 0, 0.1);
+  left: 0;
+  right: 0;
+  padding: 0 10px;
+  font-size: 11px; }
+  footer p {
+    display: inline; }
+
+a {
+  color: #348ec0; }
+  a:hover, a:focus {
+    color: #68a42b; }
 
 h2 {
-  margin: 8px 0; }
+  margin: 8px 0;
+  color: #348ec0;
+  font-weight: 300;
+  font-size: 32px; }
+
+pre {
+  margin: 0;
+  padding: 6px 10px;
+  font-size: 14px; }
+
+.container {
+  position: relative;
+  z-index: 2;
+  min-height: 100%;
+  padding-bottom: 32px; }
+
+.background {
+  background: url(https://dl.dropboxusercontent.com/u/1149620/portland/Live/MirrorLake/MirrorLakeSnow/IMG_2360.JPG) center 0 no-repeat;
+  background-size: cover;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  -webkit-filter: blur(3px);
+  filter: blur(3px); }
+
+.background-wash {
+  height: 100%;
+  background: rgba(255, 255, 255, 0.8); }
 
 header {
-  background: black;
-  color: white;
   padding: 0 10px;
   text-align: center; }
   header h1 {
     margin: 0;
-    text-align: center; }
+    padding: 4px 0;
+    text-align: center;
+    font-weight: 300;
+    font-size: 36px; }
+    header h1 a, header h1 a:hover, header h1 a:focus {
+      color: #111; }
   header nav {
     display: inline-block; }
     header nav ul {
-      padding: 0;
-      margin: 8px 0; }
+      padding: 0 0 8px 0;
+      margin: 0; }
     header nav li {
       display: inline-block;
-      padding: 0 8px; }
+      padding: 0 3px; }
+    header nav a {
+      border-radius: 25px;
+      padding: 5px 8px;
+      color: #555; }
+      header nav a:hover, header nav a:focus {
+        background: rgba(0, 0, 0, 0.1);
+        color: #555; }
   header a {
-    color: white;
-    display: block;
-    text-decoration: none; }
+    text-decoration: none;
+    display: block; }
 
-.on-about .nav-about, .on-guides .nav-guides, .on-shortcuts .nav-shortcuts, .on-api .nav-api, .on-getting-started .nav-getting-started, .on-jquery-waypoints .nav-jquery-waypoints, .on-creating-adapters .nav-creating-adapters, .on-debugging-waypoints .nav-debugging-waypoints, .on-sticky-elements .nav-sticky-elements, .on-infinite-scroll .nav-infinite-scroll, .on-inview .nav-inview, .on-context .nav-context, .on-context-destroy .nav-context-destroy, .on-context-find-by-element .nav-context-find-by-element, .on-context-option .nav-context-option, .on-context-refresh .nav-context-refresh, .on-continuous-option .nav-continuous-option, .on-destroy .nav-destroy, .on-destroy-all .nav-destroy-all, .on-disable .nav-disable, .on-enable .nav-enable, .on-enabled-option .nav-enabled-option, .on-first .nav-first, .on-group .nav-group, .on-group-option .nav-group-option, .on-horizontal-option .nav-horizontal-option, .on-last .nav-last, .on-next .nav-next, .on-offset-option .nav-offset-option, .on-previous .nav-previous, .on-refresh-all .nav-refresh-all, .on-trigger-once-option .nav-trigger-once-option, .on-viewport-height .nav-viewport-height, .on-viewport-width .nav-viewport-width, .on-waypoint .nav-waypoint {
-  text-decoration: underline; }
+.on-about .nav-about, .on-guides .nav-guides, .on-shortcuts .nav-shortcuts, .on-api .nav-api {
+  background: #348ec0;
+  color: white;
+  cursor: default; }
 
 .subsection-nav {
   margin: 0;
   padding: 0; }
   .subsection-nav li {
     display: block;
-    background: black;
-    margin: 1px 0 0 0;
     text-align: center; }
   .subsection-nav a {
+    background: rgba(0, 0, 0, 0.7);
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
     color: white;
     display: block;
-    padding: 5px 0;
-    text-decoration: none; }
+    padding: 5px 10px;
+    text-decoration: none;
+    position: relative; }
+    .subsection-nav a:hover:after, .subsection-nav a:focus:after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 10px;
+      background: #348ec0; }
+  .subsection-nav li:first-child a {
+    border-top: 0; }
 
-.on-about .nav-about, .on-guides .nav-guides, .on-shortcuts .nav-shortcuts, .on-api .nav-api, .on-getting-started .nav-getting-started, .on-jquery-waypoints .nav-jquery-waypoints, .on-creating-adapters .nav-creating-adapters, .on-debugging-waypoints .nav-debugging-waypoints, .on-sticky-elements .nav-sticky-elements, .on-infinite-scroll .nav-infinite-scroll, .on-inview .nav-inview, .on-context .nav-context, .on-context-destroy .nav-context-destroy, .on-context-find-by-element .nav-context-find-by-element, .on-context-option .nav-context-option, .on-context-refresh .nav-context-refresh, .on-continuous-option .nav-continuous-option, .on-destroy .nav-destroy, .on-destroy-all .nav-destroy-all, .on-disable .nav-disable, .on-enable .nav-enable, .on-enabled-option .nav-enabled-option, .on-first .nav-first, .on-group .nav-group, .on-group-option .nav-group-option, .on-horizontal-option .nav-horizontal-option, .on-last .nav-last, .on-next .nav-next, .on-offset-option .nav-offset-option, .on-previous .nav-previous, .on-refresh-all .nav-refresh-all, .on-trigger-once-option .nav-trigger-once-option, .on-viewport-height .nav-viewport-height, .on-viewport-width .nav-viewport-width, .on-waypoint .nav-waypoint {
-  text-decoration: underline; }
+.on-getting-started .nav-getting-started, .on-jquery-waypoints .nav-jquery-waypoints, .on-creating-adapters .nav-creating-adapters, .on-debugging-waypoints .nav-debugging-waypoints, .on-sticky-elements .nav-sticky-elements, .on-infinite-scroll .nav-infinite-scroll, .on-inview .nav-inview, .on-context .nav-context, .on-context-destroy .nav-context-destroy, .on-context-find-by-element .nav-context-find-by-element, .on-context-option .nav-context-option, .on-context-refresh .nav-context-refresh, .on-continuous-option .nav-continuous-option, .on-destroy .nav-destroy, .on-destroy-all .nav-destroy-all, .on-disable .nav-disable, .on-enable .nav-enable, .on-enabled-option .nav-enabled-option, .on-first .nav-first, .on-group .nav-group, .on-group-option .nav-group-option, .on-horizontal-option .nav-horizontal-option, .on-last .nav-last, .on-next .nav-next, .on-offset-option .nav-offset-option, .on-previous .nav-previous, .on-refresh-all .nav-refresh-all, .on-trigger-once-option .nav-trigger-once-option, .on-viewport-height .nav-viewport-height, .on-viewport-width .nav-viewport-width, .on-waypoint .nav-waypoint {
+  background: #348ec0; }
 
+.highlight {
+  background: #272822;
+  color: #f8f8f2;
+  overflow: auto; }
+
+.highlight .hll {
+  background-color: #49483e; }
+
+.highlight .c {
+  color: #75715e; }
+
+/* Comment */
+.highlight .err {
+  color: #960050;
+  background-color: #1e0010; }
+
+/* Error */
+.highlight .k {
+  color: #66d9ef; }
+
+/* Keyword */
+.highlight .l {
+  color: #ae81ff; }
+
+/* Literal */
+.highlight .n {
+  color: #f8f8f2; }
+
+/* Name */
+.highlight .o {
+  color: #f92672; }
+
+/* Operator */
+.highlight .p {
+  color: #f8f8f2; }
+
+/* Punctuation */
+.highlight .cm {
+  color: #75715e; }
+
+/* Comment.Multiline */
+.highlight .cp {
+  color: #75715e; }
+
+/* Comment.Preproc */
+.highlight .c1 {
+  color: #75715e; }
+
+/* Comment.Single */
+.highlight .cs {
+  color: #75715e; }
+
+/* Comment.Special */
+.highlight .ge {
+  font-style: italic; }
+
+/* Generic.Emph */
+.highlight .gs {
+  font-weight: bold; }
+
+/* Generic.Strong */
+.highlight .kc {
+  color: #66d9ef; }
+
+/* Keyword.Constant */
+.highlight .kd {
+  color: #66d9ef; }
+
+/* Keyword.Declaration */
+.highlight .kn {
+  color: #f92672; }
+
+/* Keyword.Namespace */
+.highlight .kp {
+  color: #66d9ef; }
+
+/* Keyword.Pseudo */
+.highlight .kr {
+  color: #66d9ef; }
+
+/* Keyword.Reserved */
+.highlight .kt {
+  color: #66d9ef; }
+
+/* Keyword.Type */
+.highlight .ld {
+  color: #e6db74; }
+
+/* Literal.Date */
+.highlight .m {
+  color: #ae81ff; }
+
+/* Literal.Number */
+.highlight .s {
+  color: #e6db74; }
+
+/* Literal.String */
+.highlight .na {
+  color: #a6e22e; }
+
+/* Name.Attribute */
+.highlight .nb {
+  color: #f8f8f2; }
+
+/* Name.Builtin */
+.highlight .nc {
+  color: #a6e22e; }
+
+/* Name.Class */
+.highlight .no {
+  color: #66d9ef; }
+
+/* Name.Constant */
+.highlight .nd {
+  color: #a6e22e; }
+
+/* Name.Decorator */
+.highlight .ni {
+  color: #f8f8f2; }
+
+/* Name.Entity */
+.highlight .ne {
+  color: #a6e22e; }
+
+/* Name.Exception */
+.highlight .nf {
+  color: #a6e22e; }
+
+/* Name.Function */
+.highlight .nl {
+  color: #f8f8f2; }
+
+/* Name.Label */
+.highlight .nn {
+  color: #f8f8f2; }
+
+/* Name.Namespace */
+.highlight .nx {
+  color: #a6e22e; }
+
+/* Name.Other */
+.highlight .py {
+  color: #f8f8f2; }
+
+/* Name.Property */
+.highlight .nt {
+  color: #f92672; }
+
+/* Name.Tag */
+.highlight .nv {
+  color: #f8f8f2; }
+
+/* Name.Variable */
+.highlight .ow {
+  color: #f92672; }
+
+/* Operator.Word */
+.highlight .w {
+  color: #f8f8f2; }
+
+/* Text.Whitespace */
+.highlight .mf {
+  color: #ae81ff; }
+
+/* Literal.Number.Float */
+.highlight .mh {
+  color: #ae81ff; }
+
+/* Literal.Number.Hex */
+.highlight .mi {
+  color: #ae81ff; }
+
+/* Literal.Number.Integer */
+.highlight .mo {
+  color: #ae81ff; }
+
+/* Literal.Number.Oct */
+.highlight .sb {
+  color: #e6db74; }
+
+/* Literal.String.Backtick */
+.highlight .sc {
+  color: #e6db74; }
+
+/* Literal.String.Char */
+.highlight .sd {
+  color: #e6db74; }
+
+/* Literal.String.Doc */
+.highlight .s2 {
+  color: #e6db74; }
+
+/* Literal.String.Double */
+.highlight .se {
+  color: #ae81ff; }
+
+/* Literal.String.Escape */
+.highlight .sh {
+  color: #e6db74; }
+
+/* Literal.String.Heredoc */
+.highlight .si {
+  color: #e6db74; }
+
+/* Literal.String.Interpol */
+.highlight .sx {
+  color: #e6db74; }
+
+/* Literal.String.Other */
+.highlight .sr {
+  color: #e6db74; }
+
+/* Literal.String.Regex */
+.highlight .s1 {
+  color: #e6db74; }
+
+/* Literal.String.Single */
+.highlight .ss {
+  color: #e6db74; }
+
+/* Literal.String.Symbol */
+.highlight .bp {
+  color: #f8f8f2; }
+
+/* Name.Builtin.Pseudo */
+.highlight .vc {
+  color: #f8f8f2; }
+
+/* Name.Variable.Class */
+.highlight .vg {
+  color: #f8f8f2; }
+
+/* Name.Variable.Global */
+.highlight .vi {
+  color: #f8f8f2; }
+
+/* Name.Variable.Instance */
+.highlight .il {
+  color: #ae81ff; }
+
+/* Literal.Number.Integer.Long */
+.about-main {
+  text-align: center; }
+  .about-main .highlight {
+    text-align: left; }
+
+.large-button {
+  display: block;
+  background: #348ec0;
+  color: white;
+  text-decoration: none;
+  padding: 10px;
+  font-size: 24px; }
+  .large-button:before {
+    color: rgba(255, 255, 255, 0.5);
+    padding-right: 10px;
+    font-size: 18px; }
+  .large-button:hover, .large-button:focus {
+    background: #68a42b;
+    color: white; }
+
+.or {
+  color: #999;
+  font-size: 12px;
+  margin: 12px 0; }
+  .or:before, .or:after {
+    content: '-';
+    padding: 0 1px; }
+
+.one-liner {
+  border: 1px solid rgba(0, 0, 0, 0.1); }
