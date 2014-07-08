@@ -3,9 +3,14 @@ html, body {
 }
 
 main {
-  padding:10px;
+  @extend .inner;
   background:rgba(255,255,255,.5);
   overflow:hidden;
+  position:relative;
+}
+
+article {
+  padding:10px;
 }
 
 footer {
@@ -16,11 +21,15 @@ footer {
   background:rgba(0,0,0,.1);
   left:0;
   right:0;
-  padding:0 10px;
   font-size:11px;
+  text-align:right;
 
   p {
     display:inline;
+  }
+
+  .inner {
+    padding:0 10px;
   }
 }
 
@@ -52,20 +61,16 @@ pre {
   padding-bottom:32px;
 }
 
-.background {
-  //background:url(http://dl.dropboxusercontent.com/u/1149620/portland/Live/MirrorLake/MirrorLakeSnow/IMG_2325.JPG) center 0 no-repeat;
-  background:url(https://dl.dropboxusercontent.com/u/1149620/portland/Live/MirrorLake/MirrorLakeSnow/IMG_2360.JPG) center 0 no-repeat;
-  background-size:cover;
-  position:fixed;
-  top:0;
-  left:0;
-  right:0;
-  bottom:0;
-  z-index:1;
-  filter:blur(3px)
+.inner {
+  max-width:$desktopMaxWidth;
+  margin-left:auto;
+  margin-right:auto;
 }
 
-.background-wash {
-  height:100%;
-  background:rgba(255,255,255, .8);
+@include desktop {
+  body {
+    background:url(../img/bg.jpg) center 0 no-repeat #fff;
+    background-size:cover;
+    background-position:fixed;
+  }
 }

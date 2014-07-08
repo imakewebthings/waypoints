@@ -1,5 +1,6 @@
 .about-main {
   text-align:center;
+  padding:10px;
 
   .highlight {
     text-align:left;
@@ -39,4 +40,29 @@
 
 .one-liner {
   border:1px solid rgba(0,0,0,.1);
+}
+
+.download, .introduction {
+  p:first-child {
+    margin-top:0;
+  }
+}
+
+@include desktop {
+  .introduction {
+    float:left;
+    width:50%;
+    padding-right:15px;
+    text-align:left;
+  }
+
+  .download {
+    float:right;
+    width:50%;
+    padding-left:15px;
+  }
+
+  .introduction p:first-child {
+    margin-top:16px;
+  }
 }

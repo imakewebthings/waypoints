@@ -3,7 +3,9 @@ layout: default
 top_level_section: api
 ---
 
-{% include api_nav.html %}
 <main>
-  {{ content }}
+  {% include api_nav.html %}
+  <article>
+    {{ content }}
+  </article>
 </main>

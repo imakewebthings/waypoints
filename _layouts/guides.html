@@ -3,7 +3,9 @@ layout: default
 top_level_section: guides
 ---
 
-{% include guides_nav.html %}
 <main>
-  {{ content }}
+  {% include guides_nav.html %}
+  <article>
+    {{ content }}
+  </article>
 </main>

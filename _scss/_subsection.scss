@@ -9,7 +9,6 @@ $sections:
 
   li {
     display:block;
-    text-align:center;
   }
 
   a {
@@ -17,7 +16,7 @@ $sections:
     border-top:1px solid rgba(255,255,255,.3);
     color:white;
     display:block;
-    padding:5px 10px;
+    padding:10px 30px 10px 15px;
     text-decoration:none;
     position:relative;
 
@@ -25,22 +24,26 @@ $sections:
       &:after {
         content:'';
         position:absolute;
-        right:0;
         top:0;
         bottom:0;
-        width:10px;
+        width:15px;
         background:$baseColor;
+      }
+
+      &:after {
+        right:0;
       }
     }
   }
 
-  li:first-child a {
+  li:first-child > a {
     border-top:0;
   }
 }
 
 %subsection-active {
   background:$baseColor;
+  color:#fff;
 }
 
 @each $section in $sections {
@@ -48,5 +51,46 @@ $sections:
     .on-#{$subsection} .nav-#{$subsection} {
       @extend %subsection-active;
     }
+  }
+}
+
+@include desktop {
+  .subsection-nav {
+    float:left;
+  }
+
+  article {
+    overflow:hidden;
+    padding-left:30px;
+  }
+}
+
+.api-nav {
+  > li {
+    margin-bottom:16px;
+  }
+
+  ul {
+    padding:0;
+    font-size:14px;
+
+    a {
+      background:transparent;
+      color:black;
+      padding:6px 35px 6px 20px;
+    }
+  }
+
+  .subheading {
+    font-size:12px;
+    font-weight:normal;
+    margin:0;
+    padding:6px 30px 6px 15px;
+    background:rgba(0,0,0,.1);
+    margin-top:8px;
+  }
+
+  a + .subheading {
+    margin-top:0;
   }
 }

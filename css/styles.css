@@ -329,9 +329,12 @@ html, body {
   height: 100%; }
 
 main {
-  padding: 10px;
   background: rgba(255, 255, 255, 0.5);
-  overflow: hidden; }
+  overflow: hidden;
+  position: relative; }
+
+article {
+  padding: 10px; }
 
 footer {
   position: absolute;
@@ -341,10 +344,12 @@ footer {
   background: rgba(0, 0, 0, 0.1);
   left: 0;
   right: 0;
-  padding: 0 10px;
-  font-size: 11px; }
+  font-size: 11px;
+  text-align: right; }
   footer p {
     display: inline; }
+  footer .inner, footer main {
+    padding: 0 10px; }
 
 a {
   color: #348ec0; }
@@ -368,25 +373,22 @@ pre {
   min-height: 100%;
   padding-bottom: 32px; }
 
-.background {
-  background: url(https://dl.dropboxusercontent.com/u/1149620/portland/Live/MirrorLake/MirrorLakeSnow/IMG_2360.JPG) center 0 no-repeat;
-  background-size: cover;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 1;
-  -webkit-filter: blur(3px);
-  filter: blur(3px); }
+.inner, main {
+  max-width: 960px;
+  margin-left: auto;
+  margin-right: auto; }
 
-.background-wash {
-  height: 100%;
-  background: rgba(255, 255, 255, 0.8); }
+@media (min-width: 660px) {
+  body {
+    background: url(../img/bg.jpg) center 0 no-repeat #fff;
+    background-size: cover;
+    background-position: fixed; } }
 
 header {
-  padding: 0 10px;
-  text-align: center; }
+  text-align: center;
+  overflow: hidden;
+  width: 100%;
+  margin-bottom: 16px; }
   header h1 {
     margin: 0;
     padding: 4px 0;
@@ -413,39 +415,78 @@ header {
   header a {
     text-decoration: none;
     display: block; }
+  header .inner, header main {
+    padding: 0 10px; }
 
 .on-about .nav-about, .on-guides .nav-guides, .on-shortcuts .nav-shortcuts, .on-api .nav-api {
   background: #348ec0;
   color: white;
   cursor: default; }
 
+@media (min-width: 660px) {
+  header {
+    padding-top: 8px; }
+  h1 {
+    float: left; }
+  nav {
+    float: right;
+    position: relative;
+    top: 18px; } }
+
 .subsection-nav {
   margin: 0;
   padding: 0; }
   .subsection-nav li {
-    display: block;
-    text-align: center; }
+    display: block; }
   .subsection-nav a {
     background: rgba(0, 0, 0, 0.7);
     border-top: 1px solid rgba(255, 255, 255, 0.3);
     color: white;
     display: block;
-    padding: 5px 10px;
+    padding: 10px 30px 10px 15px;
     text-decoration: none;
     position: relative; }
     .subsection-nav a:hover:after, .subsection-nav a:focus:after {
       content: '';
       position: absolute;
-      right: 0;
       top: 0;
       bottom: 0;
-      width: 10px;
+      width: 15px;
       background: #348ec0; }
-  .subsection-nav li:first-child a {
+    .subsection-nav a:hover:after, .subsection-nav a:focus:after {
+      right: 0; }
+  .subsection-nav li:first-child > a {
     border-top: 0; }
 
 .on-getting-started .nav-getting-started, .on-jquery-waypoints .nav-jquery-waypoints, .on-creating-adapters .nav-creating-adapters, .on-debugging-waypoints .nav-debugging-waypoints, .on-sticky-elements .nav-sticky-elements, .on-infinite-scroll .nav-infinite-scroll, .on-inview .nav-inview, .on-context .nav-context, .on-context-destroy .nav-context-destroy, .on-context-find-by-element .nav-context-find-by-element, .on-context-option .nav-context-option, .on-context-refresh .nav-context-refresh, .on-continuous-option .nav-continuous-option, .on-destroy .nav-destroy, .on-destroy-all .nav-destroy-all, .on-disable .nav-disable, .on-enable .nav-enable, .on-enabled-option .nav-enabled-option, .on-first .nav-first, .on-group .nav-group, .on-group-option .nav-group-option, .on-horizontal-option .nav-horizontal-option, .on-last .nav-last, .on-next .nav-next, .on-offset-option .nav-offset-option, .on-previous .nav-previous, .on-refresh-all .nav-refresh-all, .on-trigger-once-option .nav-trigger-once-option, .on-viewport-height .nav-viewport-height, .on-viewport-width .nav-viewport-width, .on-waypoint .nav-waypoint {
-  background: #348ec0; }
+  background: #348ec0;
+  color: #fff; }
+
+@media (min-width: 660px) {
+  .subsection-nav {
+    float: left; }
+  article {
+    overflow: hidden;
+    padding-left: 30px; } }
+
+.api-nav > li {
+  margin-bottom: 16px; }
+.api-nav ul {
+  padding: 0;
+  font-size: 14px; }
+  .api-nav ul a {
+    background: transparent;
+    color: black;
+    padding: 6px 35px 6px 20px; }
+.api-nav .subheading {
+  font-size: 12px;
+  font-weight: normal;
+  margin: 0;
+  padding: 6px 30px 6px 15px;
+  background: rgba(0, 0, 0, 0.1);
+  margin-top: 8px; }
+.api-nav a + .subheading {
+  margin-top: 0; }
 
 .highlight {
   background: #272822;
@@ -689,7 +730,8 @@ header {
 
 /* Literal.Number.Integer.Long */
 .about-main {
-  text-align: center; }
+  text-align: center;
+  padding: 10px; }
   .about-main .highlight {
     text-align: left; }
 
@@ -718,3 +760,19 @@ header {
 
 .one-liner {
   border: 1px solid rgba(0, 0, 0, 0.1); }
+
+.download p:first-child, .introduction p:first-child {
+  margin-top: 0; }
+
+@media (min-width: 660px) {
+  .introduction {
+    float: left;
+    width: 50%;
+    padding-right: 15px;
+    text-align: left; }
+  .download {
+    float: right;
+    width: 50%;
+    padding-left: 15px; }
+  .introduction p:first-child {
+    margin-top: 16px; } }
