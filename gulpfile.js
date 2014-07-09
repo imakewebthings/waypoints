@@ -33,12 +33,16 @@ gulp.task('lint', function() {
 
 gulp.task('build-core', function() {
   var streams = ['noframework', 'jquery', 'zepto'].map(function(adapter) {
-    return gulp.src([
+    var sources = [
       'src/waypoint.js',
       'src/context.js',
       'src/group.js',
       'src/adapters/' + adapter + '.js'
-    ])
+    ]
+    if (['jquery', 'zepto'].indexOf(adapter) > -1) {
+      sources.push('src/adapters/jquery-zepto-fn-extension.js')
+    }
+    return gulp.src(sources)
     .pipe(concat(adapter + '.waypoints.js'))
     .pipe(header(fileHeader('Waypoints')))
     .pipe(gulp.dest('lib/'))
