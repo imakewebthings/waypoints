@@ -57,7 +57,7 @@
 
   /* Private */
   Group.prototype.next = function(waypoint) {
-    this.sort()
+    this.waypoints.sort(byTriggerPoint)
     var index = Waypoint.Adapter.inArray(waypoint, this.waypoints)
     var isLast = index === this.waypoints.length - 1
     return isLast ? null : this.waypoints[index + 1]
@@ -65,7 +65,7 @@
 
   /* Private */
   Group.prototype.previous = function(waypoint) {
-    this.sort()
+    this.waypoints.sort(byTriggerPoint)
     var index = Waypoint.Adapter.inArray(waypoint, this.waypoints)
     return index ? this.waypoints[index - 1] : null
   }
@@ -81,13 +81,6 @@
     if (index > -1) {
       this.waypoints.splice(index, 1)
     }
-  }
-
-  /* Private */
-  Group.prototype.sort = function() {
-    this.waypoints.sort(function(a, b) {
-      return a.triggerPoint - b.triggerPoint
-    })
   }
 
   /* Public */
