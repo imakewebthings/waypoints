@@ -56,6 +56,21 @@
   }
 
   /* Private */
+  Group.prototype.next = function(waypoint) {
+    this.sort()
+    var index = Waypoint.Adapter.inArray(waypoint, this.waypoints)
+    var isLast = index === this.waypoints.length - 1
+    return isLast ? null : this.waypoints[index + 1]
+  }
+
+  /* Private */
+  Group.prototype.previous = function(waypoint) {
+    this.sort()
+    var index = Waypoint.Adapter.inArray(waypoint, this.waypoints)
+    return index ? this.waypoints[index - 1] : null
+  }
+
+  /* Private */
   Group.prototype.queueTrigger = function(waypoint, direction) {
     this.triggerQueues[direction].push(waypoint)
   }
@@ -83,21 +98,6 @@
   /* Public */
   Group.prototype.last = function() {
     return this.waypoints[this.waypoints.length - 1]
-  }
-
-  /* Public */
-  Group.prototype.next = function(waypoint) {
-    this.sort()
-    var index = Waypoint.Adapter.inArray(waypoint, this.waypoints)
-    var isLast = index === this.waypoints.length - 1
-    return isLast ? null : this.waypoints[index + 1]
-  }
-
-  /* Public */
-  Group.prototype.previous = function(waypoint) {
-    this.sort()
-    var index = Waypoint.Adapter.inArray(waypoint, this.waypoints)
-    return index ? this.waypoints[index - 1] : null
   }
 
   /* Private */

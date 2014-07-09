@@ -261,16 +261,16 @@
     return Context.findByElement(element) || new Context(element)
   }
 
-  /* Public */
-  Context.findByElement = function(element) {
-    return contexts[element.waypointContextKey]
-  }
-
-  /* Public */
+  /* Private */
   Context.refreshAll = function() {
     for (var contextId in contexts) {
       contexts[contextId].refresh()
     }
+  }
+
+  /* Public */
+  Context.findByElement = function(element) {
+    return contexts[element.waypointContextKey]
   }
 
   Waypoint.Context = Context
