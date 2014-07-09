@@ -460,7 +460,8 @@ header {
 
 .on-getting-started .nav-getting-started, .on-jquery-waypoints .nav-jquery-waypoints, .on-creating-adapters .nav-creating-adapters, .on-debugging-waypoints .nav-debugging-waypoints, .on-sticky-elements .nav-sticky-elements, .on-infinite-scroll .nav-infinite-scroll, .on-inview .nav-inview, .on-context .nav-context, .on-context-destroy .nav-context-destroy, .on-context-find-by-element .nav-context-find-by-element, .on-context-option .nav-context-option, .on-context-refresh .nav-context-refresh, .on-continuous-option .nav-continuous-option, .on-destroy .nav-destroy, .on-destroy-all .nav-destroy-all, .on-disable .nav-disable, .on-enable .nav-enable, .on-enabled-option .nav-enabled-option, .on-first .nav-first, .on-group .nav-group, .on-group-option .nav-group-option, .on-horizontal-option .nav-horizontal-option, .on-last .nav-last, .on-next .nav-next, .on-offset-option .nav-offset-option, .on-previous .nav-previous, .on-refresh-all .nav-refresh-all, .on-trigger-once-option .nav-trigger-once-option, .on-viewport-height .nav-viewport-height, .on-viewport-width .nav-viewport-width, .on-waypoint .nav-waypoint {
   background: #348ec0;
-  color: #fff; }
+  color: #fff;
+  cursor: default; }
 
 @media (min-width: 660px) {
   .subsection-nav {
@@ -776,3 +777,22 @@ header {
     padding-left: 15px; }
   .introduction p:first-child {
     margin-top: 16px; } }
+
+.notifications {
+  position: fixed;
+  right: 0;
+  top: 76px;
+  z-index: 2;
+  padding: 0;
+  margin: 0; }
+  .notifications li {
+    background: #68a42b;
+    color: white;
+    max-width: 320px;
+    display: block;
+    position: relative;
+    padding: 6px 10px;
+    box-shadow: -2px 2px 2px rgba(0, 0, 0, 0.5);
+    border-top: 1px solid rgba(255, 255, 255, 0.3); }
+    .notifications li:first-child {
+      border-top: 0; }

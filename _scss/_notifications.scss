@@ -1,0 +1,23 @@
+.notifications {
+  position:fixed;
+  right:0;
+  top:76px;
+  z-index:2;
+  padding:0;
+  margin:0;
+
+  li {
+    background:$complementColor;
+    color:white;
+    max-width:320px;
+    display:block;
+    position:relative;
+    padding:6px 10px;
+    box-shadow:-2px 2px 2px rgba(0,0,0,.5);
+    border-top:1px solid rgba(255,255,255,.3);
+
+    &:first-child {
+      border-top:0;
+    }
+  }
+}
