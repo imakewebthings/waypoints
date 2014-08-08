@@ -43,7 +43,7 @@ gulp.task('build-core', function() {
       sources.push('src/adapters/jquery-zepto-fn-extension.js')
     }
     return gulp.src(sources)
-    .pipe(concat(adapter + '.waypoints.js'))
+    .pipe(concat(adapter + '.waypoints.js', { newLine: ';' }))
     .pipe(header(fileHeader('Waypoints')))
     .pipe(gulp.dest('lib/'))
     .pipe(rename(adapter + '.waypoints.min.js'))
