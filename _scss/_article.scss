@@ -1,0 +1,18 @@
+article {
+  line-height: 1.5;
+
+  code {
+    background:#ddd;
+    padding:0 2px;
+  }
+
+  pre > code {
+    background:transparent;
+  }
+
+  h3 {
+    color:#666;
+    font-weight:300;
+    font-size:24px;
+  }
+}

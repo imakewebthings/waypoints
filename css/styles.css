@@ -382,7 +382,7 @@ pre {
   body {
     background: url(../img/bg.jpg) center 0 no-repeat #fff;
     background-size: cover;
-    background-position: fixed; } }
+    background-attachment: fixed; } }
 
 header {
   text-align: center;
@@ -796,3 +796,15 @@ header {
     border-top: 1px solid rgba(255, 255, 255, 0.3); }
     .notifications li:first-child {
       border-top: 0; }
+
+article {
+  line-height: 1.5; }
+  article code {
+    background: #ddd;
+    padding: 0 2px; }
+  article pre > code {
+    background: transparent; }
+  article h3 {
+    color: #666;
+    font-weight: 300;
+    font-size: 24px; }

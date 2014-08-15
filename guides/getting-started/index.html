@@ -5,3 +5,90 @@ subsection: getting-started
 ---
 
 <h2>Getting Started</h2>
+
+<p>The first thing you'll need to do is <a href="https://github.com/imakewebthings/waypoints/zipball/latest">download Waypoints</a>. The <code>lib/</code> directory contains builds for jQuery and Zepto, as well as a version with no framework dependencies. Choose the one that fits your needs and include it.</p>
+
+{% highlight html %}
+<script src="/path/to/noframework.waypoints.min.js"></script>
+{% endhighlight %}
+
+<p>The rest of this guide and any code snippets on this site, unless otherwise noted, will be using the no-framework build. If you're interested in the goodies that come with jQuery and Zepto builds, take a look at the <a href="{{ site.url }}/guides/jquery-waypoints">jQuery Waypoints guide</a>. Code snippets for the no-framework build will work in other builds.</p>
+
+<h3>A Basic Waypoint</h3>
+
+<p>With Waypoints included, we now have access to a global <code>Waypoint</code> class. We create waypoints by instantiating this class. When creating a new <code>Waypoint</code> we must pass it an options object. There are many properties you can set on this options object, but only one is required, <code>element</code>.</p>
+
+<div class="waypoint" id="useless-waypoint">
+{% highlight js %}
+var waypoint = new Waypoint({
+  element: document.getElementById('#useless-waypoint')
+})
+{% endhighlight %}
+</div>
+
+<p>This waypoint is boring. It doesn't do anything. The whole point of Waypoints is to do something when you scroll to the element. We tell it what to do by including the <code>handler</code> option.</p>
+
+<div class="waypoint" id="basic-waypoint">
+{% highlight js %}
+var waypoint = new Waypoint({
+  element: document.getElementById('#basic-waypoint'),
+  handler: function() {
+    notify('Basic waypoint triggered')
+  }
+})
+{% endhighlight %}
+</div>
+
+<h3>Directions</h3>
+
+<p>You may notice the basic example above triggers when we scroll through the waypoint both downwards and upwards. What if we want to perform different actions when scrolling up, or limit our handler to one direction? When a waypoint is triggered, the handler function is passed a <code>direction</code> parameter.</p>
+
+<div id="direction-waypoint" class="waypoint">
+{% highlight js %}
+var waypoint = new Waypoint({
+  element: document.getElementById('#direction-waypoint'),
+  handler: function(direction) {
+    notify('Direction: ' + direction)
+  }
+})
+{% endhighlight %}
+</div>
+
+<h3>Offsets</h3>
+
+<p>By default a waypoint triggers when the top of the element hits the top of the window. What if we want it to trigger when the element is 20px from the top instead?</p>
+
+<div id="px-offset-waypoint" class="waypoint">
+{% highlight js %}
+var waypoint = new Waypoint({
+  element: document.getElementById('#px-offset-waypoint'),
+  handler: function(direction) {
+    notify('I am 20px from the top of the window')
+  },
+  offset: 20 
+})
+{% endhighlight %}
+</div>
+
+<p>The <code>offset</code> option can take a variety of different values to help us control where a waypoint is triggered. For more information, check out the <a href="{{ site.url }}/api/offset-option">offset option documentation</a>.</p>
+
+<h3>this?</h3>
+
+<p>When we're inside the handler function the <code>this</code> keyword is a reference to the Waypoint instance. We can use this object to access all the properties and method in the <a href="{{ site.url }}/api/waypoint">API</a>. One of the most useful properties is <code>element</code>, the waypoint's DOM element.</p>
+
+<div id="element-waypoint" class="waypoint">
+{% highlight js %}
+var waypoint = new Waypoint({
+  element: document.getElementById('#element-waypoint'),
+  handler: function(direction) {
+    notify(this.element.id + ' triggers at ' + this.triggerPoint)
+  }
+})
+{% endhighlight %}
+</div>
+
+<h3>Now What?</h3>
+
+<p>This has been a very brief guide to the basics of Waypoints. The <a href="{{ site.url }}/api/waypoint">API documentation</a> goes into more depth about all of the options, methods, and properties available to us. In addition to being a technical reference for more technically savvy developers, each of the API pages acts as a guide for how to use that feature. The docs are intended to be useful for beginners and experts alike.</p>
+
+<p>If you already have a use for Waypoints in mind, take a moment to check out the <a href="{{ site.url }}/shortcuts">Shortcuts</a> section. These shortcut scripts take some of the most common uses of Waypoints and packages them into ready-made extensions.</p>
