@@ -5,3 +5,15 @@ subsection: enable
 ---
 
 <h2>waypoint.enable()</h2>
+
+<div class="reference">
+  <p>Enables the waypoint, allowing the handler function to trigger.</p>
+  <dl>
+    <dt>Returns</dt>
+    <dd>The same Waypoint instance.</dd>
+  </dl>
+</div>
+
+<p>By default, waypoints are enabled and calling this function will do nothing. However, if you have disabled a waypoint previously either by calling the <a href="{{ site.url }}/api/disable">disable method</a> or passing <code>enabled: false</code> as an option when creating the waypoint, calling this method will renable triggering of the handler when the waypoint is crossed.</p>
+
+<p>If the waypoint was crossed while it was disabled those triggers do not accumulate and fire when renabled. They are lost. This is the point of disabling.</p>

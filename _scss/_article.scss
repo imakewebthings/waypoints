@@ -1,5 +1,6 @@
 article {
   line-height: 1.5;
+  padding:10px 10px 10px 10px;
 
   code {
     background:#ddd;
@@ -14,5 +15,17 @@ article {
     color:#666;
     font-weight:300;
     font-size:24px;
+  }
+}
+
+@include desktop {
+  article {
+    overflow:hidden;
+    padding-left:30px;
+    padding-top:0;
+
+    h2 {
+      margin-top:0;
+    }
   }
 }

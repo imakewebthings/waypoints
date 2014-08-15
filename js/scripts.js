@@ -33,9 +33,50 @@
     })
   }
 
+  function initGettingStarted() {
+    if (!$('.subsection-nav').is('.on-getting-started')) {
+      return
+    }
+
+    new Waypoint({
+      element: document.getElementById('useless-waypoint')
+    })
+
+    new Waypoint({
+      element: document.getElementById('basic-waypoint'),
+      handler: function() {
+        notify('Basic waypoint triggered')
+      }
+    })
+
+    new Waypoint({
+      element: document.getElementById('direction-waypoint'),
+      handler: function(direction) {
+        notify('Direction: ' + direction)
+      }
+    })
+
+    new Waypoint({
+      element: document.getElementById('px-offset-waypoint'),
+      handler: function(direction) {
+        notify('I am 20px from the top of the window')
+      },
+      offset: 20
+    })
+
+    new Waypoint({
+      element: document.getElementById('element-waypoint'),
+      handler: function(direction) {
+        notify(this.element.id + ' triggers at ' + this.triggerPoint)
+      },
+      offset: 'bottom-in-view'
+    })
+  }
+
   $(function() {
     initVariables()
     centerMain()
+    initGettingStarted()
   })
 
   $(window).on('resize load', function() {

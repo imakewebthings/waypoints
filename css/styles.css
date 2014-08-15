@@ -333,9 +333,6 @@ main {
   overflow: hidden;
   position: relative; }
 
-article {
-  padding: 10px; }
-
 footer {
   position: absolute;
   bottom: 0;
@@ -465,10 +462,7 @@ header {
 
 @media (min-width: 660px) {
   .subsection-nav {
-    float: left; }
-  article {
-    overflow: hidden;
-    padding-left: 30px; } }
+    float: left; } }
 
 .api-nav > li {
   margin-bottom: 16px; }
@@ -798,7 +792,8 @@ header {
       border-top: 0; }
 
 article {
-  line-height: 1.5; }
+  line-height: 1.5;
+  padding: 10px 10px 10px 10px; }
   article code {
     background: #ddd;
     padding: 0 2px; }
@@ -808,3 +803,11 @@ article {
     color: #666;
     font-weight: 300;
     font-size: 24px; }
+
+@media (min-width: 660px) {
+  article {
+    overflow: hidden;
+    padding-left: 30px;
+    padding-top: 0; }
+    article h2 {
+      margin-top: 0; } }
