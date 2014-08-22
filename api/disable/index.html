@@ -5,3 +5,42 @@ subsection: disable
 ---
 
 <h2>waypoint.disable()</h2>
+
+<div class="reference">
+  <h3>Parameters</h3>
+  <p>None.</p>
+  <h3>Returns</h3>
+  <p>The same Waypoint instance, allowing chained method calls.</p>
+</div>
+
+<p>Disables the waypoint, preventing the handler function from triggering.</p>
+
+<p>If you wish to re-enable the waypoint you can call <a href="{{ site.url }}/api/enable">enable</a>. If a waypoint is crossed while it is disabled those triggers do not accumulate and fire when renabled. They are lost. This is the point of disabling.</p>
+
+<p class="scroll-down">Scroll down to view an example.</p>
+
+<div class="waypoint-button-group">
+  <div id="disable-enable-example" class="waypoint">
+{% highlight js %}
+var waypoint = new Waypoint({
+  element: document.getElementById('disable-enable-example'),
+  handler: function(direction) {
+    notify('I am enabled')
+  },
+  offset: 'bottom-in-view'
+})
+
+$('button.disable').on('click', function() {
+  waypoint.disable()
+})
+
+$('button.enable').on('click', function() {
+  waypoint.enable()
+})
+{% endhighlight %}
+  </div>
+  <div class="button-group">
+    <button class="disable">Disable</button>
+    <button class="enable">Enable</button>
+  </div>
+</div>

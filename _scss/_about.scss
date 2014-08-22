@@ -15,12 +15,6 @@
   padding:10px;
   font-size:24px;
 
-  &:before {
-    color:rgba(255,255,255,.5);
-    padding-right:10px;
-    font-size:18px;
-  }
-
   &:hover, &:focus {
     background:$complementColor;
     color:white;

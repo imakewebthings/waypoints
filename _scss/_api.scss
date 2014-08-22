@@ -1,0 +1,51 @@
+.reference {
+  background:rgba(0,0,0,.1);
+  padding:10px;
+  border:1px solid rgba(0,0,0,.1);
+
+  > p {
+    margin:.25em 0;
+  }
+
+  h3 {
+    font-size:1.25em;
+    margin:1em 0 0 0;
+    color:#888;
+
+    &:first-child {
+      margin-top:0
+    }
+  }
+}
+
+.scroll-down {
+  height:700px;
+  height:50vh;
+  position:relative;
+  text-align:center;
+  font-size:2em;
+  font-weight:300;
+  color:#ccc;
+
+  &:before, &:after {
+    display:block;
+    content:'\2193';
+  }
+}
+
+.waypoint-button-group {
+  position:relative;
+}
+
+.button-group {
+  text-transform:capitalize;
+  position:absolute;
+  bottom:0;
+  right:0;
+}
+
+@include desktop {
+  .reference {
+    margin:1.5em 0;
+  }
+}

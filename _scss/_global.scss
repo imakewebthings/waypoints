@@ -50,6 +50,18 @@ pre {
   font-size:14px;
 }
 
+button {
+  display:inline-block;
+  background:$baseColor;
+  color:white;
+  padding:10px;
+  border:0;
+
+  &:hover, &:focus {
+    background:$complementColor;
+  }
+}
+
 .container {
   position:relative;
   z-index:2;

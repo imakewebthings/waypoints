@@ -1,4 +1,5 @@
 (function() {
+  var $document = $(document)
   var $footer, $header, $main, $window, $notification
 
   function initVariables() {
@@ -73,10 +74,49 @@
     })
   }
 
+  function initApiExamples() {
+    var disableEnableWaypoint = $('#disable-enable-example').waypoint({
+      handler: function() {
+        notify('I am enabled')
+      },
+      offset: 'bottom-in-view'
+    })[0]
+
+    var destroyWaypoint = $('#destroy-example').waypoint({
+      handler: function() {
+        notify('I am still alive')
+      },
+      offset: 'bottom-in-view'
+    })[0]
+
+    $document.on('click', 'button.disable', function() {
+      disableEnableWaypoint.disable()
+      $(disableEnableWaypoint.element).addClass('disabled')
+    })
+    $document.on('click', 'button.enable', function() {
+      disableEnableWaypoint.enable()
+      $(disableEnableWaypoint.element).removeClass('disabled')
+    })
+    $document.on('click', 'button.destroy', function() {
+      destroyWaypoint.destroy()
+      $(destroyWaypoint.element).removeClass('waypoint')
+    })
+
+    $('#trigger-once-example').waypoint({
+      handler: function() {
+        notify('Triggered once, now destroyed')
+        $(this.element).removeClass('waypoint')
+        this.destroy()
+      },
+      offset: 'bottom-in-view'
+    })
+  }
+
   $(function() {
     initVariables()
     centerMain()
     initGettingStarted()
+    initApiExamples()
   })
 
   $(window).on('resize load', function() {

@@ -364,6 +364,15 @@ pre {
   padding: 6px 10px;
   font-size: 14px; }
 
+button {
+  display: inline-block;
+  background: #348ec0;
+  color: white;
+  padding: 10px;
+  border: 0; }
+  button:hover, button:focus {
+    background: #68a42b; }
+
 .container {
   position: relative;
   z-index: 2;
@@ -724,6 +733,34 @@ header {
   color: #ae81ff; }
 
 /* Literal.Number.Integer.Long */
+.waypoint {
+  -webkit-animation: pulse 3s infinite ease-out;
+  animation: pulse 3s infinite ease-out; }
+  .waypoint.disabled {
+    -webkit-animation: none;
+    animation: none;
+    box-shadow: 0 0 0 5px rgba(192, 52, 52, 0.8); }
+
+@-webkit-keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(104, 164, 43, 0.8); }
+
+  50% {
+    box-shadow: 0 0 0 10px rgba(104, 164, 43, 0); }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(104, 164, 43, 0); } }
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(104, 164, 43, 0.8); }
+
+  50% {
+    box-shadow: 0 0 0 10px rgba(104, 164, 43, 0); }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(104, 164, 43, 0); } }
+
 .about-main {
   text-align: center;
   padding: 10px; }
@@ -737,10 +774,6 @@ header {
   text-decoration: none;
   padding: 10px;
   font-size: 24px; }
-  .large-button:before {
-    color: rgba(255, 255, 255, 0.5);
-    padding-right: 10px;
-    font-size: 18px; }
   .large-button:hover, .large-button:focus {
     background: #68a42b;
     color: white; }
@@ -811,3 +844,41 @@ article {
     padding-top: 0; }
     article h2 {
       margin-top: 0; } }
+
+.reference {
+  background: rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.1); }
+  .reference > p {
+    margin: 0.25em 0; }
+  .reference h3 {
+    font-size: 1.25em;
+    margin: 1em 0 0 0;
+    color: #888; }
+    .reference h3:first-child {
+      margin-top: 0; }
+
+.scroll-down {
+  height: 700px;
+  height: 50vh;
+  position: relative;
+  text-align: center;
+  font-size: 2em;
+  font-weight: 300;
+  color: #ccc; }
+  .scroll-down:before, .scroll-down:after {
+    display: block;
+    content: '\2193'; }
+
+.waypoint-button-group {
+  position: relative; }
+
+.button-group {
+  text-transform: capitalize;
+  position: absolute;
+  bottom: 0;
+  right: 0; }
+
+@media (min-width: 660px) {
+  .reference {
+    margin: 1.5em 0; } }

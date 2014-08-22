@@ -5,3 +5,51 @@ subsection: destroy
 ---
 
 <h2>waypoint.destroy()</h2>
+
+<div class="reference">
+  <h3>Parameters</h3>
+  <p>None.</p>
+  <h3>Returns</h3>
+  <p>The same Waypoint instance, allowing chained method calls.</p>
+</div>
+
+<p>Destroys the waypoint, preventing the handler from triggering ever again.</p>
+
+<p class="scroll-down">Scroll down to view examples.</p>
+
+<div class="waypoint-button-group">
+  <div class="waypoint" id="destroy-example">
+{% highlight js %}
+var waypoint = new Waypoint({
+  element: document.getElementById('destroy-example'),
+  handler: function(direction) {
+    notify('I am still alive')
+  },
+  offset: 'bottom-in-view'
+})
+
+$('button.destroy').on('click', function() {
+  waypoint.destroy()
+})
+{% endhighlight %}
+  </div>
+  <div class="button-group">
+    <button class="destroy">Destroy</button>
+  </div>
+</div>
+
+<p>Previous versions of Waypoints included an option, <code>triggerOnce</code>, which would destroy a waypoint after the handler was triggered the first time. That option has been removed in favor of manually calling <code>.destroy()</code> at the end of the handler.</p>
+
+<div id="trigger-once-example" class="waypoint">
+{% highlight js %}
+var waypoint = new Waypoint({
+  element: document.getElementById('trigger-once-example'),
+  handler: function(direction) {
+    notify('Triggered once, now destroyed')
+    this.destroy()
+  },
+  offset: 'bottom-in-view'
+})
+{% endhighlight %}
+</div>
+
