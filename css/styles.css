@@ -734,8 +734,8 @@ header {
 
 /* Literal.Number.Integer.Long */
 .waypoint {
-  -webkit-animation: pulse 3s infinite ease-out;
-  animation: pulse 3s infinite ease-out; }
+  -webkit-animation: pulse 3s infinite;
+  animation: pulse 3s infinite; }
   .waypoint.disabled {
     -webkit-animation: none;
     animation: none;
@@ -828,7 +828,7 @@ article {
   line-height: 1.5;
   padding: 10px 10px 10px 10px; }
   article code {
-    background: #ddd;
+    background: rgba(0, 0, 0, 0.1);
     padding: 0 2px; }
   article pre > code {
     background: transparent; }
@@ -846,9 +846,9 @@ article {
       margin-top: 0; } }
 
 .reference {
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.05);
   padding: 10px;
-  border: 1px solid rgba(0, 0, 0, 0.1); }
+  border: 1px solid rgba(0, 0, 0, 0.05); }
   .reference > p {
     margin: 0.25em 0; }
   .reference h3 {
@@ -878,6 +878,37 @@ article {
   position: absolute;
   bottom: 0;
   right: 0; }
+
+.np-example {
+  width: 100%;
+  overflow: hidden; }
+
+.np-container {
+  width: 50%;
+  list-style: none;
+  padding: 0 10px 0 0;
+  float: left; }
+  .np-container li {
+    display: block; }
+
+.np-left {
+  height: 100px;
+  margin: 10px 0;
+  background: #555; }
+
+.np-right {
+  height: 231px;
+  margin: 16px 0;
+  background: #aaa; }
+
+.np-current {
+  background: green; }
+
+.np-previous {
+  background: red; }
+
+.np-next {
+  background: blue; }
 
 @media (min-width: 660px) {
   .reference {

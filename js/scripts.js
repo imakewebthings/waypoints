@@ -110,6 +110,28 @@
       },
       offset: 'bottom-in-view'
     })
+
+    $.each(['np-left', 'np-right'], function(i, classname) {
+      var $elements = $('.' + classname)
+
+      $elements.waypoint({
+        handler: function(direction) {
+          var previousWaypoint = this.previous()
+          var nextWaypoint = this.next()
+
+          $elements.removeClass('np-previous np-current np-next')
+          $(this.element).addClass('np-current')
+          if (previousWaypoint) {
+            $(previousWaypoint.element).addClass('np-previous')
+          }
+          if (nextWaypoint) {
+            $(nextWaypoint.element).addClass('np-next')
+          }
+        },
+        offset: '50%',
+        group: classname
+      })
+    })
   }
 
   $(function() {

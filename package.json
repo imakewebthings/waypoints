@@ -4,7 +4,7 @@
   "description": "Waypoints project page",
   "main": "gulpfile.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "gulp"
   },
   "author": "Caleb Troughton <caleb@imakewebthings.com> (http://imakewebthings.com)",
   "license": "MIT",

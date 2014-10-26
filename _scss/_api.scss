@@ -1,7 +1,7 @@
 .reference {
-  background:rgba(0,0,0,.1);
+  background:rgba(0,0,0,.05);
   padding:10px;
-  border:1px solid rgba(0,0,0,.1);
+  border:1px solid rgba(0,0,0,.05);
 
   > p {
     margin:.25em 0;
@@ -42,6 +42,46 @@
   position:absolute;
   bottom:0;
   right:0;
+}
+
+.np-example {
+  width:100%;
+  overflow:hidden;
+}
+
+.np-container {
+  width:50%;
+  list-style:none;
+  padding:0 10px 0 0;
+  float:left;
+
+  li {
+    display:block;
+  }
+}
+
+.np-left {
+  height:100px;
+  margin:10px 0;
+  background:#555;
+}
+
+.np-right {
+  height:231px;
+  margin:16px 0;
+  background:#aaa;
+}
+
+.np-current {
+  background:green;
+}
+
+.np-previous {
+  background:red;
+}
+
+.np-next {
+  background:blue;
 }
 
 @include desktop {
