@@ -11,6 +11,14 @@ If you're new to Waypoints, check out the [Get Started](http://imakewebthings.gi
 
 [Read the full documentation](http://imakewebthings.github.com/jquery-waypoints/#docs) for more details on usage and customization.
 
+## Use
+
+If you're using bower you can run:
+
+```sh
+$ bower install jquery-waypoints
+```
+
 ## Shortcuts
 
 In addition to the normal Waypoints script, extensions exist to make common UI patterns just a little easier to implement:
