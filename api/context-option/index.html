@@ -5,3 +5,70 @@ subsection: context-option
 ---
 
 <h2>context option</h2>
+
+<div class="reference">
+  <h3>Default</h3>
+  <p><code>window</code></p>
+  <h3>Possible Values</h3>
+  <p>Any element that is an ancestor of the waypoint element.</p>
+</div>
+
+<p>The <code>context</code> option defines which scrollable element the waypoint acts within. This is perhaps easiest to explain by example, so let's look at one. Here we have the following HTML, CSS, and JavaScript:</p>
+
+{% highlight html %}
+<div id="overflow-scroll">
+  <div id="context-example">I am a waypoint with a custom context, the "#overflow-scroll" div.</div>
+</div>
+{% endhighlight %}
+
+{% highlight css %}
+#overflow-scroll {
+  overflow:scroll;
+  height:300px;
+  background:#aaa;
+}
+
+#context-example {
+  background:#555;
+  color:#fff;
+  height:600px;
+  margin-top:150px;
+}
+{% endhighlight %}
+
+{% highlight js %}
+var waypoint = new Waypoint({
+  element: document.getElementById('context-example'),
+  handler: function() {
+    notify('Context example triggered')
+  },
+  context: document.getElementById('overflow-scroll')
+})
+{% endhighlight %}
+
+<p>This results in&hellip;</p>
+
+<div id="overflow-scroll">
+  <div id="context-example">I am a waypoint with a custom context, the "#overflow-scroll" div.</div>
+</div>
+
+<p>As you can see, this waypoint handler is triggered when the top of the element hits the top of its context element. The default of <code>window</code> covers the most common case, the user is scrolling the window and we want to react to an element's position in relation to the top of the window.</p>
+
+<p>The other part of this equation, where the waypoint triggers, can be controlled with the <a href="{{ site.url }}/api/offset-option">offset option</a>. As with the default of <code>window</code>, this offset is calculated in relation to the context. For example, an offset of <code>'50%'</code> will trigger when the top of the element hits the midpoint in the context's height.</p>
+
+{% highlight js %}
+var waypoint = new Waypoint({
+  element: document.getElementById('context-example-offset'),
+  handler: function() {
+    notify('Hit midpoint of my context')
+  },
+  context: document.getElementById('overflow-scroll-offset'),
+  offset: '50%'
+})
+{% endhighlight %}
+
+<br>
+
+<div id="overflow-scroll-offset">
+  <div id="context-example-offset">I am a waypoint with a custom context and a 50% offset.</div>
+</div>

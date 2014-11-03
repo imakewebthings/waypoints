@@ -132,6 +132,21 @@
         group: classname
       })
     })
+
+    $('#context-example').waypoint({
+      handler: function() {
+        notify('Context example triggered')
+      },
+      context: '#overflow-scroll'
+    })
+
+    $('#context-example-offset').waypoint({
+      handler: function() {
+        notify('Hit midpoint of my context')
+      },
+      context: '#overflow-scroll-offset',
+      offset: '50%'
+    })
   }
 
   $(function() {
