@@ -5,3 +5,40 @@ subsection: enabled-option
 ---
 
 <h2>enabled option</h2>
+
+<div class="reference">
+  <h3>Default</h3>
+  <p><code>true</code></p>
+  <h3>Possible Values</h3>
+  <p><code>true</code> or <code>false</code></p>
+</div>
+
+<p>Setting enabled to false is almost the same as calling <a href="../disable">disable</a> after creation, with one key difference. When a waypoint is created, one of the steps in the process is to check if the waypoint has already been passed in the down direction. If it has, the waypoint handler is immediately triggered. However, if <code>enabled: false</code> is set in the options, even that initial check will not occur. Notice one of the following waypoints triggers on page load, and the other does not.</p>
+
+<div id="disabled-after" class="waypoint">
+{% highlight js %}
+var waypoint = new Waypoint({
+  element: document.getElementById('disabled-after'),
+  handler: function() {
+    notify('Disabled after creation')
+  },
+  offset: 99999 // big enough to be crossed already
+})
+waypoint.disable()
+{% endhighlight %}
+</div>
+
+<br>
+
+<div id="enabled-false" class="waypoint disabled">
+{% highlight js %}
+var waypoint = new Waypoint({
+  element: document.getElementById('enabled-false'),
+  handler: function() {
+    notify('Enabled option false')
+  },
+  enabled: false,
+  offset: 99999 // big enough to be crossed already
+})
+{% endhighlight %}
+</div>

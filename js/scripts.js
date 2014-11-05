@@ -196,6 +196,26 @@
     })
   }
 
+  function enabledExample() {
+    var disableMe = $('#disabled-after').waypoint({
+      handler: function() {
+        notify('Disabled after creation')
+      },
+      offset: 99999
+    })[0]
+
+    disableMe.disable()
+    $(disableMe.element).addClass('disabled')
+
+    $('#enabled-false').waypoint({
+      handler: function() {
+        notify('Enabled option false')
+      },
+      enabled: false,
+      offset: 99999
+    })
+  }
+
   function initApiExamples() {
     disableEnableExample()
     destroyExample()
@@ -203,6 +223,7 @@
     nextPreviousExample()
     contextExample()
     continuousExample()
+    enabledExample()
   }
 
   $(function() {
