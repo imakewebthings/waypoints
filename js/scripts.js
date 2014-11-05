@@ -74,17 +74,10 @@
     })
   }
 
-  function initApiExamples() {
+  function disableEnableExample() {
     var disableEnableWaypoint = $('#disable-enable-example').waypoint({
       handler: function() {
         notify('I am enabled')
-      },
-      offset: 'bottom-in-view'
-    })[0]
-
-    var destroyWaypoint = $('#destroy-example').waypoint({
-      handler: function() {
-        notify('I am still alive')
       },
       offset: 'bottom-in-view'
     })[0]
@@ -97,11 +90,23 @@
       disableEnableWaypoint.enable()
       $(disableEnableWaypoint.element).removeClass('disabled')
     })
+  }
+
+  function destroyExample() {
+    var destroyWaypoint = $('#destroy-example').waypoint({
+      handler: function() {
+        notify('I am still alive')
+      },
+      offset: 'bottom-in-view'
+    })[0]
+
     $document.on('click', 'button.destroy', function() {
       destroyWaypoint.destroy()
       $(destroyWaypoint.element).removeClass('waypoint')
     })
+  }
 
+  function triggerOnceExample() {
     $('#trigger-once-example').waypoint({
       handler: function() {
         notify('Triggered once, now destroyed')
@@ -110,7 +115,9 @@
       },
       offset: 'bottom-in-view'
     })
+  }
 
+  function nextPreviousExample() {
     $.each(['np-left', 'np-right'], function(i, classname) {
       var $elements = $('.' + classname)
 
@@ -132,7 +139,9 @@
         group: classname
       })
     })
+  }
 
+  function contextExample() {
     $('#context-example').waypoint({
       handler: function() {
         notify('Context example triggered')
@@ -149,15 +158,63 @@
     })
   }
 
+  function continuousExample() {
+    var handler = function() {
+      notify(this.element.innerHTML + ' hit')
+    }
+
+    $('.continuous-true').waypoint({
+      handler: handler
+    })
+
+    $('.continuous-false').waypoint({
+      handler: handler,
+      continuous: false
+    })
+
+    $('.continuous-group-left').waypoint({
+      handler: handler,
+      continuous: false,
+      group: 'continuous-left'
+    })
+
+    $('.continuous-group-right').waypoint({
+      handler: handler,
+      continuous: false,
+      group: 'continuous-right'
+    })
+
+    $('.continuous-mix-true').waypoint({
+      handler: handler,
+      offset: 'bottom-in-view'
+    })
+
+    $('.continuous-mix-false').waypoint({
+      handler: handler,
+      offset: 'bottom-in-view',
+      continuous: false
+    })
+  }
+
+  function initApiExamples() {
+    disableEnableExample()
+    destroyExample()
+    triggerOnceExample()
+    nextPreviousExample()
+    contextExample()
+    continuousExample()
+  }
+
   $(function() {
     initVariables()
     centerMain()
-    initGettingStarted()
-    initApiExamples()
   })
 
   $(window).on('resize load', function() {
     centerMain()
+  }).on('load', function() {
+    initGettingStarted()
+    initApiExamples()
   })
 
   window.notify = notify

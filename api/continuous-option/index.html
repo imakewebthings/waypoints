@@ -5,3 +5,185 @@ subsection: continuous-option
 ---
 
 <h2>continuous option</h2>
+
+<div class="reference">
+  <h3>Default</h3>
+  <p><code>true</code></p>
+  <h3>Possible Values</h3>
+  <p><code>true</code> or <code>false</code></p>
+</div>
+
+<p>The continuous option applies when a single scroll event would trigger multiple waypoints. A common case for this is if you're linking to a page fragment further down the page. In this first example, we have waypoints with continuous set to the default of true. If you click the link to jump past them you'll see they all trigger in order.</p>
+
+{% highlight js %}
+var continuousElements = document.getElementsByClassName('continuous-true')
+for (var i = 0; i < continuousElements.length; i++) {
+  new Waypoint({
+    element: continuousElements[i],
+    handler: function() {
+      notify(this.element.innerHTML + ' hit')
+    }
+  })
+}
+{% endhighlight %}
+
+<p><a href="#after-continuous" class="large-button">Jump Past Continuous Waypoints</a></p>
+
+<div class="continuous-true waypoint">Continuous 1</div>
+<div class="continuous-true waypoint">Continuous 2</div>
+<div class="continuous-true waypoint">Continuous 3</div>
+<div class="continuous-true waypoint">Continuous 4</div>
+<div class="continuous-true waypoint">Continuous 5</div>
+<div class="continuous-true waypoint">Continuous 6</div>
+<div class="continuous-true waypoint">Continuous 7</div>
+<div class="continuous-true waypoint">Continuous 8</div>
+<div class="continuous-true waypoint">Continuous 9</div>
+<div class="continuous-true waypoint">Continuous 10</div>
+<div class="continuous-true waypoint">Continuous 11</div>
+<div class="continuous-true waypoint">Continuous 12</div>
+<div class="continuous-true waypoint">Continuous 13</div>
+<div class="continuous-true waypoint">Continuous 14</div>
+<div class="continuous-true waypoint">Continuous 15</div>
+<div class="continuous-true waypoint">Continuous 16</div>
+<div class="continuous-true waypoint">Continuous 17</div>
+<div class="continuous-true waypoint">Continuous 18</div>
+<div class="continuous-true waypoint">Continuous 19</div>
+<div class="continuous-true waypoint">Continuous 20</div>
+
+<p id="after-continuous">If we set all of these waypoints to <code>continuous: false</code> and make the same jump you'll see only the last waypoint is triggered.</p>
+
+{% highlight js %}
+var discreteElements = document.getElementsByClassName('continuous-false')
+for (var i = 0; i < discreteElements.length; i++) {
+  new Waypoint({
+    element: discreteElements[i],
+    handler: function() {
+      notify(this.element.innerHTML + ' hit')
+    },
+    continuous: false
+  })
+}
+{% endhighlight %}
+
+<p><a href="#after-discrete" class="large-button">Jump Past Non-Continuous Waypoints</a></p>
+
+<div class="continuous-false waypoint">Non-Continuous 1</div>
+<div class="continuous-false waypoint">Non-Continuous 2</div>
+<div class="continuous-false waypoint">Non-Continuous 3</div>
+<div class="continuous-false waypoint">Non-Continuous 4</div>
+<div class="continuous-false waypoint">Non-Continuous 5</div>
+<div class="continuous-false waypoint">Non-Continuous 6</div>
+<div class="continuous-false waypoint">Non-Continuous 7</div>
+<div class="continuous-false waypoint">Non-Continuous 8</div>
+<div class="continuous-false waypoint">Non-Continuous 9</div>
+<div class="continuous-false waypoint">Non-Continuous 10</div>
+<div class="continuous-false waypoint">Non-Continuous 11</div>
+<div class="continuous-false waypoint">Non-Continuous 12</div>
+<div class="continuous-false waypoint">Non-Continuous 13</div>
+<div class="continuous-false waypoint">Non-Continuous 14</div>
+<div class="continuous-false waypoint">Non-Continuous 15</div>
+<div class="continuous-false waypoint">Non-Continuous 16</div>
+<div class="continuous-false waypoint">Non-Continuous 17</div>
+<div class="continuous-false waypoint">Non-Continuous 18</div>
+<div class="continuous-false waypoint">Non-Continuous 19</div>
+<div class="continuous-false waypoint">Non-Continuous 20</div>
+
+<p id="after-discrete">Continuous is a property that is evaluated in the context of a waypoint's <a href="{{ site.url }}/api/group">group</a>. That is, if you cross multiple waypoints and they all have continuous set to false, but belong to different groups, they will all still fire. The last waypoint for each group is triggered. In the example below we have two different waypoint groups, both containing all waypoints with continuous false. You'll see the last waypoint from each group fires when making the jump.</p>
+
+{% highlight js %}
+var leftElements = document.getElementsByClassName('continuous-group-left')
+for (var i = 0; i < leftElements.length; i++) {
+  new Waypoint({
+    element: leftElements[i],
+    handler: function() {
+      notify(this.element.innerHTML + ' hit')
+    },
+    continuous: false
+  })
+}
+
+var rightElements = document.getElementsByClassName('continuous-group-right')
+for (var i = 0; i < rightElements.length; i++) {
+  new Waypoint({
+    element: rightElements[i],
+    handler: function() {
+      notify(this.element.innerHTML + ' hit')
+    },
+    continuous: false
+  })
+}
+{% endhighlight %}
+
+<p><a href="#after-group" class="large-button">Jump Past Waypoint Groups</a></p>
+
+<div class="continuous-group-container">
+  <div class="continuous-group-column">
+    <div class="continuous-group-left waypoint">Non-Continuous Left 1</div>
+    <div class="continuous-group-left waypoint">Non-Continuous Left 2</div>
+    <div class="continuous-group-left waypoint">Non-Continuous Left 3</div>
+    <div class="continuous-group-left waypoint">Non-Continuous Left 4</div>
+    <div class="continuous-group-left waypoint">Non-Continuous Left 5</div>
+    <div class="continuous-group-left waypoint">Non-Continuous Left 6</div>
+    <div class="continuous-group-left waypoint">Non-Continuous Left 7</div>
+    <div class="continuous-group-left waypoint">Non-Continuous Left 8</div>
+    <div class="continuous-group-left waypoint">Non-Continuous Left 9</div>
+    <div class="continuous-group-left waypoint">Non-Continuous Left 10</div>
+  </div>
+
+  <div class="continuous-group-column">
+    <div class="continuous-group-right waypoint">Non-Continuous Right 1</div>
+    <div class="continuous-group-right waypoint">Non-Continuous Right 2</div>
+    <div class="continuous-group-right waypoint">Non-Continuous Right 3</div>
+    <div class="continuous-group-right waypoint">Non-Continuous Right 4</div>
+    <div class="continuous-group-right waypoint">Non-Continuous Right 5</div>
+    <div class="continuous-group-right waypoint">Non-Continuous Right 6</div>
+    <div class="continuous-group-right waypoint">Non-Continuous Right 7</div>
+    <div class="continuous-group-right waypoint">Non-Continuous Right 8</div>
+    <div class="continuous-group-right waypoint">Non-Continuous Right 9</div>
+    <div class="continuous-group-right waypoint">Non-Continuous Right 10</div>
+  </div>
+</div>
+
+<p id="after-group">It's easy to think about continuous in the following way: If we cross a bunch of waypoints in one scroll, only trigger the last one. This can be the case if every waypoint has continuous set to false, but it isn't exactly what's happening. Continuous is a property of an individual waypoint, and whether that waypoint is triggered is dependent only on its own continuous setting and not that of other triggered waypoints. The more accurate way to think of continuous is: <strong>If this waypoint was crossed and its continuous setting is false, only trigger its handler if it was the last waypoint crossed in its group.</strong></p>
+
+<p>That's a dense bunch of text for a simple example. Here we have a bunch of waypoints with continuous false, except for two in the middle with continuous true. You'll notice the jump causes the last non-continuous waypoint to fire, as well as the continuous waypoints in the middle.</p>
+
+{% highlight js %}
+var continuousElements = document.getElementsByClassName('continuous-mix-true')
+for (var i = 0; i < continuousElements.length; i++) {
+  new Waypoint({
+    element: continuousElements[i],
+    handler: function() {
+      notify(this.element.innerHTML + ' hit')
+    },
+    offset: 'bottom-in-view'
+  })
+}
+
+var discreteElements = document.getElementsByClassName('continuous-mix-false')
+for (var i = 0; i < discreteElements.length; i++) {
+  new Waypoint({
+    element: discreteElements[i],
+    handler: function() {
+      notify(this.element.innerHTML + ' hit')
+    },
+    offset: 'bottom-in-view',
+    continuous: false
+  })
+}
+{% endhighlight %}
+
+<p><a href="#after-mix" class="large-button">Jump Past Mixed Waypoints</a></p>
+
+<div class="continuous-mix-false waypoint">Mix 1: Non-Continuous</div>
+<div class="continuous-mix-false waypoint">Mix 2: Non-Continuous</div>
+<div class="continuous-mix-true waypoint">Mix 3: Continuous</div>
+<div class="continuous-mix-false waypoint">Mix 4: Non-Continuous</div>
+<div class="continuous-mix-false waypoint">Mix 5: Non-Continuous</div>
+<div class="continuous-mix-false waypoint">Mix 6: Non-Continuous</div>
+<div class="continuous-mix-true waypoint">Mix 7: Continuous</div>
+<div class="continuous-mix-false waypoint">Mix 8: Non-Continuous</div>
+<div class="continuous-mix-false waypoint">Mix 9: Non-Continuous</div>
+<div class="continuous-mix-false waypoint">Mix 10: Non-Continuous</div>
+
+<div id="after-mix"></div>

@@ -1,3 +1,8 @@
+.np-example:after, .continuous-group-container:after {
+  content: "";
+  display: table;
+  clear: both; }
+
 * {
   -moz-box-sizing: border-box;
   box-sizing: border-box; }
@@ -739,32 +744,9 @@ header {
 
 /* Literal.Number.Integer.Long */
 .waypoint {
-  -webkit-animation: pulse 3s infinite;
-  animation: pulse 3s infinite; }
+  box-shadow: 0 0 0 5px rgba(104, 164, 43, 0.5); }
   .waypoint.disabled {
-    -webkit-animation: none;
-    animation: none;
     box-shadow: 0 0 0 5px rgba(192, 52, 52, 0.8); }
-
-@-webkit-keyframes pulse {
-  0% {
-    box-shadow: 0 0 0 0 rgba(104, 164, 43, 0.8); }
-
-  50% {
-    box-shadow: 0 0 0 10px rgba(104, 164, 43, 0); }
-
-  100% {
-    box-shadow: 0 0 0 0 rgba(104, 164, 43, 0); } }
-
-@keyframes pulse {
-  0% {
-    box-shadow: 0 0 0 0 rgba(104, 164, 43, 0.8); }
-
-  50% {
-    box-shadow: 0 0 0 10px rgba(104, 164, 43, 0); }
-
-  100% {
-    box-shadow: 0 0 0 0 rgba(104, 164, 43, 0); } }
 
 .about-main {
   text-align: center;
@@ -773,7 +755,7 @@ header {
     text-align: left; }
 
 .large-button {
-  display: block;
+  display: inline-block;
   background: #348ec0;
   color: white;
   text-decoration: none;
@@ -884,15 +866,13 @@ article {
   bottom: 0;
   right: 0; }
 
-.np-example {
-  width: 100%;
-  overflow: hidden; }
-
 .np-container {
+  float: left;
   width: 50%;
   list-style: none;
-  padding: 0 10px 0 0;
-  float: left; }
+  padding: 0 0 0 10px; }
+  .np-container:first-child {
+    padding: 0 10px 0 0; }
   .np-container li {
     display: block; }
 
@@ -914,6 +894,20 @@ article {
 
 .np-next {
   background: blue; }
+
+.continuous-false, .continuous-true, .continuous-group-left, .continuous-group-right, .continuous-mix-true, .continuous-mix-false {
+  height: 80px;
+  background: #555;
+  margin: 15px 0;
+  color: #fff;
+  padding: 10px; }
+
+.continuous-group-column {
+  float: left;
+  width: 50%;
+  padding: 0 0 0 10px; }
+  .continuous-group-column:first-child {
+    padding: 0 10px 0 0; }
 
 #overflow-scroll, #overflow-scroll-offset {
   overflow: scroll;

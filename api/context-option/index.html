@@ -49,7 +49,7 @@ var waypoint = new Waypoint({
 <p>This results in&hellip;</p>
 
 <div id="overflow-scroll">
-  <div id="context-example">I am a waypoint with a custom context, the "#overflow-scroll" div.</div>
+  <div id="context-example" class="waypoint">I am a waypoint with a custom context, the "#overflow-scroll" div.</div>
 </div>
 
 <p>As you can see, this waypoint handler is triggered when the top of the element hits the top of its context element. The default of <code>window</code> covers the most common case, the user is scrolling the window and we want to react to an element's position in relation to the top of the window.</p>
@@ -70,5 +70,5 @@ var waypoint = new Waypoint({
 <br>
 
 <div id="overflow-scroll-offset">
-  <div id="context-example-offset">I am a waypoint with a custom context and a 50% offset.</div>
+  <div id="context-example-offset" class="waypoint">I am a waypoint with a custom context and a 50% offset.</div>
 </div>

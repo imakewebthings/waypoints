@@ -45,15 +45,18 @@
 }
 
 .np-example {
-  width:100%;
-  overflow:hidden;
+  @extend %clearfix;
 }
 
 .np-container {
+  float:left;
   width:50%;
   list-style:none;
-  padding:0 10px 0 0;
-  float:left;
+  padding:0 0 0 10px;
+
+  &:first-child {
+    padding:0 10px 0 0;
+  }
 
   li {
     display:block;
@@ -82,6 +85,33 @@
 
 .np-next {
   background:blue;
+}
+
+.continuous-false,
+.continuous-true,
+.continuous-group-left,
+.continuous-group-right,
+.continuous-mix-true,
+.continuous-mix-false {
+  height:80px;
+  background:#555;
+  margin:15px 0;
+  color:#fff;
+  padding:10px;
+}
+
+.continuous-group-container {
+  @extend %clearfix;
+}
+
+.continuous-group-column {
+  float:left;
+  width:50%;
+  padding:0 0 0 10px;
+
+  &:first-child {
+    padding:0 10px 0 0;
+  }
 }
 
 #overflow-scroll, #overflow-scroll-offset {
