@@ -202,10 +202,12 @@
         notify('Disabled after creation')
       },
       offset: 99999
-    })[0]
+    })
 
-    disableMe.disable()
-    $(disableMe.element).addClass('disabled')
+    if (disableMe.length) {
+      disableMe[0].disable()
+      $(disableMe[0].element).addClass('disabled')
+    }
 
     $('#enabled-false').waypoint({
       handler: function() {
