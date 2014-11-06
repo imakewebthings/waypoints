@@ -115,9 +115,9 @@
 }
 
 #overflow-scroll, #overflow-scroll-offset {
-  overflow:scroll;
+  overflow:auto;
   height:300px;
-  background:#aaa;
+  background:rgba(0,0,0,.1);
 }
 
 #context-example {
@@ -132,6 +132,15 @@
   color:#fff;
   height:600px;
   margin-top:200px;
+}
+
+#horizontal-waypoint, #horizontal-waypoint-offset {
+  width:1000px;
+  height:100%;
+  padding:10px;
+  margin-left:150px;
+  background:#555;
+  color:#fff;
 }
 
 @include desktop {

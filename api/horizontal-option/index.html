@@ -5,3 +5,65 @@ subsection: horizontal-option
 ---
 
 <h2>horizontal option</h2>
+
+<div class="reference">
+  <h3>Default</h3>
+  <p><code>false</code></p>
+  <h3>Possible Values</h3>
+  <p><code>true</code> or <code>false</code>.</p>
+</div>
+
+<p>By default, everything in Waypoints land is happening on the vertical axis. <a href="../offset-option">Offsets</a> are calculated with regard to the <em>top</em> of the element versus the <em>top</em> of its <a href="../context-option">context</a>, handlers are triggered in response to vertical scrolls, and the <code>direction</code> parameter passed to that handler is either <code>'down'</code> or <code>'up'</code>.</p>
+
+<p>When horizontal is set to true, all of this changes to the horizontal axis. Offsets are calculated between the <em>left</em> of and the <em>left</em> of the context and the direction is either set to <code>'right'</code> or <code>'left'</code>.</p>
+
+<p>Let's look at the simplest example. Here we'll use a custom context, just to make it easier on this site's design:</p>
+
+{% highlight html %}
+<div id="overflow-scroll">
+  <div id="horizontal-waypoint">Horizontal</div>
+</div>
+{% endhighlight %}
+
+{% highlight js %}
+var waypoint = new Waypoint({
+  element: document.getElementById('horizontal-waypoint'),
+  handler: function(direction) {
+    notify('Horizontal waypoint triggered in the ' + direction + ' direction')
+  },
+  context: document.getElementById('overflow-scroll'),
+  horizontal: true
+})
+{% endhighlight %}
+
+<br>
+
+<div id="overflow-scroll">
+  <div id="horizontal-waypoint" class="waypoint">Horizontal</div>
+</div>
+
+<p>Vertical waypoints have a special possible shortcut value, <code>'bottom-in-view'</code>. Horizontal waypoints have an analog, <code>'right-in-view'</code>.</p>
+
+{% highlight html %}
+<div id="overflow-scroll-offset">
+  <div id="horizontal-waypoint-offset">right-in-view offset</div>
+</div>
+{% endhighlight %}
+
+{% highlight js %}
+var waypoint = new Waypoint({
+  element: document.getElementById('horizontal-waypoint-offset'),
+  handler: function(direction) {
+    notify('right-in-view waypoint triggered')
+  },
+  context: document.getElementById('overflow-scroll-offset'),
+  horizontal: true,
+  offset: 'right-in-view'
+})
+{% endhighlight %}
+
+<br>
+
+<div id="overflow-scroll-offset">
+  <div id="horizontal-waypoint-offset" class="waypoint">right-in-view offset</div>
+</div>

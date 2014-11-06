@@ -218,6 +218,29 @@
     })
   }
 
+  function horizontalExample() {
+    $('#horizontal-waypoint').waypoint({
+      handler: function(direction) {
+        notify([
+          'Horizontal waypoint triggered in the',
+          direction,
+          'direction'
+        ].join(' '))
+      },
+      horizontal: true,
+      context: '#overflow-scroll'
+    })
+
+    $('#horizontal-waypoint-offset').waypoint({
+      handler: function(direction) {
+        notify('right-in-view waypoint triggered')
+      },
+      horizontal: true,
+      context: '#overflow-scroll-offset',
+      offset: 'right-in-view'
+    })
+  }
+
   function initApiExamples() {
     disableEnableExample()
     destroyExample()
@@ -226,6 +249,7 @@
     contextExample()
     continuousExample()
     enabledExample()
+    horizontalExample()
   }
 
   $(function() {
