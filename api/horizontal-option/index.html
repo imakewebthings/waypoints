@@ -15,7 +15,7 @@ subsection: horizontal-option
 
 <p>By default, everything in Waypoints land is happening on the vertical axis. <a href="../offset-option">Offsets</a> are calculated with regard to the <em>top</em> of the element versus the <em>top</em> of its <a href="../context-option">context</a>, handlers are triggered in response to vertical scrolls, and the <code>direction</code> parameter passed to that handler is either <code>'down'</code> or <code>'up'</code>.</p>
 
-<p>When horizontal is set to true, all of this changes to the horizontal axis. Offsets are calculated between the <em>left</em> of and the <em>left</em> of the context and the direction is either set to <code>'right'</code> or <code>'left'</code>.</p>
+<p>When horizontal is set to true, all of this changes to the horizontal axis. Offsets are calculated between the <em>left</em> of the element and the <em>left</em> of the context, and the direction is either set to <code>'right'</code> or <code>'left'</code>.</p>
 
 <p>Let's look at the simplest example. Here we'll use a custom context, just to make it easier on this site's design:</p>
 
@@ -42,7 +42,7 @@ var waypoint = new Waypoint({
   <div id="horizontal-waypoint" class="waypoint">Horizontal</div>
 </div>
 
-<p>Vertical waypoints have a special possible shortcut value, <code>'bottom-in-view'</code>. Horizontal waypoints have an analog, <code>'right-in-view'</code>.</p>
+<p>Vertical waypoints have a special possible offset shortcut value, <code>'bottom-in-view'</code>. Horizontal waypoints have an analog, <code>'right-in-view'</code>.</p>
 
 {% highlight html %}
 <div id="overflow-scroll-offset">

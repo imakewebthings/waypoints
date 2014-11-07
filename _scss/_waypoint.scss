@@ -1,7 +1,7 @@
 .waypoint {
-  box-shadow:0 0 0 5px rgba($complementColor, .5);
+  box-shadow:0 0 0 5px rgba($complementColor, 0.5);
 
   &.disabled {
-    box-shadow: 0 0 0 5px rgba($errorColor, 0.8);
+    box-shadow: 0 0 0 5px rgba($errorColor, 0.5);
   }
 }

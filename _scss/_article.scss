@@ -5,10 +5,12 @@ article {
   code {
     background:rgba(0,0,0,.1);
     padding:0 2px;
+    font-size:0.875em;
   }
 
   pre > code {
     background:transparent;
+    font-size:1em;
   }
 
   h3 {
