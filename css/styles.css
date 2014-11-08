@@ -846,6 +846,10 @@ article {
     color: #888; }
     .reference h3:first-child {
       margin-top: 0; }
+  .reference dt {
+    margin-top: 1em; }
+  .reference dd {
+    margin-left: 30px; }
 
 .scroll-down {
   height: 700px;

@@ -241,6 +241,61 @@
     })
   }
 
+  function offsetExample() {
+    $('#number-offset').waypoint({
+      handler: function() {
+        notify('25px from top')
+      },
+      offset: 25
+    })
+
+    $('#number-offset-negative').waypoint({
+      handler: function() {
+        notify('25px past the top')
+      },
+      offset: -25
+    })
+
+    $('#percentage-offset').waypoint({
+      handler: function() {
+        notify('50% from the top')
+      },
+      offset: '50%'
+    })
+
+    $('#percentage-offset-negative').waypoint({
+      handler: function() {
+        notify('50% past the top')
+      },
+      offset: '-50%'
+    })
+
+    $('#function-offset').waypoint({
+      handler: function() {
+        notify('Bottom of element hit top of viewport')
+      },
+      offset: function() {
+        return -$(this.element).outerHeight()
+      }
+    })
+
+    $('#bottom-in-view-example').waypoint({
+      handler: function() {
+        notify('Bottom of element hit bottom of viewport')
+      },
+      offset: 'bottom-in-view'
+    })
+
+    $('#right-in-view-example').waypoint({
+      handler: function() {
+        notify('Bottom of element hit bottom of viewport')
+      },
+      horizontal: true,
+      context: '#overflow-scroll-offset',
+      offset: 'right-in-view'
+    })
+  }
+
   function initApiExamples() {
     disableEnableExample()
     destroyExample()
@@ -250,6 +305,7 @@
     continuousExample()
     enabledExample()
     horizontalExample()
+    offsetExample()
   }
 
   $(function() {

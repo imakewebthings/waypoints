@@ -5,3 +5,161 @@ subsection: offset-option
 ---
 
 <h2>offset option</h2>
+
+<div class="reference">
+  <h3>Default</h3>
+  <p><code>0</code></p>
+  <h3>Possible Values</h3>
+  <dl>
+    <dt><a href="#number">number</a></dt>
+    <dd>A number of pixels.</dd>
+    <dt><a href="#percentage">percentage string</a></dt>
+    <dd>Ex: <code>'50%'</code>. A percentage of the viewport's height.</dd>
+    <dt><a href="#function">function</a></dt>
+    <dd>The function must return a number of pixels, as if you were using a number offset. The function is re-evaluated whenever a trigger point is recalculated, allowing for changes in layout.</dd>
+    <dt><a href="#bottom-in-view">'bottom-in-view' string</a></dt>
+    <dd>This is a shortcut, an alias for a function offset that will trigger the handler when the bottom of the element hits the bottom of the viewport.</dd>
+    <dt><a href="#right-in-view">'right-in-view' string</a></dt>
+    <dd>This is a shortcut, an alias for a function offset that will trigger the handler when the right of the element hits the right of the viewport. This is only useful in conjunction with the <a href="../horizontal-option">horizontal option</a>.</dd>
+  </dl>
+</div>
+
+<p>After the <a href="../handler-option">handler</a>, the <code>offset</code> is probably the most important and used option. By default, the handler is triggered when the top of an element hits the top of the viewport. The offset changes the location of that trigger point. This option accepts several different types of values. Let's look at each of them.</p>
+
+<h3 id="number">Number Offset</h3>
+
+<p>A number offset represents the number of pixels from the top of the viewport where the handler should trigger. The default, <code>0</code>, means the handler triggers when the top of the element hits the top of the viewport. If we set this to <code>25</code>, it will trigger when the top of the element is 25px from the top of the window.</p>
+
+<div id="number-offset" class="waypoint">
+{% highlight js %}
+var waypoint = new Waypoint({
+  element: document.getElementById('number-offset'),
+  handler: function(direction) {
+    notify('25px from top')
+  },
+  offset: 25
+})
+{% endhighlight %}
+</div>
+
+<p>Number offsets can be negative. An offset of <code>-25</code> triggers the handler when the top of the element is 25px <em>above</em> the top of the viewport, out of sight.</p>
+
+<div id="number-offset" class="waypoint">
+{% highlight js %}
+var waypoint = new Waypoint({
+  element: document.getElementById('number-offset-negative'),
+  handler: function(direction) {
+    notify('25px past the top')
+  },
+  offset: -25
+})
+{% endhighlight %}
+</div>
+
+<h3 id="percentage">Percentage Offset</h3>
+
+<p>A percentage offset refers to a percentage of the window's height. An offet of <code>'50%'</code> will trigger when the top of the element is 50% of the way from the top of the window, or simply put, hits the middle of the window.</p>
+
+<div id="percentage-offset" class="waypoint">
+{% highlight js %}
+var waypoint = new Waypoint({
+  element: document.getElementById('percentage-offset'),
+  handler: function(direction) {
+    notify('50% from the top')
+  },
+  offset: '50%'
+})
+{% endhighlight %}
+</div>
+
+<p>Just like number offsets, percentages can be negative. Also like number offsets, negatives indicate the top of the element is a certain percentage of the window height <em>beyond</em> the top of the viewport.</p>
+
+<div id="percentage-offset-negative" class="waypoint">
+{% highlight js %}
+var waypoint = new Waypoint({
+  element: document.getElementById('percentage-offset-negative'),
+  handler: function(direction) {
+    notify('50% past the top')
+  },
+  offset: '-50%'
+})
+{% endhighlight %}
+</div>
+
+<h3 id="function">Function Offset</h3>
+
+<p>Function offsets allow for dynamic, complex, creative offsets that depend on runtime values. Let's say we had a waypoint that we wanted to trigger when the bottom of the element hit the top of the window. Let's also say that element has a height of 100px. Easy enough:</p>
+
+{% highlight js %}
+offset: -100
+{% endhighlight %}
+
+<p>But what if we didn't know the height of the element? Maybe it contains user controlled content and could be any height. We might be tempted to do this:</p>
+
+{% highlight js %}
+offset: -myElement.clientHeight
+{% endhighlight %}
+
+<p>This may work, but what if the height of the element changes during a user's time browsing? Perhaps they resized their browser and the element is now taller. If we used the offset above, the waypoint's trigger point would not adjust. This is where function offsets come in.</p>
+
+<div id="function-offset" class="waypoint">
+{% highlight js %}
+var waypoint = new Waypoint({
+  element: document.getElementById('function-offset'),
+  handler: function(direction) {
+    notify('Bottom of element hit top of viewport')
+  },
+  offset: function() {
+    return -this.element.clientHeight
+  }
+})
+{% endhighlight %}
+</div>
+
+<p>This offset function will now stay up to date with the element's height as the browser resizes. This is because resizing the browser triggers a <a href="../refresh-all">refresh all</a>, which forces the recalculation of every waypoint's trigger point. Trigger points are <strong>only</strong> calculated during a refresh, which occurs when a new waypoint is created, the browser is resized, or a refresh method is manually called. If you change the layout of your page or manipulate the DOM in a way that may effect a waypoint's trigger point, you should call refresh manually.</p>
+
+<h3 id="bottom-in-view">bottom-in-view Offset</h3>
+
+<p>One of the most common needs when using Waypoints is to detect when the entire element is in view, or more precisely, when the bottom of the element hits the bottom of the window. Because it's so common, a shortcut string is included, <code>'bottom-in-view'</code>.</p>
+
+<div id="bottom-in-view-example" class="waypoint">
+{% highlight js %}
+var waypoint = new Waypoint({
+  element: document.getElementById('bottom-in-view-example'),
+  handler: function(direction) {
+    notify('Bottom of element hit bottom of viewport')
+  },
+  offset: 'bottom-in-view'
+})
+{% endhighlight %}
+</div>
+
+<h3 id="right-in-view">right-in-view Offset</h3>
+
+<p><code>'right-in-view'</code> is the horizontal analog to the <code>'bottom-in-view'</code> alias. It is a shortcut for a function offset, and triggers when the right of the element hits the right edge of the viewport. Here we'll use a custom <a href="../context-option">context</a>, just to make it easier on this site's design:</p>
+
+{% highlight html %}
+<div id="overflow-scroll-offset">
+  <div id="horizontal-waypoint-offset">right-in-view offset</div>
+</div>
+{% endhighlight %}
+
+{% highlight js %}
+var waypoint = new Waypoint({
+  element: document.getElementById('horizontal-waypoint-offset'),
+  handler: function(direction) {
+    notify('right-in-view waypoint triggered')
+  },
+  context: document.getElementById('overflow-scroll-offset'),
+  horizontal: true,
+  offset: 'right-in-view'
+})
+{% endhighlight %}
+
+<br>
+
+<div id="overflow-scroll-offset">
+  <div id="horizontal-waypoint-offset" class="waypoint">right-in-view offset</div>
+</div>
+
+<p>As you can see in the above example, the offset is calculated in relation to the bounding box of the scrollable context element. This is true of all the different possible offset value types.</p>
