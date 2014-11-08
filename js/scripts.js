@@ -296,6 +296,23 @@
     })
   }
 
+  function handlerExample() {
+    $('#handler-example').waypoint({
+      handler: function(direction) {
+        notify('Handler triggered in ' + direction + ' direction')
+      },
+      offset: 'bottom-in-view'
+    })
+
+    $('#handler-horizontal').waypoint({
+      handler: function(direction) {
+        notify('Handler triggered in ' + direction + ' direction')
+      },
+      context: '#overflow-scroll',
+      horizontal: true
+    })
+  }
+
   function initApiExamples() {
     disableEnableExample()
     destroyExample()
@@ -306,6 +323,7 @@
     enabledExample()
     horizontalExample()
     offsetExample()
+    handlerExample()
   }
 
   $(function() {

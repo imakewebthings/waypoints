@@ -1,0 +1,49 @@
+---
+layout: api
+title: handler option
+subsection: handler-option
+---
+
+<h2>handler option</h2>
+
+<div class="reference">
+  <h3>Default</h3>
+  <p>A no-op function, <code>function() {}</code>.</p>
+  <h3>Possible Values</h3>
+  <p>Any function.</p>
+</div>
+
+<p>The handler option is the whole point of Waypoints. This is the function that executes when a waypoint is crossed. This function is passed one parameter, <code>direction</code>. If you are scrolling down and cross the waypoint, <code>direction</code> will equal <code>'down'</code>. If you are scrolling up, it will equal <code>'up'</code>.</p>
+
+<p class="scroll-down">Scroll down to view examples.</p>
+
+<div id="handler-example" class="waypoint">
+{% highlight js %}
+var waypoint = new Waypoint({
+  element: document.getElementById('handler-example'),
+  handler: function(direction) {
+    notify('Handler triggered in ' + direction + ' direction')
+  },
+  offset: 'bottom-in-view'
+})
+{% endhighlight %}
+</div>
+
+<p>If you're using a <a href="../horizontal-option">horizontal</a> waypoint, the direction parameter is set to either <code>'right'</code> or <code>'left'</code>.</p>
+
+{% highlight js %}
+var waypoint = new Waypoint({
+  element: document.getElementById('handler-example'),
+  handler: function(direction) {
+    notify('Handler triggered in ' + direction + ' direction')
+  },
+  context: document.getElementById('overflow-scroll'),
+  horizontal: true
+})
+{% endhighlight %}
+
+<br>
+
+<div id="overflow-scroll">
+  <div id="handler-horizontal" class="waypoint">Horizontal</div>
+</div>
