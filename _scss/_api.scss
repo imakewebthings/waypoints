@@ -122,6 +122,21 @@
   }
 }
 
+.destroy-all-waypoint {
+  height:100px;
+  background:#555;
+  color:#fff;
+  padding:10px;
+  margin:15px 0;
+}
+
+.added {
+  height:100px;
+  background:#ccc;
+  padding:10px;
+  margin:15px 0;
+}
+
 #overflow-scroll, #overflow-scroll-offset {
   overflow:auto;
   height:300px;
@@ -149,6 +164,14 @@
   margin-left:150px;
   background:#555;
   color:#fff;
+}
+
+#refresh-all-waypoint {
+  height:100px;
+  padding:10px;
+  background:#555;
+  color:#fff;
+  margin:15px 0;
 }
 
 @include desktop {

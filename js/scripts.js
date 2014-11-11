@@ -313,6 +313,38 @@
     })
   }
 
+  function destroyAllExample() {
+    $('.destroy-all-waypoint').waypoint({
+      handler: function() {
+        notify(this.element.innerHTML + ' still alve')
+      },
+      offset: 'bottom-in-view'
+    })
+
+    $('button.destroy-all').on('click', function() {
+      Waypoint.destroyAll()
+      $('.destroy-all-waypoint').removeClass('waypoint')
+    })
+  }
+
+  function refreshAllExample() {
+    $('#refresh-all-waypoint').waypoint({
+      handler: function(direction) {
+        notify('Waypoint triggered in ' + direction + ' direction')
+      },
+      offset: 'bottom-in-view'
+    })
+
+    $('button.add-with-refresh').on('click', function() {
+      $('#refresh-all-waypoint').before('<div class="added">Added</div>')
+      Waypoint.refreshAll()
+    })
+
+    $('button.add-without-refresh').on('click', function() {
+      $('#refresh-all-waypoint').before('<div class="added">Added</div>')
+    })
+  }
+
   function initApiExamples() {
     disableEnableExample()
     destroyExample()
@@ -324,6 +356,8 @@
     horizontalExample()
     offsetExample()
     handlerExample()
+    destroyAllExample()
+    refreshAllExample()
   }
 
   $(function() {

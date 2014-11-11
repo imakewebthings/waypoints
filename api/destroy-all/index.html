@@ -5,3 +5,42 @@ subsection: destroy-all
 ---
 
 <h2>Waypoint.destroyAll()</h2>
+
+<div class="reference">
+  <h3>Parameters</h3>
+  <p>None.</p>
+  <h3>Returns</h3>
+  <p><code>undefined</code>.</p>
+</div>
+
+<p>Destroys all Waypoints. This is the same as calling <a href="../destroy">destroy</a> on every waypoint, or calling <a href="../context-destroy">destroy on every context</a>.</p>
+
+<p class="scroll-down">Scroll down to view an example.</p>
+
+{% highlight js %}
+var elements = document.getElementsByClassName('.destroy-all-waypoint')
+elements.forEach(function(element) {
+  new Waypoint({
+    element: element,
+    handler: function(direction) {
+      notify(this.element.innerHTML + ' still alive')
+    },
+    offset: 'bottom-in-view'
+  })
+})
+
+$('button.destroy-all').on('click', function() {
+  Waypoint.destroyAll()
+})
+{% endhighlight %}
+
+<p><button class="destroy-all">Destroy All Waypoints</button></p>
+
+<div class="waypoint destroy-all-waypoint">Waypoint 1</div>
+<div class="waypoint destroy-all-waypoint">Waypoint 2</div>
+<div class="waypoint destroy-all-waypoint">Waypoint 3</div>
+<div class="waypoint destroy-all-waypoint">Waypoint 4</div>
+<div class="waypoint destroy-all-waypoint">Waypoint 5</div>
+<div class="waypoint destroy-all-waypoint">Waypoint 6</div>
+<div class="waypoint destroy-all-waypoint">Waypoint 7</div>
+<div class="waypoint destroy-all-waypoint">Waypoint 8</div>

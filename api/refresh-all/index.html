@@ -5,3 +5,42 @@ subsection: refresh-all
 ---
 
 <h2>Waypoint.refreshAll()</h2>
+
+<div class="reference">
+  <h3>Parameters</h3>
+  <p>None.</p>
+  <h3>Returns</h3>
+  <p><code>undefined</code>.</p>
+</div>
+
+<p>This method forces a recalculation of the trigger point for every waypoint. It is the same as individually calling <a href="../refresh">refresh</a> on every context.</p>
+
+<p>This method needs to be called whenever you make changes to the DOM, CSS, or anything that may effect the layout and positioning of elements on the page. It is called automatically when the window is resized, so it only needs to be called manually when layout changes happen outside of a resize.</p>
+
+<p>In the example below we have a waypoint that triggers when the bottom of the element hits the bottom of the viewport. We also have two buttons. Both buttons add an element to the DOM above the waypoint, effectively pushing the waypoint further down the page. One button calls <code>refreshAll</code> after the new element is appended, the other does not. Notice how the button with refresh causes the waypoint to continue triggering in the correct spot, when the bottom of the waypoint hits the bottom of the window. The no-refresh button will keep the old, incorrect trigger point.</p>
+
+{% highlight js %}
+var waypoint = new Waypoint({
+  element: document.getElementById('refresh-all-waypoint'),
+  handler: function(direction) {
+    notify('Waypoint triggered in ' + direction + ' direction')
+  },
+  offset: 'bottom-in-view'
+})
+
+$('button.add-with-refresh').on('click', function() {
+  $('#refresh-all-waypoint').prepend('<div class="added">Added</div>')
+  Waypoint.refreshAll()
+})
+
+$('button.add-without-refresh').on('click', function() {
+  $('#refresh-all-waypoint').prepend('<div class="added">Added</div>')
+})
+{% endhighlight %}
+
+<p>
+  <button class="add-with-refresh">Add and Refresh</button>
+  <button class="add-without-refresh">Add Without Refresh</button>
+</p>
+
+<div id="refresh-all-waypoint" class="waypoint">Waypoint</div>
