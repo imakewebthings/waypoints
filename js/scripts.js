@@ -351,6 +351,12 @@
     })
   }
 
+  function viewportWidthExample() {
+    $('.show-viewport-width').on('click', function() {
+      notify('Viewport Width: ' + Waypoint.viewportWidth())
+    })
+  }
+
   function initApiExamples() {
     disableEnableExample()
     destroyExample()
@@ -365,6 +371,7 @@
     destroyAllExample()
     refreshAllExample()
     viewportHeightExample()
+    viewportWidthExample()
   }
 
   $(function() {

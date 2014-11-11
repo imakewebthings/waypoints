@@ -5,3 +5,28 @@ subsection: viewport-width
 ---
 
 <h2>Waypoint.viewportWidth()</h2>
+
+<div class="reference">
+  <h3>Parameters</h3>
+  <p>None.</p>
+  <h3>Returns</h3>
+  <p>The width of the window in px.</p>
+</div>
+
+<p>This is a convenience method for retrieving the width of the window. Unlike its <a href="../viewport-height">viewportHeight complement</a>, this method does not need to work around iOS inconsistencies.</p>
+
+{% highlight js %}
+$('button.show-viewport-width').on('click', function() {
+  notify('Viewport Width: ' + Waypoint.viewportWidth())
+})
+{% endhighlight %}
+
+<p><button class="show-viewport-width">Show Viewport Width</button></p>
+
+<p>This method often comes in handy when writing <a href="../offset-option/#function">function offsets</a>, particularly for <a href="../horizontal-option">horizontal waypoints</a>. For example, if your horizontal waypoint has the default <a href="../context-option">context</a> of <code>window</code>, the <a href="../offset-option/#right-in-view">right-in-view</a> alias works out to be the following function offset:</p>
+
+{% highlight js %}
+offset: function() {
+  return Waypoint.viewportWidth() - this.element.clientwidth
+}
+{% endhighlight %}
