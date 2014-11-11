@@ -345,6 +345,12 @@
     })
   }
 
+  function viewportHeightExample() {
+    $('.show-viewport-height').on('click', function() {
+      notify('Viewport Height: ' + Waypoint.viewportHeight())
+    })
+  }
+
   function initApiExamples() {
     disableEnableExample()
     destroyExample()
@@ -358,6 +364,7 @@
     handlerExample()
     destroyAllExample()
     refreshAllExample()
+    viewportHeightExample()
   }
 
   $(function() {

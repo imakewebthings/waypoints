@@ -5,3 +5,28 @@ subsection: viewport-height
 ---
 
 <h2>Waypoint.viewportHeight()</h2>
+
+<div class="reference">
+  <h3>Parameters</h3>
+  <p>None.</p>
+  <h3>Returns</h3>
+  <p>The height of the window in px.</p>
+</div>
+
+<p>This is a convenience method for retrieving the height of the window. It also works around inconsistencies in iOS with window height reporting when the URL bar is present on screen.</p>
+
+{% highlight js %}
+$('button.show-viewport-height').on('click', function() {
+  notify('Viewport Height: ' + Waypoint.viewportHeight())
+})
+{% endhighlight %}
+
+<p><button class="show-viewport-height">Show Viewport Height</button></p>
+
+<p>This method often comes in handy when writing <a href="../offset-option/#function">function offsets</a>. For example, if your waypoint has the default <a href="../context-option">context</a> of <code>window</code>, the <a href="../offset-option/#bottom-in-view">bottom-in-view</a> alias works out to be the following function offset:</p>
+
+{% highlight js %}
+offset: function() {
+  return Waypoint.viewportHeight() - this.element.clientHeight
+}
+{% endhighlight %}
