@@ -358,9 +358,6 @@
   }
 
   function contextDestroyExample() {
-    var leftElements = document.getElementsByClassName('left-context-waypoint')
-    var rightElements = document.getElementsByClassName('right-context-waypoint')
-
     function notifyInnerHTML() {
       notify(this.element.innerHTML + ' hit')
     }

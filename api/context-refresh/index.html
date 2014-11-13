@@ -5,3 +5,12 @@ subsection: context-refresh
 ---
 
 <h2>context.refresh()</h2>
+
+<div class="reference">
+  <h3>Parameters</h3>
+  <p>None.</p>
+  <h3>Returns</h3>
+  <p><code>undefined</code>.</p>
+</div>
+
+<p>This method forces a recalculation of the trigger point for every waypoint in this context. This method ends up being called automatically during a <code>resize</code> event and when new waypoints are created. However, if you make changes to the DOM, CSS, or anything that may effect the layout and positioning of elements on the page, you need to call this method manually. In that situation, it is recommended to call <a href="../refresh-all">refreshAll</a>, which refreshes all contexts, but if you know only one context needs to be refreshed you can opt to call this method instead.</p>
