@@ -1,4 +1,4 @@
-.np-example:after, .continuous-group-container:after {
+.np-example:after, .continuous-group-container:after, .context-destroy-container:after {
   content: "";
   display: table;
   clear: both; }
@@ -928,6 +928,19 @@ article {
   padding: 10px;
   margin: 15px 0; }
 
+.left-context-waypoint, .right-context-waypoint {
+  height: 600px;
+  margin-bottom: 20px;
+  padding: 10px; }
+
+.left-context-waypoint {
+  background: #555;
+  color: #fff; }
+
+.right-context-waypoint {
+  background: #ccc;
+  color: #000; }
+
 #overflow-scroll, #overflow-scroll-offset {
   overflow: auto;
   height: 300px;
@@ -936,7 +949,7 @@ article {
 #context-example {
   background: #555;
   color: #fff;
-  height: 600px;
+  height: 400px;
   margin-top: 150px; }
 
 #context-example-offset {
@@ -959,6 +972,22 @@ article {
   background: #555;
   color: #fff;
   margin: 15px 0; }
+
+#left-context {
+  float: left;
+  width: 50%;
+  padding-right: 10px;
+  height: 300px;
+  overflow: auto;
+  padding-top: 20px; }
+
+#right-context {
+  float: right;
+  width: 50%;
+  padding-left: 10px;
+  height: 300px;
+  overflow: auto;
+  padding-top: 20px; }
 
 @media (min-width: 660px) {
   .reference {

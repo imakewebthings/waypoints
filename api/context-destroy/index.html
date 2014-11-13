@@ -5,3 +5,81 @@ subsection: context-destroy
 ---
 
 <h2>context.destroy()</h2>
+
+<div class="reference">
+  <h3>Parameters</h3>
+  <p>None.</p>
+  <h3>Returns</h3>
+  <p><code>undefined</code>.</p>
+</div>
+
+<p>This destroys every waypoint in the context, and consequently unbinds any scroll and resize handlers attached to this context's element.</p>
+
+<p>In this example we have two custom contexts. Clicking the destroy button for each will destroy only those waypoints within that context.</p>
+
+{% highlight js %}
+var leftElements = document.getElementsByClassName('left-context-waypoint')
+var rightElements = document.getElementsByClassName('right-context-waypoint')
+
+function notifyInnerHTML() {
+  notify(this.element.innerHTML + ' hit')
+}
+
+leftElements.forEach(function(element) {
+  new Waypoint({
+    element: element,
+    handler: notifyInnerHTML,
+    context: document.getElementById('left-context')
+  })
+})
+
+rightElements.forEach(function(element) {
+  new Waypoint({
+    element: element,
+    handler: notifyInnerHTML,
+    context: document.getElementById('right-context')
+  })
+})
+
+$('button.destroy-left-context').on('click', function() {
+  var element = document.getElementById('left-context')
+  var context = Waypoint.Context.findByElement(element)
+  context.destroy()
+})
+
+$('button.destroy-right-context').on('click', function() {
+  var element = document.getElementById('right-context')
+  var context = Waypoint.Context.findByElement(element)
+  context.destroy()
+})
+{% endhighlight %}
+
+<p>
+  <button class="destroy-left-context">Destroy Left Context</button>
+  <button class="destroy-right-context">Destroy Right Context</button>
+</p>
+
+<div class="context-destroy-container">
+  <div id="left-context">
+    <div class="left-context-waypoint waypoint">Left Waypoint 1</div>
+    <div class="left-context-waypoint waypoint">Left Waypoint 2</div>
+    <div class="left-context-waypoint waypoint">Left Waypoint 3</div>
+    <div class="left-context-waypoint waypoint">Left Waypoint 4</div>
+    <div class="left-context-waypoint waypoint">Left Waypoint 5</div>
+    <div class="left-context-waypoint waypoint">Left Waypoint 6</div>
+    <div class="left-context-waypoint waypoint">Left Waypoint 7</div>
+    <div class="left-context-waypoint waypoint">Left Waypoint 8</div>
+    <div class="left-context-waypoint waypoint">Left Waypoint 9</div>
+  </div>
+  <div id="right-context">
+    <div class="right-context-waypoint waypoint">Right Waypoint 1</div>
+    <div class="right-context-waypoint waypoint">Right Waypoint 2</div>
+    <div class="right-context-waypoint waypoint">Right Waypoint 3</div>
+    <div class="right-context-waypoint waypoint">Right Waypoint 4</div>
+    <div class="right-context-waypoint waypoint">Right Waypoint 5</div>
+    <div class="right-context-waypoint waypoint">Right Waypoint 6</div>
+    <div class="right-context-waypoint waypoint">Right Waypoint 7</div>
+    <div class="right-context-waypoint waypoint">Right Waypoint 8</div>
+    <div class="right-context-waypoint waypoint">Right Waypoint 9</div>
+  </div>
+</div>

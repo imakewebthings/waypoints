@@ -357,6 +357,35 @@
     })
   }
 
+  function contextDestroyExample() {
+    var leftElements = document.getElementsByClassName('left-context-waypoint')
+    var rightElements = document.getElementsByClassName('right-context-waypoint')
+
+    function notifyInnerHTML() {
+      notify(this.element.innerHTML + ' hit')
+    }
+
+    $('.left-context-waypoint').waypoint({
+      handler: notifyInnerHTML,
+      context: '#left-context'
+    })
+
+    $('.right-context-waypoint').waypoint({
+      handler: notifyInnerHTML,
+      context: '#right-context'
+    })
+
+    $('button.destroy-left-context').on('click', function() {
+      Waypoint.Context.findByElement($('#left-context')[0]).destroy()
+      $('.left-context-waypoint').removeClass('waypoint')
+    })
+
+    $('button.destroy-right-context').on('click', function() {
+      Waypoint.Context.findByElement($('#right-context')[0]).destroy()
+      $('.right-context-waypoint').removeClass('waypoint')
+    })
+  }
+
   function initApiExamples() {
     disableEnableExample()
     destroyExample()
@@ -372,6 +401,7 @@
     refreshAllExample()
     viewportHeightExample()
     viewportWidthExample()
+    contextDestroyExample()
   }
 
   $(function() {
