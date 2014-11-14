@@ -383,6 +383,40 @@
     })
   }
 
+  function findByElementExample() {
+    var waypoint
+
+    $('button.find-create').on('click', function() {
+      waypoint = new Waypoint({
+        element: document.getElementById('find-by-example'),
+        handler: function(direction) {
+          notify('Waypoint hit')
+        },
+        context: document.getElementById('overflow-scroll')
+      })
+      $(waypoint.element).addClass('waypoint')
+      $(this).hide()
+      $('button.find-destroy').show()
+    })
+
+    $('button.find-destroy').on('click', function() {
+      waypoint.destroy()
+      $(waypoint.element).removeClass('waypoint')
+      $(this).hide()
+      $('button.find-create').show()
+    })
+
+    $('button.find-by-element').on('click', function() {
+      var context = Waypoint.Context.findByElement($('#overflow-scroll')[0])
+      if (typeof context === 'undefined') {
+        notify('Context does not exist')
+      }
+      else if (context instanceof Waypoint.Context) {
+        notify('Context found')
+      }
+    })
+  }
+
   function initApiExamples() {
     disableEnableExample()
     destroyExample()
@@ -399,6 +433,7 @@
     viewportHeightExample()
     viewportWidthExample()
     contextDestroyExample()
+    findByElementExample()
   }
 
   $(function() {

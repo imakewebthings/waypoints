@@ -5,3 +5,53 @@ subsection: context-find-by-element
 ---
 
 <h2>Context.findByElement(element)</h2>
+
+<div class="reference">
+  <h3>Parameters</h3>
+  <p><code>element</code>: The scrollable <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement" target="_blank">HTMLElement</a> of the context object you wish to find.</p>
+  <h3>Returns</h3>
+  <p><a href="../context">Context</a> instance, or <code>undefined</code> if no context is associated with the provided element.</p>
+</div>
+
+<p>Given an element on the page, this method returns the <code>Context</code> instance associated with that element. If the element does not have an associated <code>Context</code>, the method returns <code>undefined</code>.</p>
+
+<p>In this example we can create and destroy a waypoint inside a custom context. Another button shows us the result of calling <code>findByElement</code>. Notice when the waypoint is created (and as a result the <code>Context</code> is created) the method returns that <code>Context</code>. When the waypoint is destroyed (which also destroys the <code>Context</code> since it is empty) the call returns <code>undefined</code>.</p>
+
+{% highlight js %}
+var waypoint
+
+$('button.find-create').on('click', function() {
+  waypoint = new Waypoint({
+    element: document.getElementById('find-by-example'),
+    handler: function(direction) {
+      notify('Waypoint hit')
+    },
+    context: document.getElementById('overflow-scroll')
+  })
+})
+
+$('button.find-destroy').on('click', function() {
+  waypoint.destroy()
+})
+
+$('button.find-by-element').on('click', function() {
+  var element = document.getElementById('overflow-scroll')
+  var context = Waypoint.Context.findByElement(element)
+  if (typeof context === 'undefined') {
+    notify('Context does not exist')
+  }
+  else if (context instanceof Waypoint.Context) {
+    notify('Context found')
+  }
+})
+{% endhighlight %}
+
+<p>
+  <button class="find-create">Create Waypoint</button>
+  <button class="find-destroy" style="display:none;">Destroy Waypoint</button>
+  <button class="find-by-element">Find Context by Element</button>
+</p>
+
+<div id="overflow-scroll">
+  <div id="find-by-example">Waypoint</div>
+</div>

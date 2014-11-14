@@ -946,16 +946,18 @@ article {
   height: 300px;
   background: rgba(0, 0, 0, 0.1); }
 
-#context-example {
+#context-example, #find-by-example {
   background: #555;
   color: #fff;
   height: 400px;
+  padding: 10px;
   margin-top: 150px; }
 
 #context-example-offset {
   background: #555;
   color: #fff;
   height: 600px;
+  padding: 10px;
   margin-top: 200px; }
 
 #horizontal-waypoint, #horizontal-waypoint-offset, #handler-horizontal {
