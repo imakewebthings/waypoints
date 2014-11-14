@@ -13,7 +13,7 @@ subsection: first
   <p>A <code>Waypoint</code> instance.</p>
 </div>
 
-<p>This method returns the first waypoint in the group. "First" is determined by the trigger point of the waypoints in the group, where "first" is the waypoint with the topmost (or leftmost for horizontal waypoints) trigger point.</p>
+<p>This method returns the first waypoint in the group. "First" is determined by the trigger point of the waypoints in the group, where "first" is the waypoint with the top-most (or left-most for horizontal waypoints) trigger point.</p>
 
 <p>In the example below, we'll set up two groups of waypoints, even and odds. Both groups of waypoints do the same thing: If the waypoint hit is the first waypoint in the group, it will produce a different notification from the others.</p>
 
@@ -26,7 +26,7 @@ function handler(direction) {
     notify('First ' + this.group.name + ' hit')
   }
   else {
-    notify('Some regular ' + this.group.name + ' hit')
+    notify('Some other ' + this.group.name + ' hit')
   }
 }
 
@@ -49,7 +49,7 @@ odds.forEach(function(element) {
 })
 {% endhighlight %}
 
-<br>
+<br id="first-example">
 
 <div class="group-odd waypoint">Odd</div>
 <div class="group-even waypoint">Even</div>

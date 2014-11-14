@@ -5,3 +5,59 @@ subsection: last
 ---
 
 <h2>group.last()</h2>
+
+<div class="reference">
+  <h3>Parameters</h3>
+  <p>None.</p>
+  <h3>Returns</h3>
+  <p>A <code>Waypoint</code> instance.</p>
+</div>
+
+<p>This method returns the last waypoint in the group. "Last" is determined by the trigger point of the waypoints in the group, where "last" is the waypoint with the bottom-most (or right-most for horizontal waypoints) trigger point.</p>
+
+<p>In the example below, we'll set up two groups of waypoints, even and odds. Both groups of waypoints do the same thing: If the waypoint hit is the last waypoint in the group, it will produce a different notification from the others.</p>
+
+{% highlight js %}
+var evens = document.getElementsByClassName('group-even')
+var odds = document.getElementsByClassName('group-odd')
+
+function handler(direction) {
+  if (this === this.group.last()) {
+    notify('Last ' + this.group.name + ' hit')
+  }
+  else {
+    notify('Some other ' + this.group.name + ' hit')
+  }
+}
+
+evens.forEach(function(element) {
+  new Waypoint({
+    element: element,
+    handler: handler,
+    offset: 'bottom-in-view',
+    group: 'even'
+  })
+})
+
+odds.forEach(function(element) {
+  new Waypoint({
+    element: element,
+    handler: handler
+    offset: 'bottom-in-view',
+    group: 'odd'
+  })
+})
+{% endhighlight %}
+
+<br id="last-example">
+
+<div class="group-odd waypoint">Odd</div>
+<div class="group-even waypoint">Even</div>
+<div class="group-odd waypoint">Odd</div>
+<div class="group-even waypoint">Even</div>
+<div class="group-odd waypoint">Odd</div>
+<div class="group-even waypoint">Even</div>
+<div class="group-odd waypoint">Odd</div>
+<div class="group-even waypoint">Even</div>
+<div class="group-odd waypoint">Odd</div>
+<div class="group-even waypoint">Even</div>

@@ -418,12 +418,43 @@
   }
 
   function firstExample() {
+    if (!$('#first-example').length) {
+      return;
+    }
+
     function handler(direction) {
       if (this === this.group.first()) {
         notify('First ' + this.group.name + ' hit')
       }
       else {
-        notify('Some regular ' + this.group.name + ' hit')
+        notify('Some other ' + this.group.name + ' hit')
+      }
+    }
+
+    $('.group-even').waypoint({
+      handler: handler,
+      offset: 'bottom-in-view',
+      group: 'even'
+    })
+
+    $('.group-odd').waypoint({
+      handler: handler,
+      offset: 'bottom-in-view',
+      group: 'odd'
+    })
+  }
+
+  function lastExample() {
+    if (!$('#last-example').length) {
+      return;
+    }
+
+    function handler(direction) {
+      if (this === this.group.last()) {
+        notify('Last ' + this.group.name + ' hit')
+      }
+      else {
+        notify('Some other ' + this.group.name + ' hit')
       }
     }
 
@@ -458,6 +489,7 @@
     contextDestroyExample()
     findByElementExample()
     firstExample()
+    lastExample()
   }
 
   $(function() {
