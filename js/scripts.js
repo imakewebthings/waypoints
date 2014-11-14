@@ -417,6 +417,29 @@
     })
   }
 
+  function firstExample() {
+    function handler(direction) {
+      if (this === this.group.first()) {
+        notify('First ' + this.group.name + ' hit')
+      }
+      else {
+        notify('Some regular ' + this.group.name + ' hit')
+      }
+    }
+
+    $('.group-even').waypoint({
+      handler: handler,
+      offset: 'bottom-in-view',
+      group: 'even'
+    })
+
+    $('.group-odd').waypoint({
+      handler: handler,
+      offset: 'bottom-in-view',
+      group: 'odd'
+    })
+  }
+
   function initApiExamples() {
     disableEnableExample()
     destroyExample()
@@ -434,6 +457,7 @@
     viewportWidthExample()
     contextDestroyExample()
     findByElementExample()
+    firstExample()
   }
 
   $(function() {

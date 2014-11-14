@@ -5,3 +5,59 @@ subsection: first
 ---
 
 <h2>group.first()</h2>
+
+<div class="reference">
+  <h3>Parameters</h3>
+  <p>None.</p>
+  <h3>Returns</h3>
+  <p>A <code>Waypoint</code> instance.</p>
+</div>
+
+<p>This method returns the first waypoint in the group. "First" is determined by the trigger point of the waypoints in the group, where "first" is the waypoint with the topmost (or leftmost for horizontal waypoints) trigger point.</p>
+
+<p>In the example below, we'll set up two groups of waypoints, even and odds. Both groups of waypoints do the same thing: If the waypoint hit is the first waypoint in the group, it will produce a different notification from the others.</p>
+
+{% highlight js %}
+var evens = document.getElementsByClassName('group-even')
+var odds = document.getElementsByClassName('group-odd')
+
+function handler(direction) {
+  if (this === this.group.first()) {
+    notify('First ' + this.group.name + ' hit')
+  }
+  else {
+    notify('Some regular ' + this.group.name + ' hit')
+  }
+}
+
+evens.forEach(function(element) {
+  new Waypoint({
+    element: element,
+    handler: handler,
+    offset: 'bottom-in-view',
+    group: 'even'
+  })
+})
+
+odds.forEach(function(element) {
+  new Waypoint({
+    element: element,
+    handler: handler
+    offset: 'bottom-in-view',
+    group: 'odd'
+  })
+})
+{% endhighlight %}
+
+<br>
+
+<div class="group-odd waypoint">Odd</div>
+<div class="group-even waypoint">Even</div>
+<div class="group-odd waypoint">Odd</div>
+<div class="group-even waypoint">Even</div>
+<div class="group-odd waypoint">Odd</div>
+<div class="group-even waypoint">Even</div>
+<div class="group-odd waypoint">Odd</div>
+<div class="group-even waypoint">Even</div>
+<div class="group-odd waypoint">Odd</div>
+<div class="group-even waypoint">Even</div>

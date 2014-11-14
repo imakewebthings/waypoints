@@ -507,6 +507,10 @@ header {
 .highlight pre {
   white-space: pre-wrap; }
 
+.highlight pre code {
+  white-space: pre-wrap;
+  padding: 0; }
+
 .highlight .hll {
   background-color: #49483e; }
 
@@ -938,6 +942,19 @@ article {
   color: #fff; }
 
 .right-context-waypoint {
+  background: #ccc;
+  color: #000; }
+
+.group-odd, .group-even {
+  padding: 10px;
+  height: 100px; }
+
+.group-odd {
+  background: #555;
+  color: #fff;
+  margin: 20px 0; }
+
+.group-even {
   background: #ccc;
   color: #000; }
 

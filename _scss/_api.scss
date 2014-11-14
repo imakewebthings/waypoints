@@ -157,6 +157,22 @@
   color:#000;
 }
 
+.group-odd, .group-even {
+  padding:10px;
+  height:100px;
+}
+
+.group-odd {
+  background:#555;
+  color:#fff;
+  margin:20px 0;
+}
+
+.group-even {
+  background:#ccc;
+  color:#000;
+}
+
 #overflow-scroll, #overflow-scroll-offset {
   overflow:auto;
   height:300px;
