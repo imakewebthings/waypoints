@@ -169,6 +169,8 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
             triggered.push waypoint
           else if axis.newScroll < waypoint.offset <= axis.oldScroll
             triggered.push waypoint
+          else if waypoint.offset == 0 and axis.newScroll == 0 and axis.oldScroll > 0
+            triggered.push waypoint
         triggered.sort (a, b) -> a.offset - b.offset
         triggered.reverse() unless isForward
         $.each triggered, (i, waypoint) ->
