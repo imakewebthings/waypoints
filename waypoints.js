@@ -116,6 +116,8 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
               return triggered.push(waypoint);
             } else if ((axis.newScroll < (_ref1 = waypoint.offset) && _ref1 <= axis.oldScroll)) {
               return triggered.push(waypoint);
+            } else if (waypoint.offset === 0 && axis.newScroll === 0 && axis.oldScroll > 0) {
+              return triggered.push(waypoint);
             }
           });
           triggered.sort(function(a, b) {
