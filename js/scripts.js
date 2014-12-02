@@ -536,6 +536,26 @@
     })
   }
 
+  function groupClassExamples() {
+    $('#group-axis-example').waypoint(function(direction) {
+      notify('Axis: ' + this.group.axis)
+    }, {
+      offset: '50%'
+    })
+    $('#group-name-example').waypoint(function(direction) {
+      notify('Name: ' + this.group.name)
+    }, {
+      group: 'custom-group',
+      offset: '50%'
+    })
+    $('#group-waypoints-example').waypoint(function(direction) {
+      notify('Group waypoint count: ' + this.group.waypoints.length)
+    }, {
+      group: 'custom-group',
+      offset: 'bottom-in-view'
+    })
+  }
+
   function initApiExamples() {
     disableEnableExample()
     destroyExample()
@@ -557,6 +577,7 @@
     lastExample()
     waypointClassExamples()
     contextClassExamples()
+    groupClassExamples()
   }
 
   $(function() {

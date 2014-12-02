@@ -1,7 +1,76 @@
 ---
 layout: api
-title: Waypoint.Group
+title: Waypoint.Group Class
 subsection: group
 ---
 
-<h2>Waypoint.Group</h2>
+<h2>Waypoint.Group Class</h2>
+
+<p>Every waypoint belongs to a <code>Group</code>. A <code>Group</code> serves as a logical separation of groups of waypoints that comes into play with group-dependent options and methods, such as the <a href="../continuous-option">continuous option</a>, <a href="../next">next method</a>, and <a href="../previous">previous method</a>. Groups also ensure the correct trigger order of waypoints when multiple waypoints are crossed in one check.</p>
+
+<p>When a <a href="../context">Context</a> listening for scroll and resize events sees that a waypoint has been crossed, it doesn't immediately trigger it. Instead, it registers the waypoint as triggered with that waypoint's <code>Group</code>. When the context is done with its checks, groups with marked waypoints go through the process of sorting the triggered waypoints and filtering them according to the <code>continuous</code> option.</p>
+
+<p>Groups are automatically created through the use of the <a href="../group-option">group option</a>. Because of this, you should not instantiate this class directly. Instead, a group should be accessed using a waypoint's <a href="../waypoint/#group-property">group property</a>.</p>
+
+<h3>Properties</h3>
+
+<div class="properties-container">
+  <div class="reference properties">
+    <ul>
+      <li><a href="#axis-property">axis</a></li>
+      <li><a href="#name-property">name</a></li>
+      <li><a href="#waypoints-property">waypoints</a></li>
+    </ul>
+  </div>
+  <p>Groups are a simple construct with only a few properties. Let's look at a few examples that use of them.</p>
+</div>
+
+<h4 id="axis-property">axis</h4>
+
+<p>Groups only operate on a single axis. That means if you create a vertical <code>Waypoint</code> with a group name of <code>"foo"</code>, and create a horizontal one with the same group name, you'll end up creating two different groups. They share the same <a href="#name-property">name</a>, but have a different <code>axis</code>.</p>
+
+<div id="group-axis-example" class="waypoint">
+{% highlight js %}
+var waypoint = new Waypoint({
+  element: document.getElementById('group-axis-example'),
+  handler: function(direction) {
+    notify('Axis: ' + this.group.axis)
+  },
+  offset: '50%'
+})
+{% endhighlight %}
+</div>
+
+<h4 id="name-property">name</h4>
+
+<p>The <code>name</code> property for a group is identical to the string provided as the <a href="../group-option">group option</a>.</p>
+
+<div id="group-name-example" class="waypoint">
+{% highlight js %}
+var waypoint = new Waypoint({
+  element: document.getElementById('group-name-example'),
+  handler: function(direction) {
+    notify('Name: ' + this.group.name)
+  },
+  group: 'custom-group',
+  offset: '50%'
+})
+{% endhighlight %}
+</div>
+
+<h4 id="waypoints-property">waypoints</h4>
+
+<p>The <code>waypoints</code> property is an array of the <code>Waypoint</code> instances that belong to this group. Beware that while the <a href="../first">first</a>, <a href="../last">last</a>, <a href="../previous">previous</a>, and <a href="../next">next</a> methods guarantee the result comes from a properly sorted waypoint array, this property may be unsorted at any given time.</p>
+
+<div id="group-waypoints-example" class="waypoint">
+{% highlight js %}
+var waypoint = new Waypoint({
+  element: document.getElementById('group-waypoints-example'),
+  handler: function(direction) {
+    notify('Group waypoint count: ' + this.group.waypoints.length)
+  },
+  group: 'custom-group',
+  offset: 'bottom-in-view'
+})
+{% endhighlight %}
+</div>
