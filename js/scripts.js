@@ -514,6 +514,28 @@
     })
   }
 
+  function contextClassExamples() {
+    $('#context-adapter-example').waypoint(function(direction) {
+      notify('Scrolltop value: ' + this.context.adapter.scrollTop())
+    }, {
+      offset: '25%'
+    })
+    $('#context-element-example').waypoint(function(direction) {
+      notify('Context element: ' + this.context.element)
+    }, {
+      offset: '25%'
+    })
+    $('#context-waypoints-example').waypoint(function(direction) {
+      $.each(this.context.waypoints, function(axis, waypoints) {
+        $.each(waypoints, function(key, waypoint) {
+          notify([axis, key, waypoint.element.id].join(' / '))
+        })
+      })
+    }, {
+      offset: 'bottom-in-view'
+    })
+  }
+
   function initApiExamples() {
     disableEnableExample()
     destroyExample()
@@ -534,6 +556,7 @@
     firstExample()
     lastExample()
     waypointClassExamples()
+    contextClassExamples()
   }
 
   $(function() {

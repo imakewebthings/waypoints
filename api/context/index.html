@@ -4,4 +4,89 @@ title: Waypoint.Context
 subsection: context
 ---
 
-<h2>Waypoint.Context</h2>
+<h2>Waypoint.Context Class</h2>
+
+<p>Every waypoint belongs to a <code>Context</code>. A <code>Context</code> is a wrapper around a scrollable DOM element (or <code>window</code>), and there is always only one <code>Context</code> for any element. Contexts are only created for an element if a <a href="../waypoint">Waypoint</a> is created with that element supplied as the <a href="../context-option">context option</a>. Because <code>Waypoint</code> creation automatically drives <code>Context</code> creation, you never need to instantiate this class directly. Instead, instances of this class should be retrieved through a waypoint's <a href="../waypoint#context-property">context property</a>, or by using <a href="../context-find-by-element">Waypoint.Context.findByElement</a>.</p>
+
+<h3>Properties</h3>
+
+<div class="properties-container">
+  <div class="reference properties">
+    <ul>
+      <li><a href="#adapter-property">adapter</a></li>
+      <li><a href="#element-property">element</a></li>
+      <li><a href="#waypoints-property">waypoints</a></li>
+    </ul>
+  </div>
+  <p>The <code>Context</code> plays a crucial role. It oversees the <code>scroll</code> and <code>resize</code> events for the element it represents and makes the necessary checks for which waypoints to trigger. As part of these duties, it keeps a few internal state properties, namely booleans used for event throttling and previous scroll positions. Besides those properties, let's look at others more useful to Waypoints users.</p>
+</div>
+
+<h4 id="adapter-property">adapter</h4>
+
+<p>This property gives you the instance of the <a href="../../guides/adapters">adapter</a> wrapped around the DOM element of this context. Most Waypoints users should use the <a href="#element-property">element property</a> to access this element, but <code>adapter</code> is useful for developers writing Waypoints extensions or scripts that are intended to be used across all the different framework builds of Waypoints.</p>
+
+<div id="context-adapter-example" class="waypoint">
+{% highlight js %}
+var waypoint = new Waypoint({
+  element: document.getElementById('context-adapter-example'),
+  handler: function(direction) {
+    notify('Scrolltop value: ' + this.context.adapter.scrollTop())
+  },
+  offset: '25%'
+})
+{% endhighlight %}
+</div>
+
+<h4 id="element-property">element</h4>
+
+<p>This property gives you the underlying DOM element (or <code>window</code>, in the default case) of the context.</p>
+
+<div id="context-element-example" class="waypoint">
+{% highlight js %}
+var waypoint = new Waypoint({
+  element: document.getElementById('context-element-example'),
+  handler: function(direction) {
+    notify('Context element: ' + this.context.element)
+  },
+  offset: '25%'
+})
+{% endhighlight %}
+</div>
+
+<h4 id="waypoints-property">waypoints</h4>
+
+<p>The <code>waypoints</code> property is an object with two properties, <code>horizontal</code> and <code>vertical</code>. Each of those properties are themselves objects containing all the horizontal and vertical waypoints in the context respectively. The keys of those objects are a unique internal id assigned to a waypoint, and the values are the <code>Waypoint</code> instances themselves. The whole object might look like this at any given time:</p>
+
+{% highlight js %}
+{
+  horizontal: {
+    'waypoint-key-24': (a Waypoint instance)
+  },
+  vertical: {
+    'waypoint-key-4': (a Waypoint instance),
+    'waypoint-key-5': (a Waypoint instance)
+  }
+}
+{% endhighlight %}
+
+<p>Let's look at the <code>waypoints</code> property on the <code>window</code> context for this page.</p>
+
+<div id="context-waypoints-example" class="waypoint">
+{% highlight js %}
+var waypoint = new Waypoint({
+  element: document.getElementById('context-waypoints-example'),
+  handler: function(direction) {
+    for (var axis in this.context.waypoints) {
+      for (var waypointKey in this.context.waypoints[axis]) {
+        notify([
+          axis,
+          waypointKey,
+          this.context.waypoints[axis][waypointKey].element.id
+        ].join(' / '))
+      }
+    }
+  },
+  offset: 'bottom-in-view'
+})
+{% endhighlight %}
+</div>
