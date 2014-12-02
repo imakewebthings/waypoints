@@ -471,6 +471,49 @@
     })
   }
 
+  function waypointClassExamples() {
+    $('#new-operator, #options-only, #handler-only').waypoint({
+      handler: function(direction) {
+        notify(this.element.id + ' hit')
+      }
+    })
+    $('#handler-first').waypoint(function(direction) {
+      notify(this.element.id + ' hit 25% from the top of window')
+    }, {
+      offset: '25%'
+    })
+    $('#adapter-property-example').waypoint(function(direction) {
+      notify('Using jQuery adapter: ' + !!this.adapter.$element)
+    }, {
+      offset: '25%'
+    })
+    $('#context-property-example').waypoint(function(direction) {
+      notify('Context: ' + this.context.element)
+    }, {
+      offset: '25%'
+    })
+    $('#element-property-example').waypoint(function(direction) {
+      notify('Waypoint element id: ' + this.element.id)
+    }, {
+      offset: '25%'
+    })
+    $('#group-property-example').waypoint(function(direction) {
+      notify('Group: ' + this.group.name)
+    }, {
+      offset: '25%'
+    })
+    $('#options-property-example').waypoint(function(direction) {
+      notify('Offset option: ' + this.options.offset)
+    }, {
+      offset: '50%'
+    })
+    $('#trigger-point-example').waypoint(function(direction) {
+      notify('Trigger point: ' + this.triggerPoint)
+    }, {
+      offset: 'bottom-in-view'
+    })
+  }
+
   function initApiExamples() {
     disableEnableExample()
     destroyExample()
@@ -490,6 +533,7 @@
     findByElementExample()
     firstExample()
     lastExample()
+    waypointClassExamples()
   }
 
   $(function() {

@@ -1,4 +1,4 @@
-.np-example:after, .continuous-group-container:after, .context-destroy-container:after {
+.np-example:after, .continuous-group-container:after, .context-destroy-container:after, .properties-container:after {
   content: "";
   display: table;
   clear: both; }
@@ -469,7 +469,7 @@ header {
   .subsection-nav li:first-child > a {
     border-top: 0; }
 
-.on-getting-started .nav-getting-started, .on-jquery-waypoints .nav-jquery-waypoints, .on-creating-adapters .nav-creating-adapters, .on-debugging-waypoints .nav-debugging-waypoints, .on-sticky-elements .nav-sticky-elements, .on-infinite-scroll .nav-infinite-scroll, .on-inview .nav-inview, .on-context .nav-context, .on-context-destroy .nav-context-destroy, .on-context-find-by-element .nav-context-find-by-element, .on-context-option .nav-context-option, .on-context-refresh .nav-context-refresh, .on-continuous-option .nav-continuous-option, .on-destroy .nav-destroy, .on-destroy-all .nav-destroy-all, .on-disable .nav-disable, .on-enable .nav-enable, .on-enabled-option .nav-enabled-option, .on-first .nav-first, .on-group .nav-group, .on-group-option .nav-group-option, .on-handler-option .nav-handler-option, .on-horizontal-option .nav-horizontal-option, .on-last .nav-last, .on-next .nav-next, .on-offset-option .nav-offset-option, .on-previous .nav-previous, .on-refresh-all .nav-refresh-all, .on-trigger-once-option .nav-trigger-once-option, .on-viewport-height .nav-viewport-height, .on-viewport-width .nav-viewport-width, .on-waypoint .nav-waypoint {
+.on-getting-started .nav-getting-started, .on-jquery-waypoints .nav-jquery-waypoints, .on-adapters .nav-adapters, .on-debugging-waypoints .nav-debugging-waypoints, .on-sticky-elements .nav-sticky-elements, .on-infinite-scroll .nav-infinite-scroll, .on-inview .nav-inview, .on-context .nav-context, .on-context-destroy .nav-context-destroy, .on-context-find-by-element .nav-context-find-by-element, .on-context-option .nav-context-option, .on-context-refresh .nav-context-refresh, .on-continuous-option .nav-continuous-option, .on-destroy .nav-destroy, .on-destroy-all .nav-destroy-all, .on-disable .nav-disable, .on-enable .nav-enable, .on-enabled-option .nav-enabled-option, .on-first .nav-first, .on-group .nav-group, .on-group-option .nav-group-option, .on-handler-option .nav-handler-option, .on-horizontal-option .nav-horizontal-option, .on-last .nav-last, .on-next .nav-next, .on-offset-option .nav-offset-option, .on-previous .nav-previous, .on-refresh-all .nav-refresh-all, .on-viewport-height .nav-viewport-height, .on-viewport-width .nav-viewport-width, .on-waypoint .nav-waypoint {
   background: #348ec0;
   color: #fff;
   cursor: default; }
@@ -842,6 +842,8 @@ article {
   background: rgba(0, 0, 0, 0.05);
   padding: 10px;
   border: 1px solid rgba(0, 0, 0, 0.05); }
+  .reference.properties ul {
+    margin: 0.5em 0; }
   .reference > p {
     margin: 0.25em 0; }
   .reference h3 {
@@ -1010,4 +1012,8 @@ article {
 
 @media (min-width: 660px) {
   .reference {
-    margin: 1.5em 0; } }
+    margin: 1.5em 0; }
+  .properties {
+    float: left;
+    margin: 0 1em 1em 0;
+    min-width: 220px; } }

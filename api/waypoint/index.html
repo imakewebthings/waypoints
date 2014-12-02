@@ -1,7 +1,193 @@
 ---
 layout: api
-title: API
+title: Waypoint Class
 subsection: waypoint
 ---
 
-<h2>API</h2>
+<h2>Waypoint Class</h2>
+
+<p>Waypoints are created by instantiating this class. How you instantiate a waypoint depends on which build you use (jQuery, Zepto, or no-framework dependency.) All builds support instantiation using <code>new</code> on the globally exposed <code>Waypoint</code> class.</p>
+
+<h3>new Waypoint(options)</h3>
+<div class="reference">
+  <h3>Parameters</h3>
+  <p><code>options</code>: A JavaScript object containing Waypoints options. This options object is required. It must contain <code>element</code> and <code>handler</code> properties.</p>
+</div>
+
+<div id="new-operator" class="waypoint">
+{% highlight js %}
+var waypoint = new Waypoint({
+  element: document.getElementById('new-operator'),
+  handler: function(direction) {
+    notify(this.id + ' hit')
+  }
+})
+{% endhighlight %}
+</div>
+
+<p>If you're using the jQuery or Zepto builds, extensions for those frameworks are provided as syntactic sugar to match the framework style. A <code>waypoint</code> method is exposed on the jQuery/Zepto prototypes.</p>
+
+<h3>$.fn.waypoint(options)</h3>
+<div class="reference">
+  <h3>Parameters</h3>
+  <p><code>options</code>: A JavaScript object containing Waypoints options. <code>handler</code> is the only required property.</p>
+  <h3>Returns</h3>
+  <p>Array of <code>Waypoint</code> instances.</p>
+</div>
+
+<div id="options-only" class="waypoint">
+{% highlight js %}
+var waypoints = $('#options-only').waypoint({
+  handler: function(direction) {
+    notify(this.element.id + ' hit')
+  }
+})
+{% endhighlight %}
+</div>
+
+<p>In the example above, <code>waypoints</code> will be an array of Waypoint instances, one for each of the elements matching the selector. In this case, an array containing only one waypoint using the lone <code>#options-only</code> element. Notice that the <code>element</code> option is no longer needed with the jQuery or Zepto builds, as elements are provided by the matched selector.</p>
+
+<p>The jQuery and Zepto builds also allow you to pass the handler as the first argument to <code>waypoint</code>.</p>
+
+<h3>$.fn.waypoint(handler, options)</h3>
+<div class="reference">
+  <h3>Parameters</h3>
+  <p><code>handler</code>: The <a href="../handler-option">handler</a> option function.</p>
+  <p><code>options</code>: An optional object containing Waypoints options.</p>
+  <h3>Returns</h3>
+  <p>Array of <code>Waypoint</code> instances.</p>
+</div>
+
+<div id="handler-first" class="waypoint">
+{% highlight js %}
+var waypoints = $('#handler-first').waypoint(function(direction) {
+  notify(this.element.id + ' hit 25% from top of window') 
+}, {
+  offset: '25%'
+})
+{% endhighlight %}
+</div>
+
+<p>In this method signature, because the matched selector removes the need for the <code>element</code> option, and the first parameter takes care of the <code>handler</code> option, there are no remaining required options properties and you can omit the <code>options</code> parameter entirely if you want default behavior.</p>
+
+<div id="handler-only" class="waypoint">
+{% highlight js %}
+var waypoints = $('#handler-only').waypoint(function(direction) {
+  notify(this.element.id + ' hit') 
+})
+{% endhighlight %}
+</div>
+
+<h3>Properties</h3>
+
+<div class="properties-container">
+  <div class="reference properties">
+    <ul>
+      <li><a href="#adapter-property">adapter</a></li>
+      <li><a href="#context-property">context</a></li>
+      <li><a href="#element-property">element</a></li>
+      <li><a href="#group-property">group</a></li>
+      <li><a href="#options-property">options</a></li>
+      <li><a href="#trigger-point-property">triggerPoint</a></li>
+    </ul>
+  </div>
+  <p>In the API navigation you'll find links to individual pages covering, in depth, the various options you can pass to the Waypoint constructor, as well as instance and class methods. A Waypoint instance also has a number of properties. Let's take a look at some of the more useful ones.</p>
+</div>
+
+<h4 id="adapter-property">adapter</h4>
+
+<p>This property gives you the instance of the <a href="../../guides/adapters">adapter</a> wrapped around the DOM element of this waypoint. Most Waypoints users should use the <a href="#element-property">element property</a> to access this element, but <code>adapter</code> is useful for developers writing Waypoints extensions or scripts that are intended to be used across all the different framework builds of Waypoints.</p>
+
+<div id="adapter-property-example" class="waypoint">
+{% highlight js %}
+var waypoint = new Waypoint({
+  element: document.getElementById('adapter-property-example'),
+  handler: function(direction) {
+    notify('Using jQuery Adapter: ' + !!this.adapter.$element)
+  },
+  offset: '25%'
+})
+{% endhighlight %}
+</div>
+
+<h4 id="context-property">context</h4>
+
+<p>This property gives you the instance of <a href="../context">Waypoint.Context</a> that the waypoint belongs to.</p>
+
+<div id="context-property-example" class="waypoint">
+{% highlight js %}
+var waypoint = new Waypoint({
+  element: document.getElementById('context-property-example'),
+  handler: function(direction) {
+    notify('Context: ' + this.context.element)
+  },
+  offset: '25%'
+})
+{% endhighlight %}
+</div>
+
+<h4 id="element-property">element</h4>
+
+<p>Easily the most useful property of a waypoint is its DOM element. With this property we gain access to that element within the handler.</p>
+
+<div id="element-property-example" class="waypoint">
+{% highlight js %}
+var waypoint = new Waypoint({
+  element: document.getElementById('element-property-example'),
+  handler: function(direction) {
+    notify('Waypoint element id: ' + this.element.id)
+  },
+  offset: '25%'
+})
+{% endhighlight %}
+</div>
+
+<h4 id="group-property">group</h4>
+
+<p>This property gives you the instance of <a href="../group">Waypoint.Group</a> that the waypoint belongs to. This property should be the only way you access a group.</p>
+
+<div id="group-property-example" class="waypoint">
+{% highlight js %}
+var waypoint = new Waypoint({
+  element: document.getElementById('group-property-example'),
+  handler: function(direction) {
+    notify('Group: ' + this.group.name)
+  },
+  offset: '25%'
+})
+{% endhighlight %}
+</div>
+
+<h4 id="options-property">options</h4>
+
+<p>The <code>options</code> property of a waypoint is the result of merging the default options object with the options object passed in on instantiation. The properties of this object have little practical use inside a handler, but inspecting this object may be useful in debugging to ensure that the waypoint received the options you intended.</p>
+
+<div id="options-property-example" class="waypoint">
+{% highlight js %}
+var waypoint = new Waypoint({
+  element: document.getElementById('options-property-example'),
+  handler: function(direction) {
+    notify('Offset option: ' + this.options.offset)
+  },
+  offset: '50%'
+})
+{% endhighlight %}
+</div>
+
+<h4 id="trigger-point-property">triggerPoint</h4>
+
+<p>This property is the result of the most recent <a href="../offset-option">offset</a> calculation. It is the scroll value, in pixels, where the handler triggers. In the simplest example, when the <code>offset</code> is the default of 0, <code>triggerPoint</code> will be identical to the element's <a href="http://api.jquery.com/offset/" target="_blank">offset top</a>.</p>
+
+<p>You should never set the <code>triggerPoint</code> directly on a waypoint, but it is a useful property to inspect when debugging why a waypoint may not be triggering at the location you expect.</p>
+
+<div id="trigger-point-example" class="waypoint">
+{% highlight js %}
+var waypoint = new Waypoint({
+  element: document.getElementById('trigger-point-example'),
+  handler: function(direction) {
+    notify('Trigger point: ' + this.triggerPoint)
+  },
+  offset: 'bottom-in-view'
+})
+{% endhighlight %}
+</div>

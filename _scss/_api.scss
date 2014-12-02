@@ -3,6 +3,10 @@
   padding:10px;
   border:1px solid rgba(0,0,0,.05);
 
+  &.properties ul {
+    margin:0.5em 0;
+  }
+
   > p {
     margin:.25em 0;
   }
@@ -173,6 +177,10 @@
   color:#000;
 }
 
+.properties-container {
+  @extend %clearfix;
+}
+
 #overflow-scroll, #overflow-scroll-offset {
   overflow:auto;
   height:300px;
@@ -233,5 +241,11 @@
 @include desktop {
   .reference {
     margin:1.5em 0;
+  }
+
+  .properties {
+    float:left;
+    margin:0 1em 1em 0;
+    min-width:220px;
   }
 }
