@@ -5,6 +5,66 @@
   width:100%;
   padding-left:10px;
   padding-right:10px;
+
+  .highlight {
+    box-shadow:0 0 0 5px $baseColor;
+  }
+}
+
+.notice {
+  background:rgba($baseColor, 0.1);
+  border:1px solid rgba($baseColor, 0.1);
+  padding:13px 15px 13px 60px;
+  position:relative;
+
+  &:before {
+    content:"i";
+    font-family:serif;
+    background:rgba($baseColor, 0.3);
+    color:#fff;
+    position:absolute;
+    left:15px;
+    top:50%;
+    margin-top:-15px;
+    display:block;
+    width:30px;
+    height:30px;
+    line-height:30px;
+    text-align:center;
+    border-radius:15px;
+    font-size:1.5em;
+  }
+}
+
+.sticky-pad {
+  padding-top:90px;
+}
+
+.infinite-container {
+  padding:10px;
+
+  &:after {
+    content: '...Loading...';
+    display:block;
+    background:rgba($baseColor, .5);
+    color:#fff;
+    padding:40px 10px;
+  }
+}
+
+.infinite-item {
+  background:#555;
+  color:#fff;
+  padding:40px 10px;
+  margin-top:10px;
+
+  &:first-child {
+    margin-top:0;
+  }
+}
+
+.infinite-more-link {
+  visibility:hidden;
 }
 
 @include desktop {

@@ -60,19 +60,19 @@ var sticky = new Waypoint.Sticky({
   <p>When creating a new <code>Sticky</code> you can also pass along an options object. This options object can take all of the options of a normal <a href="../../api/waypoint">Waypoint</a>, as well as a few extras specific to the <code>Sticky</code> class.</p>
 </div>
 
-<h4 id="direction-option">direction</h4>
+<h4 id="direction-option" class="sticky-pad">direction</h4>
 
 <p>Default: <code>'down right'</code>.</p>
 
 <p>This is a space separated list of directions in which the <code>stuckClass</code> should be applied. The default directions handle the most common case for both vertical and horizontal waypoints: You start at the top and wish to add the stuck state when scrolling down and reaching the element (right for horizontal waypoints.) In the rare case that you wish to start in a stuck state and lose fixed positioning as you scroll down to the element's natural position, this could be changed to <code>'up'</code> (or <code>'left'</code> for the horizontal analog.)</p>
 
-<h4 id="stuck-class-option">stuckClass</h4>
+<h4 id="stuck-class-option" class="sticky-pad">stuckClass</h4>
 
 <p>Default: <code>'stuck'</code>.</p>
 
 <p>This is a string, a class name that is applied to the sticky element when it is reached. This class is your CSS hook into styling the sticky element in its stuck state. Apply fixed positioning to this class.</p>
 
-<h4 id="wrapper-option">wrapper</h4>
+<h4 id="wrapper-option" class="sticky-pad">wrapper</h4>
 
 <p>Default: <code>'&lt;div class="sticky-wrapper" /&gt;'</code>.</p>
 

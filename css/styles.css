@@ -835,6 +835,10 @@ article {
     color: #666;
     font-weight: 300;
     font-size: 24px; }
+  article ul .highlight {
+    margin: 8px 0; }
+  article > h3, article > h4 {
+    padding-top: 24px; }
 
 @media (min-width: 660px) {
   article {
@@ -966,6 +970,9 @@ article {
   background: #ccc;
   color: #000; }
 
+.properties-container .highlight {
+  overflow: hidden; }
+
 #overflow-scroll, #overflow-scroll-offset {
   overflow: auto;
   height: 300px;
@@ -1031,6 +1038,53 @@ article {
   width: 100%;
   padding-left: 10px;
   padding-right: 10px; }
+  .stuck .highlight {
+    box-shadow: 0 0 0 5px #348ec0; }
+
+.notice {
+  background: rgba(52, 142, 192, 0.1);
+  border: 1px solid rgba(52, 142, 192, 0.1);
+  padding: 13px 15px 13px 60px;
+  position: relative; }
+  .notice:before {
+    content: "i";
+    font-family: serif;
+    background: rgba(52, 142, 192, 0.3);
+    color: #fff;
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    margin-top: -15px;
+    display: block;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 15px;
+    font-size: 1.5em; }
+
+.sticky-pad {
+  padding-top: 90px; }
+
+.infinite-container {
+  padding: 10px; }
+  .infinite-container:after {
+    content: '...Loading...';
+    display: block;
+    background: rgba(52, 142, 192, 0.5);
+    color: #fff;
+    padding: 40px 10px; }
+
+.infinite-item {
+  background: #555;
+  color: #fff;
+  padding: 40px 10px;
+  margin-top: 10px; }
+  .infinite-item:first-child {
+    margin-top: 0; }
+
+.infinite-more-link {
+  visibility: hidden; }
 
 @media (min-width: 660px) {
   .stuck {

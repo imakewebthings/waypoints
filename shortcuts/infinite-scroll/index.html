@@ -5,3 +5,104 @@ subsection: infinite-scroll
 ---
 
 <h2>Infinite Scroll</h2>
+
+<p class="notice">This shortcut requires the jQuery build of Waypoints.</p>
+
+<p>First, include the shortcut script after the main Waypoints script.</p>
+
+{% highlight html %}
+<script src="/path/to/lib/jquery.waypoints.min.js"></script>
+<script src="/path/to/shortcuts/infinite.min.js"></script>
+{% endhighlight %}
+
+<p>The Infinite Scroll shortcut transforms a traditional "Next Page" navigation into an AJAX-powered infinite scrolling UI pattern. To create it, instantiate the <code>Waypoint.Infinite</code> class.</p>
+
+{% highlight js %}
+var infinite = new Waypoint.Infinite({
+  element: $('.infinite-container')[0]
+})
+{% endhighlight %}
+
+<p>The <code>element</code> option for <code>Infinite</code> referes to the container around all infinite items that will be used as the waypoint and fetched items will be appended to.</p>
+
+<h3 id="options">Options</h3>
+
+<div class="properties-container">
+  <div class="reference properties">
+    <ul>
+      <li><a href="#container-option">container</a></li>
+      <li><a href="#items-option">items</a></li>
+      <li><a href="#loading-class-option">loadingClass</a></li>
+      <li><a href="#more-option">more</a></li>
+      <li><a href="#offset-option">offset</a></li>
+      <li><a href="#on-before-page-load-option">onBeforePageLoad</a></li>
+      <li><a href="#on-after-page-load-option">onAfterPageLoad</a></li>
+    </ul>
+  </div>
+  <p>The above example uses all of the default options. You can override those options or apply the necessary classes to your existing markup. Default markup would look like this:</p>
+{% highlight html %}
+<div class="infinite-container">
+  <div class="infinite-item">...</div>
+  <div class="infinite-item">...</div>
+  <div class="infinite-item">...</div>
+  ...
+</div>
+<a class="infinite-more-link" href="/next/page">More</a>
+{% endhighlight %}
+</div>
+
+<h4 id="container-option">container</h4>
+
+<p>Default: <code>'auto'</code>.</p>
+
+<p>Newly loaded items are appended to the container. The default value of <code>'auto'</code> means the container will be the same element as the <code>element</code> option. The <code>element</code> option, in congruence with the <a href="#offset-option">offset option</a>, make up the waypoint that triggers the next page to load.</p>
+
+<h4 id="items-option">items</h4>
+
+<p>Default: <code>'.infinite-item'</code>.</p>
+
+<p>This is a selector string that should match the individual items that will be pulled out of each page and appended to the item container.</p>
+
+<h4 id="loading-class-option">loadingClass</h4>
+
+<p>Default: <code>'infinite-loading'</code>.</p>
+
+<p>This string is a class name that is added to the <a href="#container-option">container</a> while items are loading, and removed once they are appended.</p>
+
+<h4 id="more-option">more</h4>
+
+<p>Default: <code>'.infinite-more-link'</code>.</p>
+
+<p>This string selector should match the "Next Page" element on every page. <code>Infinite</code> will know to stop loading more pages when an AJAX request no longer includes this "More" link (indicating you're on the final page.)</p>
+
+<h4 id="offset-option">offset</h4>
+
+<p>Default: <code>'bottom-in-view'</code>.</p>
+
+<p>This is the same <a href="../../api/offset-option">offset option</a> from a regular <code>Waypoint</code>, except the default is now <code>'bottom-in-view'</code> instead of <code>0</code>. This means, by default, new items will be loaded when the bottom of the container comes into view.</p>
+
+<h4 id="on-before-page-load-option">onBeforePageLoad</h4>
+
+<p>Default: <code>$.noop</code>.</p>
+
+<p>This is a callback that will fire as soon as the waypoint is reached, before the request for new items has been made.</p>
+
+<h4 id="on-after-page-load-option">onAfterPageLoad</h4>
+
+<p>Default: <code>$.noop</code>.</p>
+
+<p>This is a callback that will fire at the end of the request cycle, after new items have been appended to the container.</p>
+
+<div class="infinite-container waypoint">
+  <div class="infinite-item">1</div>
+  <div class="infinite-item">2</div>
+  <div class="infinite-item">3</div>
+  <div class="infinite-item">4</div>
+  <div class="infinite-item">5</div>
+  <div class="infinite-item">6</div>
+  <div class="infinite-item">7</div>
+  <div class="infinite-item">8</div>
+  <div class="infinite-item">9</div>
+  <div class="infinite-item">10</div>
+</div>
+<a class="infinite-more-link" href="./page2.html"></a>

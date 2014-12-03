@@ -179,6 +179,10 @@
 
 .properties-container {
   @extend %clearfix;
+
+  .highlight {
+    overflow:hidden;
+  }
 }
 
 #overflow-scroll, #overflow-scroll-offset {

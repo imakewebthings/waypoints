@@ -571,6 +571,12 @@
     }
   }
 
+  function infiniteExample() {
+    var infinite = new Waypoint.Infinite({
+      element: $('.infinite-container')[0]
+    })
+  }
+
   function initApiExamples() {
     disableEnableExample()
     destroyExample()
@@ -594,6 +600,7 @@
     contextClassExamples()
     groupClassExamples()
     stickyExample()
+    infiniteExample()
   }
 
   $(function() {
