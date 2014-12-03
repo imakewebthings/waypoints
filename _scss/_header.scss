@@ -1,5 +1,4 @@
 $sections: (about, guides, shortcuts, api);
-
 header {
   text-align:center;
   overflow:hidden;
@@ -20,6 +19,7 @@ header {
 
   nav {
     display:inline-block;
+    font-size:14px;
 
     ul {
       padding:0 0 8px 0;
@@ -33,7 +33,7 @@ header {
 
     a {
       border-radius:25px;
-      padding:5px 8px;
+      padding:5px 10px;
       color:#555;
 
       &:hover, &:focus {
@@ -68,15 +68,20 @@ header {
 @include desktop {
   header {
     padding-top:8px;
+
+    nav {
+      float:right;
+      position:relative;
+      top:18px;
+      font-size:16px;
+
+      a {
+        padding:5px 12px;
+      }
+    }
   }
 
   h1 {
     float:left;
-  }
-
-  nav {
-    float:right;
-    position:relative;
-    top:18px;
   }
 }

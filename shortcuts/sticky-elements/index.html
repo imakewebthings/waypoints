@@ -5,3 +5,89 @@ subsection: sticky-elements
 ---
 
 <h2>Sticky Elements</h2>
+
+<p class="notice">This shortcut requires the jQuery build of Waypoints.</p>
+
+<p>First, include the shortcut script after the main Waypoints script.</p>
+
+{% highlight html %}
+<script src="/path/to/lib/jquery.waypoints.min.js"></script>
+<script src="/path/to/shortcuts/sticky.min.js"></script>
+{% endhighlight %}
+
+<p>The Sticky Elements shortcut is used to make an element "stick" to the top of the page once a user has scrolled past it. It packages some best practices around accomplishing this, working around edge cases that can come up, and exposes it as a new class, <code>Waypoint.Sticky</code>. To create a sticky element, instantiate this new class with the desired element:</p>
+
+<div class="basic-sticky-example">
+{% highlight js %}
+var sticky = new Waypoint.Sticky({
+  element: $('.basic-sticky-example')[0]
+})
+{% endhighlight %}
+</div>
+
+<p>When you create a new instance of <code>Sticky</code>, a few things happen.</p>
+
+<ul>
+  <li><strong>A wrapper is created around your element.</strong> This wrapper remains in a static position on the page, acting as an empty placeholder for that element in the document flow while the real element gains and loses fixed positioning. This wrapper element is the actual element that is used in the underlying <code>Waypoint</code>.</li>
+  <li><strong>The wrapper height is set.</strong> This ensures the wrapper is the same height as the element it wraps, even when that element becomes fixed. This prevents the page layout from shifting when it does.</li>
+  <li><strong>Adds a class to the sticky element when it hits the top of the window.</strong> This class is what you must style using CSS to give the sticky element fixed positioning.</li>
+</ul>
+
+<p>Creating a sticky element using this shortcut <strong>does not</strong>&hellip;</p>
+
+<ul>
+  <li><strong>Give elements fixed positioning.</strong> You must do this in CSS. In most cases this simple snippet seen below is enough to get the job done, but this may vary depending on your design.
+{% highlight css %}
+.stuck {
+  position:fixed;
+  top:0;
+}
+{% endhighlight %}
+  </li>
+  <li><strong>Adjust for the wrapper.</strong> Other CSS properties such as <code>margin</code> may have an effect on the layout of your site and cause content shifts when losing/gaining fixed positioning. You may be better off moving margins off of the element and onto the wrapper.</li>
+</ul>
+
+<h3 id="options">Options</h3>
+
+<div class="properties-container">
+  <div class="reference properties">
+    <ul>
+      <li><a href="#direction-option">direction</a></li>
+      <li><a href="#stuck-class-option">stuckClass</a></li>
+      <li><a href="#wrapper-option">wrapper</a></li>
+    </ul>
+  </div>
+  <p>When creating a new <code>Sticky</code> you can also pass along an options object. This options object can take all of the options of a normal <a href="../../api/waypoint">Waypoint</a>, as well as a few extras specific to the <code>Sticky</code> class.</p>
+</div>
+
+<h4 id="direction-option">direction</h4>
+
+<p>Default: <code>'down right'</code>.</p>
+
+<p>This is a space separated list of directions in which the <code>stuckClass</code> should be applied. The default directions handle the most common case for both vertical and horizontal waypoints: You start at the top and wish to add the stuck state when scrolling down and reaching the element (right for horizontal waypoints.) In the rare case that you wish to start in a stuck state and lose fixed positioning as you scroll down to the element's natural position, this could be changed to <code>'up'</code> (or <code>'left'</code> for the horizontal analog.)</p>
+
+<h4 id="stuck-class-option">stuckClass</h4>
+
+<p>Default: <code>'stuck'</code>.</p>
+
+<p>This is a string, a class name that is applied to the sticky element when it is reached. This class is your CSS hook into styling the sticky element in its stuck state. Apply fixed positioning to this class.</p>
+
+<h4 id="wrapper-option">wrapper</h4>
+
+<p>Default: <code>'&lt;div class="sticky-wrapper" /&gt;'</code>.</p>
+
+<p>This is the string of HTML that will be wrapped around the target sticky element.</p>
+
+<h3 id="sticky-destroy">sticky.destroy()</h3>
+
+<p>An instance of <code>Sticky</code> has one method, <code>destroy</code>. Calling <code>destroy</code> will destroy the waypoint, remove the stuck class, and get rid of the wrapper that was created around your sticky element, returning the DOM to the state it was in before the <code>Sticky</code> was created.</p>
+
+<p>Let's look at destroying the <code>Sticky</code> we created earlier.</p>
+
+{% highlight js %}
+$('.destroy-sticky').on('click', function() {
+  sticky.destroy() 
+})
+{% endhighlight %}
+
+<p><button class="destroy-sticky">Destroy Sticky</button></p>

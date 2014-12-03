@@ -556,6 +556,21 @@
     })
   }
 
+  function stickyExample() {
+    var $stickyElement = $('.basic-sticky-example')
+    var sticky
+
+    if ($stickyElement.length) {
+      sticky = new Waypoint.Sticky({
+        element: $stickyElement[0],
+        wrapper: '<div class="sticky-wrapper waypoint" />'
+      })
+      $('button.destroy-sticky').on('click', function() {
+        sticky.destroy()
+      })
+    }
+  }
+
   function initApiExamples() {
     disableEnableExample()
     destroyExample()
@@ -578,6 +593,7 @@
     waypointClassExamples()
     contextClassExamples()
     groupClassExamples()
+    stickyExample()
   }
 
   $(function() {

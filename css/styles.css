@@ -409,7 +409,8 @@ header {
     header h1 a, header h1 a:hover, header h1 a:focus {
       color: #111; }
   header nav {
-    display: inline-block; }
+    display: inline-block;
+    font-size: 14px; }
     header nav ul {
       padding: 0 0 8px 0;
       margin: 0; }
@@ -418,7 +419,7 @@ header {
       padding: 0 3px; }
     header nav a {
       border-radius: 25px;
-      padding: 5px 8px;
+      padding: 5px 10px;
       color: #555; }
       header nav a:hover, header nav a:focus {
         background: rgba(0, 0, 0, 0.1);
@@ -437,12 +438,15 @@ header {
 @media (min-width: 660px) {
   header {
     padding-top: 8px; }
+    header nav {
+      float: right;
+      position: relative;
+      top: 18px;
+      font-size: 16px; }
+      header nav a {
+        padding: 5px 12px; }
   h1 {
-    float: left; }
-  nav {
-    float: right;
-    position: relative;
-    top: 18px; } }
+    float: left; } }
 
 .subsection-nav {
   margin: 0;
@@ -825,6 +829,8 @@ article {
   article pre > code {
     background: transparent;
     font-size: 1em; }
+  article h2 {
+    line-height: 1.25; }
   article h3 {
     color: #666;
     font-weight: 300;
@@ -1017,3 +1023,19 @@ article {
     float: left;
     margin: 0 1em 1em 0;
     min-width: 220px; } }
+
+.stuck {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding-left: 10px;
+  padding-right: 10px; }
+
+@media (min-width: 660px) {
+  .stuck {
+    width: 767px;
+    left: auto;
+    right: auto;
+    padding-left: 0;
+    padding-right: 0; } }
