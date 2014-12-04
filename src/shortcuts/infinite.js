@@ -12,9 +12,8 @@
     }
     this.$container = $(this.container)
     this.$more = $(this.options.more)
-    this.more = this.$more[0]
 
-    if (this.more) {
+    if (this.$more.length) {
       this.setupHandler()
       this.waypoint = new Waypoint(this.options)
     }
@@ -40,6 +39,7 @@
           }
           if ($newMore.length) {
             this.$more.replaceWith($newMore)
+            this.$more = $newMore
             this.waypoint = new Waypoint(this.options)
           }
           else {
