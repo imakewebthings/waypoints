@@ -184,22 +184,6 @@ window.jQuery.each(Waypoint.adapters, function(i, adapter) {
         })
       })
 
-      describe('triggerOnce option', function() {
-        it('destroys the waypoint after first trigger', function() {
-          runs(function() {
-            $target = $('#same1')
-            waypoint = new Waypoint({
-              element: $target[0],
-              triggerOnce: true
-            })
-            $scroller.scrollTop($target.offset().top)
-          })
-          waitsFor(function() {
-            return !waypoint.context.waypoints.vertical[waypoint.key]
-          }, 'waypoint to be destroyed')
-        })
-      })
-
       describe('context option', function() {
         beforeEach(function() {
           $scroller = $('#bottom')

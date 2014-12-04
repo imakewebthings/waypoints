@@ -48,9 +48,6 @@
     if (this.callback) {
       this.callback.apply(this, args)
     }
-    if (this.options.triggerOnce) {
-      this.destroy()
-    }
   }
 
   /* Public */
@@ -117,8 +114,7 @@
     enabled: true,
     group: 'default',
     horizontal: false,
-    offset: 0,
-    triggerOnce: false
+    offset: 0
   }
 
   Waypoint.offsetAliases = {
