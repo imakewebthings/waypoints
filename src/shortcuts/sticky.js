@@ -41,8 +41,10 @@
 
   /* Public */
   Sticky.prototype.destroy = function() {
-    this.waypoint.destroy()
-    this.$element.removeClass(this.options.stuckClass).unwrap()
+    if (this.$element.parent()[0] === this.wrapper) {
+      this.waypoint.destroy()
+      this.$element.removeClass(this.options.stuckClass).unwrap()
+    }
   }
 
   Sticky.defaults = {
