@@ -29,8 +29,8 @@
     if (Waypoint.offsetAliases[this.options.offset]) {
       this.options.offset = Waypoint.offsetAliases[this.options.offset]
     }
-    this.context.add(this)
     this.group.add(this)
+    this.context.add(this)
     allWaypoints[this.key] = this
     keyCounter += 1
   }
