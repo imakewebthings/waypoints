@@ -72,3 +72,13 @@ var waypoint = new Waypoint({
 <div id="overflow-scroll-offset">
   <div id="context-example-offset" class="waypoint">I am a waypoint with a custom context and a 50% offset.</div>
 </div>
+
+<p>If you're using the jQuery or Zepto builds of Waypoints, you can pass a CSS selector string as the <code>context</code> option, instead of an HTMLElement, and Waypoints will call <a href="http://api.jquery.com/closest/" target="_blank">closest</a> to find the context element.</p>
+
+{% highlight js %}
+$('.some-element').waypoint(function(direction) {
+  // do things
+}, {
+  context: '.scrollable-element'
+})
+{% endhighlight %}

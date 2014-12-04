@@ -42,13 +42,16 @@
 
 .infinite-container {
   padding:10px;
+  margin-top:32px;
 
   &:after {
-    content: '...Loading...';
+    content: '---Loading---';
     display:block;
     background:rgba($baseColor, .5);
-    color:#fff;
+    color:#000;
     padding:40px 10px;
+    margin-top:10px;
+    text-align:center;
   }
 }
 

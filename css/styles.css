@@ -1067,13 +1067,16 @@ article {
   padding-top: 90px; }
 
 .infinite-container {
-  padding: 10px; }
+  padding: 10px;
+  margin-top: 32px; }
   .infinite-container:after {
-    content: '...Loading...';
+    content: '---Loading---';
     display: block;
     background: rgba(52, 142, 192, 0.5);
-    color: #fff;
-    padding: 40px 10px; }
+    color: #000;
+    padding: 40px 10px;
+    margin-top: 10px;
+    text-align: center; }
 
 .infinite-item {
   background: #555;
