@@ -11,6 +11,9 @@
     if (!options.element) {
       throw new Error('No element option passed to Waypoint constructor')
     }
+    if (!options.handler) {
+      throw new Error('No handler option passed to Waypoint constructor')
+    }
 
     this.key = 'waypoint-' + keyCounter
     this.options = Waypoint.Adapter.extend({}, Waypoint.defaults, options)

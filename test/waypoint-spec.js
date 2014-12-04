@@ -44,14 +44,25 @@ window.jQuery.each(Waypoint.adapters, function(i, adapter) {
       describe('new Waypoint(options)', function() {
         it('returns an instance of the Waypoint class', function() {
           waypoint = new Waypoint({
-            element: document.getElementById('same1')
+            element: document.getElementById('same1'),
+            handler: function() {}
           })
           expect(waypoint instanceof Waypoint).toBeTruthy()
         })
 
         it('requires the element option', function() {
           expect(function() {
-            waypoint = new Waypoint({})
+            waypoint = new Waypoint({
+              handler: function() {}
+            })
+          }).toThrow()
+        })
+
+        it('requires the handler option', function() {
+          expect(function() {
+            waypoint = new Waypoint({
+              element: document.getElementById('same1')
+            })
           }).toThrow()
         })
 
@@ -510,10 +521,12 @@ window.jQuery.each(Waypoint.adapters, function(i, adapter) {
       describe('Waypoint.destroyAll()', function() {
         it('calls destroy on all waypoints', function() {
           var secondWaypoint = new Waypoint({
-            element: $('#same1')[0]
+            element: $('#same1')[0],
+            handler: function() {}
           })
           waypoint = new Waypoint({
-            element: $('#same1')[0]
+            element: $('#same1')[0],
+            handler: function() {}
           })
           spyOn(secondWaypoint, 'destroy').andCallThrough()
           spyOn(waypoint, 'destroy').andCallThrough()

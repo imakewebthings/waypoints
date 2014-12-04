@@ -25,13 +25,13 @@ window.jQuery.each(window.jQuery.grep(Waypoint.adapters, function(adapter) {
 
     describe('waypoint initialization', function() {
       it('uses the subject elements as the element option', function() {
-        waypoints = $('.nearsame').waypoint({})
+        waypoints = $('.nearsame').waypoint(function() {})
         expect(waypoints[0].element.id).toEqual('near1')
         expect(waypoints[1].element.id).toEqual('near2')
       })
 
       it('returns an array of Waypoint instances', function() {
-        waypoints = $('.nearsame').waypoint({})
+        waypoints = $('.nearsame').waypoint(function() {})
         expect($.isArray(waypoints)).toBeTruthy()
         expect(waypoints.length).toEqual(2)
       })
@@ -46,7 +46,8 @@ window.jQuery.each(window.jQuery.grep(Waypoint.adapters, function(adapter) {
     describe('context option', function() {
       it('can be given a string selector', function() {
         waypoints = $('#inner3').waypoint({
-          context: '#bottom'
+          context: '#bottom',
+          handler: function() {}
         })
         expect(waypoints[0].context.element).toBe($('#bottom')[0])
       })

@@ -90,7 +90,8 @@ window.jQuery.each(Waypoint.adapters, function(i, adapter) {
         it('calls refresh on all contexts', function() {
           var secondWaypoint = new Waypoint({
             element: $('#inner3')[0],
-            context: $('#bottom')[0]
+            context: $('#bottom')[0],
+            handler: function() {}
           })
           var secondContext = secondWaypoint.context
           spyOn(context, 'refresh')

@@ -15,14 +15,17 @@ window.jQuery.each(Waypoint.adapters, function(i, adapter) {
         Waypoint.Adapter = adapter.Adapter
         loadFixtures('standard.html')
         firstWaypoint = new Waypoint({
-          element: $('#same1')[0]
+          element: $('#same1')[0],
+          handler: function() {}
         })
         secondWaypoint = new Waypoint({
-          element: $('#near1')[0]
+          element: $('#near1')[0],
+          handler: function() {}
         })
         customGroupWaypoint = new Waypoint({
           element: $('#same2')[0],
-          group: 'custom'
+          group: 'custom',
+          handler: function() {}
         })
         defaultGroup = firstWaypoint.group
       })
