@@ -44,7 +44,7 @@
   padding:10px;
   margin-top:32px;
 
-  &:after {
+  &.infinite-loading:after {
     content: '---Loading---';
     display:block;
     background:rgba($baseColor, .5);

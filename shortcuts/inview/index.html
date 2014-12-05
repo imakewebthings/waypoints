@@ -5,3 +5,88 @@ subsection: inview
 ---
 
 <h2>Inview</h2>
+
+<p class="notice">This shortcut can be used with any build of Waypoints.</p>
+
+<p>First, include the shortcut script after the main Waypoints script.</p>
+
+{% highlight html %}
+<script src="/path/to/lib/jquery.waypoints.min.js"></script>
+<script src="/path/to/shortcuts/inview.min.js"></script>
+{% endhighlight %}
+
+<p>The Inview shortcut gives you callbacks for various states of an element entering and exiting the viewport, no matter which side of the viewport it does it from. These callbacks are passed to <code>Waypoint.Inview</code> on instantiation.</p>
+
+<div id="inview-example" class="waypoint">
+{% highlight js %}
+var inview = new Waypoint.Inview({
+  element: $('#inview-example')[0],
+  enter: function(direction) {
+    notify('Enter triggered with direction ' + direction)
+  },
+  entered: function(direction) {
+    notify('Entered triggered with direction ' + direction)
+  },
+  exit: function(direction) {
+    notify('Exit triggered with direction ' + direction)
+  },
+  exited: function(direction) {
+    notify('Exited triggered with direction ' + direction)
+  }
+})
+{% endhighlight %}
+</div>
+
+<h3 id="options">Options</h3>
+
+<div class="properties-container">
+  <div class="reference properties">
+    <ul>
+      <li><a href="#enter-option">enter</a></li>
+      <li><a href="#entered-option">entered</a></li>
+      <li><a href="#exit-option">exit</a></li>
+      <li><a href="#exited-option">exited</a></li>
+    </ul>
+  </div>
+  <p>All of these callbacks are exactly like the standard <a href="../../api/handler-option">handler option</a>. They are passed a <code>direction</code> parameter and the <code>this</code> keyword is a <code>Waypoint</code> instance. All of them are optional, so you can only use the callbacks you need for your use case. Let's look at where these callbacks are triggered and in what <code>direction</code>.</p>
+</div>
+
+<h4 id="enter-option">enter</h4>
+
+<p>Default: No-op function.</p>
+
+<p>The <code>enter</code> callback is triggered when any piece of the element starts entering the viewport. It triggers with a <code>'down'</code> direction when the top of the element hits the bottom of the viewport while scrolling down, and triggers with an <code>'up'</code> direction when the bottom of the element hits the top of the viewport while scrolling up.</p>
+
+<h4 id="entered-option">entered</h4>
+
+<p>Default: No-op function.</p>
+
+<p>The <code>entered</code> callback is triggered when the entirety of the element has finished entering the viewport. It triggers with a <code>'down'</code> direction when the bottom of the element hits the bottom of the viewport while scrolling down, and triggers with an <code>'up'</code> direction when the top of the element hits the top of the viewport while scrolling up.</p>
+
+<h4 id="exit-option">exit</h4>
+
+<p>Default: No-op function.</p>
+
+<p>The <code>exit</code> callback is triggered when any piece of the element starts leaving the viewport. It triggers with a <code>'down'</code> direction when the top of the element hits the top of the viewport while scrolling down, and triggers with an <code>'up'</code> direction when the bottom of the element hits the bottom of the viewport while scrolling up.</p>
+
+<h4 id="exited-option">exited</h4>
+
+<p>Default: No-op function.</p>
+
+<p>The <code>exited</code> callback is triggered when the entirety of the element finishes leaving the viewport. It triggers with a <code>'down'</code> direction when the bottom of the element hits the top of the viewport while scrolling down, and triggers with an <code>'up'</code> direction when the top of the element hits the bottom of the viewport while scrolling up.</p>
+
+<h3 id="horizontal">Horizontal</h3>
+
+<p>Like a standard waypoint, you can pass <code>horizontal:true</code> as an option to <code>Inview</code> and the callbacks will work in the same fashion as a standard horizontal waypoint, dealing with left/right scrolls and passing <code>'right'</code> or <code>'left'</code> in place of <code>'down'</code> and <code>'up'</code>.</p>
+
+<h3 id="destroy">inview.destroy()</h3>
+
+<p>An instance of <code>Inview</code> has one method, <code>destroy</code>. Calling it will destroy the four underlying waypoints that make up the shortcut and the callbacks will no longer be triggered.</p>
+
+{% highlight js %}
+$('.destroy-inview').on('click', function() {
+  inview.destroy()
+})
+{% endhighlight %}
+
+<p><button class="destroy-inview">Destroy Inview Example</button></p>

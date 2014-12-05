@@ -478,10 +478,6 @@ header {
   color: #fff;
   cursor: default; }
 
-@media (min-width: 660px) {
-  .subsection-nav {
-    float: left; } }
-
 .api-nav > li {
   margin-bottom: 16px; }
 .api-nav ul {
@@ -500,6 +496,11 @@ header {
   margin-top: 8px; }
 .api-nav a + .subheading {
   margin-top: 0; }
+
+@media (min-width: 660px) {
+  .subsection-nav {
+    float: left;
+    width: 185px; } }
 
 .highlight {
   background: #272822;
@@ -1069,7 +1070,7 @@ article {
 .infinite-container {
   padding: 10px;
   margin-top: 32px; }
-  .infinite-container:after {
+  .infinite-container.infinite-loading:after {
     content: '---Loading---';
     display: block;
     background: rgba(52, 142, 192, 0.5);

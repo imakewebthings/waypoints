@@ -577,6 +577,34 @@
     })
   }
 
+  function inviewExample() {
+    var $example = $('#inview-example')
+    var inview
+
+    if ($example.length) {
+      inview = new Waypoint.Inview({
+        element: $('#inview-example')[0],
+        enter: function(direction) {
+          notify('Enter triggered with direction ' + direction)
+        },
+        entered: function(direction) {
+          notify('Entered triggered with direction ' + direction)
+        },
+        exit: function(direction) {
+          notify('Exit triggered with direction ' + direction)
+        },
+        exited: function(direction) {
+          notify('Exited triggered with direction ' + direction)
+        }
+      })
+    }
+
+    $('.destroy-inview').on('click', function() {
+      $example.removeClass('waypoint')
+      inview.destroy()
+    })
+  }
+
   function initApiExamples() {
     disableEnableExample()
     destroyExample()
@@ -601,6 +629,7 @@
     groupClassExamples()
     stickyExample()
     infiniteExample()
+    inviewExample()
   }
 
   $(function() {

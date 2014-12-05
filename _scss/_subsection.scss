@@ -55,12 +55,6 @@ $sections:
   }
 }
 
-@include desktop {
-  .subsection-nav {
-    float:left;
-  }
-}
-
 .api-nav {
   > li {
     margin-bottom:16px;
@@ -88,5 +82,12 @@ $sections:
 
   a + .subheading {
     margin-top:0;
+  }
+}
+
+@include desktop {
+  .subsection-nav {
+    float:left;
+    width:185px;
   }
 }
