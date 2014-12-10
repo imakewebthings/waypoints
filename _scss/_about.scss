@@ -24,7 +24,7 @@
 .or {
   color:#999;
   font-size:12px;
-  margin:12px 0;
+  margin:20px 0;
 
   &:before, &:after {
     content:'-';
@@ -34,11 +34,76 @@
 
 .one-liner {
   border:1px solid rgba(0,0,0,.1);
+  padding-top:8px;
+  padding-bottom:7px;
 }
 
-.download, .introduction {
+.introduction {
   p:first-child {
     margin-top:0;
+  }
+}
+
+.about-links {
+  list-style:none;
+  padding:0;
+  margin-top:32px;
+
+  > li {
+    display:inline-block;
+    width:
+  }
+
+  a {
+    display:block;
+    text-decoration:none;
+    font-size:14px;
+    width:100px;
+
+    span {
+      display:block;
+      margin-top:4px;
+    }
+
+    &:hover svg {
+      fill:$complementColor;
+    }
+  }
+
+  svg {
+    width:18px;
+    height:18px;
+    fill:$baseColor;
+  }
+}
+
+.flavor-requirements {
+  list-style:none;
+  padding:0;
+  display:inline-block;
+
+  > li {
+    display:inline-block;
+    padding-left:40px;
+    font-size:14px;
+    color:#888;
+
+    &:first-child {
+      padding-left:0;
+    }
+  }
+
+  span {
+    display:block;
+    font-size:16px;
+    font-weight:bold;
+    padding-bottom:4px;
+    color:#555;
+  }
+
+  .jquery svg {
+    width:120px;
+    height:30px;
   }
 }
 
@@ -54,9 +119,6 @@
     float:right;
     width:50%;
     padding-left:15px;
-  }
-
-  .introduction p:first-child {
-    margin-top:16px;
+    padding-top:54px;
   }
 }
