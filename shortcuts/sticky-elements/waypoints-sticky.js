@@ -40,8 +40,8 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
 
         $sticky = $(this).children(':first');
         shouldBeStuck = options.direction.indexOf(direction) !== -1;
-        $sticky.toggleClass(options.stuckClass, shouldBeStuck);
         $wrap.height(shouldBeStuck ? $sticky.outerHeight() : '');
+        $sticky.toggleClass(options.stuckClass, shouldBeStuck);
         if (originalHandler != null) {
           return originalHandler.call(this, direction);
         }
