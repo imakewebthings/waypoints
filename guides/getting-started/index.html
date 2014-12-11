@@ -12,21 +12,11 @@ subsection: getting-started
 <script src="/path/to/noframework.waypoints.min.js"></script>
 {% endhighlight %}
 
-<p>The rest of this guide and any code snippets on this site, unless otherwise noted, will be using the no-framework build. If you're interested in the goodies that come with jQuery and Zepto builds, take a look at the <a href="{{ site.url }}/guides/jquery-waypoints">jQuery Waypoints guide</a>. Code snippets for the no-framework build will work in other builds.</p>
+<p>The rest of this guide and any code snippets on this site, unless otherwise noted, will be using the no-framework build. If you're interested in the goodies that come with jQuery and Zepto builds, take a look at the <a href="{{ site.url }}/guides/jquery-waypoints">jQuery/Zepto guide</a>. Code snippets for the no-framework build will work in other builds.</p>
 
 <h3>A Basic Waypoint</h3>
 
-<p>With Waypoints included, we now have access to a global <code>Waypoint</code> class. We create waypoints by instantiating this class. When creating a new <code>Waypoint</code> we must pass it an options object. There are many properties you can set on this options object, but only one is required, <code>element</code>.</p>
-
-<div class="waypoint" id="useless-waypoint">
-{% highlight js %}
-var waypoint = new Waypoint({
-  element: document.getElementById('useless-waypoint')
-})
-{% endhighlight %}
-</div>
-
-<p>This waypoint is boring. It doesn't do anything. The whole point of Waypoints is to do something when you scroll to the element. We tell it what to do by including the <code>handler</code> option.</p>
+<p>With Waypoints included, we now have access to a global <code>Waypoint</code> class. We create waypoints by instantiating this class. When creating a new <code>Waypoint</code> we must pass it an options object. There are many properties you can set on this options object, but two of them are required, <code>element</code>, and <code>handler</code>.</p>
 
 <div class="waypoint" id="basic-waypoint">
 {% highlight js %}
@@ -38,6 +28,8 @@ var waypoint = new Waypoint({
 })
 {% endhighlight %}
 </div>
+
+<p>The <code>element</code> tells Waypoints which DOM element's position to observe during scroll, and <code>handler</code> is the function that will trigger when the top of that element hits the top of the viewport.</p>
 
 <h3>Directions</h3>
 
@@ -90,6 +82,6 @@ var waypoint = new Waypoint({
 
 <h3>Now What?</h3>
 
-<p>This has been a very brief guide to the basics of Waypoints. The <a href="{{ site.url }}/api/waypoint">API documentation</a> goes into more depth about all of the options, methods, and properties available to us. In addition to being a technical reference for more technically savvy developers, each of the API pages acts as a guide for how to use that feature. The docs are intended to be useful for beginners and experts alike.</p>
+<p>This has been a very brief guide to the basics of Waypoints. The <a href="{{ site.url }}/api/waypoint">API documentation</a> goes into more depth about all of the options, methods, and properties available to us. In addition to being a  reference for more technically savvy developers, each of the API pages acts as a guide for how to use that feature. The docs are intended to be useful for beginners and experts alike.</p>
 
 <p>If you already have a use for Waypoints in mind, take a moment to check out the <a href="{{ site.url }}/shortcuts">Shortcuts</a> section. These shortcut scripts take some of the most common uses of Waypoints and packages them into ready-made extensions.</p>

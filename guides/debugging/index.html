@@ -1,0 +1,98 @@
+---
+layout: guides
+title: Debugging
+subsection: debugging
+---
+
+<h2>Debugging</h2>
+
+<p>Every now and then you may find a Waypoint triggering at times you do not expect or not triggering at all. Most of these issues are attributable to a few common mistakes. If you find yourself in this situation, the <code>lib</code> directory contains a debugging script. Include that script at the end of your scripts.</p>
+
+{% highlight html %}
+<script src="/path/to/waypoints.js"></script>
+<script src="/path/to/waypoints.debug.js"></script>
+{% endhighlight %}
+
+<p>The debug script will monitor for instances of these common mistakes and provide a console error with a summary of the issue and a link to the detailed explanation on this page. You should be careful to remove this debug script before deploying to production, as it runs a number of unnecessary checks during key internal methods. Let's look at the errors and some hypothetical situations where they arise.</p>
+
+<h3 id="display-none">Display None Elements</h3>
+
+<p>Let's say you have an element down the page that you want to start faded out, and fade in when it fully enters the window. For fun, when you scroll up it will fade back out.</p>
+
+{% highlight js %}
+$('.something')
+  .fadeOut(0) // immediately hide element
+  .waypoint(function(direction) {
+    if (direction === 'down') {
+      $(this.element).fadeIn()
+    }
+    else {
+      $(this.element).fadeOut()
+    }
+  }, {
+    offset: 'bottom-in-view'
+  })
+{% endhighlight %}
+
+<p>This looks fine at first glance, except jQuery's <code>fadeOut</code> method ends by setting <code>display:none</code>. <strong>Elements with display of none do not have a defined position on the page.</strong> When Waypoints is calculating the trigger point, it doesn't have a way to find the would-be-if-not-display-none position. The resulting calculation ends up incorrect, often with sporadic values.</p>
+
+<p>You should never use a <code>display:none</code> element as a waypoint. This includes elements that gain <code>display:none</code> at any time in the lifetime of your page, as trigger points are recalculated whenever a <a href="../../api/refresh-all">refresh</a> occurs, such as a window resize event.</p>
+
+<p>In our example above, let's rewrite this fade-out/in functionality to avoid using <code>display:none</code>.</p>
+
+{% highlight js %}
+$('.something')
+  .css('opacity', 0) // immediately hide element
+  .waypoint(function(direction) {
+    if (direction === 'down') {
+      $(this.element).animate({ opacity: 1 })
+    }
+    else {
+      $(this.element).animate({ opacity: 0 })
+    }
+  }, {
+    offset: 'bottom-in-view'
+  })
+{% endhighlight %}
+
+<p>To help demonstrate the issue, below we have a waypoint that will notify us when it is triggered. We also have buttons that will toggle <code>display:none</code>, report the waypoint's <a href="../../api/waypoint/#trigger-point-property">triggerPoint</a>, and call <code>refreshAll</code> to force a trigger point recalculation.</p>
+
+<div id="display-none-example" class="waypoint">
+{% highlight js %}
+var waypoint = new Waypoint({
+  element: document.getElementById('display-none-example'),
+  handler: function(direction) {
+    notify('display:none example triggered')
+  }
+})
+{% endhighlight %}
+</div>
+
+<p>
+  <button class="display-none-toggle" data-show="Show" data-hide="Hide">Hide</button>
+  <button class="display-trigger-point">Display Trigger Point</button>
+  <button class="refresh-all">Refresh</button>
+</p>
+
+<h3 id="fixed-position">Fixed Position Elements</h3>
+
+<p>Let's say you haven't seen the <a href="../../shortcuts/sticky-elements">sticky shortcut</a> or wanted to implement your own. It seems simple enough, when your sticky element hits the top of the viewport, you give it fixed positioning.</p>
+
+{% highlight js %}
+var waypoint = new Waypoint({
+  element: document.getElementById('something'),
+  handler: function(direction) {
+    if (direction === 'down') {
+      this.element.style.position = 'fixed'
+      this.element.style.top = 0
+    }
+    else {
+      this.element.style.position = 'static'
+    }
+  }
+})
+{% endhighlight %}
+
+<p>This will work fine&hellip;until you resize the browser. Resizing the browser (which calls <a href="../../api/refresh-all">refreshAll</a>) will force a trigger point recalculation. As part of this calculation, Waypoints looks for the element's position on the page. This doesn't return the position as if the element were still staticly positioned, but instead returns the element's current position, which for a fixed position element changes as you scroll. This is, after all, the point of fixed positioning.</p>
+
+<p>Because of this, you should never use a fixed position element as a waypoint, including elements that gain fixed positioning in the future.</p>

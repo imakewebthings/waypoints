@@ -40,10 +40,6 @@
     }
 
     new Waypoint({
-      element: document.getElementById('useless-waypoint')
-    })
-
-    new Waypoint({
       element: document.getElementById('basic-waypoint'),
       handler: function() {
         notify('Basic waypoint triggered')
@@ -605,6 +601,34 @@
     })
   }
 
+  function displayNoneExample() {
+    var $displayNoneExample = $('#display-none-example')
+    var waypoint
+
+    if (!$displayNoneExample.length) {
+      return
+    }
+
+    waypoint = $displayNoneExample.waypoint(function(direction) {
+      notify('display:none example triggered')
+    })[0]
+
+    $('.display-none-toggle').on('click', function() {
+      var $this = $(this)
+      var isHidden = $this.text() === $this.data('show')
+      $displayNoneExample.toggle(isHidden)
+      $this.text($this.data(isHidden ? 'hide' : 'show'))
+    })
+
+    $('.display-trigger-point').on('click', function() {
+      notify('Trigger point: ' + waypoint.triggerPoint);
+    })
+
+    $('.refresh-all').on('click', function() {
+      Waypoint.refreshAll()
+    })
+  }
+
   function initApiExamples() {
     disableEnableExample()
     destroyExample()
@@ -630,6 +654,7 @@
     stickyExample()
     infiniteExample()
     inviewExample()
+    displayNoneExample()
   }
 
   $(function() {
