@@ -12,6 +12,7 @@
     window.mozRequestAnimationFrame ||
     window.webkitRequestAnimationFrame ||
     requestAnimationFrameShim
+  var oldWindowLoad = window.onload
 
   function Context(element) {
     this.element = element
@@ -273,5 +274,9 @@
     return contexts[element.waypointContextKey]
   }
 
+  window.onload = function() {
+    oldWindowLoad()
+    Context.refreshAll()
+  }
   Waypoint.Context = Context
 }())
