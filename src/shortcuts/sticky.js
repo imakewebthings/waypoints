@@ -22,8 +22,8 @@
         var shouldBeStuck = this.options.direction.indexOf(direction) > -1
         var wrapperHeight = shouldBeStuck ? this.$element.outerHeight(true) : ''
 
-        this.$element.toggleClass(this.options.stuckClass, shouldBeStuck)
         this.$wrapper.height(wrapperHeight)
+        this.$element.toggleClass(this.options.stuckClass, shouldBeStuck)
 
         if (originalHandler) {
           originalHandler.call(this, direction)
