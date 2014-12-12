@@ -76,7 +76,16 @@ gulp.task('build-shortcuts', function() {
   .pipe(gulp.dest('lib/shortcuts/'))
 })
 
-gulp.task('build', ['build-core', 'build-shortcuts'])
+gulp.task('build-debug', function() {
+  return gulp.src([
+    'src/debug.js'
+  ])
+  .pipe(rename('waypoints.debug.js'))
+  .pipe(header(fileHeader('Waypoints Debug')))
+  .pipe(gulp.dest('lib/'))
+})
+
+gulp.task('build', ['build-core', 'build-shortcuts', 'build-debug'])
 
 gulp.task('watch', function() {
   gulp.watch(jsFiles, ['lint', 'build'])
