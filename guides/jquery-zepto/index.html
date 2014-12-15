@@ -5,3 +5,95 @@ subsection: jquery-zepto
 ---
 
 <h2>jQuery/Zepto</h2>
+
+<p>Prior to version 3.0, Waypoints was strictly a jQuery plugin. You'll notice most of the examples on this site use code that is compatible with the new no-framework build of Waypoints using class instantiation and generally available DOM querying methods, like this:</p>
+
+<div id="new-operator" class="waypoint">
+{% highlight js %}
+var waypoint = new Waypoint({
+  element: document.getElementById('new-operator'),
+  handler: function(direction) {
+    notify(this.id + ' hit')
+  }
+})
+{% endhighlight %}
+</div>
+
+<p>If you're using the jQuery or Zepto builds, you can still use  the no-framework approaches featured in the documentation, but those builds also provide extensions specific to the framework.</p>
+
+<h3 id="fn-extension">$.fn.waypoint</h3>
+
+<p>A <code>waypoint</code> method is added to <code>$.fn</code>, restoring the old 2.x syntax. Instead of passing in an <code>element</code> option, a waypoint is created for each of the matched elements.</p>
+
+<div id="options-only" class="waypoint">
+{% highlight js %}
+var waypoints = $('#options-only').waypoint({
+  handler: function(direction) {
+    notify(this.element.id + ' hit')
+  }
+})
+{% endhighlight %}
+</div>
+
+<p>You may also pass the handler option as the first argument to <code>waypoint</code>.</p>
+
+<div id="handler-first" class="waypoint">
+{% highlight js %}
+var waypoints = $('#handler-first').waypoint(function(direction) {
+  notify(this.element.id + ' hit 25% from top of window') 
+}, {
+  offset: '25%'
+})
+{% endhighlight %}
+</div>
+
+<p>In the example above, the <code>element</code> option is replaced with the element matched by the selector, and the handler option is provided as the first paramter. Because there are no other required options, the second options argument becomes optional. In this case, all other options would be the defaults.</p>
+
+<div id="handler-only" class="waypoint">
+{% highlight js %}
+var waypoints = $('#handler-only').waypoint(function(direction) {
+  notify(this.element.id + ' hit') 
+})
+{% endhighlight %}
+</div>
+
+<p>There is one major difference between using the <code>$.fn.waypoint</code> method with versions 2.0 and 3.0. In 2.0, the same jQuery object was returned for chaining purposes, as is common among core jQuery methods. In 3.0, an array of <code>Waypoint</code> instances is returned.</p>
+
+<h3 id="context-selector">Context Option</h3>
+
+<p>The <a href="../../api/context-option">context option</a> expects its value to be an <code>HTMLElement</code> (or <code>window</code>.)</p>
+
+{% highlight js %}
+var waypoint = new Waypoint({
+  element: document.getElementById('context-example'),
+  handler: function() {
+    notify('Context example triggered')
+  },
+  context: document.getElementById('overflow-scroll')
+})
+{% endhighlight %}
+
+<br>
+
+<div id="overflow-scroll">
+  <div id="context-example" class="waypoint">I am a waypoint with a custom context, the "#overflow-scroll" div.</div>
+</div>
+
+<p>With jQuery and Zepto builds, you may also pass a CSS selector string. If you do, Waypoints will find the context element using <a href="http://api.jquery.com/closest/" target="_blank">closest</a> with that selector.</p>
+
+{% highlight js %}
+var waypoints = $('#context-example-offset').waypoint({
+  handler: function() {
+    notify('Hit midpoint of my context')
+  },
+  context: '#overflow-scroll-offset',
+  offset: '50%'
+})
+{% endhighlight %}
+
+<br>
+
+<div id="overflow-scroll-offset">
+  <div id="context-example-offset" class="waypoint">I am a waypoint with a custom context and a 50% offset.</div>
+</div>
+
