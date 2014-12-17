@@ -279,7 +279,9 @@
   }
 
   window.onload = function() {
-    oldWindowLoad()
+    if (oldWindowOnLoad) {
+      oldWindowLoad()
+    }
     Context.refreshAll()
   }
   Waypoint.Context = Context
