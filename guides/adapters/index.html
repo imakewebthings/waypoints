@@ -11,7 +11,8 @@ subsection: adapters
     <h4><a href="#adapter-constructor">Constructor</a></h4>
     <h4>Instance Methods</h4>
     <ul>
-      <li><a href="#adapter-height">height</a></li>
+      <li><a href="#adapter-inner-height">innerHeight</a></li>
+      <li><a href="#adapter-inner-width">innerWidth</a></li>
       <li><a href="#adapter-off">off</a></li>
       <li><a href="#adapter-offset">offset</a></li>
       <li><a href="#adapter-on">on</a></li>
@@ -19,7 +20,6 @@ subsection: adapters
       <li><a href="#adapter-outer-width">outerWidth</a></li>
       <li><a href="#adapter-scroll-left">scrollLeft</a></li>
       <li><a href="#adapter-scroll-top">scrollTop</a></li>
-      <li><a href="#adapter-width">width</a></li>
     </ul>
     <h4>Class Methods</h4>
     <ul>
@@ -52,7 +52,7 @@ function NoFrameworkAdapter(element) {
 
 <p>There are no requirements for any instance properties on this class, but in cases like the jQuery adapter, instances of the adapter have a <code>$element</code> property, which is a cached jQuery object containing the passed in <code>element</code>. This prevents needing to query the DOM or jQuery wrap every time an adapter method is called.</p>
 
-<h3 id="adapter-height">adapter.height()</h3>
+<h3 id="adapter-inner-height">adapter.innerHeight()</h3>
 
 <div class="reference">
   <h3>Parameters</h3>
@@ -62,13 +62,31 @@ function NoFrameworkAdapter(element) {
 </div>
 
 {% highlight js %}
-NoFrameworkAdapter.prototype.height = function() {
+NoFrameworkAdapter.prototype.innerHeight = function() {
   var isWin = isWindow(this.element)
   return isWin ? this.element.innerHeight : this.element.clientHeight
 }
 {% endhighlight %}
 
-<p>This should behave like <a href="http://api.jquery.com/height/" target="_blank">jQuery's height method</a>, but only the getter is necessary.</p>
+<p>This should behave like <a href="http://api.jquery.com/innerheight/" target="_blank">jQuery's innerHeight method</a>, but only the getter is necessary.</p>
+
+<h3 id="adapter-inner-width">adapter.innerWidth()</h3>
+
+<div class="reference">
+  <h3>Parameters</h3>
+  <p>None.</p>
+  <h3>Returns</h3>
+  <p><code>Number</code>. The width of the element in pixels, including padding.</p>
+</div>
+
+{% highlight js %}
+NoFrameworkAdapter.prototype.innerWidth = function() {
+  var isWin = isWindow(this.element)
+  return isWin ? this.element.innerWidth : this.element.clientWidth
+}
+{% endhighlight %}
+
+<p>This should behave like <a href="http://api.jquery.com/innerwidth/" target="_blank">jQuery's innerWidth method</a>, but only the getter is necessary.</p>
 
 <h3 id="adapter-off">adapter.off(event)</h3>
 
@@ -149,7 +167,7 @@ NoFrameworkAdapter.prototype.offset = function() {
 }
 {% endhighlight %}
 
-<p>The adapter only needs to implement the getter version of <a href="http://api.jquery.com/offset/">jQuery's offset</a>. It also needs to gracefully handle <code>window</code> as the element. It should return <code>undefined</code> or <code>null</code> in that case.</p>
+<p>The adapter only needs to implement the getter version of <a href="http://api.jquery.com/offset/" target="_blank">jQuery's offset</a>. It also needs to gracefully handle <code>window</code> as the element. It should return <code>undefined</code> or <code>null</code> in that case.</p>
 
 <h3 id="adapter-on">adapter.on(event, handler)</h3>
 
@@ -187,7 +205,7 @@ NoFrameworkAdapter.prototype.on = function(event, handler) {
 
 {% highlight js %}
 NoFrameworkAdapter.prototype.outerHeight = function(includeMargin) {
-  var height = this.height()
+  var height = this.innerHeight()
   var computedStyle
 
   if (includeMargin && !isWindow(this.element)) {
@@ -213,7 +231,7 @@ NoFrameworkAdapter.prototype.outerHeight = function(includeMargin) {
 
 {% highlight js %}
 NoFrameworkAdapter.prototype.outerWidth = function(includeMargin) {
-  var width = this.width()
+  var width = this.innerWidth()
   var computedStyle
 
   if (includeMargin && !isWindow(this.element)) {
@@ -263,24 +281,6 @@ NoFrameworkAdapter.prototype.scrollTop = function() {
 {% endhighlight %}
 
 <p>This should behave like <a href="http://api.jquery.com/scrolltop/" target="_blank">jQuery's scrollTop method</a>, but only the getter is necessary.</p>
-
-<h3 id="adapter-width">adapter.width()</h3>
-
-<div class="reference">
-  <h3>Parameters</h3>
-  <p>None.</p>
-  <h3>Returns</h3>
-  <p><code>Number</code>. The width of the element in pixels, including padding.</p>
-</div>
-
-{% highlight js %}
-NoFrameworkAdapter.prototype.width = function() {
-  var isWin = isWindow(this.element)
-  return isWin ? this.element.innerWidth : this.element.offsetWidth
-}
-{% endhighlight %}
-
-<p>This should behave like <a href="http://api.jquery.com/width/" target="_blank">jQuery's width method</a>, but only the getter is necessary.</p>
 
 <h3 id="adapter-extend">Adapter.extend(objects...)</h3>
 
