@@ -15,10 +15,10 @@ $sections:
     background:rgba(0,0,0,.7);
     border-top:1px solid rgba(255,255,255,.3);
     color:white;
-    display:block;
     padding:10px 30px 10px 15px;
     text-decoration:none;
     position:relative;
+    display:none;
 
     &:hover, &:focus {
       &:after {
@@ -39,18 +39,36 @@ $sections:
   li:first-child > a {
     border-top:0;
   }
+
+  &.expanded a {
+    display:block;
+  }
 }
 
 %subsection-active {
   background:$baseColor;
   color:#fff;
-  cursor:default;
+  display:block;
+  position:relative;
+
+  &:before {
+    content:'+';
+    position:absolute;
+    top:50%;
+    margin-top:-16px;
+    right:20px;
+    font-size:24px;
+    color:#fff;
+  }
 }
 
 @each $section in $sections {
   @each $subsection in $section {
     .on-#{$subsection} .nav-#{$subsection} {
       @extend %subsection-active;
+    }
+    .expanded.on-#{$subsection} .nav-#{$subsection}:before {
+      content:'-';
     }
   }
 }
@@ -78,10 +96,15 @@ $sections:
     padding:6px 30px 6px 15px;
     background:rgba(0,0,0,.1);
     margin-top:8px;
+    display:none;
   }
 
   a + .subheading {
     margin-top:0;
+  }
+
+  &.expanded .subheading {
+    display:block;
   }
 }
 
@@ -89,5 +112,21 @@ $sections:
   .subsection-nav {
     float:left;
     width:185px;
+
+    a, .subheading {
+      display:block;
+    }
+  }
+
+  @each $section in $sections {
+    @each $subsection in $section {
+      .on-#{$subsection} .nav-#{$subsection} {
+        cursor:default;
+
+        &:before {
+          display:none;
+        }
+      }
+    }
   }
 }

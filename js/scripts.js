@@ -657,9 +657,24 @@
     displayNoneExample()
   }
 
+  function initMobileSubnav() {
+    $('.subsection-nav a').on('click', function(event) {
+      var $this = $(this)
+      var $nav =  $this.closest('.subsection-nav')
+      var onClass = $.grep($nav[0].className.split(' '), function(c) {
+        return c !== 'subsection-nav' && c.indexOf('on-') >= 0
+      })[0]
+      if ($this.hasClass(onClass.replace('on', 'nav'))) {
+        event.preventDefault()
+        $nav.toggleClass('expanded')
+      }
+    })
+  }
+
   $(function() {
     initVariables()
     centerMain()
+    initMobileSubnav()
   })
 
   $(window).on('resize load', function() {

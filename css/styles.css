@@ -457,10 +457,10 @@ header {
     background: rgba(0, 0, 0, 0.7);
     border-top: 1px solid rgba(255, 255, 255, 0.3);
     color: white;
-    display: block;
     padding: 10px 30px 10px 15px;
     text-decoration: none;
-    position: relative; }
+    position: relative;
+    display: none; }
     .subsection-nav a:hover:after, .subsection-nav a:focus:after {
       content: '';
       position: absolute;
@@ -472,11 +472,115 @@ header {
       right: 0; }
   .subsection-nav li:first-child > a {
     border-top: 0; }
+  .subsection-nav.expanded a {
+    display: block; }
 
 .on-getting-started .nav-getting-started, .on-jquery-zepto .nav-jquery-zepto, .on-adapters .nav-adapters, .on-debugging .nav-debugging, .on-sticky-elements .nav-sticky-elements, .on-infinite-scroll .nav-infinite-scroll, .on-inview .nav-inview, .on-context .nav-context, .on-context-destroy .nav-context-destroy, .on-context-find-by-element .nav-context-find-by-element, .on-context-option .nav-context-option, .on-context-refresh .nav-context-refresh, .on-continuous-option .nav-continuous-option, .on-destroy .nav-destroy, .on-destroy-all .nav-destroy-all, .on-disable .nav-disable, .on-enable .nav-enable, .on-enabled-option .nav-enabled-option, .on-first .nav-first, .on-group .nav-group, .on-group-option .nav-group-option, .on-handler-option .nav-handler-option, .on-horizontal-option .nav-horizontal-option, .on-last .nav-last, .on-next .nav-next, .on-offset-option .nav-offset-option, .on-previous .nav-previous, .on-refresh-all .nav-refresh-all, .on-viewport-height .nav-viewport-height, .on-viewport-width .nav-viewport-width, .on-waypoint .nav-waypoint {
   background: #348ec0;
   color: #fff;
-  cursor: default; }
+  display: block;
+  position: relative; }
+  .on-getting-started .nav-getting-started:before, .on-jquery-zepto .nav-jquery-zepto:before, .on-adapters .nav-adapters:before, .on-debugging .nav-debugging:before, .on-sticky-elements .nav-sticky-elements:before, .on-infinite-scroll .nav-infinite-scroll:before, .on-inview .nav-inview:before, .on-context .nav-context:before, .on-context-destroy .nav-context-destroy:before, .on-context-find-by-element .nav-context-find-by-element:before, .on-context-option .nav-context-option:before, .on-context-refresh .nav-context-refresh:before, .on-continuous-option .nav-continuous-option:before, .on-destroy .nav-destroy:before, .on-destroy-all .nav-destroy-all:before, .on-disable .nav-disable:before, .on-enable .nav-enable:before, .on-enabled-option .nav-enabled-option:before, .on-first .nav-first:before, .on-group .nav-group:before, .on-group-option .nav-group-option:before, .on-handler-option .nav-handler-option:before, .on-horizontal-option .nav-horizontal-option:before, .on-last .nav-last:before, .on-next .nav-next:before, .on-offset-option .nav-offset-option:before, .on-previous .nav-previous:before, .on-refresh-all .nav-refresh-all:before, .on-viewport-height .nav-viewport-height:before, .on-viewport-width .nav-viewport-width:before, .on-waypoint .nav-waypoint:before {
+    content: '+';
+    position: absolute;
+    top: 50%;
+    margin-top: -16px;
+    right: 20px;
+    font-size: 24px;
+    color: #fff; }
+
+.expanded.on-getting-started .nav-getting-started:before {
+  content: '-'; }
+
+.expanded.on-jquery-zepto .nav-jquery-zepto:before {
+  content: '-'; }
+
+.expanded.on-adapters .nav-adapters:before {
+  content: '-'; }
+
+.expanded.on-debugging .nav-debugging:before {
+  content: '-'; }
+
+.expanded.on-sticky-elements .nav-sticky-elements:before {
+  content: '-'; }
+
+.expanded.on-infinite-scroll .nav-infinite-scroll:before {
+  content: '-'; }
+
+.expanded.on-inview .nav-inview:before {
+  content: '-'; }
+
+.expanded.on-context .nav-context:before {
+  content: '-'; }
+
+.expanded.on-context-destroy .nav-context-destroy:before {
+  content: '-'; }
+
+.expanded.on-context-find-by-element .nav-context-find-by-element:before {
+  content: '-'; }
+
+.expanded.on-context-option .nav-context-option:before {
+  content: '-'; }
+
+.expanded.on-context-refresh .nav-context-refresh:before {
+  content: '-'; }
+
+.expanded.on-continuous-option .nav-continuous-option:before {
+  content: '-'; }
+
+.expanded.on-destroy .nav-destroy:before {
+  content: '-'; }
+
+.expanded.on-destroy-all .nav-destroy-all:before {
+  content: '-'; }
+
+.expanded.on-disable .nav-disable:before {
+  content: '-'; }
+
+.expanded.on-enable .nav-enable:before {
+  content: '-'; }
+
+.expanded.on-enabled-option .nav-enabled-option:before {
+  content: '-'; }
+
+.expanded.on-first .nav-first:before {
+  content: '-'; }
+
+.expanded.on-group .nav-group:before {
+  content: '-'; }
+
+.expanded.on-group-option .nav-group-option:before {
+  content: '-'; }
+
+.expanded.on-handler-option .nav-handler-option:before {
+  content: '-'; }
+
+.expanded.on-horizontal-option .nav-horizontal-option:before {
+  content: '-'; }
+
+.expanded.on-last .nav-last:before {
+  content: '-'; }
+
+.expanded.on-next .nav-next:before {
+  content: '-'; }
+
+.expanded.on-offset-option .nav-offset-option:before {
+  content: '-'; }
+
+.expanded.on-previous .nav-previous:before {
+  content: '-'; }
+
+.expanded.on-refresh-all .nav-refresh-all:before {
+  content: '-'; }
+
+.expanded.on-viewport-height .nav-viewport-height:before {
+  content: '-'; }
+
+.expanded.on-viewport-width .nav-viewport-width:before {
+  content: '-'; }
+
+.expanded.on-waypoint .nav-waypoint:before {
+  content: '-'; }
 
 .api-nav > li {
   margin-bottom: 16px; }
@@ -493,14 +597,143 @@ header {
   margin: 0;
   padding: 6px 30px 6px 15px;
   background: rgba(0, 0, 0, 0.1);
-  margin-top: 8px; }
+  margin-top: 8px;
+  display: none; }
 .api-nav a + .subheading {
   margin-top: 0; }
+.api-nav.expanded .subheading {
+  display: block; }
 
 @media (min-width: 660px) {
   .subsection-nav {
     float: left;
-    width: 185px; } }
+    width: 185px; }
+    .subsection-nav a, .subsection-nav .subheading {
+      display: block; }
+  .on-getting-started .nav-getting-started {
+    cursor: default; }
+    .on-getting-started .nav-getting-started:before {
+      display: none; }
+  .on-jquery-zepto .nav-jquery-zepto {
+    cursor: default; }
+    .on-jquery-zepto .nav-jquery-zepto:before {
+      display: none; }
+  .on-adapters .nav-adapters {
+    cursor: default; }
+    .on-adapters .nav-adapters:before {
+      display: none; }
+  .on-debugging .nav-debugging {
+    cursor: default; }
+    .on-debugging .nav-debugging:before {
+      display: none; }
+  .on-sticky-elements .nav-sticky-elements {
+    cursor: default; }
+    .on-sticky-elements .nav-sticky-elements:before {
+      display: none; }
+  .on-infinite-scroll .nav-infinite-scroll {
+    cursor: default; }
+    .on-infinite-scroll .nav-infinite-scroll:before {
+      display: none; }
+  .on-inview .nav-inview {
+    cursor: default; }
+    .on-inview .nav-inview:before {
+      display: none; }
+  .on-context .nav-context {
+    cursor: default; }
+    .on-context .nav-context:before {
+      display: none; }
+  .on-context-destroy .nav-context-destroy {
+    cursor: default; }
+    .on-context-destroy .nav-context-destroy:before {
+      display: none; }
+  .on-context-find-by-element .nav-context-find-by-element {
+    cursor: default; }
+    .on-context-find-by-element .nav-context-find-by-element:before {
+      display: none; }
+  .on-context-option .nav-context-option {
+    cursor: default; }
+    .on-context-option .nav-context-option:before {
+      display: none; }
+  .on-context-refresh .nav-context-refresh {
+    cursor: default; }
+    .on-context-refresh .nav-context-refresh:before {
+      display: none; }
+  .on-continuous-option .nav-continuous-option {
+    cursor: default; }
+    .on-continuous-option .nav-continuous-option:before {
+      display: none; }
+  .on-destroy .nav-destroy {
+    cursor: default; }
+    .on-destroy .nav-destroy:before {
+      display: none; }
+  .on-destroy-all .nav-destroy-all {
+    cursor: default; }
+    .on-destroy-all .nav-destroy-all:before {
+      display: none; }
+  .on-disable .nav-disable {
+    cursor: default; }
+    .on-disable .nav-disable:before {
+      display: none; }
+  .on-enable .nav-enable {
+    cursor: default; }
+    .on-enable .nav-enable:before {
+      display: none; }
+  .on-enabled-option .nav-enabled-option {
+    cursor: default; }
+    .on-enabled-option .nav-enabled-option:before {
+      display: none; }
+  .on-first .nav-first {
+    cursor: default; }
+    .on-first .nav-first:before {
+      display: none; }
+  .on-group .nav-group {
+    cursor: default; }
+    .on-group .nav-group:before {
+      display: none; }
+  .on-group-option .nav-group-option {
+    cursor: default; }
+    .on-group-option .nav-group-option:before {
+      display: none; }
+  .on-handler-option .nav-handler-option {
+    cursor: default; }
+    .on-handler-option .nav-handler-option:before {
+      display: none; }
+  .on-horizontal-option .nav-horizontal-option {
+    cursor: default; }
+    .on-horizontal-option .nav-horizontal-option:before {
+      display: none; }
+  .on-last .nav-last {
+    cursor: default; }
+    .on-last .nav-last:before {
+      display: none; }
+  .on-next .nav-next {
+    cursor: default; }
+    .on-next .nav-next:before {
+      display: none; }
+  .on-offset-option .nav-offset-option {
+    cursor: default; }
+    .on-offset-option .nav-offset-option:before {
+      display: none; }
+  .on-previous .nav-previous {
+    cursor: default; }
+    .on-previous .nav-previous:before {
+      display: none; }
+  .on-refresh-all .nav-refresh-all {
+    cursor: default; }
+    .on-refresh-all .nav-refresh-all:before {
+      display: none; }
+  .on-viewport-height .nav-viewport-height {
+    cursor: default; }
+    .on-viewport-height .nav-viewport-height:before {
+      display: none; }
+  .on-viewport-width .nav-viewport-width {
+    cursor: default; }
+    .on-viewport-width .nav-viewport-width:before {
+      display: none; }
+  .on-waypoint .nav-waypoint {
+    cursor: default; }
+    .on-waypoint .nav-waypoint:before {
+      display: none; } }
 
 .highlight {
   background: #272822;
@@ -1147,7 +1380,7 @@ article {
 
 @media (min-width: 660px) {
   .stuck {
-    width: 767px;
+    width: 735px;
     left: auto;
     right: auto;
     padding-left: 0;

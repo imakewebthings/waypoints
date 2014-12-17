@@ -12,7 +12,7 @@ subsection: getting-started
 <script src="/path/to/noframework.waypoints.min.js"></script>
 {% endhighlight %}
 
-<p>The rest of this guide and any code snippets on this site, unless otherwise noted, will be using the no-framework build. If you're interested in the goodies that come with jQuery and Zepto builds, take a look at the <a href="{{ site.url }}/guides/jquery-waypoints">jQuery/Zepto guide</a>. Code snippets for the no-framework build will work in other builds.</p>
+<p>The rest of this guide and any code snippets on this site, unless otherwise noted, will be using the no-framework build. If you're interested in the goodies that come with jQuery and Zepto builds, take a look at the <a href="{{ site.url }}/guides/jquery-zepto">jQuery/Zepto guide</a>. Code snippets for the no-framework build will work in other builds.</p>
 
 <h3>A Basic Waypoint</h3>
 
@@ -66,7 +66,7 @@ var waypoint = new Waypoint({
 
 <h3>this?</h3>
 
-<p>When we're inside the handler function the <code>this</code> keyword is a reference to the Waypoint instance. We can use this object to access all the properties and method in the <a href="{{ site.url }}/api/waypoint">API</a>. One of the most useful properties is <code>element</code>, the waypoint's DOM element.</p>
+<p>When we're inside the handler function the <code>this</code> keyword is a reference to the Waypoint instance. We can use this object to access all the properties and methods in the <a href="{{ site.url }}/api/waypoint">API</a>. One of the most useful properties is <code>element</code>, the waypoint's DOM element.</p>
 
 <div id="element-waypoint" class="waypoint">
 {% highlight js %}
@@ -84,4 +84,4 @@ var waypoint = new Waypoint({
 
 <p>This has been a very brief guide to the basics of Waypoints. The <a href="{{ site.url }}/api/waypoint">API documentation</a> goes into more depth about all of the options, methods, and properties available to us. In addition to being a  reference for more technically savvy developers, each of the API pages acts as a guide for how to use that feature. The docs are intended to be useful for beginners and experts alike.</p>
 
-<p>If you already have a use for Waypoints in mind, take a moment to check out the <a href="{{ site.url }}/shortcuts">Shortcuts</a> section. These shortcut scripts take some of the most common uses of Waypoints and packages them into ready-made extensions.</p>
+<p>If you already have a use for Waypoints in mind, take a moment to check out the <a href="{{ site.url }}/shortcuts/sticky-elements">Shortcuts</a> section. These shortcut scripts take some of the most common uses of Waypoints and packages them into ready-made extensions.</p>
