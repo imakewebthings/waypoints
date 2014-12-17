@@ -15,6 +15,7 @@
   }
   var Waypoint = window.Waypoint
 
+  /* http://imakewebthings.com/waypoints/api/group */
   function Group(options) {
     this.name = options.name
     this.axis = options.axis
@@ -84,11 +85,13 @@
   }
 
   /* Public */
+  /* http://imakewebthings.com/waypoints/api/first */
   Group.prototype.first = function() {
     return this.waypoints[0]
   }
 
   /* Public */
+  /* http://imakewebthings.com/waypoints/api/last */
   Group.prototype.last = function() {
     return this.waypoints[this.waypoints.length - 1]
   }

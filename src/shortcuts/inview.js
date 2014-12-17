@@ -5,6 +5,7 @@
 
   var Waypoint = window.Waypoint
 
+  /* http://imakewebthings.com/waypoints/shortcuts/inview */
   function Inview(options) {
     this.options = Waypoint.Adapter.extend({}, Inview.defaults, options)
     this.axis = this.options.horizontal ? 'horizontal' : 'vertical'

@@ -4,6 +4,7 @@
   var keyCounter = 0
   var allWaypoints = {}
 
+  /* http://imakewebthings.com/waypoints/api/waypoint */
   function Waypoint(options) {
     if (!options) {
       throw new Error('No options passed to Waypoint constructor')
@@ -54,6 +55,7 @@
   }
 
   /* Public */
+  /* http://imakewebthings.com/waypoints/api/destroy */
   Waypoint.prototype.destroy = function() {
     this.context.remove(this)
     this.group.remove(this)
@@ -61,12 +63,14 @@
   }
 
   /* Public */
+  /* http://imakewebthings.com/waypoints/api/disable */
   Waypoint.prototype.disable = function() {
     this.enabled = false
     return this
   }
 
   /* Public */
+  /* http://imakewebthings.com/waypoints/api/enable */
   Waypoint.prototype.enable = function() {
     this.context.refresh()
     this.enabled = true
@@ -74,16 +78,19 @@
   }
 
   /* Public */
+  /* http://imakewebthings.com/waypoints/api/next */
   Waypoint.prototype.next = function() {
     return this.group.next(this)
   }
 
   /* Public */
+  /* http://imakewebthings.com/waypoints/api/previous */
   Waypoint.prototype.previous = function() {
     return this.group.previous(this)
   }
 
   /* Public */
+  /* http://imakewebthings.com/waypoints/api/destroy-all */
   Waypoint.destroyAll = function() {
     var allWaypointsArray = []
     for (var waypointKey in allWaypoints) {
@@ -95,16 +102,19 @@
   }
 
   /* Public */
+  /* http://imakewebthings.com/waypoints/api/refresh-all */
   Waypoint.refreshAll = function() {
     Waypoint.Context.refreshAll()
   }
 
   /* Public */
+  /* http://imakewebthings.com/waypoints/api/viewport-height */
   Waypoint.viewportHeight = function() {
     return window.innerHeight || document.documentElement.clientHeight
   }
 
   /* Public */
+  /* http://imakewebthings.com/waypoints/api/viewport-width */
   Waypoint.viewportWidth = function() {
     return document.documentElement.clientWidth
   }

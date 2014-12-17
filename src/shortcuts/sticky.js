@@ -4,6 +4,7 @@
   var $ = window.jQuery
   var Waypoint = window.Waypoint
 
+  /* http://imakewebthings.com/waypoints/shortcuts/sticky-elements */
   function Sticky(options) {
     this.options = $.extend({}, Waypoint.defaults, Sticky.defaults, options)
     this.element = this.options.element

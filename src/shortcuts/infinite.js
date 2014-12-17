@@ -4,6 +4,7 @@
   var $ = window.jQuery
   var Waypoint = window.Waypoint
 
+  /* http://imakewebthings.com/waypoints/shortcuts/infinite-scroll */
   function Infinite(options) {
     this.options = $.extend({}, Infinite.defaults, options)
     this.container = this.options.element

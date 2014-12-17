@@ -14,6 +14,7 @@
     requestAnimationFrameShim
   var oldWindowLoad = window.onload
 
+  /* http://imakewebthings.com/waypoints/api/context */
   function Context(element) {
     this.element = element
     this.Adapter = Waypoint.Adapter
@@ -162,6 +163,7 @@
   }
 
   /* Public */
+  /* http://imakewebthings.com/waypoints/api/context-destroy */
   Context.prototype.destroy = function() {
     var allWaypoints = []
     for (var axis in this.waypoints) {
@@ -175,6 +177,7 @@
   }
 
   /* Public */
+  /* http://imakewebthings.com/waypoints/api/context-refresh */
   Context.prototype.refresh = function() {
     var isWindow = this.element === this.element.window
     var contextOffset = this.adapter.offset()
@@ -270,6 +273,7 @@
   }
 
   /* Public */
+  /* http://imakewebthings.com/waypoints/api/context-find-by-element */
   Context.findByElement = function(element) {
     return contexts[element.waypointContextKey]
   }
