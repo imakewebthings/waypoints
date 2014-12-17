@@ -794,7 +794,7 @@ header {
 .about-links {
   list-style: none;
   padding: 0;
-  margin-top: 32px; }
+  margin-top: 24px; }
   .about-links > li {
     display: inline-block; }
   .about-links a {
@@ -803,13 +803,12 @@ header {
     font-size: 14px;
     width: 100px; }
     .about-links a span {
-      display: block;
-      margin-top: 4px; }
+      display: block; }
     .about-links a:hover svg {
       fill: #68a42b; }
   .about-links svg {
-    width: 18px;
-    height: 18px;
+    width: 36px;
+    height: 36px;
     fill: #348ec0; }
 
 .flavor-requirements {
@@ -829,9 +828,6 @@ header {
     font-weight: bold;
     padding-bottom: 4px;
     color: #555; }
-  .flavor-requirements .jquery svg {
-    width: 120px;
-    height: 30px; }
 
 @media (min-width: 660px) {
   .introduction {
@@ -897,8 +893,23 @@ article {
   background: rgba(0, 0, 0, 0.05);
   padding: 10px;
   border: 1px solid rgba(0, 0, 0, 0.05); }
-  .reference.properties ul {
-    margin: 0.5em 0; }
+  .reference.properties {
+    padding: 1.2em 10px; }
+    .reference.properties h4 {
+      margin: 0;
+      font-weight: normal;
+      font-size: 14px;
+      padding-left: 10px; }
+      .reference.properties h4 a {
+        font-size: 16px;
+        position: relative;
+        left: -10px; }
+      .reference.properties h4 + h4 {
+        margin-top: 4px; }
+    .reference.properties ul {
+      margin: 0; }
+      .reference.properties ul + h4 {
+        margin-top: 4px; }
   .reference > p {
     margin: 0.25em 0; }
   .reference h3 {

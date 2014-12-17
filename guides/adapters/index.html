@@ -5,3 +5,369 @@ subsection: adapters
 ---
 
 <h2>Adapters</h2>
+
+<div class="properties-container">
+  <div class="reference properties">
+    <h4><a href="#adapter-constructor">Constructor</a></h4>
+    <h4>Instance Methods</h4>
+    <ul>
+      <li><a href="#adapter-height">height</a></li>
+      <li><a href="#adapter-off">off</a></li>
+      <li><a href="#adapter-offset">offset</a></li>
+      <li><a href="#adapter-on">on</a></li>
+      <li><a href="#adapter-outer-height">outerHeight</a></li>
+      <li><a href="#adapter-outer-width">outerWidth</a></li>
+      <li><a href="#adapter-scroll-left">scrollLeft</a></li>
+      <li><a href="#adapter-scroll-top">scrollTop</a></li>
+      <li><a href="#adapter-width">width</a></li>
+    </ul>
+    <h4>Class Methods</h4>
+    <ul>
+      <li><a href="#adapter-extend">extend</a></li>
+      <li><a href="#adapter-in-array">inArray</a></li>
+      <li><a href="#adapter-is-empty-object">isEmptyObject</a></li>
+    </ul>
+    <h4><a href="#adapter-registration">Registration</a></h4>
+  </div>
+  <p>The Waypoints <code>lib</code> directory contains three different builds of the library for different DOM manipulation frameworks: jQuery, Zepto, and no framework. This is accomplished by factoring out all of the code that touches the DOM into an Adapter interface. There is a common shared core of Waypoints code, and an Adapter class for each of the different frameworks. The job of the adapter is to handle all of the DOM interfacing and normalization that would typically be handled by a library like jQuery.</p>
+
+  <p>This means if you wanted to extend Waypoints to support a new library, you don't need to fork Waypoints. You need to write an Adapter class that implements the correct interface and uses the new library internally. This guide will go over every method that an Adapter needs to implement. In general, these methods will mimic their jQuery equivalents, but we'll talk about the differences as they come up. To help drive the concept home, each part of the no-framework adapter will accompany each section of this guide.</p>
+
+  <p>If you do write a new adapter, please <a href="https://github.com/imakewebthings/waypoints/issues">open an issue</a> and we can work on including the adapter and build in the Waypoints repository.</p>
+</div>
+
+<h3 id="adapter-constructor">Constructor</h3>
+
+<div class="reference">
+  <h3>Parameters</h3>
+  <p><code>element</code>: The <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement" target="_blank">HTMLElement</a> the adapter will act upon.</p>
+</div>
+
+{% highlight js %}
+function NoFrameworkAdapter(element) {
+  this.element = element
+  this.handlers = {}
+}
+{% endhighlight %}
+
+<p>There are no requirements for any instance properties on this class, but in cases like the jQuery adapter, instances of the adapter have a <code>$element</code> property, which is a cached jQuery object containing the passed in <code>element</code>. This prevents needing to query the DOM or jQuery wrap every time an adapter method is called.</p>
+
+<h3 id="adapter-height">adapter.height()</h3>
+
+<div class="reference">
+  <h3>Parameters</h3>
+  <p>None.</p>
+  <h3>Returns</h3>
+  <p><code>Number</code>. The height of the element in pixels, including padding.</p>
+</div>
+
+{% highlight js %}
+NoFrameworkAdapter.prototype.height = function() {
+  var isWin = isWindow(this.element)
+  return isWin ? this.element.innerHeight : this.element.clientHeight
+}
+{% endhighlight %}
+
+<p>This should behave like <a href="http://api.jquery.com/height/" target="_blank">jQuery's height method</a>, but only the getter is necessary.</p>
+
+<h3 id="adapter-off">adapter.off(event)</h3>
+
+<div class="reference">
+  <h3>Parameters</h3>
+  <p><code>event</code>: A string name of an event. This string may also contain a namespace separated by a <code>.</code> such as <code>'click.namespace'</code>.</p>
+  <h3>Returns</h3>
+  <p><code>undefined</code>.</p>
+</div>
+
+{% highlight js %}
+NoFrameworkAdapter.prototype.off = function(event, handler) {
+  function removeListeners(element, listeners, handler) {
+    for (var i = 0, end = listeners.length - 1; i < end; i++) {
+      var listener = listeners[i]
+      if (!handler || handler === listener) {
+        element.removeEventListener(listener)
+      }
+    }
+  }
+
+  var eventParts = event.split('.')
+  var eventType = eventParts[0]
+  var namespace = eventParts[1]
+  var element = this.element
+
+  if (namespace && this.handlers[namespace] && eventType) {
+    removeListeners(element, this.handlers[namespace][eventType], handler)
+    this.handlers[namespace][eventType] = []
+  }
+  else if (eventType) {
+    for (var ns in this.handlers) {
+      removeListeners(element, this.handlers[ns][eventType] || [], handler)
+      this.handlers[ns][eventType] = []
+    }
+  }
+  else if (namespace && this.handlers[namespace]) {
+    for (var type in this.handlers[namespace]) {
+      removeListeners(element, this.handlers[namespace][type], handler)
+    }
+    this.handlers[namespace] = {}
+  }
+}
+{% endhighlight %}
+
+<p>This unbinds an event listener from the element. Only a subset of <a href="http://api.jquery.com/off/" target="_blank">jQuery's off</a> needs to be implemented. Multiple space separated events and event delegation are unnecessary. The adapter must support unbinding all events in a namespace using <code>.off('.namespace')</code>.</p>
+
+<h3 id="adapter-offset">adapter.offset()</h3>
+
+<div class="reference">
+  <h3>Parameters</h3>
+  <p>None.</p>
+  <h3>Returns</h3>
+  <p>An object with two properties, <code>top</code> and <code>left</code>, whose values are the number of pixels from the top and left of the document respectively.</p>
+</div>
+
+{% highlight js %}
+NoFrameworkAdapter.prototype.offset = function() {
+  if (!this.element.ownerDocument) {
+    return null
+  }
+
+  var documentElement = this.element.ownerDocument.documentElement
+  var win = getWindow(this.element.ownerDocument)
+  var rect = {
+    top: 0,
+    left: 0
+  }
+
+  if (this.element.getBoundingClientRect) {
+    rect = this.element.getBoundingClientRect()
+  }
+
+  return {
+    top: rect.top + win.pageYOffset - documentElement.clientTop,
+    left: rect.left + win.pageXOffset - documentElement.clientLeft
+  }
+}
+{% endhighlight %}
+
+<p>The adapter only needs to implement the getter version of <a href="http://api.jquery.com/offset/">jQuery's offset</a>. It also needs to gracefully handle <code>window</code> as the element. It should return <code>undefined</code> or <code>null</code> in that case.</p>
+
+<h3 id="adapter-on">adapter.on(event, handler)</h3>
+
+<div class="reference">
+  <h3>Parameters</h3>
+  <p><code>event</code>: A string event name to bind to. May also include a namespace separated by a <code>.</code> such as <code>'click.namespace'</code>.</p>
+  <p><code>handler</code>: The event listener handler to bind.</p>
+  <h3>Returns</h3>
+  <p><code>undefined</code>.</p>
+</div>
+
+{% highlight js %}
+NoFrameworkAdapter.prototype.on = function(event, handler) {
+  var eventParts = event.split('.')
+  var eventType = eventParts[0]
+  var namespace = eventParts[1] || '__default'
+  var nsHandlers = this.handlers[namespace] = this.handlers[namespace] || {}
+  var nsTypeList = nsHandlers[eventType] = nsHandlers[eventType] || []
+
+  nsTypeList.push(handler)
+  this.element.addEventListener(eventType, handler)
+}
+{% endhighlight %}
+
+<p>This binds an event listener to the element. Only a subset of <a href="http://api.jquery.com/on/" target="_blank">jQuery's on</a> needs to be implemented. Multiple space separated events and event delegation are unnecessary. The adapter must support binding events with a namespace.</p>
+
+<h3 id="adapter-outer-height">adapter.outerHeight(includeMargin)</h3>
+
+<div class="reference">
+  <h3>Parameters</h3>
+  <p><code>includeMargin</code>: An optional boolean that, if true, will include margins in the element height calculation. Defaults to false.</p>
+  <h3>Returns</h3>
+  <p>The height of the element in pixels, including padding and borders. If <code>includeMargin</code> is true, margins are also included.</p>
+</div>
+
+{% highlight js %}
+NoFrameworkAdapter.prototype.outerHeight = function(includeMargin) {
+  var height = this.height()
+  var computedStyle
+
+  if (includeMargin && !isWindow(this.element)) {
+    computedStyle = window.getComputedStyle(this.element)
+    height += parseInt(computedStyle.marginTop, 10)
+    height += parseInt(computedStyle.marginBottom, 10)
+  }
+
+  return height
+}
+{% endhighlight %}
+
+<p>This is a direct analog of <a href="http://api.jquery.com/outerheight/" target="_blank">jQuery's outerHeight</a>.</p>
+
+<h3 id="adapter-outer-width">adapter.outerWidth(includeMargin)</h3>
+
+<div class="reference">
+  <h3>Parameters</h3>
+  <p><code>includeMargin</code>: An optional boolean that, if true, will include margins in the element width calculation. Defaults to false.</p>
+  <h3>Returns</h3>
+  <p>The width of the element in pixels, including padding and borders. If <code>includeMargin</code> is true, margins are also included.</p>
+</div>
+
+{% highlight js %}
+NoFrameworkAdapter.prototype.outerWidth = function(includeMargin) {
+  var width = this.width()
+  var computedStyle
+
+  if (includeMargin && !isWindow(this.element)) {
+    computedStyle = window.getComputedStyle(this.element)
+    width += parseInt(computedStyle.marginLeft, 10)
+    width += parseInt(computedStyle.marginRight, 10)
+  }
+
+  return width
+}
+{% endhighlight %}
+
+<p>This is a direct analog of <a href="http://api.jquery.com/outerwidth/" target="_blank">jQuery's outerWidth</a>.</p>
+
+<h3 id="adapter-scroll-left">adapter.scrollLeft()</h3>
+
+<div class="reference">
+  <h3>Parameters</h3>
+  <p>None.</p>
+  <h3>Returns</h3>
+  <p>The number of pixels this element has scrolled horizontally.</p>
+</div>
+
+{% highlight js %}
+NoFrameworkAdapter.prototype.scrollLeft = function() {
+  var win = getWindow(this.element)
+  return win ? win.pageXOffset : this.element.scrollLeft
+}
+{% endhighlight %}
+
+<p>This should behave like <a href="http://api.jquery.com/scrollleft/" target="_blank">jQuery's scrollLeft method</a>, but only the getter is necessary.</p>
+
+<h3 id="adapter-scroll-top">adapter.scrollTop()</h3>
+
+<div class="reference">
+  <h3>Parameters</h3>
+  <p>None.</p>
+  <h3>Returns</h3>
+  <p>The number of pixels this element has scrolled vertically.</p>
+</div>
+
+{% highlight js %}
+NoFrameworkAdapter.prototype.scrollTop = function() {
+  var win = getWindow(this.element)
+  return win ? win.pageYOffset : this.element.scrollTop
+}
+{% endhighlight %}
+
+<p>This should behave like <a href="http://api.jquery.com/scrolltop/" target="_blank">jQuery's scrollTop method</a>, but only the getter is necessary.</p>
+
+<h3 id="adapter-width">adapter.width()</h3>
+
+<div class="reference">
+  <h3>Parameters</h3>
+  <p>None.</p>
+  <h3>Returns</h3>
+  <p><code>Number</code>. The width of the element in pixels, including padding.</p>
+</div>
+
+{% highlight js %}
+NoFrameworkAdapter.prototype.width = function() {
+  var isWin = isWindow(this.element)
+  return isWin ? this.element.innerWidth : this.element.offsetWidth
+}
+{% endhighlight %}
+
+<p>This should behave like <a href="http://api.jquery.com/width/" target="_blank">jQuery's width method</a>, but only the getter is necessary.</p>
+
+<h3 id="adapter-extend">Adapter.extend(objects...)</h3>
+
+<div class="reference">
+  <h3>Parameters</h3>
+  <p>One or more objects.</p>
+  <h3>Returns</h3>
+  <p>The first object argument, after all objects have been merged.</p>
+</div>
+
+{% highlight js %}
+NoFrameworkAdapter.extend = function() {
+  var args = Array.prototype.slice.call(arguments)
+
+  function merge(target, obj) {
+    if (typeof target === 'object' && typeof obj === 'object') {
+      for (var key in obj) {
+        if (obj.hasOwnProperty(key)) {
+          target[key] = obj[key]
+        }
+      }
+    }
+
+    return target
+  }
+
+  for (var i = 1, end = args.length; i < end; i++) {
+    merge(args[0], args[i])
+  }
+  return args[0]
+}
+{% endhighlight %}
+
+<p>This method alters the first object argument by taking all proceeding objects and merging their keys and values down into the first object. This is the same behavior as <a href="http://api.jquery.com/jquery.extend/" target="_blank">jQuery's extend</a>.</p>
+
+<h3 id="adapter-in-array">Adapter.inArray(value, array, startIndex)</h3>
+
+<div class="reference">
+  <h3>Parameters</h3>
+  <p><code>value</code>: The value you are searching for in the array.</p>
+  <p><code>array</code>: The array in which to look for the value.</p>
+  <p><code>startIndex</code>: A numerical index in the array where the search for the value should begin. Defaults to 0, the beginning of the array.</p>
+  <h3>Returns</h3>
+  <p>The index in <code>array</code> where <code>value</code> is first encountered. If <code>value</code> is not found, <code>-1</code> is returned.</p>
+</div>
+
+{% highlight js %}
+NoFrameworkAdapter.inArray = function(element, array, i) {
+  return array == null ? -1 : array.indexOf(element, i)
+}
+{% endhighlight %}
+
+<p>This is the same behavior as <a href="http://api.jquery.com/jquery.inarray/" target="_blank">jQuery's inArray</a>.</p>
+
+<h3 id="adapter-is-empty-object">Adapter.isEmptyObject(object)</h3>
+
+<div class="reference">
+  <h3>Parameters</h3>
+  <p><code>object</code>: Any JavaScript object.</p>
+  <h3>Returns</h3>
+  <p>True if the object is empty, false if it has any keys.</p>
+</div>
+
+{% highlight js %}
+NoFrameworkAdapter.isEmptyObject = function(obj) {
+  for (var name in obj) {
+    return false
+  }
+  return true
+}
+{% endhighlight %}
+
+<p>This is the same behavior as <a href="http://api.jquery.com/jquery.isemptyobject/" target="_blank">jQuery's isEmptyObject</a>.</p>
+
+<h3 id="adapter-registration">Registration</h3>
+
+<p>Once you have your custom Adapter class, you need to do two things. First, add it to the <code>Waypoint.adapters</code> array. This array contains objects with two keys, <code>name</code> with a unique name of the adapter, and <code>Adapter</code> with your Adapter class.</p>
+
+{% highlight js %}
+Waypoint.adapters.push({
+  name: 'noframework',
+  Adapter: NoFrameworkAdapter
+})
+{% endhighlight %}
+
+<p>Second, tell Waypoints to use this adapter by assigning it to <code>Waypoint.Adapter</code>.</p>
+
+{% highlight js %}
+Waypoint.Adapter = NoFrameworkAdapter
+{% endhighlight %}

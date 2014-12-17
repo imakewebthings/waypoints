@@ -3,8 +3,33 @@
   padding:10px;
   border:1px solid rgba(0,0,0,.05);
 
-  &.properties ul {
-    margin:0.5em 0;
+  &.properties {
+    padding:1.2em 10px;
+
+    h4 {
+      margin:0;
+      font-weight:normal;
+      font-size:14px;
+      padding-left:10px;
+
+      a {
+        font-size:16px;
+        position:relative;
+        left:-10px;
+      }
+
+      + h4 {
+        margin-top:4px;
+      }
+    }
+
+    ul {
+      margin:0;
+
+      + h4 {
+        margin-top:4px;
+      }
+    }
   }
 
   > p {

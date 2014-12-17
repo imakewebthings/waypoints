@@ -47,7 +47,7 @@
 .about-links {
   list-style:none;
   padding:0;
-  margin-top:32px;
+  margin-top:24px;
 
   > li {
     display:inline-block;
@@ -62,7 +62,6 @@
 
     span {
       display:block;
-      margin-top:4px;
     }
 
     &:hover svg {
@@ -71,8 +70,8 @@
   }
 
   svg {
-    width:18px;
-    height:18px;
+    width:36px;
+    height:36px;
     fill:$baseColor;
   }
 }
@@ -99,11 +98,6 @@
     font-weight:bold;
     padding-bottom:4px;
     color:#555;
-  }
-
-  .jquery svg {
-    width:120px;
-    height:30px;
   }
 }
 
