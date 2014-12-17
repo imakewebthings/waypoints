@@ -10,12 +10,10 @@
   }
 
   $.each([
-    'height',
     'off',
     'on',
     'scrollLeft',
-    'scrollTop',
-    'width'
+    'scrollTop'
   ], function(i, method) {
     ZeptoAdapter.prototype[method] = function() {
       var args = Array.prototype.slice.call(arguments)
@@ -29,25 +27,38 @@
     }
   }
 
+  // Adapted from https://gist.github.com/wheresrhys/5823198
   $.each([
     'width',
     'height'
   ], function(i, dimension) {
-    var method = $.camelCase('outer-' + dimension)
+    function createDimensionMethod($element, includeBorder) {
+      return function(includeMargin) {
+        var $element = this.$element
+        var size = $element[dimension]()
+        var sides = {
+          width: ['left', 'right'],
+          height: ['top', 'bottom']
+        }
 
-    ZeptoAdapter.prototype[method] = function(includeMargin) {
-      var size = this.$element[dimension]()
-      var sides = {
-        width: ['left', 'right'],
-        height: ['top', 'bottom']
+        $.each(sides[dimension], function(i, side) {
+          size += parseInt($element.css('padding-' + side), 10)
+          if (includeBorder) {
+            size += parseInt($element.css('border-' + side + '-width'), 10)
+          }
+          if (includeMargin) {
+            size += parseInt($element.css('margin-' + side), 10)
+          }
+        })
+        return size
       }
-      if (includeMargin) {
-        $.each(sides[dimension], $.proxy(function(i, side) {
-          size += parseInt(this.$element.css('margin-' + side), 10)
-        }, this))
-      }
-      return size
     }
+
+    var innerMethod = $.camelCase('inner-' + dimension)
+    var outerMethod = $.camelCase('outer-' + dimension)
+
+    ZeptoAdapter.prototype[innerMethod] = createDimensionMethod(false)
+    ZeptoAdapter.prototype[outerMethod] = createDimensionMethod(true)
   })
 
   $.each([

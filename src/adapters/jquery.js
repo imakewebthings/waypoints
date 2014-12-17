@@ -9,15 +9,15 @@
   }
 
   $.each([
-    'height',
+    'innerHeight',
+    'innerWidth',
     'off',
     'offset',
     'on',
     'outerHeight',
     'outerWidth',
     'scrollLeft',
-    'scrollTop',
-    'width'
+    'scrollTop'
   ], function(i, method) {
     JQueryAdapter.prototype[method] = function() {
       var args = Array.prototype.slice.call(arguments)

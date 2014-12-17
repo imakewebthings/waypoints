@@ -122,10 +122,10 @@
 
   Waypoint.offsetAliases = {
     'bottom-in-view': function() {
-      return this.context.height() - this.adapter.outerHeight()
+      return this.context.innerHeight() - this.adapter.outerHeight()
     },
     'right-in-view': function() {
-      return this.context.width() - this.adapter.outerWidth()
+      return this.context.innerWidth() - this.adapter.outerWidth()
     }
   }
 

@@ -19,9 +19,14 @@
     this.handlers = {}
   }
 
-  NoFrameworkAdapter.prototype.height = function() {
+  NoFrameworkAdapter.prototype.innerHeight = function() {
     var isWin = isWindow(this.element)
-    return isWin ? this.element.innerHeight : this.element.offsetHeight
+    return isWin ? this.element.innerHeight : this.element.clientHeight
+  }
+
+  NoFrameworkAdapter.prototype.innerWidth = function() {
+    var isWin = isWindow(this.element)
+    return isWin ? this.element.innerWidth : this.element.clientWidth
   }
 
   NoFrameworkAdapter.prototype.off = function(event, handler) {
@@ -92,7 +97,7 @@
   }
 
   NoFrameworkAdapter.prototype.outerHeight = function(includeMargin) {
-    var height = this.height()
+    var height = this.innerHeight()
     var computedStyle
 
     if (includeMargin && !isWindow(this.element)) {
@@ -105,7 +110,7 @@
   }
 
   NoFrameworkAdapter.prototype.outerWidth = function(includeMargin) {
-    var width = this.width()
+    var width = this.innerWidth()
     var computedStyle
 
     if (includeMargin && !isWindow(this.element)) {
@@ -125,11 +130,6 @@
   NoFrameworkAdapter.prototype.scrollTop = function() {
     var win = getWindow(this.element)
     return win ? win.pageYOffset : this.element.scrollTop
-  }
-
-  NoFrameworkAdapter.prototype.width = function() {
-    var isWin = isWindow(this.element)
-    return isWin ? this.element.innerWidth : this.element.offsetWidth
   }
 
   NoFrameworkAdapter.extend = function() {

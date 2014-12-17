@@ -140,11 +140,11 @@
   }
 
   /* Private */
-  Context.prototype.height = function() {
+  Context.prototype.innerHeight = function() {
     if (this.element === this.element.window) {
       return Waypoint.viewportHeight()
     }
-    return this.adapter.height()
+    return this.adapter.innerHeight()
   }
 
   /* Private */
@@ -154,11 +154,11 @@
   }
 
   /* Private */
-  Context.prototype.width = function() {
+  Context.prototype.innerWidth = function() {
     if (this.element === this.element.window) {
       return Waypoint.viewportWidth()
     }
-    return this.adapter.width()
+    return this.adapter.innerWidth()
   }
 
   /* Public */
@@ -186,7 +186,7 @@
       horizontal: {
         contextOffset: isWindow ? 0 : contextOffset.left,
         contextScroll: isWindow ? 0 : this.oldScroll.x,
-        contextDimension: this.width(),
+        contextDimension: this.innerWidth(),
         oldScroll: this.oldScroll.x,
         forward: 'right',
         backward: 'left',
@@ -195,7 +195,7 @@
       vertical: {
         contextOffset: isWindow ? 0 : contextOffset.top,
         contextScroll: isWindow ? 0 : this.oldScroll.y,
-        contextDimension: this.height(),
+        contextDimension: this.innerHeight(),
         oldScroll: this.oldScroll.y,
         forward: 'down',
         backward: 'up',
