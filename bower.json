@@ -1,6 +1,15 @@
 {
   "name": "waypoints",
-  "private": true,
+  "version": "3.0.0",
+  "main": "lib/noframework.waypoints.min.js",
+  "description": "Easily execute a function when you scroll to an element.",
+  "ignore": [
+    "gulpfile.js",
+    "package.json",
+    "src",
+    "test",
+    "testem.json"
+  ],
   "devDependencies": {
     "jquery": "~1.11.1",
     "lodash": "~2.4.1",

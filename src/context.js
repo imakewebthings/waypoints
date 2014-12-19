@@ -279,7 +279,7 @@
   }
 
   window.onload = function() {
-    if (oldWindowOnLoad) {
+    if (oldWindowLoad) {
       oldWindowLoad()
     }
     Context.refreshAll()
