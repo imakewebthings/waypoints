@@ -8,3 +8,4 @@ exclude:
   - Gemfile
   - Gemfile.lock
 name: Waypoints
+baseurl: /waypoints

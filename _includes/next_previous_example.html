@@ -1,6 +1,6 @@
 <p>When you're inside a waypoint handler, it is sometimes useful to know what the previous or next waypoint is in relation to the current one being triggered. The <code>next</code> and <code>previous</code> functions servce that purpose.</p>
 
-<p>These methods act within the scope of the waypoint's <a href="{{ site.url }}/api/group">group</a>, which is set on initialization using the <a href="{{ site.url }}/api/group-option">group option</a>. In older versions of Waypoints, when there was no Group concept, calling <code>next</code> or <code>previous</code> ran the risk of returning a logically unrelated waypoint that just happened to be at the nearest trigger point.</p>
+<p>These methods act within the scope of the waypoint's <a href="{{ site.baseurl }}/api/group">group</a>, which is set on initialization using the <a href="{{ site.baseurl }}/api/group-option">group option</a>. In older versions of Waypoints, when there was no Group concept, calling <code>next</code> or <code>previous</code> ran the risk of returning a logically unrelated waypoint that just happened to be at the nearest trigger point.</p>
 
 <p>In the example below, we can see <code>next</code> and <code>previous</code> in action, as well as how grouping effects them. There are two groups. The most recently triggered waypoint in each group is highlighted green. The previous waypoints are highlighted in red, next waypoints in blue. This example will use jQuery to mess with the DOM, for brevity, but still utilizes the no-framework build of Waypoints.</p>
 
