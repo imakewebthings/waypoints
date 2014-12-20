@@ -4,6 +4,7 @@ var concat = require('gulp-concat')
 var uglify = require('gulp-uglify')
 var rename = require('gulp-rename')
 var header = require('gulp-header')
+var footer = require('gulp-footer')
 var tap = require('gulp-tap')
 var merge = require('merge-stream')
 var pkg = require('./package.json')
@@ -45,6 +46,7 @@ gulp.task('build-core', function() {
     return gulp.src(sources)
     .pipe(concat(adapter + '.waypoints.js', { newLine: ';' }))
     .pipe(header(fileHeader('Waypoints')))
+    .pipe(footer(';'))
     .pipe(gulp.dest('lib/'))
     .pipe(rename(adapter + '.waypoints.min.js'))
     .pipe(uglify({
@@ -66,6 +68,7 @@ gulp.task('build-shortcuts', function() {
       file.contents
     ])
   }))
+  .pipe(footer(';'))
   .pipe(gulp.dest('lib/shortcuts/'))
   .pipe(rename(function(path) {
     path.basename += '.min'
@@ -82,6 +85,7 @@ gulp.task('build-debug', function() {
   ])
   .pipe(rename('waypoints.debug.js'))
   .pipe(header(fileHeader('Waypoints Debug')))
+  .pipe(footer(';'))
   .pipe(gulp.dest('lib/'))
 })
 

@@ -1,11 +1,11 @@
 {
   "name": "jquery-waypoints",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "author": "Caleb Troughton <caleb@imakewebthings.com>",
   "description": "A jQuery plugin that makes it easy to execute a function whenever you scroll to an element.",
   "scripts": {
     "build": "gulp build",
-    "gulp": "gulp",
+    "start": "gulp",
     "test": "testem ci",
     "tdd": "testem",
     "watch": "gulp watch"
@@ -23,6 +23,7 @@
     "gulp": "^3.6.2",
     "gulp-concat": "^2.2.0",
     "gulp-eslint": "^0.1.7",
+    "gulp-footer": "^1.0.5",
     "gulp-header": "^1.0.2",
     "gulp-rename": "^1.2.0",
     "gulp-tap": "^0.1.1",

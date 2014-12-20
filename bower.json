@@ -1,6 +1,6 @@
 {
   "name": "waypoints",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "main": "lib/noframework.waypoints.min.js",
   "description": "Easily execute a function when you scroll to an element.",
   "ignore": [
