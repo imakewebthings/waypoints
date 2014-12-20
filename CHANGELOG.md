@@ -1,5 +1,9 @@
 # Changelog
 
+## v3.0.1
+
+- Add semicolons to the end of built files to aid in clean concatenation. (Issue #353)
+
 ## v3.0.0
 
 - Remove hard jQuery dependency. Create builds for jQuery, Zepto, and no DOM framework. (Issue #282)
