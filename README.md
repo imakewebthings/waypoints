@@ -26,7 +26,7 @@ In addition to the normal Waypoints script, extensions exist to make common UI p
 
 ## Contributing
 
-If you want to report a Waypoints bug or contribute code to the library, please read the [Contributing Guidelines](https://github.com/imakewebthings/waypoints/blob/master/CONRIBUTING.md). If you need help *using* Waypoints, please do not open an issue. Instead, ask the question on [Stack Overflow](http://stackoverflow.com) and tag it with <code>#jquery-waypoints</code>. Be sure to follow the guidelines for [asking a good question](http://stackoverflow.com/help/how-to-ask).
+If you want to report a Waypoints bug or contribute code to the library, please read the [Contributing Guidelines](https://github.com/imakewebthings/waypoints/blob/master/CONTRIBUTING.md). If you need help *using* Waypoints, please do not open an issue. Instead, ask the question on [Stack Overflow](http://stackoverflow.com) and tag it with <code>#jquery-waypoints</code>. Be sure to follow the guidelines for [asking a good question](http://stackoverflow.com/help/how-to-ask).
 
 ## License
 
