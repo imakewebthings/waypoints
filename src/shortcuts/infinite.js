@@ -22,33 +22,31 @@
 
   /* Private */
   Infinite.prototype.setupHandler = function() {
-    this.options.handler = $.proxy(function() {
-      window.setTimeout($.proxy(function() {
-        this.options.onBeforePageLoad()
-        this.destroy()
-        this.$container.addClass(this.options.loadingClass)
+    this.options.handler = $.proxy(function(direction) {
+      this.options.onBeforePageLoad()
+      this.destroy()
+      this.$container.addClass(this.options.loadingClass)
 
-        $.get($(this.options.more).attr('href'), $.proxy(function(data) {
-          var $data = $($.parseHTML(data))
-          var $newMore = $data.find(this.options.more)
+      $.get($(this.options.more).attr('href'), $.proxy(function(data) {
+        var $data = $($.parseHTML(data))
+        var $newMore = $data.find(this.options.more)
 
-          this.$container.append($data.find(this.options.items))
-          this.$container.removeClass(this.options.loadingClass)
+        this.$container.append($data.find(this.options.items))
+        this.$container.removeClass(this.options.loadingClass)
 
-          if (!$newMore.length) {
-            $newMore = $data.filter(this.options.more)
-          }
-          if ($newMore.length) {
-            this.$more.replaceWith($newMore)
-            this.$more = $newMore
-            this.waypoint = new Waypoint(this.options)
-          }
-          else {
-            this.$more.remove()
-          }
+        if (!$newMore.length) {
+          $newMore = $data.filter(this.options.more)
+        }
+        if ($newMore.length) {
+          this.$more.replaceWith($newMore)
+          this.$more = $newMore
+          this.waypoint = new Waypoint(this.options)
+        }
+        else {
+          this.$more.remove()
+        }
 
-          this.options.onAfterPageLoad()
-        }, this), 0)
+        this.options.onAfterPageLoad()
       }, this))
     }, this)
   }
