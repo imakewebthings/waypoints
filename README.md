@@ -11,7 +11,7 @@ var waypoint = new Waypoint({
 })
 ```
 
-If you're new to Waypoints, check out the [Getting Started](http://imakewebthings.com/guides/get-started) guide.
+If you're new to Waypoints, check out the [Getting Started](http://imakewebthings.com/waypoints/guides/getting-started) guide.
 
 [Read the full documentation](http://imakewebthings.com/waypoints/api/waypoint) for more details on usage and customization.
 
