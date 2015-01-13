@@ -22,7 +22,7 @@
 
   /* Private */
   Infinite.prototype.setupHandler = function() {
-    this.options.handler = $.proxy(function(direction) {
+    this.options.handler = $.proxy(function() {
       this.options.onBeforePageLoad()
       this.destroy()
       this.$container.addClass(this.options.loadingClass)
