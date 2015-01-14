@@ -31,7 +31,12 @@
         var $data = $($.parseHTML(data))
         var $newMore = $data.find(this.options.more)
 
-        this.$container.append($data.find(this.options.items))
+        var $items = $data.find(this.options.items)
+        if (!$items.length) {
+          $items = $data.filter(this.options.items)
+        }
+
+        this.$container.append($items)
         this.$container.removeClass(this.options.loadingClass)
 
         if (!$newMore.length) {
