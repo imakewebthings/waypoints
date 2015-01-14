@@ -1,14 +1,13 @@
 'use strict'
 /* global
- * describe, it, beforeEach, afterEach, expect, spyOn, waits, runs,
- * waitsFor, loadFixtures, Waypoint
+ * describe, it, beforeEach, afterEach, expect, spyOn,
+ * loadFixtures, Waypoint
  */
 
 window.jQuery.each(Waypoint.adapters, function(i, adapter) {
   describe(adapter.name + ' adapter:', function() {
     describe('Waypoint.Group', function() {
       var $ = window.jQuery
-      var standard = 50
       var firstWaypoint, secondWaypoint, customGroupWaypoint, defaultGroup
 
       beforeEach(function() {
@@ -34,7 +33,6 @@ window.jQuery.each(Waypoint.adapters, function(i, adapter) {
         firstWaypoint.destroy()
         secondWaypoint.destroy()
         customGroupWaypoint.destroy()
-        waits(standard)
       })
 
       describe('#previous(waypoint)', function() {

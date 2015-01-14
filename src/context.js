@@ -8,10 +8,6 @@
   var keyCounter = 0
   var contexts = {}
   var Waypoint = window.Waypoint
-  var requestAnimationFrame = window.requestAnimationFrame ||
-    window.mozRequestAnimationFrame ||
-    window.webkitRequestAnimationFrame ||
-    requestAnimationFrameShim
   var oldWindowLoad = window.onload
 
   /* http://imakewebthings.com/waypoints/api/context */
@@ -68,7 +64,7 @@
     this.adapter.on('resize.waypoints', function() {
       if (!self.didResize) {
         self.didResize = true
-        requestAnimationFrame(resizeHandler)
+        Waypoint.requestAnimationFrame(resizeHandler)
       }
     })
   }
@@ -84,7 +80,7 @@
     this.adapter.on('scroll.waypoints', function() {
       if (!self.didScroll || Waypoint.isTouch) {
         self.didScroll = true
-        requestAnimationFrame(scrollHandler)
+        Waypoint.requestAnimationFrame(scrollHandler)
       }
     })
   }
@@ -284,5 +280,10 @@
     }
     Context.refreshAll()
   }
+
+  Waypoint.requestAnimationFrame = window.requestAnimationFrame ||
+    window.mozRequestAnimationFrame ||
+    window.webkitRequestAnimationFrame ||
+    requestAnimationFrameShim
   Waypoint.Context = Context
 }())

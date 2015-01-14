@@ -1,12 +1,11 @@
 'use strict'
 /* global
- * describe, it, beforeEach, afterEach, expect, spyOn, waits, runs,
+ * describe, it, beforeEach, afterEach, expect, spyOn, runs,
  * waitsFor, loadFixtures, Waypoint, jasmine
  */
 
 describe('Waypoint Sticky Shortcut', function() {
   var $ = window.jQuery
-  var standard = 50
   var $scroller = $(window)
   var $container, $items, $more, waypoint, beforeSpy, afterSpy
 
@@ -22,7 +21,6 @@ describe('Waypoint Sticky Shortcut', function() {
   afterEach(function() {
     waypoint.destroy()
     $scroller.scrollTop(0)
-    waits(standard)
   })
 
   it('returns an instance of the Waypoint.Infinite class', function() {

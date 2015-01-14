@@ -34,7 +34,6 @@ window.jQuery.each(Waypoint.adapters, function(i, adapter) {
       afterEach(function() {
         waypoint.destroy()
         $scroller.scrollTop(0).scrollLeft(0)
-        waits(standard)
       })
 
       describe('vertical', function() {
@@ -228,7 +227,7 @@ window.jQuery.each(Waypoint.adapters, function(i, adapter) {
               var left = $target.offset().left
               $scroller.scrollLeft(left - $scroller.width())
             })
-            waits(standard)
+            waitsFor(toBeTrue('enter'), 'enter to trigger')
             runs(function() {
               $scroller.scrollLeft($scroller.scrollLeft() - 1)
             })

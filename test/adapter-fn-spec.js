@@ -20,7 +20,6 @@ window.jQuery.each(window.jQuery.grep(Waypoint.adapters, function(adapter) {
       $.each(waypoints, function(i, waypoint) {
         waypoint.destroy()
       })
-      waits(50)
     })
 
     describe('waypoint initialization', function() {

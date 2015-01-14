@@ -1,8 +1,8 @@
 'use strict'
 
 /* global
- * describe, it, beforeEach, afterEach, expect, spyOn, waits, runs,
- * waitsFor, loadFixtures, Waypoint
+ * describe, it, beforeEach, afterEach, expect, spyOn,
+ * loadFixtures, Waypoint
  */
 
 describe('Waypoints debug script', function() {

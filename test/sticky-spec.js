@@ -6,7 +6,6 @@
 
 describe('Waypoint Sticky Shortcut', function() {
   var $ = window.jQuery
-  var standard = 50
   var $scroller = $(window)
   var $sticky, waypoint, handlerSpy
 
@@ -25,7 +24,6 @@ describe('Waypoint Sticky Shortcut', function() {
       waypoint.destroy()
     }
     $scroller.scrollTop(0)
-    waits(standard)
   })
 
   describe('on init', function() {
@@ -65,9 +63,7 @@ describe('Waypoint Sticky Shortcut', function() {
       })
 
       it('executes handler option after stuck class applied', function() {
-        waitsFor(function() {
-          return handlerSpy.callCount
-        }, 'callback to trigger')
+        expect(handlerSpy).toHaveBeenCalled()
       })
     })
   })

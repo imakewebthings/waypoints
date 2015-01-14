@@ -1,14 +1,13 @@
 'use strict'
 /* global
- * describe, it, beforeEach, afterEach, expect, spyOn, waits, runs,
- * waitsFor, loadFixtures, Waypoint
+ * describe, it, beforeEach, afterEach, expect, spyOn, runs,
+ * loadFixtures, Waypoint
  */
 
 window.jQuery.each(Waypoint.adapters, function(i, adapter) {
   describe(adapter.name + ' adapter:', function() {
     describe('Waypoint.Context', function() {
       var $ = window.jQuery
-      var standard = 50
       var currentDirection, $scroller, waypoint, $target, context, skipDestroy
 
       function setDirection(direction) {
@@ -34,7 +33,6 @@ window.jQuery.each(Waypoint.adapters, function(i, adapter) {
           waypoint.destroy()
         }
         $scroller.scrollTop(0).scrollLeft(0)
-        waits(standard)
       })
 
       describe('#refresh', function() {
@@ -69,14 +67,9 @@ window.jQuery.each(Waypoint.adapters, function(i, adapter) {
       describe('#destroy', function() {
         it('prevents further waypoint triggers', function() {
           skipDestroy = true
-          runs(function() {
-            context.destroy()
-            $scroller.scrollTop($target.offset().top)
-          })
-          waits(standard)
-          runs(function() {
-            expect(currentDirection).toBeNull()
-          })
+          context.destroy()
+          $scroller.scrollTop($target.offset().top)
+          expect(currentDirection).toBeNull()
         })
 
         it('removes context from global lookup', function() {

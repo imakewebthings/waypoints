@@ -30,7 +30,6 @@ window.jQuery.each(Waypoint.adapters, function(i, adapter) {
       afterEach(function() {
         Waypoint.destroyAll()
         $scroller.scrollTop(0).scrollLeft(0)
-        waits(standard)
       })
 
       describe('new Waypoint()', function() {
@@ -70,9 +69,6 @@ window.jQuery.each(Waypoint.adapters, function(i, adapter) {
           runs(function() {
             $target = $('#same2')
             $scroller.scrollTop($target.offset().top + 1)
-          })
-          waits(standard)
-          runs(function() {
             waypoint = new Waypoint({
               element: $target[0],
               handler: function(direction) {
@@ -127,9 +123,6 @@ window.jQuery.each(Waypoint.adapters, function(i, adapter) {
               offset: 50
             })
             $scroller.scrollTop($target.offset().top - 51)
-          })
-          waits(standard)
-          runs(function() {
             expect(hit).toBeFalsy()
             $scroller.scrollTop($target.offset().top - 50)
           })
@@ -145,9 +138,6 @@ window.jQuery.each(Waypoint.adapters, function(i, adapter) {
               offset: '37%'
             })
             $scroller.scrollTop(trigger - 1)
-          })
-          waits(standard)
-          runs(function() {
             expect(hit).toBeFalsy()
             $scroller.scrollTop(trigger)
           })
@@ -164,9 +154,6 @@ window.jQuery.each(Waypoint.adapters, function(i, adapter) {
               }
             })
             $scroller.scrollTop($target.offset().top + $target.height() - 1)
-          })
-          waits(standard)
-          runs(function() {
             expect(hit).toBeFalsy()
             $scroller.scrollTop($target.offset().top + $target.height())
           })
@@ -185,9 +172,6 @@ window.jQuery.each(Waypoint.adapters, function(i, adapter) {
               offset: 'bottom-in-view'
             })
             $scroller.scrollTop(inview - 1)
-          })
-          waits(standard)
-          runs(function() {
             expect(hit).toBeFalsy()
             $scroller.scrollTop(inview)
           })
@@ -210,9 +194,6 @@ window.jQuery.each(Waypoint.adapters, function(i, adapter) {
           })
           runs(function() {
             $scroller.scrollTop(189)
-          })
-          waits(standard)
-          runs(function() {
             expect(hit).toBeFalsy()
             $scroller.scrollTop(190)
           })
@@ -228,9 +209,6 @@ window.jQuery.each(Waypoint.adapters, function(i, adapter) {
           })
           runs(function() {
             $scroller.scrollTop(149)
-          })
-          waits(standard)
-          runs(function() {
             expect(hit).toBeFalsy()
             $scroller.scrollTop(150)
           })
@@ -248,9 +226,6 @@ window.jQuery.each(Waypoint.adapters, function(i, adapter) {
           })
           runs(function() {
             $scroller.scrollTop(149)
-          })
-          waits(standard)
-          runs(function() {
             expect(hit).toBeFalsy()
             $scroller.scrollTop(150)
           })
@@ -266,9 +241,6 @@ window.jQuery.each(Waypoint.adapters, function(i, adapter) {
           })
           runs(function() {
             $scroller.scrollTop(249)
-          })
-          waits(standard)
-          runs(function() {
             expect(hit).toBeFalsy()
             $scroller.scrollTop(250)
           })
