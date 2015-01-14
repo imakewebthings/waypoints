@@ -89,16 +89,33 @@
     return this.group.previous(this)
   }
 
-  /* Public */
-  /* http://imakewebthings.com/waypoints/api/destroy-all */
-  Waypoint.destroyAll = function() {
+  /* Private */
+  Waypoint.invokeAll = function(method) {
     var allWaypointsArray = []
     for (var waypointKey in allWaypoints) {
       allWaypointsArray.push(allWaypoints[waypointKey])
     }
     for (var i = 0, end = allWaypointsArray.length; i < end; i++) {
-      allWaypointsArray[i].destroy()
+      allWaypointsArray[i][method]()
     }
+  }
+
+  /* Public */
+  /* http://imakewebthings.com/waypoints/api/destroy-all */
+  Waypoint.destroyAll = function() {
+    Waypoint.invokeAll('destroy')
+  }
+
+  /* Public */
+  /* http://imakewebthings.com/waypoints/api/disable-all */
+  Waypoint.disableAll = function() {
+    Waypoint.invokeAll('disable')
+  }
+
+  /* Public */
+  /* http://imakewebthings.com/waypoints/api/enable-all */
+  Waypoint.enableAll = function() {
+    Waypoint.invokeAll('enable')
   }
 
   /* Public */

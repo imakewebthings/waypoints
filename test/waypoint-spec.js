@@ -505,7 +505,42 @@ window.jQuery.each(Waypoint.adapters, function(i, adapter) {
           Waypoint.destroyAll()
           expect(secondWaypoint.destroy).toHaveBeenCalled()
           expect(waypoint.destroy).toHaveBeenCalled()
-          waypoint = null
+        })
+      })
+
+      describe('Waypoint.disableAll()', function() {
+        it('calls disable on all waypoints', function() {
+          var secondWaypoint = new Waypoint({
+            element: $('#same1')[0],
+            handler: function() {}
+          })
+          waypoint = new Waypoint({
+            element: $('#same1')[0],
+            handler: function() {}
+          })
+          spyOn(secondWaypoint, 'disable').andCallThrough()
+          spyOn(waypoint, 'disable').andCallThrough()
+          Waypoint.disableAll()
+          expect(secondWaypoint.disable).toHaveBeenCalled()
+          expect(waypoint.disable).toHaveBeenCalled()
+        })
+      })
+
+      describe('Waypoint.enableAll()', function() {
+        it('calls enable on all waypoints', function() {
+          var secondWaypoint = new Waypoint({
+            element: $('#same1')[0],
+            handler: function() {}
+          })
+          waypoint = new Waypoint({
+            element: $('#same1')[0],
+            handler: function() {}
+          })
+          spyOn(secondWaypoint, 'enable').andCallThrough()
+          spyOn(waypoint, 'enable').andCallThrough()
+          Waypoint.enableAll()
+          expect(secondWaypoint.enable).toHaveBeenCalled()
+          expect(waypoint.enable).toHaveBeenCalled()
         })
       })
     })
