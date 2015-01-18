@@ -20,7 +20,9 @@
         for (var key in this.waypoints[axis]) {
           var waypoint = this.waypoints[axis][key]
           var style = waypoint.element.style
-          if (!waypoint.enabled) { continue }
+          if (!waypoint.enabled) {
+            continue
+          }
           if (style && style.display === 'none') {
             console.error(displayNoneMessage)
           }
