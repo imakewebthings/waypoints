@@ -54,4 +54,22 @@ describe('Waypoints debug script', function() {
   describe('fixed position detection', function() {
 
   })
+
+  describe('respect waypoint disabling', function() {
+    beforeEach(function() {
+      element = document.getElementById('same1')
+      waypoint = new Waypoint({
+        element: element,
+        handler: function() {}
+      })
+      element.style.display = 'none'
+      waypoint.disable()
+    })
+
+    it('does not log a console error', function() {
+      spyOn(console, 'error')
+      waypoint.context.refresh()
+      expect(console.error.calls.length).toEqual(0)
+    })
+  })
 })
