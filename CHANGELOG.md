@@ -1,5 +1,13 @@
 # Changelog
 
+## v3.1.0
+
+- Add `Waypoint.disableAll` and `Waypoint.enableAll` methods.
+- Fix Illegal Invocation errors stemming from non-window context use of `requestAnimationFrame`. (Pull #366)
+- Keep disabled waypoints from triggering debug script errors. (Pull #365)
+- Allow Infinite Scroll items to be root elements in the AJAX response. (Pull #361)
+- In debug script, detect display none and fixed positioning defined in CSS.
+
 ## v3.0.1
 
 - Add semicolons to the end of built files to aid in clean concatenation. (Issue #353)
