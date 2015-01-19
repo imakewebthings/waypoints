@@ -19,7 +19,7 @@
       for (var axis in this.waypoints) {
         for (var key in this.waypoints[axis]) {
           var waypoint = this.waypoints[axis][key]
-          var style = waypoint.element.style
+          var style = window.getComputedStyle(waypoint.element)
           if (!waypoint.enabled) {
             continue
           }
