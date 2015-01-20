@@ -88,7 +88,7 @@ for (var i = 0; i < discreteElements.length; i++) {
 <div class="continuous-false waypoint">Non-Continuous 19</div>
 <div class="continuous-false waypoint">Non-Continuous 20</div>
 
-<p id="after-discrete">Continuous is a property that is evaluated in the context of a waypoint's <a href="{{ site.url }}/api/group">group</a>. That is, if you cross multiple waypoints and they all have continuous set to false, but belong to different groups, they will all still fire. The last waypoint for each group is triggered. In the example below we have two different waypoint groups, both containing all waypoints with continuous false. You'll see the last waypoint from each group fires when making the jump.</p>
+<p id="after-discrete">Continuous is a property that is evaluated in the context of a waypoint's <a href="../group">group</a>. That is, if you cross multiple waypoints and they all have continuous set to false, but belong to different groups, they will all still fire. The last waypoint for each group is triggered. In the example below we have two different waypoint groups, both containing all waypoints with continuous false. You'll see the last waypoint from each group fires when making the jump.</p>
 
 {% highlight js %}
 var leftElements = document.getElementsByClassName('continuous-group-left')

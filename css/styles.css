@@ -475,12 +475,12 @@ header {
   .subsection-nav.expanded a {
     display: block; }
 
-.on-getting-started .nav-getting-started, .on-jquery-zepto .nav-jquery-zepto, .on-adapters .nav-adapters, .on-debugging .nav-debugging, .on-sticky-elements .nav-sticky-elements, .on-infinite-scroll .nav-infinite-scroll, .on-inview .nav-inview, .on-context .nav-context, .on-context-destroy .nav-context-destroy, .on-context-find-by-element .nav-context-find-by-element, .on-context-option .nav-context-option, .on-context-refresh .nav-context-refresh, .on-continuous-option .nav-continuous-option, .on-destroy .nav-destroy, .on-destroy-all .nav-destroy-all, .on-disable .nav-disable, .on-enable .nav-enable, .on-enabled-option .nav-enabled-option, .on-first .nav-first, .on-group .nav-group, .on-group-option .nav-group-option, .on-handler-option .nav-handler-option, .on-horizontal-option .nav-horizontal-option, .on-last .nav-last, .on-next .nav-next, .on-offset-option .nav-offset-option, .on-previous .nav-previous, .on-refresh-all .nav-refresh-all, .on-viewport-height .nav-viewport-height, .on-viewport-width .nav-viewport-width, .on-waypoint .nav-waypoint {
+.on-getting-started .nav-getting-started, .on-jquery-zepto .nav-jquery-zepto, .on-adapters .nav-adapters, .on-debugging .nav-debugging, .on-sticky-elements .nav-sticky-elements, .on-infinite-scroll .nav-infinite-scroll, .on-inview .nav-inview, .on-context .nav-context, .on-context-destroy .nav-context-destroy, .on-context-find-by-element .nav-context-find-by-element, .on-context-option .nav-context-option, .on-context-refresh .nav-context-refresh, .on-continuous-option .nav-continuous-option, .on-destroy .nav-destroy, .on-destroy-all .nav-destroy-all, .on-disable .nav-disable, .on-disable-all .nav-disable-all, .on-enable .nav-enable, .on-enable-all .nav-enable-all, .on-enabled-option .nav-enabled-option, .on-first .nav-first, .on-group .nav-group, .on-group-option .nav-group-option, .on-handler-option .nav-handler-option, .on-horizontal-option .nav-horizontal-option, .on-last .nav-last, .on-next .nav-next, .on-offset-option .nav-offset-option, .on-previous .nav-previous, .on-refresh-all .nav-refresh-all, .on-viewport-height .nav-viewport-height, .on-viewport-width .nav-viewport-width, .on-waypoint .nav-waypoint {
   background: #348ec0;
   color: #fff;
   display: block;
   position: relative; }
-  .on-getting-started .nav-getting-started:before, .on-jquery-zepto .nav-jquery-zepto:before, .on-adapters .nav-adapters:before, .on-debugging .nav-debugging:before, .on-sticky-elements .nav-sticky-elements:before, .on-infinite-scroll .nav-infinite-scroll:before, .on-inview .nav-inview:before, .on-context .nav-context:before, .on-context-destroy .nav-context-destroy:before, .on-context-find-by-element .nav-context-find-by-element:before, .on-context-option .nav-context-option:before, .on-context-refresh .nav-context-refresh:before, .on-continuous-option .nav-continuous-option:before, .on-destroy .nav-destroy:before, .on-destroy-all .nav-destroy-all:before, .on-disable .nav-disable:before, .on-enable .nav-enable:before, .on-enabled-option .nav-enabled-option:before, .on-first .nav-first:before, .on-group .nav-group:before, .on-group-option .nav-group-option:before, .on-handler-option .nav-handler-option:before, .on-horizontal-option .nav-horizontal-option:before, .on-last .nav-last:before, .on-next .nav-next:before, .on-offset-option .nav-offset-option:before, .on-previous .nav-previous:before, .on-refresh-all .nav-refresh-all:before, .on-viewport-height .nav-viewport-height:before, .on-viewport-width .nav-viewport-width:before, .on-waypoint .nav-waypoint:before {
+  .on-getting-started .nav-getting-started:before, .on-jquery-zepto .nav-jquery-zepto:before, .on-adapters .nav-adapters:before, .on-debugging .nav-debugging:before, .on-sticky-elements .nav-sticky-elements:before, .on-infinite-scroll .nav-infinite-scroll:before, .on-inview .nav-inview:before, .on-context .nav-context:before, .on-context-destroy .nav-context-destroy:before, .on-context-find-by-element .nav-context-find-by-element:before, .on-context-option .nav-context-option:before, .on-context-refresh .nav-context-refresh:before, .on-continuous-option .nav-continuous-option:before, .on-destroy .nav-destroy:before, .on-destroy-all .nav-destroy-all:before, .on-disable .nav-disable:before, .on-disable-all .nav-disable-all:before, .on-enable .nav-enable:before, .on-enable-all .nav-enable-all:before, .on-enabled-option .nav-enabled-option:before, .on-first .nav-first:before, .on-group .nav-group:before, .on-group-option .nav-group-option:before, .on-handler-option .nav-handler-option:before, .on-horizontal-option .nav-horizontal-option:before, .on-last .nav-last:before, .on-next .nav-next:before, .on-offset-option .nav-offset-option:before, .on-previous .nav-previous:before, .on-refresh-all .nav-refresh-all:before, .on-viewport-height .nav-viewport-height:before, .on-viewport-width .nav-viewport-width:before, .on-waypoint .nav-waypoint:before {
     content: '+';
     position: absolute;
     top: 50%;
@@ -537,7 +537,13 @@ header {
 .expanded.on-disable .nav-disable:before {
   content: '-'; }
 
+.expanded.on-disable-all .nav-disable-all:before {
+  content: '-'; }
+
 .expanded.on-enable .nav-enable:before {
+  content: '-'; }
+
+.expanded.on-enable-all .nav-enable-all:before {
   content: '-'; }
 
 .expanded.on-enabled-option .nav-enabled-option:before {
@@ -674,9 +680,17 @@ header {
     cursor: default; }
     .on-disable .nav-disable:before {
       display: none; }
+  .on-disable-all .nav-disable-all {
+    cursor: default; }
+    .on-disable-all .nav-disable-all:before {
+      display: none; }
   .on-enable .nav-enable {
     cursor: default; }
     .on-enable .nav-enable:before {
+      display: none; }
+  .on-enable-all .nav-enable-all {
+    cursor: default; }
+    .on-enable-all .nav-enable-all:before {
       display: none; }
   .on-enabled-option .nav-enabled-option {
     cursor: default; }
@@ -1261,6 +1275,11 @@ article {
 
 .properties-container .highlight {
   overflow: hidden; }
+
+.enable-disable-all {
+  height: 100px;
+  background: #ccc;
+  margin: 16px 0; }
 
 #overflow-scroll, #overflow-scroll-offset {
   overflow: auto;

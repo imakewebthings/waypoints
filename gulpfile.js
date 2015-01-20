@@ -6,7 +6,11 @@ var spawn = require('child_process').spawn
 
 gulp.task('jekyll-build', function (done) {
   browserSync.notify('<b style="color:rebeccapurple">Jekyll Building</b>')
-  return spawn('jekyll', ['build'], {
+  return spawn('jekyll', [
+    'build',
+    '--config',
+    '_config.yml,_config_dev.yml'
+  ], {
     stdio: 'inherit'
   }).on('close', done)
 })

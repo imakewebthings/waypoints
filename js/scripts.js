@@ -629,6 +629,23 @@
     })
   }
 
+  function enableDisableAllExample() {
+    $('.enable-disable-all').waypoint({
+      handler: function() {
+        notify('Waypoint triggered')
+      },
+      offset: 'bottom-in-view'
+    })
+    $('button.enable-all').on('click', function() {
+      Waypoint.enableAll()
+      $('.enable-disable-all').removeClass('disabled')
+    })
+    $('button.disable-all').on('click', function() {
+      Waypoint.disableAll()
+      $('.enable-disable-all').addClass('disabled')
+    })
+  }
+
   function initApiExamples() {
     disableEnableExample()
     destroyExample()
@@ -655,6 +672,7 @@
     infiniteExample()
     inviewExample()
     displayNoneExample()
+    enableDisableAllExample()
   }
 
   function initMobileSubnav() {

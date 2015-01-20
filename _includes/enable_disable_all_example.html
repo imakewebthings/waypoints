@@ -1,0 +1,30 @@
+{% highlight js %}
+var enableDisableElements = document.getElementsByClass('enable-disable-all')
+for (var i = 0, length = enableDisableElements.length; i < length; i++) {
+  new Waypoint({
+    element: enableDisableElements.item(i),
+    handler: function(direction) {
+      notify('Waypoint triggered')
+    },
+    offset: 'bottom-in-view'
+  })
+}
+
+$('button.disable-all').on('click', function() {
+  Waypoint.disableAll()
+})
+$('button.enable-all').on('click', function() {
+  Waypoint.enableAll()
+})
+{% endhighlight %}
+
+<div class="waypoint enable-disable-all"></div>
+<div class="waypoint enable-disable-all"></div>
+<div class="waypoint enable-disable-all"></div>
+<div class="waypoint enable-disable-all"></div>
+<div class="waypoint enable-disable-all"></div>
+
+<div>
+  <button class="disable-all">Disable All</button>
+  <button class="enable-all">Enable All</button>
+</div>
