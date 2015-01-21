@@ -6,7 +6,7 @@ Waypoints is a library that makes it easy to execute a function whenever you scr
 var waypoint = new Waypoint({
   element: document.getElementById('thing'),
   handler: function(direction) {
-    alert('You have scroll to a thing')
+    alert('You have scrolled to a thing')
   }
 })
 ```
