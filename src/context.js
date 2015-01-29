@@ -138,7 +138,7 @@
 
   /* Private */
   Context.prototype.innerHeight = function() {
-    if (this.element === this.element.window) {
+    if (this.element == this.element.window) {
       return Waypoint.viewportHeight()
     }
     return this.adapter.innerHeight()
@@ -152,7 +152,7 @@
 
   /* Private */
   Context.prototype.innerWidth = function() {
-    if (this.element === this.element.window) {
+    if (this.element == this.element.window) {
       return Waypoint.viewportWidth()
     }
     return this.adapter.innerWidth()
@@ -175,7 +175,7 @@
   /* Public */
   /* http://imakewebthings.com/waypoints/api/context-refresh */
   Context.prototype.refresh = function() {
-    var isWindow = this.element === this.element.window
+    var isWindow = this.element == this.element.window
     var contextOffset = this.adapter.offset()
     var triggeredGroups = {}
     var axes
