@@ -1,5 +1,9 @@
 # Changelog
 
+## v3.1.1
+
+- Fix bad `isWindow` checks causing errors in IE8-. (Issue #372)
+
 ## v3.1.0
 
 - Add `Waypoint.disableAll` and `Waypoint.enableAll` methods.
