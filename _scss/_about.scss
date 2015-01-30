@@ -24,7 +24,7 @@
 .or {
   color:#999;
   font-size:12px;
-  margin:10px 0;
+  margin:20px 0;
 
   &:before, &:after {
     content:'-';
@@ -47,7 +47,7 @@
 .about-links {
   list-style:none;
   padding:0;
-  margin-top:0;
+  margin-top:24px;
 
   > li {
     display:inline-block;

@@ -1025,7 +1025,7 @@ header {
 .or {
   color: #999;
   font-size: 12px;
-  margin: 10px 0; }
+  margin: 20px 0; }
   .or:before, .or:after {
     content: '-';
     padding: 0 1px; }
@@ -1041,7 +1041,7 @@ header {
 .about-links {
   list-style: none;
   padding: 0;
-  margin-top: 0; }
+  margin-top: 24px; }
   .about-links > li {
     display: inline-block; }
   .about-links a {
