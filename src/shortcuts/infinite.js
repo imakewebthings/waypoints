@@ -1,3 +1,9 @@
+/*!
+Waypoints Infinite Scroll Shortcut - 3.1.0
+Copyright © 2011-2015 Caleb Troughton
+Licensed under the MIT license.
+https://github.com/imakewebthings/waypoints/blog/master/licenses.txt
+*/
 (function() {
   'use strict'
 
@@ -26,33 +32,36 @@
       this.options.onBeforePageLoad()
       this.destroy()
       this.$container.addClass(this.options.loadingClass)
+      var $requestUrl = $(this.options.more).attr('href')
+      if (!(!$requestUrl || 0 === $requestUrl.length))
+        {
+          $.get($requestUrl, $.proxy(function(data) {
+            var $data = $($.parseHTML(data))
+            var $newMore = $data.find(this.options.more)
 
-      $.get($(this.options.more).attr('href'), $.proxy(function(data) {
-        var $data = $($.parseHTML(data))
-        var $newMore = $data.find(this.options.more)
+            var $items = $data.find(this.options.items)
+            if (!$items.length) {
+              $items = $data.filter(this.options.items)
+            }
 
-        var $items = $data.find(this.options.items)
-        if (!$items.length) {
-          $items = $data.filter(this.options.items)
-        }
+            this.$container.append($items)
+            this.$container.removeClass(this.options.loadingClass)
 
-        this.$container.append($items)
-        this.$container.removeClass(this.options.loadingClass)
+            if (!$newMore.length) {
+              $newMore = $data.filter(this.options.more)
+            }
+            if ($newMore.length) {
+              this.$more.replaceWith($newMore)
+              this.$more = $newMore
+              this.waypoint = new Waypoint(this.options)
+            }
+            else {
+              this.$more.remove()
+            }
 
-        if (!$newMore.length) {
-          $newMore = $data.filter(this.options.more)
-        }
-        if ($newMore.length) {
-          this.$more.replaceWith($newMore)
-          this.$more = $newMore
-          this.waypoint = new Waypoint(this.options)
-        }
-        else {
-          this.$more.remove()
-        }
-
-        this.options.onAfterPageLoad()
-      }, this))
+            this.options.onAfterPageLoad()
+          }, this))
+       }
     }, this)
   }
 
@@ -75,3 +84,4 @@
 
   Waypoint.Infinite = Infinite
 }())
+;
