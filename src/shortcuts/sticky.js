@@ -35,7 +35,7 @@
 
   /* Private */
   Sticky.prototype.createWrapper = function() {
-    if (this.options.wrapper !== false) {
+    if (this.options.wrapper) {
       this.$element.wrap(this.options.wrapper)
     }
     this.$wrapper = this.$element.parent()
