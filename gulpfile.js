@@ -14,6 +14,7 @@ var jsFiles = ['src/**/*.js', 'test/**/*.js', '!test/lib/**/*.js']
 var shortcutTitles = {
   'infinite': 'Waypoints Infinite Scroll Shortcut',
   'inview': 'Waypoints Inview Shortcut',
+  'inviewTimer': 'Waypoints Inview Shortcut Timer based',
   'sticky': 'Waypoints Sticky Element Shortcut'
 }
 
