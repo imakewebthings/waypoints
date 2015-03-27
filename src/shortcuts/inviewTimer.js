@@ -19,7 +19,15 @@
 
 		function addLog(command, direction, wp) {
 			var d = new Date().toISOString().split('T')[1]
-			console.log(d + ' ' + wp.options.debug + ' ' + command + ' page=' + wp.context.innerHeight() + 'X' + wp.context.innerWidth() + ' ' + ' div=' + wp.adapter.outerHeight() + 'X' + wp.adapter.outerWidth() + ' dir ' + direction + ' triggerPoint=' + wp.triggerPoint + ' offset=' + wp.options.offset.call(wp) + ' with ' + wp.options.o + ' axis ' + wp.axis)
+			d += ' ' + wp.options.debug
+			d += ' ' + command
+			d += ' ' + direction
+			d += ' ' + wp.axis
+			d += ' page=' + Waypoint.viewportHeight() + 'X' + Waypoint.viewportWidth()
+			d += ' div=' + wp.adapter.outerHeight() + 'X' + wp.adapter.outerWidth()
+			d += ' triggerPoint=' + wp.triggerPoint
+			d += ' cur_offset=' + wp.options.offset.call(wp) + ' with ' + wp.options.o
+			console.log(d)
 		}
 
 		function timeoutDone(c, o, wp, direction) {
@@ -79,7 +87,7 @@
 		}
 
 		function bottomOffset() {
-			return Math.round(this.context.innerHeight() - this.adapter.outerHeight() * r)
+			return Math.round(Waypoint.viewportHeight() - this.adapter.outerHeight() * r)
 		}
 
 		function leftOffset() {
@@ -87,7 +95,7 @@
 		}
 
 		function rightOffset() {
-			return Math.round(this.context.innerWidth() - this.adapter.outerWidth() * r)
+			return Math.round(Waypoint.viewportWidth() - this.adapter.outerWidth() * r)
 		}
 		var configs = {
 			vertical: [{

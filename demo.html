@@ -10,7 +10,9 @@
 
 
 <style type="text/css">
-	.a { height: 300px; }
+	.a { height: 300px; 
+			width: 200px;
+		}
 </style>
 <body>
 	<div id="d1" class="a d" style="background-color: orange"></div>
@@ -19,12 +21,15 @@
 	<div id="d4" class="a" style="background-color: lightblue"></div>
 </body>
 <script type="text/javascript">
+	$('.a').each(function(){
+		$(this).html($(this).attr('id'))
+	})
 	$('.d').each(function(){
 			var inviewTimer = new Waypoint.InviewTimer({
 								element: this,
 								timeout: 1000,
 								offset: '100%',
-								destroyOnValid: true,
+								destroyOnValid: false,
 								debug: $(this).attr('id'),
 								initTime: (new Date()).getTime(),
 								callback: function (o) {
