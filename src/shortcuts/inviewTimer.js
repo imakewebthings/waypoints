@@ -17,16 +17,17 @@
 		var r = this.options.ratio
 		var rI = 1 - r
 
-		function addLog(command, direction, wp) {
+		function addLog(command, direction, wp, extra) {
 			var d = new Date().toISOString().split('T')[1]
 			d += ' ' + wp.options.debug
 			d += ' ' + command
 			d += ' ' + direction
 			d += ' ' + wp.axis
-			d += ' page=' + Waypoint.viewportHeight() + 'X' + Waypoint.viewportWidth()
+			d += ' page=' + wp.context.innerHeight() + 'X' + wp.context.innerWidth()
 			d += ' div=' + wp.adapter.outerHeight() + 'X' + wp.adapter.outerWidth()
 			d += ' triggerPoint=' + wp.triggerPoint
 			d += ' cur_offset=' + wp.options.offset.call(wp) + ' with ' + wp.options.o
+			if (extra !== undefined && extra !== '') d += extra
 			console.log(d)
 		}
 
@@ -36,8 +37,9 @@
 			} else {
 				o.timerVerticalDone = true
 			}
-			addLog('done ', direction, wp)
-			if (o.timerVerticalDone === true && o.timerHorizontalDone === true) {
+			var shouldBeCalled = o.timerVerticalDone === true && o.timerHorizontalDone === true
+			addLog('done ', direction, wp, shouldBeCalled ? ' trigger' : '')
+			if (shouldBeCalled) {
 				o.options.callback(o.options)
 				if (o.options.destroyOnValid) {
 					o.destroy()
@@ -49,12 +51,12 @@
 			}
 		}
 
-		function entered(c, o, direction, wp) {
+		function enter(c, o, direction, wp) {
 			var timer = c.isHorizontal ? o.timerHorizontal : o.timerVertical
+			addLog('enter', direction, wp, timer !== null ? ' already entered' : '')
 			if (timer !== null) {
 				return
 			}
-			addLog('enter', direction, wp)
 			timer = window.setTimeout(function () {
 				timeoutDone(c, o, wp, direction)
 			}, o.options.timeout)
@@ -65,12 +67,12 @@
 			}
 		}
 
-		function exited(c, o, direction, wp) {
+		function exit(c, o, direction, wp) {
 			var timer = c.isHorizontal ? o.timerHorizontal : o.timerVertical
+			addLog('exit ', direction, wp, timer === null ? ' no prior enter' : '')
 			if (timer === null) {
 				return
 			}
-			addLog('exit ', direction, wp)
 			clearTimeout(timer)
 			if (c.isHorizontal) {
 				o.timerHorizontalDone = false
@@ -81,44 +83,43 @@
 			}
 		}
 
-		function topOffset() {
-			//console.log(this)
-			return Math.round(-this.adapter.outerHeight() * rI)
+		function top() {
+			return -1 * Math.round(this.adapter.outerHeight() * rI)  - 1
 		}
 
-		function bottomOffset() {
-			return Math.round(Waypoint.viewportHeight() - this.adapter.outerHeight() * r)
+		function bottom() {
+			return Math.round(this.context.innerHeight() - this.adapter.outerHeight() * r)  + 1
 		}
 
-		function leftOffset() {
-			return Math.round(-this.adapter.outerWidth() * rI)
+		function left() {
+			return -1 * Math.round(this.adapter.outerWidth() * rI) - 1
 		}
 
-		function rightOffset() {
-			return Math.round(Waypoint.viewportWidth() - this.adapter.outerWidth() * r)
+		function right() {
+			return Math.round(this.context.innerWidth() - this.adapter.outerWidth() * r) + 1
 		}
 		var configs = {
 			vertical: [{
-				up: entered,
-				down: exited,
-				offset: topOffset,
-				o: 'topOffset'
+				up: exit,
+				down: enter,
+				offset: bottom,
+				o: 'bottom'
 			}, {
-				up: exited,
-				down: entered,
-				offset: bottomOffset,
-				o: 'bottomOffset'
+				up: enter,
+				down: exit,
+				offset: top,
+				o: 'top'
 			}],
 			horizontal: [{
-				left: entered,
-				right: exited,
-				offset: leftOffset,
-				o: 'leftOffset'
+				left: exit,
+				right: enter,
+				offset: right,
+				o: 'right'
 			}, {
-				left: exited,
-				right: entered,
-				offset: rightOffset,
-				o: 'rightOffset'
+				left: enter,
+				right: exit,
+				offset: left,
+				o: 'left'
 			}]
 		}
 		this.generateWaypoints(configs.vertical, false)
