@@ -40,10 +40,9 @@ https://github.com/imakewebthings/waypoints/blog/master/licenses.txt
 
   /* Private */
   Sticky.prototype.createWrapper = function() {
-    if (this.options.wrapperTag) {
-      this.wrapper = document.createElement(this.options.wrapperTag)
-      Sticky.addClassName(this.wrapper, this.options.wrapperClass)
-      this.element.parentNode.insertBefore(this.wrapper, this.element)
+    if (this.options.wrapper) {
+      this.element.insertAdjacentHTML('beforebegin', this.options.wrapper)
+      this.wrapper = this.element.previousSibling
       this.element.parentNode.removeChild(this.element)
       this.wrapper.appendChild(this.element)
     } else {
@@ -110,8 +109,7 @@ https://github.com/imakewebthings/waypoints/blog/master/licenses.txt
   }
 
   Sticky.defaults = {
-    wrapperTag: 'div',
-    wrapperClass: 'sticky-wrapper',
+    wrapper: '<div class="sticky-wrapper" />',
     stuckClass: 'stuck',
     direction: 'down right'
   }
