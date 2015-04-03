@@ -65,12 +65,6 @@ https://github.com/imakewebthings/waypoints/blog/master/licenses.txt
   }
 
   Sticky.proxy = function(func, obj) {
-    if (typeof func !== 'function') {
-      return
-    }
-    if (!obj) {
-      obj = this
-    }
     return function() {
       return func.apply(obj, arguments)
     }
