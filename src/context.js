@@ -182,7 +182,7 @@
     /*eslint-disable eqeqeq */
     var isWindow = this.element == this.element.window
     /*eslint-enable eqeqeq */
-    var contextOffset = this.adapter.offset()
+    var contextOffset = isWindow ? undefined : this.adapter.offset()
     var triggeredGroups = {}
     var axes
 
