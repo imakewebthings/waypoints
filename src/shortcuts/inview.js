@@ -67,6 +67,7 @@
     var self = this
     this.waypoints.push(new Waypoint({
       element: this.options.element,
+      context: this.options.context,
       handler: (function(config) {
         return function(direction) {
           self.options[config[direction]].call(this, direction)
