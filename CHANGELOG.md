@@ -1,5 +1,9 @@
 # Changelog
 
+## v4.0.0
+
+- Allow Sticky option `wrapper` to accept false, which will not create a wrapper and instead use the preexisting parent element.   (Pull #416)
+
 ## v3.1.1
 
 - Fix bad `isWindow` checks causing errors in IE8-. (Issue #372)
