@@ -7,6 +7,8 @@
 - Pass the jQuery object of items added during an Infinite page load to the `onAfterPageLoad` callback. (Pull #398)
 - Add `enabled` option, `enable` and `disable` methods to the Inview shortcut (Pull #406)
 - Make the Inview instance `this` within the callbacks, rather than the invdividual underlying waypoints. (Issue #412)
+- Account for changes to jQuery 3 around calling `offset` on the window. (Pull #430)
+- Add `context` option to Inview. (Issue #433)
 
 ## v3.1.1
 

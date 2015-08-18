@@ -66,6 +66,7 @@
   Inview.prototype.createWaypoint = function(config) {
     var self = this
     this.waypoints.push(new Waypoint({
+      context: this.options.context,
       element: this.options.element,
       enabled: this.options.enabled,
       handler: (function(config) {
@@ -99,6 +100,7 @@
   }
 
   Inview.defaults = {
+    context: window,
     enabled: true,
     enter: noop,
     entered: noop,
