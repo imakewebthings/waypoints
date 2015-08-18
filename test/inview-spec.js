@@ -10,10 +10,11 @@ window.jQuery.each(Waypoint.adapters, function(i, adapter) {
       var $ = window.jQuery
       var standard = 50
       var $scroller = $(window)
-      var $target, waypoint, hits
+      var $target, waypoint, hits, callbackContext
 
       function setsTrue(key) {
         return function() {
+          callbackContext = this
           hits[key] = true
         }
       }
@@ -54,6 +55,9 @@ window.jQuery.each(Waypoint.adapters, function(i, adapter) {
               $scroller.scrollTop(top - Waypoint.viewportHeight())
             })
             waitsFor(toBeTrue('enter'), 'enter to trigger')
+            runs(function() {
+              expect(callbackContext).toEqual(waypoint)
+            })
           })
 
           it('triggers when element starts entering from above', function() {
@@ -78,6 +82,9 @@ window.jQuery.each(Waypoint.adapters, function(i, adapter) {
               $scroller.scrollTop(top - viewportHeight + elementHeight)
             })
             waitsFor(toBeTrue('entered'), 'entered to trigger')
+            runs(function() {
+              expect(callbackContext).toEqual(waypoint)
+            })
           })
 
           it('triggers when element finishes entering from above', function() {
@@ -114,6 +121,9 @@ window.jQuery.each(Waypoint.adapters, function(i, adapter) {
               $scroller.scrollTop($target.offset().top)
             })
             waitsFor(toBeTrue('exit'), 'exit to trigger')
+            runs(function() {
+              expect(callbackContext).toEqual(waypoint)
+            })
           })
         })
 
@@ -135,6 +145,9 @@ window.jQuery.each(Waypoint.adapters, function(i, adapter) {
               $scroller.scrollTop($target.offset().top + $target.outerHeight())
             })
             waitsFor(toBeTrue('exited'), 'exited to trigger')
+            runs(function() {
+              expect(callbackContext).toEqual(waypoint)
+            })
           })
         })
       })

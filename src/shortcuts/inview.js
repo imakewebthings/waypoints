@@ -70,7 +70,7 @@
       enabled: this.options.enabled,
       handler: (function(config) {
         return function(direction) {
-          self.options[config[direction]].call(this, direction)
+          self.options[config[direction]].call(self, direction)
         }
       }(config)),
       offset: config.offset,
