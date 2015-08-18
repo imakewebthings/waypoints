@@ -3,6 +3,8 @@
 ## v4.0.0
 
 - Allow Sticky option `wrapper` to accept false, which will not create a wrapper and instead use the preexisting parent element.   (Pull #416)
+- Waypoints that are immediately triggered on creation because they've already passed their trigger point now run their handlers on the next animation frame. This contains Zalgo.
+- Pass the jQuery object of items added during an Infinite page load to the `onAfterPageLoad` callback. (Pull #398)
 
 ## v3.1.1
 

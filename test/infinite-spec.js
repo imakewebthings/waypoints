@@ -55,7 +55,6 @@ describe('Waypoint Sticky Shortcut', function() {
 
     it('fires the after callback', function() {
       expect(afterSpy.callCount).toBeTruthy()
-      expect(afterSpy.mostRecentCall.args.length).toEqual(1);
       expect(afterSpy).toHaveBeenCalledWith(jasmine.any(Object))
     })
   })
