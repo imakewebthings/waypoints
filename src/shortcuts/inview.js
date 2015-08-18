@@ -67,6 +67,7 @@
     var self = this
     this.waypoints.push(new Waypoint({
       element: this.options.element,
+      enabled: this.options.enabled,
       handler: (function(config) {
         return function(direction) {
           self.options[config[direction]].call(this, direction)
@@ -85,7 +86,20 @@
     this.waypoints = []
   }
 
+  Inview.prototype.disable = function() {
+    for (var i = 0, end = this.waypoints.length; i < end; i++) {
+      this.waypoints[i].disable()
+    }
+  }
+
+  Inview.prototype.enable = function() {
+    for (var i = 0, end = this.waypoints.length; i < end; i++) {
+      this.waypoints[i].enable()
+    }
+  }
+
   Inview.defaults = {
+    enabled: true,
     enter: noop,
     entered: noop,
     exit: noop,

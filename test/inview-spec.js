@@ -243,6 +243,44 @@ window.jQuery.each(Waypoint.adapters, function(i, adapter) {
           })
         })
       })
+
+      describe('disabled', function() {
+        beforeEach(function() {
+          waypoint = new Waypoint.Inview({
+            element: $target[0],
+            enabled: false,
+            enter: setsTrue('enter'),
+            entered: setsTrue('entered'),
+            exit: setsTrue('exit'),
+            exited: setsTrue('exited')
+          })
+        })
+
+        it('starts disabled', function() {
+          $.each(waypoint.waypoints, function(i, wp) {
+            expect(wp.enabled).toEqual(false)
+          })
+        })
+
+        describe('#enable', function() {
+          it('enables all waypoints', function() {
+            waypoint.enable()
+            $.each(waypoint.waypoints, function(i, wp) {
+              expect(wp.enabled).toEqual(true)
+            })
+          })
+        })
+
+        describe('#disable', function() {
+          it('disables all waypoints', function() {
+            waypoint.enable()
+            waypoint.disable()
+            $.each(waypoint.waypoints, function(i, wp) {
+              expect(wp.enabled).toEqual(false)
+            })
+          })
+        })
+      })
     })
   })
 })
