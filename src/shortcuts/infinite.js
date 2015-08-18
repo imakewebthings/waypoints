@@ -51,7 +51,7 @@
           this.$more.remove()
         }
 
-        this.options.onAfterPageLoad()
+        this.options.onAfterPageLoad($items)
       }, this))
     }, this)
   }
