@@ -37,7 +37,7 @@ var inview = new Waypoint.Inview({
 {% endhighlight %}
 </div>
 
-<h3 id="options">Options</h3>
+<h3 id="callback-options">Callback Options</h3>
 
 <div class="properties-container">
   <div class="reference properties">
@@ -48,7 +48,7 @@ var inview = new Waypoint.Inview({
       <li><a href="#exited-option">exited</a></li>
     </ul>
   </div>
-  <p>All of these callbacks are exactly like the standard <a href="../../api/handler-option">handler option</a>. They are passed a <code>direction</code> parameter and the <code>this</code> keyword is a <code>Waypoint</code> instance. All of them are optional, so you can only use the callbacks you need for your use case. Let's look at where these callbacks are triggered and in what <code>direction</code>.</p>
+  <p>The callbacks options are exactly like the standard <a href="../../api/handler-option">handler option</a>. They are passed a <code>direction</code> parameter and the <code>this</code> keyword is the <code>Inview</code> instance. All of them are optional, so you can only use the callbacks you need for your use case. Let's look at where these callbacks are triggered and in what <code>direction</code>.</p>
 </div>
 
 <h4 id="enter-option">enter</h4>
@@ -75,13 +75,50 @@ var inview = new Waypoint.Inview({
 
 <p>The <code>exited</code> callback is triggered when the entirety of the element finishes leaving the viewport. It triggers with a <code>'down'</code> direction when the bottom of the element hits the top of the viewport while scrolling down, and triggers with an <code>'up'</code> direction when the top of the element hits the bottom of the viewport while scrolling up.</p>
 
-<h3 id="horizontal">Horizontal</h3>
+<h3 id="other-options">Other Options</h3>
+<div class="properties-container">
+  <div class="reference properties">
+    <ul>
+      <li><a href="#context-option">context</a></li>
+      <li><a href="#enabled-option">enabled</a></li>
+      <li><a href="#horizontal-option">horizontal</a></li>
+    </ul>
+  </div>
+  <p>Other options are identical to the standard Waypoint options, and are passed along when creating the underlying Waypoint instances.</p>
+</div>
 
-<p>Like a standard waypoint, you can pass <code>horizontal:true</code> as an option to <code>Inview</code> and the callbacks will work in the same fashion as a standard horizontal waypoint, dealing with left/right scrolls and passing <code>'right'</code> or <code>'left'</code> in place of <code>'down'</code> and <code>'up'</code>.</p>
+<h4 id="context-option">context</h4>
 
-<h3 id="destroy">inview.destroy()</h3>
+<p>Default: `window`</p>
 
-<p>An instance of <code>Inview</code> has one method, <code>destroy</code>. Calling it will destroy the four underlying waypoints that make up the shortcut and the callbacks will no longer be triggered.</p>
+<p>Used for specifying a scrollable element other than the window that this Inview instance should act within. See the <a href="../../api/context-option">standard context option</a> for more information.</p>
+
+<h4 id="enabled-option"></h4>
+
+<p>Default: `true`</p>
+
+<p>When set to false, all underlying Waypoint instances will start disabled. To enable the shortcut, you will need to call <a href="#enable-method">enable</a>.</a> See the <a href="../../api/enabled-option">standard enabled option</a> for more information.</p>
+
+<h4 id="horizontal-option">horizontal</h4>
+
+<p>When true, callbacks will work in the same fashion as a standard horizontal waypoint, dealing with left/right scrolls and passing <code>'right'</code> or <code>'left'</code> in place of <code>'down'</code> and <code>'up'</code>. See the <a href="../../api/horizontal-option">standard horizontal option</a> for more information.</p>
+
+<h3 id="methods">Methods</h3>
+
+<div class="properties-container">
+  <div class="reference properties">
+    <ul>
+      <li><a href="#destroy-method">destroy</a></li>
+      <li><a href="#disable-method">disable</a></li>
+      <li><a href="#enable-method">enable</a></li>
+    </ul>
+  </div>
+  <p>The methods on an instance of <code>Inview</code> are identical to the standard Waypoint methods by the same names.</p>
+</div>
+
+<h4 id="destroy-method">inview.destroy()</h4>
+
+<p>Calling <code>destroy</code> will destroy the four underlying waypoints that make up the shortcut and the callbacks will no longer be triggered.</p>
 
 {% highlight js %}
 $('.destroy-inview').on('click', function() {
@@ -89,4 +126,28 @@ $('.destroy-inview').on('click', function() {
 })
 {% endhighlight %}
 
-<p><button class="destroy-inview">Destroy Inview Example</button></p>
+<h4 id="disable-method">inview.disable()</h4>
+
+<p>Calling <code>disable</code> will temporarily disable the underlying waypoints until <code>enable</code> is called.</p>
+
+{% highlight js %}
+$('.disable-inview').on('click', function() {
+  inview.disable()
+})
+{% endhighlight %}
+
+<h4 id="enable-method">inview.enable()</h4>
+
+<p>Calling <code>enable</code> will re-enable triggering of the Inview shortcut's handlers if it was previously disabled through the disable method or disabled option.</p>
+
+{% highlight js %}
+$('.disable-inview').on('click', function() {
+  inview.disable()
+})
+{% endhighlight %}
+
+<p>
+  <button class="destroy-inview">Destroy Inview Example</button>
+  <button class="disable-inview">Disable Example</button>
+  <button class="enable-inview">Enable Example</button>
+</p>
