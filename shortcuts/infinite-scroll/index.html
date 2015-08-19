@@ -91,7 +91,9 @@ var infinite = new Waypoint.Infinite({
 
 <p>Default: <code>$.noop</code>.</p>
 
-<p>This is a callback that will fire at the end of the request cycle, after new items have been appended to the container.</p>
+<p>Parameters: <code>$items</code>.</p>
+
+<p>This is a callback that will fire at the end of the request cycle, after new items have been appended to the container. It is passed one parameter, which is a jQuery object of all the items that were appended during the page load.</p>
 
 <div class="infinite-container waypoint">
   <div class="infinite-item">1</div>
