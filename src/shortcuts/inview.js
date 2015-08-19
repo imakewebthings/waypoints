@@ -10,6 +10,7 @@
     this.options = Waypoint.Adapter.extend({}, Inview.defaults, options)
     this.axis = this.options.horizontal ? 'horizontal' : 'vertical'
     this.waypoints = []
+    this.element = this.options.element
     this.createWaypoints()
   }
 
