@@ -599,6 +599,16 @@
       $example.removeClass('waypoint')
       inview.destroy()
     })
+
+    $('.disable-inview').on('click', function() {
+      $example.addClass('disabled')
+      inview.disable()
+    })
+
+    $('.enable-inview').on('click', function() {
+      $example.removeClass('disabled')
+      inview.enable()
+    })
   }
 
   function displayNoneExample() {
