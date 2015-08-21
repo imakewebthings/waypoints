@@ -15,7 +15,7 @@
     this.element = element
     this.Adapter = Waypoint.Adapter
     this.adapter = new this.Adapter(element)
-    this.windowAdapter = new this.Adapter(element.window);
+    this.windowAdapter = new this.Adapter(window);
     this.key = 'waypoint-context-' + keyCounter
     this.didScroll = false
     this.didResize = false
