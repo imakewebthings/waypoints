@@ -10,10 +10,11 @@ window.jQuery.each(Waypoint.adapters, function(i, adapter) {
       var $ = window.jQuery
       var standard = 50
       var $scroller = $(window)
-      var $target, waypoint, hits
+      var $target, waypoint, hits, callbackContext
 
       function setsTrue(key) {
         return function() {
+          callbackContext = this
           hits[key] = true
         }
       }
@@ -54,6 +55,9 @@ window.jQuery.each(Waypoint.adapters, function(i, adapter) {
               $scroller.scrollTop(top - Waypoint.viewportHeight())
             })
             waitsFor(toBeTrue('enter'), 'enter to trigger')
+            runs(function() {
+              expect(callbackContext).toEqual(waypoint)
+            })
           })
 
           it('triggers when element starts entering from above', function() {
@@ -78,6 +82,9 @@ window.jQuery.each(Waypoint.adapters, function(i, adapter) {
               $scroller.scrollTop(top - viewportHeight + elementHeight)
             })
             waitsFor(toBeTrue('entered'), 'entered to trigger')
+            runs(function() {
+              expect(callbackContext).toEqual(waypoint)
+            })
           })
 
           it('triggers when element finishes entering from above', function() {
@@ -114,6 +121,9 @@ window.jQuery.each(Waypoint.adapters, function(i, adapter) {
               $scroller.scrollTop($target.offset().top)
             })
             waitsFor(toBeTrue('exit'), 'exit to trigger')
+            runs(function() {
+              expect(callbackContext).toEqual(waypoint)
+            })
           })
         })
 
@@ -135,6 +145,9 @@ window.jQuery.each(Waypoint.adapters, function(i, adapter) {
               $scroller.scrollTop($target.offset().top + $target.outerHeight())
             })
             waitsFor(toBeTrue('exited'), 'exited to trigger')
+            runs(function() {
+              expect(callbackContext).toEqual(waypoint)
+            })
           })
         })
       })
@@ -240,6 +253,44 @@ window.jQuery.each(Waypoint.adapters, function(i, adapter) {
               $scroller.scrollLeft(left + $target.outerWidth())
             })
             waitsFor(toBeTrue('exited'), 'exited to trigger')
+          })
+        })
+      })
+
+      describe('disabled', function() {
+        beforeEach(function() {
+          waypoint = new Waypoint.Inview({
+            element: $target[0],
+            enabled: false,
+            enter: setsTrue('enter'),
+            entered: setsTrue('entered'),
+            exit: setsTrue('exit'),
+            exited: setsTrue('exited')
+          })
+        })
+
+        it('starts disabled', function() {
+          $.each(waypoint.waypoints, function(i, wp) {
+            expect(wp.enabled).toEqual(false)
+          })
+        })
+
+        describe('#enable', function() {
+          it('enables all waypoints', function() {
+            waypoint.enable()
+            $.each(waypoint.waypoints, function(i, wp) {
+              expect(wp.enabled).toEqual(true)
+            })
+          })
+        })
+
+        describe('#disable', function() {
+          it('disables all waypoints', function() {
+            waypoint.enable()
+            waypoint.disable()
+            $.each(waypoint.waypoints, function(i, wp) {
+              expect(wp.enabled).toEqual(false)
+            })
           })
         })
       })

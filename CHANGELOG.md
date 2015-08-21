@@ -1,5 +1,15 @@
 # Changelog
 
+## v4.0.0
+
+- Allow Sticky option `wrapper` to accept false, which will not create a wrapper and instead use the preexisting parent element.   (Pull #416)
+- Waypoints that are immediately triggered on creation because they've already passed their trigger point now run their handlers on the next animation frame. This contains Zalgo. (Issue #384)
+- Pass the jQuery object of items added during an Infinite page load to the `onAfterPageLoad` callback. (Pull #398)
+- Add `enabled` option, `enable` and `disable` methods to the Inview shortcut (Pull #406)
+- Make the Inview instance `this` within the callbacks, rather than the invdividual underlying waypoints. (Issue #412)
+- Account for changes to jQuery 3 around calling `offset` on the window. (Pull #430)
+- Add `context` option to Inview. (Issue #433)
+
 ## v3.1.1
 
 - Fix bad `isWindow` checks causing errors in IE8-. (Issue #372)
