@@ -36,7 +36,11 @@
           $items = $data.filter(this.options.items)
         }
 
-        this.$container.append($items)
+        if (typeof this.options.onAppendItems == 'function') {
+          this.options.onAppendItems($items)
+        } else {
+          this.$container.append($items)
+        }
         this.$container.removeClass(this.options.loadingClass)
 
         if (!$newMore.length) {
@@ -70,6 +74,7 @@
     offset: 'bottom-in-view',
     loadingClass: 'infinite-loading',
     onBeforePageLoad: $.noop,
+    onAppendItems: false,
     onAfterPageLoad: $.noop
   }
 
