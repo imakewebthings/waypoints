@@ -23,7 +23,7 @@ function fileHeader(title) {
     title + ' - ' + pkg.version,
     'Copyright © 2011-' + new Date().getFullYear() + ' Caleb Troughton',
     'Licensed under the MIT license.',
-    'https://github.com/imakewebthings/waypoints/blog/master/licenses.txt',
+    'https://github.com/imakewebthings/waypoints/blob/master/licenses.txt',
     '*/\n'
   ].join('\n')
 }
