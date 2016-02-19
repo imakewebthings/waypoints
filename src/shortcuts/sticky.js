@@ -1,8 +1,7 @@
-(function() {
   'use strict'
 
-  var $ = window.jQuery
-  var Waypoint = window.Waypoint
+  var $ = global.jQuery  //require('jquery')
+  var Waypoint = global.Waypoint // require('../waypoint')
 
   /* http://imakewebthings.com/waypoints/shortcuts/sticky-elements */
   function Sticky(options) {
@@ -59,5 +58,4 @@
     direction: 'down right'
   }
 
-  Waypoint.Sticky = Sticky
-}())
+  module.exports = Sticky

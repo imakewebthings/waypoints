@@ -1,6 +1,4 @@
-(function() {
   'use strict'
-
   var displayNoneMessage = [
     'You have a Waypoint element with display none. For more information on ',
     'why this is a bad idea read ',
@@ -13,13 +11,13 @@
   ].join('')
 
   function checkWaypointStyles() {
-    var originalRefresh = window.Waypoint.Context.prototype.refresh
+    var originalRefresh = global.Waypoint.Context.prototype.refresh
 
-    window.Waypoint.Context.prototype.refresh = function() {
+    global.Waypoint.Context.prototype.refresh = function() {
       for (var axis in this.waypoints) {
         for (var key in this.waypoints[axis]) {
           var waypoint = this.waypoints[axis][key]
-          var style = window.getComputedStyle(waypoint.element)
+          var style = global.getComputedStyle(waypoint.element)
           if (!waypoint.enabled) {
             continue
           }
@@ -35,5 +33,4 @@
     }
   }
 
-  checkWaypointStyles()
-}())
+  module.exports = checkWaypointStyles

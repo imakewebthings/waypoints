@@ -1,8 +1,7 @@
-(function() {
   'use strict'
 
-  var $ = window.jQuery
-  var Waypoint = window.Waypoint
+  var $ = global.jQuery  //require('jquery')
+  var Waypoint = global.Waypoint // require('../waypoint')
 
   /* http://imakewebthings.com/waypoints/shortcuts/infinite-scroll */
   function Infinite(options) {
@@ -73,5 +72,4 @@
     onAfterPageLoad: $.noop
   }
 
-  Waypoint.Infinite = Infinite
-}())
+  module.exports = Infinite

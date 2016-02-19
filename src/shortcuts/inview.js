@@ -1,9 +1,8 @@
-(function() {
   'use strict'
+  var Waypoint = global.Waypoint //require('../waypoint')
 
   function noop() {}
 
-  var Waypoint = window.Waypoint
 
   /* http://imakewebthings.com/waypoints/shortcuts/inview */
   function Inview(options) {
@@ -101,7 +100,7 @@
   }
 
   Inview.defaults = {
-    context: window,
+    context: global,
     enabled: true,
     enter: noop,
     entered: noop,
@@ -109,5 +108,4 @@
     exited: noop
   }
 
-  Waypoint.Inview = Inview
-}())
+  module.exports = Inview

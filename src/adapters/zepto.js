@@ -1,15 +1,12 @@
-(function() {
   'use strict'
-
-  var $ = window.Zepto
-  var Waypoint = window.Waypoint
+  var Zepto = global.Zepto  //require('zepto')
 
   function ZeptoAdapter(element) {
     this.element = element
-    this.$element = $(element)
+    this.$element = Zepto(element)
   }
 
-  $.each([
+  Zepto.each([
     'off',
     'on',
     'scrollLeft',
@@ -28,7 +25,7 @@
   }
 
   // Adapted from https://gist.github.com/wheresrhys/5823198
-  $.each([
+  Zepto.each([
     'width',
     'height'
   ], function(i, dimension) {
@@ -41,7 +38,7 @@
           height: ['top', 'bottom']
         }
 
-        $.each(sides[dimension], function(i, side) {
+        Zepto.each(sides[dimension], function(i, side) {
           size += parseInt($element.css('padding-' + side), 10)
           if (includeBorder) {
             size += parseInt($element.css('border-' + side + '-width'), 10)
@@ -54,18 +51,18 @@
       }
     }
 
-    var innerMethod = $.camelCase('inner-' + dimension)
-    var outerMethod = $.camelCase('outer-' + dimension)
+    var innerMethod = Zepto.camelCase('inner-' + dimension)
+    var outerMethod = Zepto.camelCase('outer-' + dimension)
 
     ZeptoAdapter.prototype[innerMethod] = createDimensionMethod(false)
     ZeptoAdapter.prototype[outerMethod] = createDimensionMethod(true)
   })
 
-  $.each([
+  Zepto.each([
     'extend',
     'inArray'
   ], function(i, method) {
-    ZeptoAdapter[method] = $[method]
+    ZeptoAdapter[method] = Zepto[method]
   })
 
   ZeptoAdapter.isEmptyObject = function(obj) {
@@ -76,9 +73,7 @@
     return true
   }
 
-  Waypoint.adapters.push({
+  module.exports = {
     name: 'zepto',
     Adapter: ZeptoAdapter
-  })
-  Waypoint.Adapter = ZeptoAdapter
-}())
+  }

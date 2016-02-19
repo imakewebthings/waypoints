@@ -1,14 +1,13 @@
-(function() {
   'use strict'
+  var Waypoint = require('./waypoint')
 
   function requestAnimationFrameShim(callback) {
-    window.setTimeout(callback, 1000 / 60)
+    global.setTimeout(callback, 1000 / 60)
   }
 
   var keyCounter = 0
   var contexts = {}
-  var Waypoint = window.Waypoint
-  var oldWindowLoad = window.onload
+  var oldWindowLoad = global.onload
 
   /* http://imakewebthings.com/waypoints/api/context */
   function Context(element) {
@@ -282,7 +281,7 @@
     return contexts[element.waypointContextKey]
   }
 
-  window.onload = function() {
+  global.onload = function() {
     if (oldWindowLoad) {
       oldWindowLoad()
     }
@@ -290,11 +289,10 @@
   }
 
   Waypoint.requestAnimationFrame = function(callback) {
-    var requestFn = window.requestAnimationFrame ||
-      window.mozRequestAnimationFrame ||
-      window.webkitRequestAnimationFrame ||
+    var requestFn = global.requestAnimationFrame ||
+      global.mozRequestAnimationFrame ||
+      global.webkitRequestAnimationFrame ||
       requestAnimationFrameShim
     requestFn.call(window, callback)
   }
-  Waypoint.Context = Context
-}())
+  module.exports = Context

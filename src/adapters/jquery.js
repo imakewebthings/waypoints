@@ -1,14 +1,12 @@
-(function() {
   'use strict'
 
-  var $ = window.jQuery
-  var Waypoint = window.Waypoint
+  var jquery = global.jQuery  //require('jquery')
 
   function JQueryAdapter(element) {
-    this.$element = $(element)
+    this.$element = jquery(element)
   }
 
-  $.each([
+  jquery.each([
     'innerHeight',
     'innerWidth',
     'off',
@@ -25,17 +23,15 @@
     }
   })
 
-  $.each([
+  jquery.each([
     'extend',
     'inArray',
     'isEmptyObject'
   ], function(i, method) {
-    JQueryAdapter[method] = $[method]
+    JQueryAdapter[method] = jquery[method]
   })
 
-  Waypoint.adapters.push({
+  module.exports = {
     name: 'jquery',
     Adapter: JQueryAdapter
-  })
-  Waypoint.Adapter = JQueryAdapter
-}())
+  }

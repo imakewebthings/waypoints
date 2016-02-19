@@ -1,5 +1,5 @@
-(function() {
   'use strict'
+  var Waypoint = require('./waypoint')
 
   function byTriggerPoint(a, b) {
     return a.triggerPoint - b.triggerPoint
@@ -13,7 +13,6 @@
     vertical: {},
     horizontal: {}
   }
-  var Waypoint = window.Waypoint
 
   /* http://imakewebthings.com/waypoints/api/group */
   function Group(options) {
@@ -101,5 +100,4 @@
     return groups[options.axis][options.name] || new Group(options)
   }
 
-  Waypoint.Group = Group
-}())
+  module.exports = Group

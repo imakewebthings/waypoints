@@ -18,6 +18,7 @@
     "scroll"
   ],
   "devDependencies": {
+    "browserify": "^13.0.0",
     "eslint": "^0.6.2",
     "gulp": "^3.6.2",
     "gulp-concat": "^2.2.0",
@@ -28,7 +29,14 @@
     "gulp-tap": "^0.1.1",
     "gulp-uglify": "^0.3.1",
     "merge-stream": "^0.1.1",
-    "testem": "^0.6.24"
+    "testem": "^0.6.24",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0"
   },
+  "optionalDependencies": {
+    "jquery": "^1.12.0",
+    "zepto": "^1.0.1"
+  },
+  "main": "src/entries/noframework",
   "license": "MIT"
 }
