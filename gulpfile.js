@@ -36,7 +36,7 @@ gulp.task('lint', function() {
 })
 
 gulp.task('build-core', function() {
-  var streams = ['noframework'/* TODO: , 'jquery', 'zepto'*/].map(function(adapter) {
+  var streams = ['noframework', 'jquery', 'zepto'].map(function(adapter) {
     var b = browserify({
       entries: './src/entries/' + adapter + '.js',
       debug: true

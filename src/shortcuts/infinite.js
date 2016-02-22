@@ -1,8 +1,12 @@
   'use strict'
 
   var $ = global.jQuery  //require('jquery')
-  var Waypoint = global.Waypoint // require('../waypoint')
-
+  var Waypoint
+  if (typeof require == 'function') {
+      Waypoint = require('../waypoint')
+  } else {
+      Waypoint = global.Waypoint;
+  }
   /* http://imakewebthings.com/waypoints/shortcuts/infinite-scroll */
   function Infinite(options) {
     this.options = $.extend({}, Infinite.defaults, options)
