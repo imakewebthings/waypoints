@@ -3,5 +3,6 @@ sudo: false
 node_js:
   - "0.10"
 before_script:
-  - npm install -g bower
+  - npm install -g bower gulp-cli
   - bower install
+  - gulp build
