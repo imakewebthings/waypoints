@@ -6,6 +6,7 @@ var JQueryAdapter = require('../adapters/jquery')
 var Inview = require('../shortcuts/inview')
 var Infinite = require('../shortcuts/infinite')
 var Sticky = require('../shortcuts/sticky')
+var createExtension = require('../adapters/jquery-zepto-fn-extension')
 
 global.Waypoint = Waypoint
 

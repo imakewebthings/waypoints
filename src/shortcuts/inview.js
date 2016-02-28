@@ -2,8 +2,9 @@
   var Waypoint
   if (typeof require == 'function') {
       Waypoint = require('../waypoint')
-  } else {
-      Waypoint = global.Waypoint;
+  }
+  else {
+      Waypoint = global.Waypoint
   }
   function noop() {}
 
