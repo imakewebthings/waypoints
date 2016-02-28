@@ -1,9 +1,11 @@
+(function(global) {
   'use strict'
   var Waypoint
   if (typeof require == 'function') {
       Waypoint = require('../waypoint')
   }
   else {
+      global = window
       Waypoint = global.Waypoint
   }
   function noop() {}
@@ -113,4 +115,5 @@
     exited: noop
   }
 
-  module.exports = Inview
+  return typeof module !== 'undefined' ? module.exports = Inview : undefined
+}(typeof global !== 'undefined' ? global : window))

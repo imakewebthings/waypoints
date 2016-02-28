@@ -11,8 +11,6 @@ var Sticky = require('../shortcuts/sticky')
 var Debug = require('../debug')
 var createExtension = require('../adapters/jquery-zepto-fn-extension')
 
-global.Waypoint = Waypoint
-
 Waypoint.Context = Context
 Waypoint.Group = Group
 Waypoint.adapters.push(JQueryAdapter)
@@ -28,5 +26,6 @@ Waypoint.Adapter = JQueryAdapter.Adapter
 Waypoint.Inview = Inview
 Waypoint.Infinite = Infinite
 Waypoint.Sticky = Sticky
+global.Waypoint = Waypoint // debux expects global Waypoint
 Debug()
 module.exports = Waypoint

@@ -1,6 +1,6 @@
+(function(global) {
   'use strict'
 
-  var $ = global.jQuery  //require('jquery')
   var Waypoint
   if (typeof require == 'function') {
       Waypoint = require('../waypoint')
@@ -8,6 +8,7 @@
   else {
       Waypoint = global.Waypoint
   }
+  var $ = global.jQuery  //require('jquery')
 
   /* http://imakewebthings.com/waypoints/shortcuts/sticky-elements */
   function Sticky(options) {
@@ -64,4 +65,5 @@
     direction: 'down right'
   }
 
-  module.exports = Sticky
+  return typeof module !== 'undefined' ? module.exports = Sticky : undefined
+}(typeof global !== 'undefined' ? global : window))
