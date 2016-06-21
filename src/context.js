@@ -234,7 +234,7 @@
         }
 
         contextModifier = axis.contextScroll - axis.contextOffset
-        waypoint.triggerPoint = elementOffset + contextModifier - adjustment
+        waypoint.triggerPoint = Math.floor(elementOffset + contextModifier - adjustment)
         wasBeforeScroll = oldTriggerPoint < axis.oldScroll
         nowAfterScroll = waypoint.triggerPoint >= axis.oldScroll
         triggeredBackward = wasBeforeScroll && nowAfterScroll
