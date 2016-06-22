@@ -115,7 +115,11 @@
   /* Public */
   /* http://imakewebthings.com/waypoints/api/enable-all */
   Waypoint.enableAll = function() {
-    Waypoint.invokeAll('enable')
+    Waypoint.Context.refreshAll()
+    for (var waypointKey in allWaypoints) {
+      allWaypoints[waypointKey].enabled = true
+    }
+    return this
   }
 
   /* Public */

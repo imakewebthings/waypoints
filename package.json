@@ -28,7 +28,7 @@
     "gulp-tap": "^0.1.1",
     "gulp-uglify": "^0.3.1",
     "merge-stream": "^0.1.1",
-    "testem": "^0.6.24"
+    "testem": "0.6.24"
   },
   "license": "MIT"
 }

@@ -527,8 +527,10 @@ window.jQuery.each(Waypoint.adapters, function(i, adapter) {
       })
 
       describe('Waypoint.enableAll()', function() {
-        it('calls enable on all waypoints', function() {
-          var secondWaypoint = new Waypoint({
+        var secondWaypoint
+
+        beforeEach(function() {
+          secondWaypoint = new Waypoint({
             element: $('#same1')[0],
             handler: function() {}
           })
@@ -536,11 +538,18 @@ window.jQuery.each(Waypoint.adapters, function(i, adapter) {
             element: $('#same1')[0],
             handler: function() {}
           })
-          spyOn(secondWaypoint, 'enable').andCallThrough()
-          spyOn(waypoint, 'enable').andCallThrough()
+          Waypoint.disableAll()
+          spyOn(Waypoint.Context, 'refreshAll').andCallThrough()
           Waypoint.enableAll()
-          expect(secondWaypoint.enable).toHaveBeenCalled()
-          expect(waypoint.enable).toHaveBeenCalled()
+        })
+
+        it('sets enabled on all waypoints', function() {
+          expect(secondWaypoint.enabled).toBeTruthy()
+          expect(waypoint.enabled).toBeTruthy()
+        })
+
+        it('refreshes all contexts', function() {
+          expect(Waypoint.Context.refreshAll).toHaveBeenCalled()
         })
       })
     })
