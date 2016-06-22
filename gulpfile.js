@@ -1,3 +1,6 @@
+var browserify = require('browserify')
+var source = require('vinyl-source-stream')
+var buffer = require('vinyl-buffer')
 var gulp = require('gulp')
 var eslint = require('gulp-eslint')
 var concat = require('gulp-concat')
@@ -33,18 +36,15 @@ gulp.task('lint', function() {
 })
 
 gulp.task('build-core', function() {
-  var streams = ['noframework', 'jquery', 'zepto'].map(function(adapter) {
-    var sources = [
-      'src/waypoint.js',
-      'src/context.js',
-      'src/group.js',
-      'src/adapters/' + adapter + '.js'
-    ]
-    if (['jquery', 'zepto'].indexOf(adapter) > -1) {
-      sources.push('src/adapters/jquery-zepto-fn-extension.js')
-    }
-    return gulp.src(sources)
-    .pipe(concat(adapter + '.waypoints.js', { newLine: ';' }))
+  var streams = ['noframework', 'jquery', 'zepto', 'test'].map(function(adapter) {
+    var b = browserify({
+      entries: './src/entries/' + adapter + '.js',
+      debug: false
+    });
+
+    return b.bundle()
+    .pipe(source(adapter + '.waypoints.js'))
+    .pipe(buffer())
     .pipe(header(fileHeader('Waypoints')))
     .pipe(footer(';'))
     .pipe(gulp.dest('lib/'))

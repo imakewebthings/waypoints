@@ -1,7 +1,4 @@
-(function() {
   'use strict'
-
-  var Waypoint = window.Waypoint
 
   function isWindow(element) {
     return element === element.window
@@ -101,7 +98,7 @@
     var computedStyle
 
     if (includeMargin && !isWindow(this.element)) {
-      computedStyle = window.getComputedStyle(this.element)
+      computedStyle = global.getComputedStyle(this.element)
       height += parseInt(computedStyle.marginTop, 10)
       height += parseInt(computedStyle.marginBottom, 10)
     }
@@ -114,7 +111,7 @@
     var computedStyle
 
     if (includeMargin && !isWindow(this.element)) {
-      computedStyle = window.getComputedStyle(this.element)
+      computedStyle = global.getComputedStyle(this.element)
       width += parseInt(computedStyle.marginLeft, 10)
       width += parseInt(computedStyle.marginRight, 10)
     }
@@ -165,9 +162,7 @@
     return true
   }
 
-  Waypoint.adapters.push({
+  module.exports = {
     name: 'noframework',
     Adapter: NoFrameworkAdapter
-  })
-  Waypoint.Adapter = NoFrameworkAdapter
-}())
+  }

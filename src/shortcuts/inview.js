@@ -1,9 +1,15 @@
-(function() {
+(function(global) {
   'use strict'
-
+  var Waypoint
+  if (typeof require == 'function') {
+      Waypoint = require('../waypoint')
+  }
+  else {
+      global = window
+      Waypoint = global.Waypoint
+  }
   function noop() {}
 
-  var Waypoint = window.Waypoint
 
   /* http://imakewebthings.com/waypoints/shortcuts/inview */
   function Inview(options) {
@@ -101,7 +107,7 @@
   }
 
   Inview.defaults = {
-    context: window,
+    context: global,
     enabled: true,
     enter: noop,
     entered: noop,
@@ -109,5 +115,5 @@
     exited: noop
   }
 
-  Waypoint.Inview = Inview
-}())
+  return typeof module !== 'undefined' ? module.exports = Inview : undefined
+}(typeof global !== 'undefined' ? global : window))

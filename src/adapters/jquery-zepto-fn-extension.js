@@ -1,7 +1,5 @@
-(function() {
   'use strict'
-
-  var Waypoint = window.Waypoint
+  var Waypoint = require('../waypoint')
 
   function createExtension(framework) {
     return function() {
@@ -27,10 +25,4 @@
     }
   }
 
-  if (window.jQuery) {
-    window.jQuery.fn.waypoint = createExtension(window.jQuery)
-  }
-  if (window.Zepto) {
-    window.Zepto.fn.waypoint = createExtension(window.Zepto)
-  }
-}())
+  module.exports = createExtension

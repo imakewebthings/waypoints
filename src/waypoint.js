@@ -1,4 +1,3 @@
-(function() {
   'use strict'
 
   var keyCounter = 0
@@ -127,7 +126,7 @@
   /* Public */
   /* http://imakewebthings.com/waypoints/api/viewport-height */
   Waypoint.viewportHeight = function() {
-    return window.innerHeight || document.documentElement.clientHeight
+    return global.innerHeight || document.documentElement.clientHeight
   }
 
   /* Public */
@@ -139,7 +138,7 @@
   Waypoint.adapters = []
 
   Waypoint.defaults = {
-    context: window,
+    context: global,
     continuous: true,
     enabled: true,
     group: 'default',
@@ -156,5 +155,4 @@
     }
   }
 
-  window.Waypoint = Waypoint
-}())
+  module.exports = Waypoint
