@@ -30,6 +30,10 @@
     element.waypointContextKey = this.key
     contexts[element.waypointContextKey] = this
     keyCounter += 1
+    if (!Waypoint.windowContext) {
+      Waypoint.windowContext = true
+      Waypoint.windowContext = new Context(window)
+    }
 
     this.createThrottledScrollHandler()
     this.createThrottledResizeHandler()
@@ -46,7 +50,8 @@
   Context.prototype.checkEmpty = function() {
     var horizontalEmpty = this.Adapter.isEmptyObject(this.waypoints.horizontal)
     var verticalEmpty = this.Adapter.isEmptyObject(this.waypoints.vertical)
-    if (horizontalEmpty && verticalEmpty) {
+    var isWindow = this.element == this.element.window
+    if (horizontalEmpty && verticalEmpty && !isWindow) {
       this.adapter.off('.waypoints')
       delete contexts[this.key]
     }
@@ -291,6 +296,7 @@
     }
     Context.refreshAll()
   }
+
 
   Waypoint.requestAnimationFrame = function(callback) {
     var requestFn = window.requestAnimationFrame ||

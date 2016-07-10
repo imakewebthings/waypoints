@@ -71,12 +71,6 @@ window.jQuery.each(Waypoint.adapters, function(i, adapter) {
           $scroller.scrollTop($target.offset().top)
           expect(currentDirection).toBeNull()
         })
-
-        it('removes context from global lookup', function() {
-          skipDestroy = true
-          context.destroy()
-          expect(Waypoint.Context.findByElement(window)).toBeFalsy()
-        })
       })
 
       describe('Waypoint.Context.refreshAll()', function() {
