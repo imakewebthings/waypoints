@@ -15,6 +15,7 @@
     this.element = element
     this.Adapter = Waypoint.Adapter
     this.adapter = new this.Adapter(element)
+    this.windowAdapter = new this.Adapter(window);
     this.key = 'waypoint-context-' + keyCounter
     this.didScroll = false
     this.didResize = false
@@ -66,7 +67,7 @@
       self.didResize = false
     }
 
-    this.adapter.on('resize.waypoints', function() {
+    this.windowAdapter.on('resize.waypoints', function() {
       if (!self.didResize) {
         self.didResize = true
         Waypoint.requestAnimationFrame(resizeHandler)
