@@ -1,4 +1,4 @@
-pygments: true
+highlighter: rouge
 exclude:
   - node_modules
   - bower_components
