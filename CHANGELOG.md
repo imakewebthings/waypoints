@@ -1,5 +1,11 @@
 # Changelog
 
+## v4.0.1
+
+- Improve performance of `enableAll`. (Issue #454)
+- Handle edge case bug where Waypoint initialization during a specific part of iOS scroll bounce would cause an immediate trigger of it. (Issue #499)
+- Maintain `window` Context/resize-handler even when there are only non-window-context waypoints. (Issue #442)
+
 ## v4.0.0
 
 - Allow Sticky option `wrapper` to accept false, which will not create a wrapper and instead use the preexisting parent element.   (Pull #416)
