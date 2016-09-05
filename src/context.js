@@ -226,6 +226,7 @@
         var freshWaypoint = oldTriggerPoint == null
         var contextModifier, wasBeforeScroll, nowAfterScroll
         var triggeredBackward, triggeredForward
+        var afterTop, beforeBottom
 
         if (waypoint.element !== waypoint.element.window) {
           elementOffset = waypoint.adapter.offset()[axis.offsetProp]
@@ -256,9 +257,14 @@
           waypoint.queueTrigger(axis.forward)
           triggeredGroups[waypoint.group.id] = waypoint.group
         }
-        else if (freshWaypoint && axis.oldScroll >= waypoint.triggerPoint) {
-          waypoint.queueTrigger(axis.forward)
-          triggeredGroups[waypoint.group.id] = waypoint.group
+        else if (freshWaypoint) {
+          afterTop = axis.oldScroll <= waypoint.triggerPoint
+          beforeBottom = axis.oldScroll + axis.contextDimension >= waypoint.triggerPoint
+          if (afterTop && beforeBottom) {
+            waypoint.queueTrigger(axis.forward)
+            waypoint.queueTrigger(axis.backward)
+            triggeredGroups[waypoint.group.id] = waypoint.group
+          }
         }
       }
     }
