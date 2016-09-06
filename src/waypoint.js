@@ -137,7 +137,7 @@
   /* Public */
   /* http://imakewebthings.com/waypoints/api/viewport-width */
   Waypoint.viewportWidth = function() {
-    return document.documentElement.clientWidth
+    return window.innerWidth
   }
 
   Waypoint.adapters = []
