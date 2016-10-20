@@ -18,7 +18,7 @@
     var originalHandler = this.options.handler
 
     this.waypoint = new Waypoint($.extend({}, this.options, {
-      element: this.wrapper,
+      element: this.options.triggerElement || this.wrapper,
       handler: $.proxy(function(direction) {
         var shouldBeStuck = this.options.direction.indexOf(direction) > -1
         var wrapperHeight = shouldBeStuck ? this.$element.outerHeight(true) : ''
@@ -56,7 +56,8 @@
   Sticky.defaults = {
     wrapper: '<div class="sticky-wrapper" />',
     stuckClass: 'stuck',
-    direction: 'down right'
+    direction: 'down right',
+    triggerElement: false
   }
 
   Waypoint.Sticky = Sticky

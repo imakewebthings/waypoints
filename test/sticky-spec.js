@@ -7,11 +7,12 @@
 describe('Waypoint Sticky Shortcut', function() {
   var $ = window.jQuery
   var $scroller = $(window)
-  var $sticky, waypoint, handlerSpy
+  var $sticky, $triggerElement, waypoint, handlerSpy
 
   beforeEach(function() {
     loadFixtures('sticky.html')
     $sticky = $('.sticky')
+    $triggerElement = $('.triggerElement')
   })
 
   describe('with default options', function() {
@@ -112,6 +113,33 @@ describe('Waypoint Sticky Shortcut', function() {
       var parent = waypoint.wrapper
       waypoint.destroy()
       expect(parent).toBe(waypoint.wrapper)
+    })
+  })
+
+  describe('with triggerElement', function() {
+    beforeEach(function() {
+      waypoint = new Waypoint.Sticky({
+        element: $sticky[0],
+        triggerElement: $triggerElement[0]
+      })
+    })
+    afterEach(function() {
+      waypoint.destroy()
+    })
+
+    it('when scrolling', function() {
+      runs(function() {
+        $scroller.scrollTop($triggerElement.offset().top)
+      })
+      waitsFor(function() {
+        return $sticky.hasClass('stuck')
+      }, 'gets stuck at triggerElement')
+      runs(function() {
+        $scroller.scrollTop($triggerElement.offset().top - 1)
+      })
+      waitsFor(function() {
+        return !$sticky.hasClass('stuck')
+      }, 'gets unstuck when scrolling back')
     })
   })
 })
