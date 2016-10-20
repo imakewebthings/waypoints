@@ -120,34 +120,26 @@ describe('Waypoint Sticky Shortcut', function() {
     beforeEach(function() {
       waypoint = new Waypoint.Sticky({
         element: $sticky[0],
-        handler: handlerSpy,
         triggerElement: $triggerElement[0]
       })
-      // $scroller.scrollTop(0)
     })
     afterEach(function() {
       waypoint.destroy()
     })
 
-    it('does not stick the element on init', function() {
-      expect($sticky).not.toHaveClass('stuck')
-    })
-
     it('when scrolling', function() {
       runs(function() {
-        var rect = $triggerElement[0].getBoundingClientRect();
         $scroller.scrollTop($triggerElement.offset().top)
       })
       waitsFor(function() {
-        var rect = $triggerElement[0].getBoundingClientRect();
         return $sticky.hasClass('stuck')
       }, 'gets stuck at triggerElement')
       runs(function() {
-        $scroller.scrollTop(0)
+        $scroller.scrollTop($triggerElement.offset().top - 1)
       })
       waitsFor(function() {
         return !$sticky.hasClass('stuck')
-      }, 'gets unstuck when scrolling back to top')
+      }, 'gets unstuck when scrolling back')
     })
   })
 })
