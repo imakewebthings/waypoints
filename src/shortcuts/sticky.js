@@ -18,7 +18,7 @@
     var originalHandler = this.options.handler
 
     this.waypoint = new Waypoint($.extend({}, this.options, {
-      element: this.triggerElement || this.wrapper,
+      element: this.options.triggerElement || this.wrapper,
       handler: $.proxy(function(direction) {
         var shouldBeStuck = this.options.direction.indexOf(direction) > -1
         var wrapperHeight = shouldBeStuck ? this.$element.outerHeight(true) : ''
