@@ -260,6 +260,10 @@
           waypoint.queueTrigger(axis.forward)
           triggeredGroups[waypoint.group.id] = waypoint.group
         }
+        else if (freshWaypoint && axis.oldScroll < waypoint.triggerPoint) {
+          waypoint.queueTrigger(axis.backward)
+          triggeredGroups[waypoint.group.id] = waypoint.group
+        }
       }
     }
 
