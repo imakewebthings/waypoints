@@ -3,6 +3,7 @@
   "version": "4.0.1",
   "author": "Caleb Troughton <caleb@imakewebthings.com> (http://imakewebthings.com)",
   "description": "Easily execute a function when you scroll to an element",
+  "main": "lib/noframework.waypoints.js",
   "scripts": {
     "build": "gulp build",
     "start": "gulp",
