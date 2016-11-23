@@ -23,6 +23,10 @@
   /* Private */
   Infinite.prototype.setupHandler = function() {
     this.options.handler = $.proxy(function() {
+      if ( ! $.contains(document, this.$more[0])) {
+        this.destroy();
+        return;
+      }
       this.options.onBeforePageLoad()
       this.destroy()
       this.$container.addClass(this.options.loadingClass)
