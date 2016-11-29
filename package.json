@@ -17,6 +17,7 @@
   "keywords": [
     "scroll"
   ],
+  "main": ["waypoints.js"],
   "devDependencies": {
     "eslint": "^0.6.2",
     "gulp": "^3.6.2",
