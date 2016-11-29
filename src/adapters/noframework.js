@@ -129,7 +129,7 @@
 
   NoFrameworkAdapter.prototype.scrollTop = function() {
     var win = getWindow(this.element)
-    return win ? win.pageYOffset : this.element.scrollTop
+    return win ? (win.pageYOffset > 0) ? win.pageYOffset: 0 : this.element.scrollTop
   }
 
   NoFrameworkAdapter.extend = function() {
