@@ -17,13 +17,13 @@
   Sticky.prototype.createWaypoint = function() {
     var originalHandler = this.options.handler
 
-    this.waypoint = new Waypoint($.extend({}, this.options, {
+    this.waypoint = new Waypoint($.extend({useWrapperHeight: true}, this.options, {
       element: this.wrapper,
       handler: $.proxy(function(direction) {
         var shouldBeStuck = this.options.direction.indexOf(direction) > -1
         var wrapperHeight = shouldBeStuck ? this.$element.outerHeight(true) : ''
 
-        this.$wrapper.height(wrapperHeight)
+        if(this.options.useWrapperHeight) this.$wrapper.height(wrapperHeight)
         this.$element.toggleClass(this.options.stuckClass, shouldBeStuck)
 
         if (originalHandler) {
