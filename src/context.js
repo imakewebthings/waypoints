@@ -291,7 +291,7 @@
   }
 
   window.onload = function() {
-    if (oldWindowLoad) {
+    if (typeof oldWindowLoad === 'function') {
       oldWindowLoad()
     }
     Context.refreshAll()
