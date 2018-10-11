@@ -161,4 +161,4 @@
   }
 
   window.Waypoint = Waypoint
-}())
+}());
