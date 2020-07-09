@@ -30,9 +30,14 @@
     element.waypointContextKey = this.key
     contexts[element.waypointContextKey] = this
     keyCounter += 1
+
     if (!Waypoint.windowContext) {
       Waypoint.windowContext = true
-      Waypoint.windowContext = new Context(window)
+      if (element == window) {
+        Waypoint.windowContext = this;
+      } else {
+        Waypoint.windowContext = new Context(window)
+      }
     }
 
     this.createThrottledScrollHandler()
